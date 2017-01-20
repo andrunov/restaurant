@@ -1,5 +1,7 @@
 package ru.agorbunov.restaurant.model;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Admin on 17.01.2017.
  */
