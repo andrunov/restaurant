@@ -42,4 +42,5 @@ public class MenuList extends BaseEntity {
                 ", dishList=" + dishList +
                 '}';
     }
+
 }
