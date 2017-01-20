@@ -2,9 +2,7 @@
 java graduation project
 
 TASK:
-Design and implement a JSON API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
-
-The task is:
+Design and implement a JSON API using Hibernate/Spring/SpringMVC (or Spring-Boot). 
 
 Build a voting system for deciding where to have lunch.
 
