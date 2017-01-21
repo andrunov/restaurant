@@ -1,7 +1,5 @@
 package ru.agorbunov.restaurant.model;
 
-import org.springframework.stereotype.Component;
-
 /**
  * Created by Admin on 17.01.2017.
  */
@@ -9,17 +7,14 @@ public class Dish extends BaseEntity {
 
     private String description;
 
-    private Integer price;
-
-    private Restaurant restaurant;
+    private Double price;
 
     public Dish() {
     }
 
-    public Dish(String description, Integer price, Restaurant restaurant) {
+    public Dish(String description, Double price) {
         this.description = description;
         this.price = price;
-        this.restaurant = restaurant;
     }
 
     public String getDescription() {
@@ -30,20 +25,12 @@ public class Dish extends BaseEntity {
         this.description = description;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 
     @Override

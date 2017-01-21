@@ -1,5 +1,6 @@
 package ru.agorbunov.restaurant.model;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 /**
@@ -18,11 +19,16 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String name, String email, String password, Set<Role> roles) {
+    public User(String name, String email, Set<Role> roles) {
         this.name = name;
         this.email = email;
-        this.password = password;
         this.roles = roles;
+    }
+
+    public User(String name, String email, Role role, Role... roles){
+        this.name = name;
+        this.email = email;
+        this.roles = EnumSet.of(role, roles);
     }
 
     public String getName() {
