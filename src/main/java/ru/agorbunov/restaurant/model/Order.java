@@ -1,19 +1,29 @@
 package ru.agorbunov.restaurant.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Created by Admin on 17.01.2017.
  */
+@Entity
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dish_id")
     private List<Dish> dishes;
 
+    @Column(name = "date_time" , nullable = false)
     private LocalDateTime dateTime;
 
     public Order() {

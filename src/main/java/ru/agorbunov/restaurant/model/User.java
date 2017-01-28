@@ -1,20 +1,31 @@
 package ru.agorbunov.restaurant.model;
 
+import javax.persistence.*;
 import java.util.EnumSet;
 import java.util.Set;
 
 /**
  * Created by Admin on 17.01.2017.
  */
+@Entity
+@Table(name = "users")
 public class User extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
+    @Column
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
 
     public User() {
     }

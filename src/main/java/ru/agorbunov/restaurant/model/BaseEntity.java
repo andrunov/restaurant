@@ -1,11 +1,20 @@
 package ru.agorbunov.restaurant.model;
 
+import javax.persistence.*;
+
 /**
  * Created by Admin on 17.01.2017.
  */
 //public class BaseEntity implements Persistable<Integer> {
+@MappedSuperclass
+@Access(AccessType.FIELD)
 public class BaseEntity {
-protected Integer id;
+
+    @Id
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    protected Integer id;
+
     public BaseEntity() {
     }
 

@@ -1,11 +1,15 @@
 package ru.agorbunov.restaurant;
 
+import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 
 /**
  * Created by Admin on 20.01.2017.
  */
 public class DishTestData {
+
+    public static final ModelMatcher<Dish> MATCHER = new ModelMatcher<>();
+
 
     public static final Dish DISH_01 = new Dish("Каша овсяная",1.25);
     public static final Dish DISH_02 = new Dish("Сырники",3.45);
@@ -27,5 +31,19 @@ public class DishTestData {
     public static final Dish DISH_18 = new Dish("Борщ",17.58);
     public static final Dish DISH_19 = new Dish("Плов узбекский",12.75);
     public static final Dish DISH_20 = new Dish("Салат оливье",8.12);
+
+    public static final Dish DISH_CREATED = new Dish("Созданная еда",3.12);
+
+
+    public Dish getUpdated(Dish dish){
+        dish.setDescription("Обновленная еда");
+        dish.setPrice(5.48);
+        return dish;
+    }
+
+
+
+
+
 
 }

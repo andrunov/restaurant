@@ -1,12 +1,20 @@
 package ru.agorbunov.restaurant.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Created by Admin on 17.01.2017.
  */
+@Entity
+@Table(name = "restaurants")
 public class Restaurant extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String address;
 
     public Restaurant() {

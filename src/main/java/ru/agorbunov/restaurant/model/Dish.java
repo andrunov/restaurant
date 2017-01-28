@@ -1,12 +1,27 @@
 package ru.agorbunov.restaurant.model;
 
+import javax.persistence.*;
+
 /**
  * Created by Admin on 17.01.2017.
  */
+@SuppressWarnings("JpaQlInspection")
+@NamedQueries({
+        @NamedQuery(name = Dish.GET_ALL, query = "SELECT d from Dish d"),
+        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id")
+})
+
+@Entity
+@Table(name = "dishes")
 public class Dish extends BaseEntity {
 
+    public static final String GET_ALL = "Dish.getAll";
+    public static final String DELETE = "Dish.delete";
+
+    @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
     private Double price;
 
     public Dish() {
