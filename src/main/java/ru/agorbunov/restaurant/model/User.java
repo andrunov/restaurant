@@ -7,9 +7,17 @@ import java.util.Set;
 /**
  * Created by Admin on 17.01.2017.
  */
+@SuppressWarnings("JpaQlInspection")
+@NamedQueries({
+        @NamedQuery(name = User.GET_ALL, query = "SELECT u from User u"),
+        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id")
+})
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
+
+    public static final String GET_ALL = "User.getAll";
+    public static final String DELETE = "User.delete";
 
     @Column(nullable = false)
     private String name;
@@ -39,6 +47,13 @@ public class User extends BaseEntity {
     public User(String name, String email, Role role, Role... roles){
         this.name = name;
         this.email = email;
+        this.roles = EnumSet.of(role, roles);
+    }
+
+    public User(String name, String email, String password, Role role, Role... roles) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.roles = EnumSet.of(role, roles);
     }
 

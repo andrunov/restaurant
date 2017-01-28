@@ -10,7 +10,6 @@ import javax.persistence.*;
         @NamedQuery(name = Dish.GET_ALL, query = "SELECT d from Dish d"),
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id")
 })
-
 @Entity
 @Table(name = "dishes")
 public class Dish extends BaseEntity {
