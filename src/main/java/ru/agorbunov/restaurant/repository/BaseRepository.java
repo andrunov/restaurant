@@ -14,4 +14,5 @@ public interface BaseRepository<T> {
     List<T> getAll();
 
     T get(int id);
+
 }

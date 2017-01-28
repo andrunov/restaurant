@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaUserRepository implements BaseRepository<User> {
+public class JpaUserRepositoryImpl implements BaseRepository<User> {
 
     @PersistenceContext
     private EntityManager em;
@@ -48,4 +48,6 @@ public class JpaUserRepository implements BaseRepository<User> {
     public User get(int id) {
         return em.find(User.class, id);
     }
+
+
 }

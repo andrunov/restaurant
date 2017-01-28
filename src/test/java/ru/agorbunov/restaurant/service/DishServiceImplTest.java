@@ -22,7 +22,7 @@ import static ru.agorbunov.restaurant.DishTestData.*;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class DishServiceTest {
+public class DishServiceImplTest {
 
     @Autowired
     protected BaseService<Dish> service;
@@ -50,7 +50,6 @@ public class DishServiceTest {
     public void get() throws Exception {
         Dish dish = service.get(100010);
         MATCHER.assertEquals(DISH_01, dish);
-
     }
 
 }

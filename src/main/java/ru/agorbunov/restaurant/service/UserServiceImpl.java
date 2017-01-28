@@ -2,23 +2,23 @@ package ru.agorbunov.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.agorbunov.restaurant.model.Dish;
+import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.repository.BaseRepository;
 
 import java.util.List;
 
 /**
- * Created by Admin on 27.01.2017.
+ * Created by Admin on 28.01.2017.
  */
 @Service
-public class DishService implements BaseService<Dish> {
+public class UserServiceImpl implements BaseService<User> {
 
     @Autowired
-    private BaseRepository<Dish> repository;
+    private BaseRepository<User> repository;
 
     @Override
-    public Dish save(Dish dish) {
-        return repository.save(dish);
+    public User save(User user) {
+        return repository.save(user);
     }
 
     @Override
@@ -27,12 +27,14 @@ public class DishService implements BaseService<Dish> {
     }
 
     @Override
-    public List<Dish> getAll() {
+    public List<User> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public Dish get(int id) {
+    public User get(int id) {
         return repository.get(id);
     }
+
+
 }

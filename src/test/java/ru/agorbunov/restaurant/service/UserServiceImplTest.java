@@ -23,7 +23,8 @@ import static ru.agorbunov.restaurant.UserTestData.*;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class UserServiceTest {
+public class UserServiceImplTest {
+
 
     @Autowired
     private BaseService<User> service;
