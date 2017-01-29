@@ -6,9 +6,17 @@ import java.util.List;
 /**
  * Created by Admin on 17.01.2017.
  */
+@SuppressWarnings("JpaQlInspection")
+@NamedQueries({
+        @NamedQuery(name = Restaurant.GET_ALL, query = "SELECT r from Restaurant r"),
+        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id")
+})
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends BaseEntity {
+
+    public static final String GET_ALL = "Restaurant.getAll";
+    public static final String DELETE = "Restaurant.delete";
 
     @Column(nullable = false)
     private String name;
