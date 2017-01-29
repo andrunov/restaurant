@@ -28,8 +28,11 @@ public class Dish extends BaseEntity {
     @JoinColumn(name = "menu_list_id", nullable = false)
     private MenuList menuList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_id", nullable = false)
+    @ManyToMany
+    @JoinTable(
+            name="orders_dishes",
+            joinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="order_id", referencedColumnName="id"))
     private List<Order> orders;
 
     public Dish() {

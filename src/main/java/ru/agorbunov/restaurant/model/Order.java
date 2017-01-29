@@ -19,8 +19,11 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dish_id")
+    @ManyToMany
+    @JoinTable(
+            name="orders_dishes",
+            joinColumns=@JoinColumn(name="order_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"))
     private List<Dish> dishes;
 
     @Column(name = "date_time" , nullable = false)
