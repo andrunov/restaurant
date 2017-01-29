@@ -1,8 +1,7 @@
 package ru.agorbunov.restaurant.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -17,12 +16,16 @@ public class Restaurant extends BaseEntity {
     @Column(nullable = false)
     private String address;
 
+    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "restaurant")
+    private List<MenuList> menuLists;
+
     public Restaurant() {
     }
 
-    public Restaurant(String name, String address) {
+    public Restaurant(String name, String address, List<MenuList> menuLists) {
         this.name = name;
         this.address = address;
+        this.menuLists = menuLists;
     }
 
     public String getName() {
@@ -39,6 +42,14 @@ public class Restaurant extends BaseEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<MenuList> getMenuLists() {
+        return menuLists;
+    }
+
+    public void setMenuLists(List<MenuList> menuLists) {
+        this.menuLists = menuLists;
     }
 
     @Override

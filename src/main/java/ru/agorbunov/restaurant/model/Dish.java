@@ -1,6 +1,7 @@
 package ru.agorbunov.restaurant.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -23,12 +24,22 @@ public class Dish extends BaseEntity {
     @Column(nullable = false)
     private Double price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_list_id", nullable = false)
+    private MenuList menuList;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orders_id", nullable = false)
+    private List<Order> orders;
+
     public Dish() {
     }
 
-    public Dish(String description, Double price) {
+    public Dish(String description, Double price, MenuList menuList, List<Order> orders) {
         this.description = description;
         this.price = price;
+        this.menuList = menuList;
+        this.orders = orders;
     }
 
     public String getDescription() {
@@ -45,6 +56,22 @@ public class Dish extends BaseEntity {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public MenuList getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(MenuList menuList) {
+        this.menuList = menuList;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ru.agorbunov.restaurant.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -14,16 +15,20 @@ public class MenuList extends BaseEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "dish_id", nullable = false)
     private List<Dish> dishList;
+
+    @Column(name = "date_time" , nullable = false)
+    private LocalDateTime dateTime;
 
     public MenuList() {
     }
 
-    public MenuList(Restaurant restaurant, List<Dish> dishList) {
+    public MenuList(Restaurant restaurant, List<Dish> dishList, LocalDateTime dateTime) {
         this.restaurant = restaurant;
         this.dishList = dishList;
+        this.dateTime = dateTime;
     }
 
     public Restaurant getRestaurant() {
@@ -40,6 +45,14 @@ public class MenuList extends BaseEntity {
 
     public void setDishList(List<Dish> dishList) {
         this.dishList = dishList;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override

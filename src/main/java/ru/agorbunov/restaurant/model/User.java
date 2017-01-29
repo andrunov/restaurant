@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.model;
 
 import javax.persistence.*;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,28 +35,22 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private List<Order> orders;
+
 
     public User() {
     }
 
-    public User(String name, String email, Set<Role> roles) {
-        this.name = name;
-        this.email = email;
-        this.roles = roles;
-    }
-
-    public User(String name, String email, Role role, Role... roles){
-        this.name = name;
-        this.email = email;
-        this.roles = EnumSet.of(role, roles);
-    }
-
-    public User(String name, String email, String password, Role role, Role... roles) {
+    public User(String name, String email, String password, List<Order> orders, Role role, Role... roles) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.roles = EnumSet.of(role, roles);
+        this.orders = orders;
     }
+
 
     public String getName() {
         return name;
@@ -87,6 +82,14 @@ public class User extends BaseEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
