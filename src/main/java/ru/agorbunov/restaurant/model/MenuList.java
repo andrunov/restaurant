@@ -15,8 +15,7 @@ public class MenuList extends BaseEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dish_id", nullable = false)
+    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY )
     private List<Dish> dishList;
 
     @Column(name = "date_time" , nullable = false)

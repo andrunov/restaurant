@@ -35,8 +35,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
+    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;
 
 
