@@ -3,7 +3,8 @@ package ru.agorbunov.restaurant.repository.jpa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.Dish;
-import ru.agorbunov.restaurant.repository.BaseRepository;
+import ru.agorbunov.restaurant.model.MenuList;
+import ru.agorbunov.restaurant.repository.ReferenseRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaDishRepositoryImpl implements BaseRepository<Dish> {
+public class JpaDishRepositoryImpl implements ReferenseRepository<Dish> {
 
 
     @PersistenceContext
@@ -24,7 +25,11 @@ public class JpaDishRepositoryImpl implements BaseRepository<Dish> {
 
     @Override
     @Transactional
-    public Dish save(Dish dish) {
+    public Dish save(Dish dish, int menuListId) {
+        if (!dish.isNew() && get(dish.getId(), menuListId) == null) {
+            return null;
+        }
+        dish.setMenuList(em.getReference(MenuList.class, menuListId));
         if (dish.isNew()){
             em.persist(dish);
             return dish;
@@ -48,7 +53,8 @@ public class JpaDishRepositoryImpl implements BaseRepository<Dish> {
     }
 
     @Override
-    public Dish get(int id) {
-        return em.find(Dish.class, id);
+    public Dish get(int id, int menuListId) {
+        Dish dish = em.find(Dish.class, id);
+        return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;
     }
 }

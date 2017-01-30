@@ -7,15 +7,23 @@ import java.util.List;
 /**
  * Created by Admin on 20.01.2017.
  */
+@SuppressWarnings("JpaQlInspection")
+@NamedQueries({
+        @NamedQuery(name = MenuList.GET_ALL, query = "SELECT m from MenuList m"),
+        @NamedQuery(name = MenuList.DELETE, query = "DELETE FROM MenuList m WHERE m.id=:id")
+})
 @Entity
 @Table(name = "menu_lists")
 public class MenuList extends BaseEntity {
+
+    public static final String GET_ALL = "MenuList.getAll";
+    public static final String DELETE = "MenuList.delete";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY )
+    @OneToMany(fetch = FetchType.LAZY ,mappedBy = "menuList")
     private List<Dish> dishList;
 
     @Column(name = "date_time" , nullable = false)
@@ -57,9 +65,7 @@ public class MenuList extends BaseEntity {
     @Override
     public String toString() {
         return "MenuList{" +
-                "restaurant=" + restaurant +
-                ", dishList=" + dishList +
+                "dateTime=" + dateTime +
                 '}';
     }
-
 }

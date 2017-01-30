@@ -24,7 +24,7 @@ public class Dish extends BaseEntity {
     @Column(nullable = false)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_list_id", nullable = false)
     private MenuList menuList;
 

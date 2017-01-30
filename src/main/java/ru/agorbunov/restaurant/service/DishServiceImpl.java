@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.agorbunov.restaurant.model.Dish;
-import ru.agorbunov.restaurant.repository.BaseRepository;
+import ru.agorbunov.restaurant.repository.ReferenseRepository;
 
 import java.util.List;
 
@@ -11,14 +11,14 @@ import java.util.List;
  * Created by Admin on 27.01.2017.
  */
 @Service
-public class DishServiceImpl implements BaseService<Dish> {
+public class DishServiceImpl implements ReferenseService<Dish> {
 
     @Autowired
-    private BaseRepository<Dish> repository;
+    private ReferenseRepository<Dish> repository;
 
     @Override
-    public Dish save(Dish dish) {
-        return repository.save(dish);
+    public Dish save(Dish dish, int menuListId) {
+        return repository.save(dish,menuListId);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class DishServiceImpl implements BaseService<Dish> {
     }
 
     @Override
-    public Dish get(int id) {
-        return repository.get(id);
+    public Dish get(int id, int menuListId) {
+        return repository.get(id,menuListId);
     }
 }

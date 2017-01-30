@@ -1,5 +1,8 @@
 package ru.agorbunov.restaurant.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,16 +10,26 @@ import java.util.List;
 /**
  * Created by Admin on 17.01.2017.
  */
+@SuppressWarnings("JpaQlInspection")
+@NamedQueries({
+        @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o"),
+        @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id")
+})
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
+    public static final String GET_ALL = "Order.getAll";
+    public static final String DELETE = "Order.delete";
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     @ManyToMany
@@ -74,10 +87,7 @@ public class Order extends BaseEntity {
     @Override
     public String toString() {
         return "Order{" +
-                "user=" + user +
-                ", restaurant=" + restaurant +
-                ", dishes=" + dishes +
-                ", dateTime=" + dateTime +
+                "dateTime=" + dateTime +
                 '}';
     }
 }
