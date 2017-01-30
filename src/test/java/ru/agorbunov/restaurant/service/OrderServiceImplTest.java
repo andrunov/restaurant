@@ -28,7 +28,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void save() throws Exception {
-        service.save(ORDER_CREATED,100000,100006);
+        service.save(ORDER_CREATED,100000,100006, Arrays.asList(100020,100021) );
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_02,ORDER_03,ORDER_04,ORDER_05,ORDER_06,ORDER_CREATED),service.getAll());
 
     }

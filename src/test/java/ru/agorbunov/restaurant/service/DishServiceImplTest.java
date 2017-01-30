@@ -25,11 +25,11 @@ import static ru.agorbunov.restaurant.DishTestData.*;
 public class DishServiceImplTest {
 
     @Autowired
-    protected ReferenseService<Dish> service;
+    protected ListServise<Dish> service;
 
     @Test
     public void save() throws Exception {
-        service.save(DISH_CREATED,100016);
+        service.save(DISH_CREATED,100016,100010);
         MATCHER.assertCollectionEquals(Arrays.asList(DISH_01,DISH_02,DISH_03,DISH_04,DISH_05, DISH_06, DISH_07, DISH_08, DISH_09, DISH_10, DISH_11, DISH_12, DISH_13, DISH_14, DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20, DISH_CREATED),service.getAll());
 
     }

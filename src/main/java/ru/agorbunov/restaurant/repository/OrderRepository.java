@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface OrderRepository {
 
-    Order save(Order order,  int userId, int restaurantId);
+    Order save(Order order,  int userId, int restaurantId, List<Integer> dishes);
 
     boolean delete(int id);
 

@@ -4,10 +4,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
-import ru.agorbunov.restaurant.repository.ReferenseRepository;
+import ru.agorbunov.restaurant.model.Order;
+import ru.agorbunov.restaurant.repository.ListRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaDishRepositoryImpl implements ReferenseRepository<Dish> {
+public class JpaDishRepositoryImpl implements ListRepository<Dish> {
 
 
     @PersistenceContext
@@ -25,11 +27,17 @@ public class JpaDishRepositoryImpl implements ReferenseRepository<Dish> {
 
     @Override
     @Transactional
-    public Dish save(Dish dish, int menuListId) {
+    public Dish save(Dish dish, int menuListId, int...ids) {
         if (!dish.isNew() && get(dish.getId(), menuListId) == null) {
             return null;
         }
         dish.setMenuList(em.getReference(MenuList.class, menuListId));
+        List<Order> orders = new ArrayList<>();
+        for (int id : ids){
+            orders.add(em.getReference(Order.class, id));
+        }
+        dish.setOrders(orders);
+
         if (dish.isNew()){
             em.persist(dish);
             return dish;

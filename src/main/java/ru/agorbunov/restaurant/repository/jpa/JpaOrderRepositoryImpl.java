@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.repository.jpa;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
@@ -9,6 +10,7 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +26,17 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
 
     @Override
     @Transactional
-    public Order save(Order order, int userId, int restaurantId) {
+    public Order save(Order order, int userId, int restaurantId, List<Integer> dishesId) {
         if (!order.isNew() && get(order.getId(), userId, restaurantId) == null) {
             return null;
         }
         order.setUser(em.getReference(User.class, userId));
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
+        List<Dish> dishes = new ArrayList<>();
+        for (int id : dishesId){
+            dishes.add(em.getReference(Dish.class, id));
+        }
+        order.setDishes(dishes);
         if (order.isNew()){
             em.persist(order);
             return order;
