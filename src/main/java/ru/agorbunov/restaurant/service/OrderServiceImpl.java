@@ -17,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository repository;
 
     @Override
-    public Order save(Order order, int userId, int restaurantId, List<Integer> dishesId) {
+    public Order save(Order order, int userId, int restaurantId, int... dishesId) {
         return repository.save(order,userId,restaurantId,dishesId);
     }
 

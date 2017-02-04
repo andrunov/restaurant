@@ -25,7 +25,7 @@ import static ru.agorbunov.restaurant.RestaurantTestData.*;
 public class RestaurantServiceImplTest {
 
     @Autowired
-    BaseService<Restaurant> service;
+    UserAndRestaurantService<Restaurant> service;
 
     @Test
     public void save() throws Exception {

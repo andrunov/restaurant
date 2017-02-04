@@ -7,11 +7,11 @@ import java.util.List;
  */
 public interface BaseService<T> {
 
-    T save(T tEntity);
+//    T save(T tEntity);
 
     void delete(int id);
 
     List<T> getAll();
 
-    T get(int id);
+//    T get(int id);
 }

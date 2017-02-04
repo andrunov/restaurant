@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.agorbunov.restaurant.model.Dish;
-import ru.agorbunov.restaurant.repository.ListRepository;
+import ru.agorbunov.restaurant.repository.DishRepository;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
  * Created by Admin on 27.01.2017.
  */
 @Service
-public class DishServiceImpl implements ListServise<Dish> {
+public class DishServiceImpl implements DishServise {
 
     @Autowired
-    private ListRepository<Dish> repository;
+    private DishRepository repository;
 
     @Override
     public Dish save(Dish dish, int menuListId, int...ordersIds ) {

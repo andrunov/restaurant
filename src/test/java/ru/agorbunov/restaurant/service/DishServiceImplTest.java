@@ -25,7 +25,7 @@ import static ru.agorbunov.restaurant.DishTestData.*;
 public class DishServiceImplTest {
 
     @Autowired
-    protected ListServise<Dish> service;
+    protected DishServise service;
 
     @Test
     public void save() throws Exception {

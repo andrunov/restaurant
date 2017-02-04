@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.agorbunov.restaurant.model.User;
-import ru.agorbunov.restaurant.repository.BaseRepository;
+import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
  * Created by Admin on 28.01.2017.
  */
 @Service
-public class UserServiceImpl implements BaseService<User> {
+public class UserServiceImpl implements UserAndRestaurantService<User> {
 
     @Autowired
-    private BaseRepository<User> repository;
+    private UserAndRestaurantRepository<User> repository;
 
     @Override
     public User save(User user) {

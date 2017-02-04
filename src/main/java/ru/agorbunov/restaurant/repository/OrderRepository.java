@@ -2,18 +2,12 @@ package ru.agorbunov.restaurant.repository;
 
 import ru.agorbunov.restaurant.model.Order;
 
-import java.util.List;
-
 /**
  * Created by Admin on 30.01.2017.
  */
-public interface OrderRepository {
+public interface OrderRepository extends BaseRepository<Order> {
 
-    Order save(Order order,  int userId, int restaurantId, List<Integer> dishes);
-
-    boolean delete(int id);
-
-    List<Order> getAll();
+    Order save(Order order,  int userId, int restaurantId, int... dishIds);
 
     Order get(int id, int userId, int restaurantId);
 

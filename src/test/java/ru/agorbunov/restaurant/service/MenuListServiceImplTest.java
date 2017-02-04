@@ -7,7 +7,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.agorbunov.restaurant.model.MenuList;
 
 import java.util.Arrays;
 
@@ -25,7 +24,7 @@ import static ru.agorbunov.restaurant.MenuListTestData.*;
 public class MenuListServiceImplTest {
 
     @Autowired
-    private ReferenseService<MenuList> service;
+    private MenuListService service;
 
     @Test
     public void save() throws Exception {

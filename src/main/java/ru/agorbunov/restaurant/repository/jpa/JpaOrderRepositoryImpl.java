@@ -26,12 +26,13 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
 
     @Override
     @Transactional
-    public Order save(Order order, int userId, int restaurantId, List<Integer> dishesId) {
+    public Order save(Order order, int userId, int restaurantId, int... dishesId) {
         if (!order.isNew() && get(order.getId(), userId, restaurantId) == null) {
             return null;
         }
         order.setUser(em.getReference(User.class, userId));
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
+
         List<Dish> dishes = new ArrayList<>();
         for (int id : dishesId){
             dishes.add(em.getReference(Dish.class, id));

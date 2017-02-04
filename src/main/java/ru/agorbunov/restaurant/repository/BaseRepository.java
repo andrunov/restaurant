@@ -7,12 +7,8 @@ import java.util.List;
  */
 public interface BaseRepository<T> {
 
-    T save(T tEntity);
-
     boolean delete(int id);
 
     List<T> getAll();
-
-    T get(int id);
 
 }

@@ -27,7 +27,7 @@ public class UserServiceImplTest {
 
 
     @Autowired
-    private BaseService<User> service;
+    private UserAndRestaurantService<User> service;
 
     @Test
     public void save() throws Exception {
