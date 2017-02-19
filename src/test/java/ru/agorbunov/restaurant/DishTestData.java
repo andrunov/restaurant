@@ -40,6 +40,11 @@ public class DishTestData {
 
     public static final Dish DISH_CREATED = new Dish("Созданная еда",3.12,MENU_LIST_01,Collections.singletonList(ORDER_01));
 
+    public static final int DISH_01_ID = 100020;
+    public static final int MENU_LIST_01_ID = 100016;
+    public static final int MENU_LIST_02_ID = 100017;
+    public static final int ORDER_01_ID = 100010;
+    public static final int ORDER_02_ID = 100011;
 
     public Dish getUpdated(Dish dish){
         dish.setDescription("Обновленная еда");
