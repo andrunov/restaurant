@@ -27,7 +27,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish update(Dish dish, int menulistId, int... ordersIds) {
-        return checkNotFound(repository.save(dish,menulistId,ordersIds),"dish in that menu list not found");
+        return checkNotFoundWithId(repository.save(dish,menulistId,ordersIds),menulistId);
     }
 
     @Override

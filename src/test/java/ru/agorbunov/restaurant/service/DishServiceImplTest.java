@@ -67,6 +67,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
     @Test
     public void updateNotFound() throws Exception{
         thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_02_ID));
         Dish dish = service.get(DISH_01_ID,MENU_LIST_01_ID);
         service.update(dish, MENU_LIST_02_ID,ORDER_01_ID,ORDER_02_ID);
     }
