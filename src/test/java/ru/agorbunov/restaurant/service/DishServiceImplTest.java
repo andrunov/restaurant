@@ -2,8 +2,6 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
@@ -14,7 +12,6 @@ import static ru.agorbunov.restaurant.DishTestData.*;
 /**
  * Created by Admin on 27.01.2017.
  */
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class DishServiceImplTest extends AbstractServiceTest {
 
     @Autowired
