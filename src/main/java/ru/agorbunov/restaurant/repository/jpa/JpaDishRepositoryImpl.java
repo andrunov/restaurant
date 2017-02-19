@@ -19,11 +19,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaDishRepositoryImpl implements DishRepository {
 
-
     @PersistenceContext
     private EntityManager em;
-
-
 
     @Override
     @Transactional
