@@ -7,7 +7,6 @@ import ru.agorbunov.restaurant.repository.MenuListRepository;
 
 import java.util.List;
 
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFound;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -21,17 +20,17 @@ public class MenuListServiceImpl implements MenuListService {
 
     @Override
     public MenuList save(MenuList menuList, int restaurantId) {
-        return checkNotFoundWithId(repository.save(menuList,restaurantId),restaurantId);
+        return checkNotFoundWithId(repository.save(menuList,restaurantId),menuList.getId());
     }
 
     @Override
     public MenuList update(MenuList menuList, int restaurantId) {
-        return checkNotFoundWithId(repository.save(menuList,restaurantId),restaurantId);
+        return checkNotFoundWithId(repository.save(menuList,restaurantId),menuList.getId());
     }
 
     @Override
     public void delete(int id) {
-        checkNotFound(repository.delete(id),"menu list not found");
+        checkNotFoundWithId(repository.delete(id),id);
     }
 
     @Override
@@ -41,6 +40,6 @@ public class MenuListServiceImpl implements MenuListService {
 
     @Override
     public MenuList get(int id, int restaurantId) {
-        return checkNotFoundWithId(repository.get(id, restaurantId),restaurantId);
+        return checkNotFoundWithId(repository.get(id, restaurantId),id);
     }
 }

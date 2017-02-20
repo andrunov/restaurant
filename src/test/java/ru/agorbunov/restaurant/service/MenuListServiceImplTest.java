@@ -33,7 +33,8 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(1);
+        thrown.expectMessage(String.format("Not found entity with id=%d", 10));
+        service.delete(10);
     }
 
     @Test
@@ -49,6 +50,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_01_ID));
         service.get(MENU_LIST_01_ID, RESTAURANT_02_ID);
     }
 
@@ -63,7 +65,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     @Test
     public void updateNotFound() throws Exception{
         thrown.expect(NotFoundException.class);
-        thrown.expectMessage(String.format("Not found entity with id=%d", RESTAURANT_02_ID));
+        thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_01_ID));
         MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_02_ID);
     }
 
