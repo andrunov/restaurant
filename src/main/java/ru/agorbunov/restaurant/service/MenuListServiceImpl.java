@@ -7,6 +7,9 @@ import ru.agorbunov.restaurant.repository.MenuListRepository;
 
 import java.util.List;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFound;
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
+
 /**
  * Created by Admin on 30.01.2017.
  */
@@ -18,12 +21,17 @@ public class MenuListServiceImpl implements MenuListService {
 
     @Override
     public MenuList save(MenuList menuList, int restaurantId) {
-        return repository.save(menuList,restaurantId);
+        return checkNotFoundWithId(repository.save(menuList,restaurantId),restaurantId);
+    }
+
+    @Override
+    public MenuList update(MenuList menuList, int restaurantId) {
+        return checkNotFoundWithId(repository.save(menuList,restaurantId),restaurantId);
     }
 
     @Override
     public void delete(int id) {
-        repository.delete(id);
+        checkNotFound(repository.delete(id),"menu list noy found");
     }
 
     @Override
@@ -33,6 +41,6 @@ public class MenuListServiceImpl implements MenuListService {
 
     @Override
     public MenuList get(int id, int restaurantId) {
-        return repository.get(id, restaurantId);
+        return checkNotFoundWithId(repository.get(id, restaurantId),restaurantId);
     }
 }

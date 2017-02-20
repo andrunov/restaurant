@@ -23,4 +23,8 @@ public class MenuListTestData {
 
     public static final MenuList MENU_LIST_CREATED = new MenuList(RESTAURANT_01, Arrays.asList(DISH_01, DISH_02),LocalDateTime.of(2017,1,15,15,0));
 
+    public static final int MENU_LIST_01_ID = 100016;
+    public static final int RESTAURANT_01_ID = 100006;
+    public static final int RESTAURANT_02_ID = 100007;
+
 }

@@ -21,7 +21,6 @@ public class DishServiceImplTest extends AbstractServiceTest {
     public void save() throws Exception {
         service.save(DISH_CREATED,MENU_LIST_01_ID,ORDER_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(DISH_01,DISH_02,DISH_03,DISH_04,DISH_05, DISH_06, DISH_07, DISH_08, DISH_09, DISH_10, DISH_11, DISH_12, DISH_13, DISH_14, DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20, DISH_CREATED),service.getAll());
-
     }
 
     @Test

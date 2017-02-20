@@ -2,7 +2,10 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.model.MenuList;
+import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static ru.agorbunov.restaurant.MenuListTestData.*;
@@ -17,14 +20,20 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void save() throws Exception {
-        service.save(MENU_LIST_CREATED,100006);
+        service.save(MENU_LIST_CREATED,RESTAURANT_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(MENU_LIST_01,MENU_LIST_02,MENU_LIST_03,MENU_LIST_04,MENU_LIST_CREATED),service.getAll());
     }
 
     @Test
     public void delete() throws Exception {
-        service.delete(100016);
+        service.delete(MENU_LIST_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(MENU_LIST_02,MENU_LIST_03,MENU_LIST_04),service.getAll());
+    }
+
+    @Test
+    public void deleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        service.delete(1);
     }
 
     @Test
@@ -34,7 +43,28 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        MATCHER.assertEquals(MENU_LIST_01,service.get(100016, 100006));
+        MATCHER.assertEquals(MENU_LIST_01,service.get(MENU_LIST_01_ID, RESTAURANT_01_ID));
+    }
+
+    @Test
+    public void getNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        service.get(MENU_LIST_01_ID, RESTAURANT_02_ID);
+    }
+
+    @Test
+    public void update() throws Exception{
+        MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_01_ID);
+        menuList.setDateTime(LocalDateTime.of(2017,2,15,17,31));
+        service.save(menuList,RESTAURANT_01_ID);
+        MATCHER.assertEquals(menuList,service.get(MENU_LIST_01_ID, RESTAURANT_01_ID));
+    }
+
+    @Test
+    public void updateNotFound() throws Exception{
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", RESTAURANT_02_ID));
+        MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_02_ID);
     }
 
 }
