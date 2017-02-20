@@ -33,7 +33,8 @@ public class DishServiceImplTest extends AbstractServiceTest {
     @Test
     public void deleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(1);
+        thrown.expectMessage(String.format("Not found entity with id=%d", 10));
+        service.delete(10);
     }
 
 
@@ -51,6 +52,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", 10));
         Dish dish = service.get(10,10);
     }
 
@@ -66,7 +68,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
     @Test
     public void updateNotFound() throws Exception{
         thrown.expect(NotFoundException.class);
-        thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_02_ID));
+        thrown.expectMessage(String.format("Not found entity with id=%d", DISH_01_ID));
         Dish dish = service.get(DISH_01_ID,MENU_LIST_01_ID);
         service.update(dish, MENU_LIST_02_ID,ORDER_01_ID,ORDER_02_ID);
     }

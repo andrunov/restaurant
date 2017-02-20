@@ -7,7 +7,6 @@ import ru.agorbunov.restaurant.repository.DishRepository;
 
 import java.util.List;
 
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFound;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -21,17 +20,17 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish save(Dish dish, int menuListId, int...ordersIds ) {
-        return checkNotFoundWithId(repository.save(dish,menuListId,ordersIds),menuListId);
+        return checkNotFoundWithId(repository.save(dish,menuListId,ordersIds),dish.getId());
     }
 
     @Override
     public Dish update(Dish dish, int menulistId, int... ordersIds) {
-        return checkNotFoundWithId(repository.save(dish,menulistId,ordersIds),menulistId);
+        return checkNotFoundWithId(repository.save(dish,menulistId,ordersIds),dish.getId());
     }
 
     @Override
     public void delete(int id) {
-        checkNotFound(repository.delete(id),"dish not found");
+        checkNotFoundWithId(repository.delete(id),id);
     }
 
     @Override
@@ -41,6 +40,6 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish get(int id, int menuListId) {
-        return checkNotFoundWithId(repository.get(id,menuListId),menuListId);
+        return checkNotFoundWithId(repository.get(id,menuListId),id);
     }
 }
