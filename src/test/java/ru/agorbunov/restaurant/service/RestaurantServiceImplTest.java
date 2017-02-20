@@ -1,7 +1,9 @@
 package ru.agorbunov.restaurant.service;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
@@ -75,6 +77,13 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("restaurant must not be null");
         service.update(null);
+    }
+
+    @Test
+    public void getWith() throws Exception{
+        Restaurant restaurant = service.getWith(RESTAURANT_02_ID);
+        MenuList menuList = restaurant.getMenuLists().get(0);
+        Assert.assertEquals(MENU_LIST_02_ID,(int)menuList.getId());
     }
 
 }

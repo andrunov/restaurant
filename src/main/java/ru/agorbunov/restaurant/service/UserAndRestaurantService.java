@@ -10,4 +10,6 @@ public interface UserAndRestaurantService<T> extends BaseService {
     T update(T tEntity);
 
     T get(int id);
+
+    T getWith(int id);
 }

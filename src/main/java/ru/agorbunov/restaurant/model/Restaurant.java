@@ -9,6 +9,7 @@ import java.util.List;
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Restaurant.GET_ALL, query = "SELECT r from Restaurant r"),
+        @NamedQuery(name = Restaurant.GET_WITH, query = "SELECT r from Restaurant r LEFT JOIN FETCH r.menuLists WHERE r.id=:id"),
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id")
 })
 @Entity
@@ -16,6 +17,7 @@ import java.util.List;
 public class Restaurant extends BaseEntity {
 
     public static final String GET_ALL = "Restaurant.getAll";
+    public static final String GET_WITH = "Restaurant.getWith";
     public static final String DELETE = "Restaurant.delete";
 
     @Column(nullable = false)

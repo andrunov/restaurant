@@ -47,4 +47,11 @@ public class JpaRestaurantRepositoryImpl implements UserAndRestaurantRepository<
     public Restaurant get(int id) {
         return em.find(Restaurant.class,id);
     }
+
+    @Override
+    public Restaurant getWith(int id) {
+        return (Restaurant)em.createNamedQuery(Restaurant.GET_WITH)
+                .setParameter("id",id)
+                .getSingleResult();
+    }
 }

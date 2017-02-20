@@ -49,5 +49,12 @@ public class JpaUserRepositoryImpl implements UserAndRestaurantRepository<User> 
         return em.find(User.class, id);
     }
 
+    @Override
+    public User getWith(int id) {
+        return (User)em.createNamedQuery(User.GET_WITH)
+                .setParameter("id",id)
+                .getSingleResult();
+    }
+
 
 }

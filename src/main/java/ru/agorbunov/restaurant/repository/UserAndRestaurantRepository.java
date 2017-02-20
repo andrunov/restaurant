@@ -8,4 +8,6 @@ public interface UserAndRestaurantRepository<T> extends BaseRepository {
     T save(T tEntity);
 
     T get(int id);
+
+    T getWith(int id);
 }

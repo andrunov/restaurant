@@ -45,4 +45,9 @@ public class RestaurantServiceImpl implements UserAndRestaurantService<Restauran
     public Restaurant get(int id) {
         return checkNotFoundWithId(repository.get(id),id);
     }
+
+    @Override
+    public Restaurant getWith(int id) {
+        return checkNotFoundWithId(repository.getWith(id),id);
+    }
 }

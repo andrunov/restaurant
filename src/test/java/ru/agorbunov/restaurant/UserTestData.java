@@ -4,9 +4,7 @@ import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Role;
 import ru.agorbunov.restaurant.model.User;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 
 import static ru.agorbunov.restaurant.OrderTestData.*;
 
@@ -32,6 +30,8 @@ public class UserTestData {
                                                          Role.USER);
 
     public static final int USER_01_ID = 100000;
+    public static final int USER_02_ID = 100001;
+    public static final int ORDER_02_ID = 100011;
 
 
 }
