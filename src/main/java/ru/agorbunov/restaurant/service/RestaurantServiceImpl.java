@@ -7,6 +7,9 @@ import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
 
 import java.util.List;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFound;
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
+
 /**
  * Created by Admin on 29.01.2017.
  */
@@ -18,12 +21,19 @@ public class RestaurantServiceImpl implements UserAndRestaurantService<Restauran
 
     @Override
     public Restaurant save(Restaurant restaurant) {
+        checkNotFound(restaurant,"restaurant must not be null");
+        return repository.save(restaurant);
+    }
+
+    @Override
+    public Restaurant update(Restaurant restaurant) {
+        checkNotFound(restaurant,"restaurant must not be null");
         return repository.save(restaurant);
     }
 
     @Override
     public void delete(int id) {
-        repository.delete(id);
+        checkNotFoundWithId(repository.delete(id),id);
     }
 
     @Override
@@ -33,6 +43,6 @@ public class RestaurantServiceImpl implements UserAndRestaurantService<Restauran
 
     @Override
     public Restaurant get(int id) {
-        return repository.get(id);
+        return checkNotFoundWithId(repository.get(id),id);
     }
 }

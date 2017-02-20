@@ -3,6 +3,7 @@ package ru.agorbunov.restaurant.service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.agorbunov.restaurant.model.User;
+import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import java.util.Arrays;
 
@@ -25,9 +26,23 @@ public class UserServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    public void saveNull() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("user must not be null");
+        service.save(null);
+    }
+
+    @Test
     public void delete() throws Exception {
-        service.delete(100000);
+        service.delete(USER_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList( USER_02, USER_03, USER_04, USER_05, USER_06), service.getAll());
+    }
+
+    @Test
+    public void deleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", 10));
+        service.delete(10);
     }
 
     @Test
@@ -38,8 +53,25 @@ public class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        User user = service.get(100000);
+        User user = service.get(USER_01_ID);
         MATCHER.assertEquals(USER_01, user);
     }
+
+    @Test
+    public void getNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", 10));
+        User user = service.get(10);
+    }
+
+    @Test
+    public void update() throws Exception{
+        User user = service.get(USER_01_ID);
+        user.setEmail("newmail@mail.ru");
+        user.setName("обновленное имя");
+        service.save(user);
+        MATCHER.assertEquals(user,service.get(USER_01_ID));
+    }
+
 
 }

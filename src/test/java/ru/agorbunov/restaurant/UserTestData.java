@@ -31,6 +31,8 @@ public class UserTestData {
                                                         Collections.singletonList(ORDER_01),
                                                          Role.USER);
 
+    public static final int USER_01_ID = 100000;
+
     public static User getUpdated(User user){
         user.setName("Обновленный пользователь");
         user.setEmail("updated@mail.ru");

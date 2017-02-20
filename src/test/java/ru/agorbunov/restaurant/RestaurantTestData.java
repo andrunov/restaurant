@@ -19,6 +19,8 @@ public class RestaurantTestData {
     public static final Restaurant RESTAURANT_03 = new Restaurant("Закусочная","Привокзальная пл, 3", Collections.singletonList(MENU_LIST_03));
     public static final Restaurant RESTAURANT_04 = new Restaurant("Прага","ул. Арбат, 1", Collections.singletonList(MENU_LIST_04));
 
+    public static int RESTAURANT_01_ID = 100006;
+
     public static final Restaurant RESTAURANT_CREATED = new Restaurant("Созданный ресторант","ул. Новая, 1", Collections.singletonList(MENU_LIST_01));
 
 
