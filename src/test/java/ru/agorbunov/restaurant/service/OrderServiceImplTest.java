@@ -25,6 +25,13 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    public void saveNull() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("order must not be null");
+        service.save(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
+    }
+
+    @Test
     public void delete() throws Exception {
         service.delete(ORDER_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_02,ORDER_03,ORDER_04,ORDER_05,ORDER_06),service.getAll());
@@ -68,6 +75,13 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", ORDER_01_ID));
         service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
+    }
+
+    @Test
+    public void updateNull() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("order must not be null");
+        service.update(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
     }
 
 }

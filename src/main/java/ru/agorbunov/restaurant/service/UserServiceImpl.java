@@ -2,12 +2,12 @@ package ru.agorbunov.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
 
 import java.util.List;
 
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFound;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserAndRestaurantService<User> {
 
     @Override
     public User save(User user) {
-        checkNotFound(user,"user must not be null");
+        Assert.notNull(user,"user must not be null");
         return repository.save(user);
     }
 
     @Override
     public User update(User user) {
-        checkNotFound(user,"user must not be null");
+        Assert.notNull(user,"user must not be null");
         return repository.save(user);
     }
 

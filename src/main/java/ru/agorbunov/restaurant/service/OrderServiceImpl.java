@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 
@@ -20,11 +21,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order save(Order order, int userId, int restaurantId, int... dishesId) {
+        Assert.notNull(order,"order must not be null");
         return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishesId),order.getId());
     }
 
     @Override
     public Order update(Order order, int userId, int restaurantId, int... dishesId) {
+        Assert.notNull(order,"order must not be null");
         return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishesId),order.getId());
     }
 

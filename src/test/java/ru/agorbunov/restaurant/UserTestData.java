@@ -33,11 +33,5 @@ public class UserTestData {
 
     public static final int USER_01_ID = 100000;
 
-    public static User getUpdated(User user){
-        user.setName("Обновленный пользователь");
-        user.setEmail("updated@mail.ru");
-        user.setRoles(new HashSet<>(Arrays.asList(Role.USER,Role.ADMIN)));
-        return user;
-    }
 
 }

@@ -25,6 +25,13 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    public void saveNull() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("menu list must not be null");
+        service.save(null,RESTAURANT_01_ID);
+    }
+
+    @Test
     public void delete() throws Exception {
         service.delete(MENU_LIST_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(MENU_LIST_02,MENU_LIST_03,MENU_LIST_04),service.getAll());
@@ -67,6 +74,13 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_01_ID));
         MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_02_ID);
+    }
+
+    @Test
+    public void updateNull() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("menu list must not be null");
+        service.update(null,RESTAURANT_01_ID);
     }
 
 }

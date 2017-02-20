@@ -46,15 +46,4 @@ public class DishTestData {
     public static final int ORDER_01_ID = 100010;
     public static final int ORDER_02_ID = 100011;
 
-    public Dish getUpdated(Dish dish){
-        dish.setDescription("Обновленная еда");
-        dish.setPrice(5.48);
-        return dish;
-    }
-
-
-
-
-
-
 }

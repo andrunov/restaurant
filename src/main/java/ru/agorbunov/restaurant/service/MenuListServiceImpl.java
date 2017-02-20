@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.repository.MenuListRepository;
 
@@ -20,11 +21,13 @@ public class MenuListServiceImpl implements MenuListService {
 
     @Override
     public MenuList save(MenuList menuList, int restaurantId) {
+        Assert.notNull(menuList,"menu list must not be null");
         return checkNotFoundWithId(repository.save(menuList,restaurantId),menuList.getId());
     }
 
     @Override
     public MenuList update(MenuList menuList, int restaurantId) {
+        Assert.notNull(menuList,"menu list must not be null");
         return checkNotFoundWithId(repository.save(menuList,restaurantId),menuList.getId());
     }
 

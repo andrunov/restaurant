@@ -24,6 +24,13 @@ public class DishServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    public void saveNull() throws Exception{
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("dish must not be null");
+        service.save(null,MENU_LIST_01_ID,ORDER_01_ID);
+    }
+
+    @Test
     public void delete() throws Exception {
         service.delete(DISH_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(DISH_02,DISH_03,DISH_04,DISH_05, DISH_06, DISH_07, DISH_08, DISH_09, DISH_10, DISH_11, DISH_12, DISH_13, DISH_14, DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20),service.getAll());
@@ -71,6 +78,13 @@ public class DishServiceImplTest extends AbstractServiceTest {
         thrown.expectMessage(String.format("Not found entity with id=%d", DISH_01_ID));
         Dish dish = service.get(DISH_01_ID,MENU_LIST_01_ID);
         service.update(dish, MENU_LIST_02_ID,ORDER_01_ID,ORDER_02_ID);
+    }
+
+    @Test
+    public void updateNull() throws Exception{
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("dish must not be null");
+        service.update(null,MENU_LIST_01_ID,ORDER_01_ID);
     }
 
 }
