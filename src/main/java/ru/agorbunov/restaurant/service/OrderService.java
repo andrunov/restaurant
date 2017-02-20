@@ -9,6 +9,8 @@ public interface OrderService extends BaseService<Order> {
 
     Order save(Order order, int userId, int restaurantId, int... dishesId);
 
+    Order update(Order order, int userId, int restaurantId, int... dishesId);
+
     Order get(int id, int userId, int restaurantId);
 
 }

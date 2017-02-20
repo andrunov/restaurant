@@ -24,5 +24,15 @@ public class OrderTestData {
     public static final Order ORDER_05 = new Order(USER_05,RESTAURANT_03, Arrays.asList(DISH_10, DISH_11), LocalDateTime.of(2017,1,15,14,17));
     public static final Order ORDER_06 = new Order(USER_06,RESTAURANT_04, Arrays.asList(DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20), LocalDateTime.of(2017,1,15,9,29));
 
+    public static final int ORDER_01_ID = 100010;
+    public static final int USER_01_ID = 100000;
+    public static final int RESTAURANT_01_ID = 100006;
+    public static final int RESTAURANT_02_ID = 100007;
+    public static final int DISH_01_ID = 100020;
+    public static final int DISH_02_ID = 100021;
+    public static final int DISH_03_ID = 100022;
+    public static final int DISH_04_ID = 100023;
+
     public static final Order ORDER_CREATED = new Order(USER_01,RESTAURANT_01, Arrays.asList(DISH_01, DISH_02), LocalDateTime.of(2017,1,16,9,30));
+
 }

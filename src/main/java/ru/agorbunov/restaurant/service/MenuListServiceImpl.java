@@ -31,7 +31,7 @@ public class MenuListServiceImpl implements MenuListService {
 
     @Override
     public void delete(int id) {
-        checkNotFound(repository.delete(id),"menu list noy found");
+        checkNotFound(repository.delete(id),"menu list not found");
     }
 
     @Override

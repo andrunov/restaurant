@@ -7,6 +7,8 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import java.util.List;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
+
 /**
  * Created by Admin on 30.01.2017.
  */
@@ -18,12 +20,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order save(Order order, int userId, int restaurantId, int... dishesId) {
-        return repository.save(order,userId,restaurantId,dishesId);
+        return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishesId),order.getId());
+    }
+
+    @Override
+    public Order update(Order order, int userId, int restaurantId, int... dishesId) {
+        return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishesId),order.getId());
     }
 
     @Override
     public void delete(int id) {
-        repository.delete(id);
+        checkNotFoundWithId(repository.delete(id),id);
     }
 
     @Override
@@ -33,6 +40,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order get(int id, int userId, int restaurantId) {
-        return repository.get(id,userId,restaurantId);
+        return checkNotFoundWithId(repository.get(id,userId,restaurantId),id);
     }
 }
