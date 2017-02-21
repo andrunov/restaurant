@@ -1,9 +1,10 @@
 package ru.agorbunov.restaurant.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.MenuList;
+import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
@@ -81,9 +82,12 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Test
     public void getWith() throws Exception{
+        ModelMatcher<Order> OrderMatcher = new ModelMatcher<>();
+        ModelMatcher<MenuList> MenuListsMatcher = new ModelMatcher<>();
         Restaurant restaurant = service.getWith(RESTAURANT_02_ID);
-        MenuList menuList = restaurant.getMenuLists().get(0);
-        Assert.assertEquals(MENU_LIST_02_ID,(int)menuList.getId());
+        MATCHER.assertEquals(RESTAURANT_02,restaurant);
+        MenuListsMatcher.assertCollectionEquals(RESTAURANT_02.getMenuLists(),restaurant.getMenuLists());
+        OrderMatcher.assertCollectionEquals(RESTAURANT_02.getOrders(),restaurant.getOrders());
     }
 
 }

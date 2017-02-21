@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.repository.jpa;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
 
@@ -50,8 +51,14 @@ public class JpaRestaurantRepositoryImpl implements UserAndRestaurantRepository<
 
     @Override
     public Restaurant getWith(int id) {
-        return (Restaurant)em.createNamedQuery(Restaurant.GET_WITH)
-                .setParameter("id",id)
-                .getSingleResult();
+        Restaurant result = (Restaurant)em.createNamedQuery(Restaurant.GET_WITH_MENU_LISTS)
+                            .setParameter("id",id)
+                            .getSingleResult();
+        List<Order> orders = ((Restaurant)em.createNamedQuery(Restaurant.GET_WITH_ORDERS)
+                            .setParameter("id",id)
+                            .getSingleResult()).getOrders();
+        result.setOrders(orders);
+        return result;
+
     }
 }
