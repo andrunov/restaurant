@@ -71,4 +71,17 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         }
         return null;
     }
+
+    @Override
+    public Order getWith(int id, int userId, int restaurantId) {
+        Order order = (Order)em.createNamedQuery(Order.GET_WITH)
+                                          .setParameter("id",id)
+                                          .getSingleResult();
+        if (order.getRestaurant().getId() == restaurantId){
+            if (order.getUser().getId() == userId) {
+                return order;
+            }
+        }
+        return null;
+    }
 }

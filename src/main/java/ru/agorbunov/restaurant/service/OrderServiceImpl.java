@@ -45,4 +45,9 @@ public class OrderServiceImpl implements OrderService {
     public Order get(int id, int userId, int restaurantId) {
         return checkNotFoundWithId(repository.get(id,userId,restaurantId),id);
     }
+
+    @Override
+    public Order getWith(int id, int userId, int restaurantId) {
+        return checkNotFoundWithId(repository.getWith(id,userId,restaurantId),id);
+    }
 }

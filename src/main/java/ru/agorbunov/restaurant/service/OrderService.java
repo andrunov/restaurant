@@ -13,4 +13,6 @@ public interface OrderService extends BaseService<Order> {
 
     Order get(int id, int userId, int restaurantId);
 
+    Order getWith(int id, int userId, int restaurantId);
+
 }

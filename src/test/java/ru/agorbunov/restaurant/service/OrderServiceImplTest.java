@@ -2,6 +2,8 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.matcher.ModelMatcher;
+import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
@@ -51,7 +53,6 @@ public class OrderServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void get() throws Exception {
-        System.out.println(service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID));
         MATCHER.assertEquals(ORDER_01,service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID));
     }
 
@@ -59,7 +60,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", ORDER_01_ID));
-        System.out.println(service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID));
+        service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
     }
 
     @Test
@@ -83,5 +84,21 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         thrown.expectMessage("order must not be null");
         service.update(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
     }
+
+    @Test
+    public void getWith() throws Exception {
+        ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
+        Order order = service.getWith(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
+        MATCHER.assertEquals(ORDER_01,order);
+        DishMatcher.assertCollectionEquals(ORDER_01.getDishes(),order.getDishes());
+    }
+
+    @Test
+    public void getWithNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", ORDER_01_ID));
+        service.getWith(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
+    }
+
 
 }

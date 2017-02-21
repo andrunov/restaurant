@@ -89,6 +89,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void getWith() throws Exception {
         ModelMatcher<Dish> MatcherDish = new ModelMatcher<>();
         MenuList menuList = service.getWith(MENU_LIST_01_ID, RESTAURANT_01_ID);
+        MATCHER.assertEquals(MENU_LIST_01,menuList);
         MatcherDish.assertCollectionEquals(MENU_LIST_01.getDishList(),menuList.getDishList());
     }
 
