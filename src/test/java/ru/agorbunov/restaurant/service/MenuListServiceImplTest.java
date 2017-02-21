@@ -2,6 +2,8 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.matcher.ModelMatcher;
+import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
@@ -81,6 +83,20 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("menu list must not be null");
         service.update(null,RESTAURANT_01_ID);
+    }
+
+    @Test
+    public void getWith() throws Exception {
+        ModelMatcher<Dish> MatcherDish = new ModelMatcher<>();
+        MenuList menuList = service.getWith(MENU_LIST_01_ID, RESTAURANT_01_ID);
+        MatcherDish.assertCollectionEquals(MENU_LIST_01.getDishList(),menuList.getDishList());
+    }
+
+    @Test
+    public void getWithNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_01_ID));
+        service.getWith(MENU_LIST_01_ID, RESTAURANT_02_ID);
     }
 
 }

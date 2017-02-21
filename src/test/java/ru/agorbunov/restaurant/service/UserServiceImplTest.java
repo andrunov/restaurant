@@ -1,8 +1,8 @@
 package ru.agorbunov.restaurant.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
@@ -85,8 +85,8 @@ public class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void getWith() throws Exception{
+        ModelMatcher<Order> OrderMatcher = new ModelMatcher<>();
         User user = service.getWith(USER_02_ID);
-        Order order = user.getOrders().get(0);
-        Assert.assertEquals(ORDER_02_ID,(int)order.getId());
+        OrderMatcher.assertCollectionEquals(USER_02.getOrders(),user.getOrders());
     }
 }

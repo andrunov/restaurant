@@ -10,6 +10,7 @@ import java.util.List;
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = MenuList.GET_ALL, query = "SELECT m from MenuList m"),
+        @NamedQuery(name = MenuList.GET_WITH, query = "SELECT m from MenuList m left join fetch m.dishList where m.id=:id"),
         @NamedQuery(name = MenuList.DELETE, query = "DELETE FROM MenuList m WHERE m.id=:id")
 })
 @Entity
@@ -18,6 +19,7 @@ public class MenuList extends BaseEntity {
 
     public static final String GET_ALL = "MenuList.getAll";
     public static final String DELETE = "MenuList.delete";
+    public static final String GET_WITH = "MenuList.getWith";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)

@@ -13,4 +13,6 @@ public interface MenuListService extends BaseService<MenuList> {
 
     MenuList get(int id, int restaurantId);
 
+    MenuList getWith(int id, int restaurantId);
+
 }

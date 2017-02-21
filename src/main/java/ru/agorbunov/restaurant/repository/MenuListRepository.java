@@ -11,4 +11,6 @@ public interface MenuListRepository extends BaseRepository<MenuList>{
 
     MenuList get(int id, int restaurantId);
 
+    MenuList getWith(int id, int restaurantId);
+
 }
