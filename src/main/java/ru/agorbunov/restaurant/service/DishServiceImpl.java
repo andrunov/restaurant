@@ -45,4 +45,9 @@ public class DishServiceImpl implements DishService {
     public Dish get(int id, int menuListId) {
         return checkNotFoundWithId(repository.get(id,menuListId),id);
     }
+
+    @Override
+    public Dish getWith(int id, int menulistId) {
+        return checkNotFoundWithId(repository.getWith(id,menulistId),id);
+    }
 }

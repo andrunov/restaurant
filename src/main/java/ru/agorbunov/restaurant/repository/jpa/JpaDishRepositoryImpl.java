@@ -62,4 +62,12 @@ public class JpaDishRepositoryImpl implements DishRepository {
         Dish dish = em.find(Dish.class, id);
         return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;
     }
+
+    @Override
+    public Dish getWith(int id, int menuListId) {
+        Dish dish = (Dish)em.createNamedQuery(Dish.GET_WITH)
+                                        .setParameter("id",id)
+                                        .getSingleResult();
+        return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;
+    }
 }

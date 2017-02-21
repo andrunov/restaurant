@@ -9,5 +9,7 @@ public interface DishRepository extends BaseRepository<Dish> {
 
     Dish save(Dish dish,  int menulistId, int...ordersIds);
 
-    Dish get(int id, int userId);
+    Dish get(int id, int menuListId);
+
+    Dish getWith(int id, int menuListId);
 }
