@@ -67,7 +67,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void update() throws Exception{
         MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_01_ID);
         menuList.setDateTime(LocalDateTime.of(2017,2,15,17,31));
-        service.save(menuList,RESTAURANT_01_ID);
+        service.update(menuList,RESTAURANT_01_ID);
         MATCHER.assertEquals(menuList,service.get(MENU_LIST_01_ID, RESTAURANT_01_ID));
     }
 
