@@ -34,14 +34,15 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private SimpleJdbcInsert insertRestaurant;
+    private SimpleJdbcInsert insertOrder;
 
     @Autowired
     public JdbcOrderRepositoryImpl(DataSource dataSource) {
-        this.insertRestaurant = new SimpleJdbcInsert(dataSource)
+        this.insertOrder = new SimpleJdbcInsert(dataSource)
                 .withTableName("orders")
                 .usingGeneratedKeyColumns("id");
     }
+
     @Override
     public Order save(Order order, int userId, int restaurantId, int... dishIds) {
         MapSqlParameterSource map = new MapSqlParameterSource()
@@ -51,7 +52,7 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
                 .addValue("date_time", order.getDateTime());
 
         if (order.isNew()) {
-            Number newKey = insertRestaurant.executeAndReturnKey(map);
+            Number newKey = insertOrder.executeAndReturnKey(map);
             order.setId(newKey.intValue());
             insertDishes(order.getId(),dishIds);
         } else {
@@ -89,14 +90,14 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order get(int id, int userId, int restaurantId) {
-        List<Order> menuLists = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
-        return DataAccessUtils.singleResult(menuLists);
+        List<Order> orders = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
+        return DataAccessUtils.singleResult(orders);
     }
 
     @Override
     public Order getWith(int id, int userId, int restaurantId) {
-        List<Order> menuLists = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
-        Order result = DataAccessUtils.singleResult(menuLists);
+        List<Order> orders = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
+        Order result = DataAccessUtils.singleResult(orders);
         return setDishes(result);
     }
 

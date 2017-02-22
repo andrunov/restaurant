@@ -31,11 +31,11 @@ public class JdbcMenuListRepositoryImpl implements MenuListRepository {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private SimpleJdbcInsert insertRestaurant;
+    private SimpleJdbcInsert insertMenuList;
 
     @Autowired
     public JdbcMenuListRepositoryImpl(DataSource dataSource) {
-        this.insertRestaurant = new SimpleJdbcInsert(dataSource)
+        this.insertMenuList = new SimpleJdbcInsert(dataSource)
                 .withTableName("menu_lists")
                 .usingGeneratedKeyColumns("id");
     }
@@ -47,7 +47,7 @@ public class JdbcMenuListRepositoryImpl implements MenuListRepository {
                 .addValue("date_time", menuList.getDateTime());
 
         if (menuList.isNew()) {
-            Number newKey = insertRestaurant.executeAndReturnKey(map);
+            Number newKey = insertMenuList.executeAndReturnKey(map);
             menuList.setId(newKey.intValue());
         } else {
             if(namedParameterJdbcTemplate.update("UPDATE menu_lists SET date_time=:date_time WHERE id=:id AND restaurant_id=:restaurant_id", map)==0){
