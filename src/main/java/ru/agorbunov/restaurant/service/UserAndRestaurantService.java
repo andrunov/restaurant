@@ -10,4 +10,7 @@ public interface UserAndRestaurantService<T> extends BaseService {
     T get(int id);
 
     T getWith(int id);
+
+    void evictCache();
+
 }

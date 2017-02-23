@@ -1,6 +1,8 @@
 package ru.agorbunov.restaurant.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.User;
@@ -20,17 +22,20 @@ public class UserServiceImpl implements UserAndRestaurantService<User> {
     @Autowired
     private UserAndRestaurantRepository<User> repository;
 
+    @CacheEvict(value = "users",allEntries = true)
     @Override
     public User save(User user) {
         Assert.notNull(user,"user must not be null");
         return repository.save(user);
     }
 
+    @CacheEvict(value = "users",allEntries = true)
     @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }
 
+    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.getAll();
@@ -46,5 +51,9 @@ public class UserServiceImpl implements UserAndRestaurantService<User> {
         return checkNotFoundWithId(repository.getWith(id),id);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    public void evictCache() {
+    }
 
 }

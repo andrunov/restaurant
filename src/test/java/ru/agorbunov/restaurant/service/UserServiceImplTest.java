@@ -49,6 +49,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void getAll() throws Exception {
+        service.evictCache();
         MATCHER.assertCollectionEquals(Arrays.asList(USER_01, USER_02, USER_03, USER_04, USER_05, USER_06), service.getAll());
 
     }

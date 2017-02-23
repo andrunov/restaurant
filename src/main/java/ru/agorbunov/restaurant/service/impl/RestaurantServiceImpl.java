@@ -1,6 +1,7 @@
 package ru.agorbunov.restaurant.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Restaurant;
@@ -44,5 +45,10 @@ public class RestaurantServiceImpl implements UserAndRestaurantService<Restauran
     @Override
     public Restaurant getWith(int id) {
         return checkNotFoundWithId(repository.getWith(id),id);
+    }
+
+    @Override
+    public void evictCache() {
+
     }
 }

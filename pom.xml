@@ -31,7 +31,7 @@
         <hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
 
         <!--Tools-->
-        <!--<ehcache.version>2.10.3</ehcache.version>-->
+        <ehcache.version>2.10.3</ehcache.version>
     </properties>
 
     <build>
@@ -93,8 +93,14 @@
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
@@ -130,6 +136,7 @@
             <version>${tomcat.version}</version>
         </dependency>
 
+        <!--TODO remove hibernate before production for jdbc version-->
         <!--Hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
