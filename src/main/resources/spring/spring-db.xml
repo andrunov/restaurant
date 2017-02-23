@@ -30,6 +30,8 @@
           p:username="${database.username}"
           p:password="${database.password}"/>
 
+    <!--TODO delete profiles before production-->
+
     <!--JDBC-->
     <beans profile="jdbc">
 

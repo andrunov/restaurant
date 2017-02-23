@@ -6,6 +6,7 @@ import ru.agorbunov.restaurant.service.OrderServiceImplTest;
 /**
  * Created by Admin on 23.02.2017.
  */
+// TODO: 23.02.2017 delete class before production
 @ActiveProfiles("jpa")
 public class OrderServiceJpaTest extends OrderServiceImplTest {
 }
