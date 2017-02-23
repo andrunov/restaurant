@@ -1,28 +1,29 @@
-package ru.agorbunov.restaurant.service;
+package ru.agorbunov.restaurant.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import ru.agorbunov.restaurant.model.User;
+import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
+import ru.agorbunov.restaurant.service.UserAndRestaurantService;
 
 import java.util.List;
 
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Created by Admin on 28.01.2017.
+ * Created by Admin on 29.01.2017.
  */
 @Service
-public class UserServiceImpl implements UserAndRestaurantService<User> {
+public class RestaurantServiceImpl implements UserAndRestaurantService<Restaurant> {
 
     @Autowired
-    private UserAndRestaurantRepository<User> repository;
+    private UserAndRestaurantRepository<Restaurant> repository;
 
     @Override
-    public User save(User user) {
-        Assert.notNull(user,"user must not be null");
-        return repository.save(user);
+    public Restaurant save(Restaurant restaurant) {
+        Assert.notNull(restaurant,"restaurant must not be null");
+        return repository.save(restaurant);
     }
 
     @Override
@@ -31,19 +32,17 @@ public class UserServiceImpl implements UserAndRestaurantService<User> {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Restaurant> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public User get(int id) {
+    public Restaurant get(int id) {
         return checkNotFoundWithId(repository.get(id),id);
     }
 
     @Override
-    public User getWith(int id) {
+    public Restaurant getWith(int id) {
         return checkNotFoundWithId(repository.getWith(id),id);
     }
-
-
 }

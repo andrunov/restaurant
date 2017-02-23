@@ -1,10 +1,11 @@
-package ru.agorbunov.restaurant.service;
+package ru.agorbunov.restaurant.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.repository.DishRepository;
+import ru.agorbunov.restaurant.service.DishService;
 
 import java.util.List;
 

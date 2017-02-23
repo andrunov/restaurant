@@ -9,8 +9,6 @@ public interface MenuListService extends BaseService<MenuList> {
 
     MenuList save(MenuList menuList, int restaurantId);
 
-    MenuList update(MenuList menuList, int restaurantId);
-
     MenuList get(int id, int restaurantId);
 
     MenuList getWith(int id, int restaurantId);
