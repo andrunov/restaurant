@@ -44,6 +44,7 @@ public class JdbcDishRepositoryImpl implements DishRepository {
                 .usingGeneratedKeyColumns("id");
     }
     @Override
+    @Transactional
     public Dish save(Dish dish, int menulistId, int... ordersIds) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", dish.getId())
@@ -103,6 +104,7 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=?", id) != 0;
     }

@@ -49,6 +49,7 @@ public class JdbcUserRepositoryImpl implements UserAndRestaurantRepository<User>
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", user.getId())
@@ -85,6 +86,7 @@ public class JdbcUserRepositoryImpl implements UserAndRestaurantRepository<User>
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM users WHERE id=?", id) != 0;
     }

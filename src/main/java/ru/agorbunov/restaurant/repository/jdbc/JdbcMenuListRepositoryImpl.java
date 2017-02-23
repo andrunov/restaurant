@@ -40,6 +40,7 @@ public class JdbcMenuListRepositoryImpl implements MenuListRepository {
                 .usingGeneratedKeyColumns("id");
     }
     @Override
+    @Transactional
     public MenuList save(MenuList menuList, int restaurantId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", menuList.getId())
@@ -71,6 +72,7 @@ public class JdbcMenuListRepositoryImpl implements MenuListRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM menu_lists WHERE id=?", id) != 0;
     }

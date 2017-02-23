@@ -44,6 +44,7 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
+    @Transactional
     public Order save(Order order, int userId, int restaurantId, int... dishIds) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", order.getId())
@@ -102,6 +103,7 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM orders WHERE id=?", id) != 0;
     }

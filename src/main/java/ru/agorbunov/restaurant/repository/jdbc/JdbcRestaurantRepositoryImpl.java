@@ -42,6 +42,7 @@ public class JdbcRestaurantRepositoryImpl implements UserAndRestaurantRepository
                 .usingGeneratedKeyColumns("id");
     }
     @Override
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", restaurant.getId())
@@ -73,6 +74,7 @@ public class JdbcRestaurantRepositoryImpl implements UserAndRestaurantRepository
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM restaurants WHERE id=?", id) != 0;
     }
