@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
-import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
+import ru.agorbunov.restaurant.repository.RestaurantRepository;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JdbcRestaurantRepositoryImpl implements UserAndRestaurantRepository<Restaurant> {
+public class JdbcRestaurantRepositoryImpl implements RestaurantRepository {
     private static final BeanPropertyRowMapper<Restaurant> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Restaurant.class);
     private static final BeanPropertyRowMapper<MenuList> MENU_LIST_ROW_MAPPER = BeanPropertyRowMapper.newInstance(MenuList.class);
     private static final BeanPropertyRowMapper<Order> ORDER_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
-import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
+import ru.agorbunov.restaurant.repository.RestaurantRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaRestaurantRepositoryImpl implements UserAndRestaurantRepository<Restaurant> {
+public class JpaRestaurantRepositoryImpl implements RestaurantRepository {
 
     @PersistenceContext
     private EntityManager em;

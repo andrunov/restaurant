@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.repository.jpa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.User;
-import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
+import ru.agorbunov.restaurant.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JpaUserRepositoryImpl implements UserAndRestaurantRepository<User> {
+public class JpaUserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     private EntityManager em;

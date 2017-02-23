@@ -6,7 +6,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Restaurant;
-import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
+import ru.agorbunov.restaurant.repository.RestaurantRepository;
 import ru.agorbunov.restaurant.service.RestaurantService;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
-    private UserAndRestaurantRepository<Restaurant> repository;
+    private RestaurantRepository repository;
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override

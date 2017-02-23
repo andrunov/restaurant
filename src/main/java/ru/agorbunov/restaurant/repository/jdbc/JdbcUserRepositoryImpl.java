@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Role;
 import ru.agorbunov.restaurant.model.User;
-import ru.agorbunov.restaurant.repository.UserAndRestaurantRepository;
+import ru.agorbunov.restaurant.repository.UserRepository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -27,7 +27,7 @@ import java.util.*;
  */
 @Repository
 @Transactional(readOnly = true)
-public class JdbcUserRepositoryImpl implements UserAndRestaurantRepository<User> {
+public class JdbcUserRepositoryImpl implements UserRepository {
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
     private static final BeanPropertyRowMapper<Order> ORDER_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
