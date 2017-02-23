@@ -67,7 +67,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void update() throws Exception{
         MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_01_ID);
         menuList.setDateTime(LocalDateTime.of(2017,2,15,17,31));
-        service.update(menuList,RESTAURANT_01_ID);
+        service.save(menuList,RESTAURANT_01_ID);
         MATCHER.assertEquals(menuList,service.get(MENU_LIST_01_ID, RESTAURANT_01_ID));
     }
 
@@ -75,14 +75,15 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void updateNotFound() throws Exception{
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_01_ID));
-        MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_02_ID);
+        MenuList menuList = service.get(MENU_LIST_01_ID, RESTAURANT_01_ID);
+        service.save(menuList, RESTAURANT_02_ID);
     }
 
     @Test
     public void updateNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("menu list must not be null");
-        service.update(null,RESTAURANT_01_ID);
+        service.save(null,RESTAURANT_01_ID);
     }
 
     @Test

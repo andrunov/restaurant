@@ -67,7 +67,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void update() throws Exception{
         Order order = service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         order.setDateTime( LocalDateTime.of(2017,2,16,17,46));
-        service.update(order,USER_01_ID,RESTAURANT_01_ID,DISH_01_ID,DISH_02_ID,DISH_04_ID);
+        service.save(order,USER_01_ID,RESTAURANT_01_ID,DISH_01_ID,DISH_02_ID,DISH_04_ID);
         MATCHER.assertEquals(order, service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID));
     }
 
@@ -75,14 +75,15 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void updateNotFound() throws Exception{
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", ORDER_01_ID));
-        service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
+        Order order = service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
+        service.save(order,USER_01_ID,RESTAURANT_02_ID);
     }
 
     @Test
     public void updateNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("order must not be null");
-        service.update(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
+        service.save(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
     }
 
     @Test

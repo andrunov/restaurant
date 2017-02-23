@@ -61,7 +61,7 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", 10));
-        Restaurant restaurant = service.get(10);
+        service.get(10);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
         Restaurant restaurant = service.get(RESTAURANT_01_ID);
         restaurant.setName("обновленное название");
         restaurant.setAddress("обновленный адрес");
-        service.update(restaurant);
+        service.save(restaurant);
         MATCHER.assertEquals(restaurant,service.get(RESTAURANT_01_ID));
     }
 
@@ -77,7 +77,7 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
     public void updateNull() throws Exception{
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("restaurant must not be null");
-        service.update(null);
+        service.save(null);
     }
 
     @Test

@@ -63,7 +63,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", 10));
-        User user = service.get(10);
+        service.get(10);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
     public void updateNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("user must not be null");
-        service.update(null);
+        service.save(null);
     }
 
     @Test

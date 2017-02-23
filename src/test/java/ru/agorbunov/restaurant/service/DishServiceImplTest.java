@@ -61,7 +61,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", 10));
-        Dish dish = service.get(DISH_01_ID,10);
+        service.get(DISH_01_ID,10);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
         Dish dish = service.get(DISH_01_ID,MENU_LIST_01_ID);
         dish.setDescription("обновленное блюдо");
         dish.setPrice(1.02);
-        service.update(dish, MENU_LIST_01_ID,ORDER_01_ID,ORDER_02_ID);
+        service.save(dish, MENU_LIST_01_ID,ORDER_01_ID,ORDER_02_ID);
         MATCHER.assertEquals(dish, service.get(DISH_01_ID,MENU_LIST_01_ID));
     }
 
@@ -78,14 +78,14 @@ public class DishServiceImplTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", DISH_01_ID));
         Dish dish = service.get(DISH_01_ID,MENU_LIST_01_ID);
-        service.update(dish, MENU_LIST_02_ID,ORDER_01_ID,ORDER_02_ID);
+        service.save(dish, MENU_LIST_02_ID,ORDER_01_ID,ORDER_02_ID);
     }
 
     @Test
     public void updateNull() throws Exception{
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("dish must not be null");
-        service.update(null,MENU_LIST_01_ID,ORDER_01_ID);
+        service.save(null,MENU_LIST_01_ID,ORDER_01_ID);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
     public void getWithNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", 10));
-        Dish dish = service.getWith(DISH_01_ID,10);
+        service.getWith(DISH_01_ID,10);
     }
 
 }
