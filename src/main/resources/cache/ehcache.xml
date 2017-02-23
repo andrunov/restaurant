@@ -25,4 +25,14 @@
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LRU"/>
 
+    <cache name="restaurants"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="500"
+           eternal="false"
+           overflowToDisk="false"
+           maxElementsOnDisk="5000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="1"
+           memoryStoreEvictionPolicy="LRU"/>
+
 </ehcache>

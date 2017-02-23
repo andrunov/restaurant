@@ -19,7 +19,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 
 
     @Autowired
-    private UserAndRestaurantService<User> service;
+    private UserService service;
 
     @Test
     public void save() throws Exception {

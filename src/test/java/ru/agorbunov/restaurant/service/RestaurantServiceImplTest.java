@@ -18,7 +18,7 @@ import static ru.agorbunov.restaurant.RestaurantTestData.*;
 public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Autowired
-    UserAndRestaurantService<Restaurant> service;
+    RestaurantService service;
 
     @Test
     public void save() throws Exception {
@@ -48,6 +48,7 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Test
     public void getAll() throws Exception {
+        service.evictCache();
         MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT_01, RESTAURANT_02, RESTAURANT_03, RESTAURANT_04), service.getAll());
     }
 
