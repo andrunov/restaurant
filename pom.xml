@@ -124,6 +124,12 @@
             <version>${postgresql.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+
         <!--Hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
