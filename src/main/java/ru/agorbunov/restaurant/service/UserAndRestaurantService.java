@@ -7,8 +7,6 @@ public interface UserAndRestaurantService<T> extends BaseService {
 
     T save(T tEntity);
 
-    T update(T tEntity);
-
     T get(int id);
 
     T getWith(int id);

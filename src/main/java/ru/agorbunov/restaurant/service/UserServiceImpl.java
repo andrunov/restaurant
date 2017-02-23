@@ -26,12 +26,6 @@ public class UserServiceImpl implements UserAndRestaurantService<User> {
     }
 
     @Override
-    public User update(User user) {
-        Assert.notNull(user,"user must not be null");
-        return repository.save(user);
-    }
-
-    @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }

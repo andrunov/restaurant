@@ -26,12 +26,6 @@ public class MenuListServiceImpl implements MenuListService {
     }
 
     @Override
-    public MenuList update(MenuList menuList, int restaurantId) {
-        Assert.notNull(menuList,"menu list must not be null");
-        return checkNotFoundWithId(repository.save(menuList,restaurantId),menuList.getId());
-    }
-
-    @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }
