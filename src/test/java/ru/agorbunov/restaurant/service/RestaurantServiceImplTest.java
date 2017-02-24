@@ -1,5 +1,6 @@
 package ru.agorbunov.restaurant.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
@@ -18,7 +19,12 @@ import static ru.agorbunov.restaurant.RestaurantTestData.*;
 public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Autowired
-    RestaurantService service;
+    private RestaurantService service;
+
+    @Before
+    protected void setUp() throws Exception {
+        service.evictCache();
+    }
 
     @Test
     public void save() throws Exception {
@@ -48,7 +54,6 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Test
     public void getAll() throws Exception {
-        service.evictCache();
         MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT_01, RESTAURANT_02, RESTAURANT_03, RESTAURANT_04), service.getAll());
     }
 

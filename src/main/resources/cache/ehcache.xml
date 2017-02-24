@@ -35,4 +35,13 @@
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LRU"/>
 
+    <!--TODO delete before production jdbc var-->
+
+    <cache name="ru.agorbunov.restaurant.model.User"
+           maxElementsInMemory="25000"/>
+
+    <cache name="ru.agorbunov.restaurant.model.Restaurant"
+           maxElementsInMemory="1000"/>
+
+
 </ehcache>

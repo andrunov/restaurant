@@ -1,11 +1,19 @@
 package ru.agorbunov.restaurant.model;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.List;
 
 /**
  * Created by Admin on 17.01.2017.
  */
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Restaurant.GET_ALL, query = "SELECT r from Restaurant r"),

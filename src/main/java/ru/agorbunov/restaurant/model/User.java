@@ -1,6 +1,13 @@
 package ru.agorbunov.restaurant.model;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +15,7 @@ import java.util.Set;
 /**
  * Created by Admin on 17.01.2017.
  */
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = User.GET_ALL, query = "SELECT u from User u"),
@@ -31,6 +39,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")

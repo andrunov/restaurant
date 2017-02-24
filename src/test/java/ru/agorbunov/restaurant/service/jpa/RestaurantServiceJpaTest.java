@@ -1,6 +1,9 @@
 package ru.agorbunov.restaurant.service.jpa;
 
+import org.junit.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
+import ru.agorbunov.restaurant.repository.JpaUtil;
 import ru.agorbunov.restaurant.service.RestaurantServiceImplTest;
 
 /**
@@ -9,4 +12,13 @@ import ru.agorbunov.restaurant.service.RestaurantServiceImplTest;
 // TODO: 23.02.2017 delete class before production
 @ActiveProfiles("jpa")
 public class RestaurantServiceJpaTest extends RestaurantServiceImplTest {
+
+    @Autowired
+    private JpaUtil jpaUtil;
+
+    @Before
+    public void setUp() throws Exception {
+        jpaUtil.clear2ndLevelHibernateCache();
+        super.setUp();
+    }
 }
