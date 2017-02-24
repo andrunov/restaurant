@@ -123,6 +123,8 @@
             <!--<version>1.10.6.RELEASE</version>-->
         <!--</dependency>-->
 
+        <!--TODO remove postgress before production-->
+
         <!--Database-->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -134,6 +136,12 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
             <version>${tomcat.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.4</version>
         </dependency>
 
         <!--TODO remove hibernate before production for jdbc version-->
@@ -183,5 +191,36 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>hsqldb</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                    <version>2.3.4</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>postgres</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>${tomcat.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 </project>
