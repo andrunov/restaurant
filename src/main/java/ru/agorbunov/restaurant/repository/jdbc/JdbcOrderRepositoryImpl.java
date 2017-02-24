@@ -1,6 +1,7 @@
 package ru.agorbunov.restaurant.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.agorbunov.restaurant.Profiles;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.OrderRepository;
@@ -17,14 +19,16 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Created by Admin on 21.02.2017.
  */
-@Repository
+//// TODO: 24.02.2017 remove profiles before production
 @Transactional(readOnly = true)
-public class JdbcOrderRepositoryImpl implements OrderRepository {
+public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     private static final BeanPropertyRowMapper<Order> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
     private static final BeanPropertyRowMapper<Dish> DISH_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
 
@@ -36,11 +40,31 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
 
     private SimpleJdbcInsert insertOrder;
 
+    protected abstract T toDbDateTime(LocalDateTime ldt);
+
     @Autowired
-    public JdbcOrderRepositoryImpl(DataSource dataSource) {
+    private void setDataSource(DataSource dataSource) {
         this.insertOrder = new SimpleJdbcInsert(dataSource)
                 .withTableName("orders")
                 .usingGeneratedKeyColumns("id");
+    }
+
+    @Repository
+    @Profile(Profiles.POSTGRES)
+    public static class Java8JdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<LocalDateTime> {
+        @Override
+        protected LocalDateTime toDbDateTime(LocalDateTime ldt) {
+            return ldt;
+        }
+    }
+
+    @Repository
+    @Profile(Profiles.HSQLDB)
+    public static class TimestampJdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<Timestamp> {
+        @Override
+        protected Timestamp toDbDateTime(LocalDateTime ldt) {
+            return Timestamp.valueOf(ldt);
+        }
     }
 
     @Override
@@ -50,7 +74,7 @@ public class JdbcOrderRepositoryImpl implements OrderRepository {
                 .addValue("id", order.getId())
                 .addValue("user_id", userId)
                 .addValue("restaurant_id", restaurantId)
-                .addValue("date_time", order.getDateTime());
+                .addValue("date_time", toDbDateTime(order.getDateTime()));
 
         if (order.isNew()) {
             Number newKey = insertOrder.executeAndReturnKey(map);

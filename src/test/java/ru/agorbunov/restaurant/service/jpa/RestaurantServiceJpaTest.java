@@ -3,6 +3,7 @@ package ru.agorbunov.restaurant.service.jpa;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
+import ru.agorbunov.restaurant.Profiles;
 import ru.agorbunov.restaurant.repository.JpaUtil;
 import ru.agorbunov.restaurant.service.RestaurantServiceImplTest;
 
@@ -10,7 +11,7 @@ import ru.agorbunov.restaurant.service.RestaurantServiceImplTest;
  * Created by Admin on 23.02.2017.
  */
 // TODO: 23.02.2017 delete class before production
-@ActiveProfiles("jpa")
+@ActiveProfiles(Profiles.JPA)
 public class RestaurantServiceJpaTest extends RestaurantServiceImplTest {
 
     @Autowired

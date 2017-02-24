@@ -1,6 +1,7 @@
 package ru.agorbunov.restaurant.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,19 +10,21 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.agorbunov.restaurant.Profiles;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.repository.MenuListRepository;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Created by Admin on 21.02.2017.
  */
-@Repository
 @Transactional(readOnly = true)
-public class JdbcMenuListRepositoryImpl implements MenuListRepository {
+public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepository {
     private static final BeanPropertyRowMapper<MenuList> ROW_MAPPER = BeanPropertyRowMapper.newInstance(MenuList.class);
     private static final BeanPropertyRowMapper<Dish> DISH_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
 
@@ -33,19 +36,41 @@ public class JdbcMenuListRepositoryImpl implements MenuListRepository {
 
     private SimpleJdbcInsert insertMenuList;
 
+    protected abstract T toDbDateTime(LocalDateTime ldt);
+
+
     @Autowired
-    public JdbcMenuListRepositoryImpl(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.insertMenuList = new SimpleJdbcInsert(dataSource)
                 .withTableName("menu_lists")
                 .usingGeneratedKeyColumns("id");
     }
+
+    @Repository
+    @Profile(Profiles.POSTGRES)
+    public static class Java8JdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<LocalDateTime> {
+        @Override
+        protected LocalDateTime toDbDateTime(LocalDateTime ldt) {
+            return ldt;
+        }
+    }
+
+    @Repository
+    @Profile(Profiles.HSQLDB)
+    public static class TimestampJdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<Timestamp> {
+        @Override
+        protected Timestamp toDbDateTime(LocalDateTime ldt) {
+            return Timestamp.valueOf(ldt);
+        }
+    }
+
     @Override
     @Transactional
     public MenuList save(MenuList menuList, int restaurantId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", menuList.getId())
                 .addValue("restaurant_id", restaurantId)
-                .addValue("date_time", menuList.getDateTime());
+                .addValue("date_time", toDbDateTime(menuList.getDateTime()));
 
         if (menuList.isNew()) {
             Number newKey = insertMenuList.executeAndReturnKey(map);
