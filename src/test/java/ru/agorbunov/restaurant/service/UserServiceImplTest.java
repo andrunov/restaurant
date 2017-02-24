@@ -23,7 +23,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
     private UserService service;
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         service.evictCache();
     }
 

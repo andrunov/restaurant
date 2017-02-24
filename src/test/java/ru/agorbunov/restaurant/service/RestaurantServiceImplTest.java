@@ -22,7 +22,7 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
     private RestaurantService service;
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         service.evictCache();
     }
 
