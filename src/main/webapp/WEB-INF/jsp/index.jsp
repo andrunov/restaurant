@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <fmt:setBundle basename="messages.app"/>
 
@@ -18,7 +18,7 @@
     </form>
     <ul>
         <li><a href="users"><fmt:message key="users.title"/></a></li>
-        <li><a href="meals"><fmt:message key="meals.title"/></a></li>
+        <li><a href="restaurants"><fmt:message key="restaurants.title"/></a></li>
     </ul>
 </section>
 <jsp:include page="fragments/footer.jsp"/>

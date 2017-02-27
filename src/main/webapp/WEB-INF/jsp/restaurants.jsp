@@ -11,26 +11,24 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <section>
-    <h3><fmt:message key="users.title"/></h3>
+    <h3><fmt:message key="restaurants.title"/></h3>
 
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th><fmt:message key="users.name"/></th>
-            <th><fmt:message key="users.email"/></th>
-            <th><fmt:message key="users.roles"/></th>
+            <th><fmt:message key="restaurants.name"/></th>
+            <th><fmt:message key="restaurants.address"/></th>
             <th/>
             <th/>
         </tr>
         </thead>
-        <c:forEach items="${users}" var="user">
-            <jsp:useBean id="user" scope="page" type="ru.agorbunov.restaurant.model.User"/>
+        <c:forEach items="${restaurants}" var="restaurant">
+            <jsp:useBean id="restaurant" scope="page" type="ru.agorbunov.restaurant.model.Restaurant"/>
             <tr>
-                <td><c:out value="${user.name}"/></td>
-                <td><a href="mailto:${user.email}">${user.email}</a></td>
-                <td>${user.roles}</td>
-                <td><a href="users/update?id=${user.id}"><fmt:message key="common.update"/></a></td>
-                <td><a href="users/delete?id=${user.id}"><fmt:message key="common.delete"/></a></td>
+                <td><c:out value="${restaurant.name}"/></td>
+                <td><c:out value="${restaurant.address}"/></td>
+                <td><a href="restaurants/update?id=${restaurant.id}"><fmt:message key="common.update"/></a></td>
+                <td><a href="restaurants/delete?id=${restaurant.id}"><fmt:message key="common.delete"/></a></td>
             </tr>
         </c:forEach>
     </table>

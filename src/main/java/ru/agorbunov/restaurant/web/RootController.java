@@ -5,9 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.agorbunov.restaurant.service.RestaurantService;
 import ru.agorbunov.restaurant.service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Admin on 26.02.2017.
@@ -16,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 public class RootController {
 
     @Autowired
-    private UserService service;
+    private UserService userService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
@@ -25,14 +27,15 @@ public class RootController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String users(Model model) {
-        model.addAttribute("users", service.getAll());
+        model.addAttribute("users", userService.getAll());
         return "users";
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String setUser(HttpServletRequest request) {
-        int userId = Integer.valueOf(request.getParameter("userId"));
-//        AuthorizedUser.setId(userId);
-        return "redirect:meals";
+    @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
+    public String restaurants(Model model) {
+        model.addAttribute("restaurants", restaurantService.getAll());
+        return "restaurants";
     }
+
+
 }
