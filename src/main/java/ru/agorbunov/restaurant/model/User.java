@@ -53,7 +53,8 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String name, String email, String password, List<Order> orders, Role role, Role... roles) {
+    public User(Integer id, String name, String email, String password, List<Order> orders, Role role, Role... roles) {
+        super(id);
         this.name = name;
         this.email = email;
         this.password = password;
@@ -61,6 +62,9 @@ public class User extends BaseEntity {
         this.orders = orders;
     }
 
+    public User(String name, String email, String password, List<Order> orders, Role role, Role... roles) {
+        this(null, name, email, password, orders, role,roles);
+    }
 
     public String getName() {
         return name;
