@@ -23,6 +23,7 @@
         <li><a href="users"><fmt:message key="users.title"/></a></li>
         <li><a href="restaurants"><fmt:message key="restaurants.title"/></a></li>
     </ul>
+
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
