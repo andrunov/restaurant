@@ -8,7 +8,10 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<section>
+<div class="jumbotron">
+    <div class="container">
+        <p/>
+
     <form method="post" action="users">
         <fmt:message key="app.login"/>: <select name="userId">
         <option value="100000" selected>User</option>
@@ -20,7 +23,8 @@
         <li><a href="users"><fmt:message key="users.title"/></a></li>
         <li><a href="restaurants"><fmt:message key="restaurants.title"/></a></li>
     </ul>
-</section>
+    </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

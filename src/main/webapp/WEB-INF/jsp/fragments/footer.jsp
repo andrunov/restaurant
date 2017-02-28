@@ -2,4 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setBundle basename="messages.app"/>
 <hr>
-<footer><fmt:message key="app.footer"/></footer>
+<div class="footer">
+    <div class="container">
+        <spring:message code="app.footer"/>
+    </div>
+</div>

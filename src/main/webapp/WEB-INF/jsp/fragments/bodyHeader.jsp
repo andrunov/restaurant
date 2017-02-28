@@ -2,4 +2,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:setBundle basename="messages.app"/>
-<header><a href="${pageContext.request.contextPath}/"><fmt:message key="app.home"/></a>&nbsp;|&nbsp;<a href="meals"><fmt:message key="app.title"/></a></header>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <a href="users" class="navbar-brand"><fmt:message key="app.title"/></a>
+
+        <div class="collapse navbar-collapse">
+            <form class="navbar-form navbar-right">
+                <a class="btn btn-primary" href="">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
