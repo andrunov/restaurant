@@ -14,7 +14,10 @@ $(function () {
                 "data": "email"
             },
             {
-                "data": "roles"
+                "data": "email"
+            },
+            {
+                "data": "password"
             },
             {
                 "defaultContent": "Edit",

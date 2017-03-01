@@ -1,6 +1,12 @@
 package ru.agorbunov.restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+
 import javax.persistence.*;
+
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -8,6 +14,7 @@ import javax.persistence.*;
 //public class BaseEntity implements Persistable<Integer> {
 @MappedSuperclass
 @Access(AccessType.FIELD)
+@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class BaseEntity {
 
     @Id

@@ -1,4 +1,4 @@
-package ru.agorbunov.restaurant.web;
+package ru.agorbunov.restaurant.web.restaurant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

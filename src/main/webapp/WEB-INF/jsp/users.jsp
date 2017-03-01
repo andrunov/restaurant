@@ -7,8 +7,8 @@
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
-<%--<script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>--%>
-<%--<script type="text/javascript" src="resources/js/userDatatable.js" defer></script>--%>
+<script type="text/javascript" src="resources/js/datatableUtil.js" defer></script>
+<script type="text/javascript" src="resources/js/userDatatable.js" defer></script>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -17,7 +17,7 @@
         <div class="shadow">
             <h3><fmt:message key="users.title"/></h3>
             <div class="view-box">
-                <a class="btn btn-sm btn-info">
+                <a class="btn btn-sm btn-info" onclick="add()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 
@@ -37,14 +37,14 @@
                             <td><c:out value="${user.name}"/></td>
                             <td><a href="mailto:${user.email}">${user.email}</a></td>
                             <td>${user.roles}</td>
-                            <%--<td><a class="btn btn-xs btn-primary edit id=${user.id}">--%>
-                                <%--<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>--%>
-                            <%--</a></td>--%>
-                            <%--<td><a class="btn btn-xs btn-danger delete delete?id=${user.id}">--%>
-                                <%--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--%>
-                            <%--</a></td>--%>
-                            <td><a href="users/update?id=${user.id}"><fmt:message key="common.update"/></a></td>
-                            <td><a href="users/delete?id=${user.id}"><fmt:message key="common.delete"/></a></td>
+                            <td><a class="btn btn-xs btn-primary edit id=${user.id}">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a></td>
+                            <td><a class="btn btn-xs btn-danger delete delete?id=${user.id}">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </a></td>
+                            <%--<td><a href="users/update?id=${user.id}"><fmt:message key="common.update"/></a></td>--%>
+                            <%--<td><a href="users/delete?id=${user.id}"><fmt:message key="common.delete"/></a></td>--%>
                         </tr>
                         </c:forEach>
                     </table>
