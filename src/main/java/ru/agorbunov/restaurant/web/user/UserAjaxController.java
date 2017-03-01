@@ -1,36 +1,35 @@
 package ru.agorbunov.restaurant.web.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.Role;
 import ru.agorbunov.restaurant.model.User;
-import ru.agorbunov.restaurant.service.UserService;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by Admin on 28.02.2017.
  */
 @RestController
-@RequestMapping(value = "/ajax")
-public class UserAjaxController  {
+@RequestMapping(value = "/ajax/users")
+public class UserAjaxController extends UserAbstractController {
 
-    @Autowired
-    private UserService service;
-
-    @GetMapping("/ajax")
-    public List<User> getAll() {
-//        return service.getAll();
-        return Collections.singletonList(new User(01,"sd","sdf","123",null,null));
+    @Override
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@PathVariable("id") int id) {
+        return super.get(id);
     }
 
+    @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getAll() {
+        return super.getAll();
+    }
 
-
-
-    @DeleteMapping("/{id}")
+    @Override
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
-        service.delete(id);
+        super.delete(id);
     }
 
 
@@ -41,10 +40,10 @@ public class UserAjaxController  {
                                @RequestParam("password") String password) {
 
         User user = new User(id, name, email, password, null, Role.USER);
-//        if (user.isNew()) {
-            service.save(user);
-//        } else {
-//            service.update(user, id);
-//        }
+        if (user.isNew()) {
+            super.create(user);
+        } else {
+            super.update(user, id);
+        }
     }
 }
