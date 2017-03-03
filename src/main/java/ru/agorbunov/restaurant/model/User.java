@@ -3,6 +3,8 @@ package ru.agorbunov.restaurant.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.EnumSet;
@@ -28,12 +30,16 @@ public class User extends BaseEntity {
     public static final String DELETE = "User.delete";
 
     @Column(nullable = false)
+    @NotBlank
     private String name;
 
-    @Column
+    @Column(nullable = false, unique = true)
+    @Email
+    @NotBlank
     private String email;
 
     @Column(nullable = false)
+    @NotBlank
     private String password;
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

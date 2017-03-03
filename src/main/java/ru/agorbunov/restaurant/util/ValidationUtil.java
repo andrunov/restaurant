@@ -3,6 +3,7 @@ package ru.agorbunov.restaurant.util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import ru.agorbunov.restaurant.model.BaseEntity;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 /**
@@ -36,5 +37,11 @@ public class ValidationUtil {
         StringBuilder sb = new StringBuilder();
         result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
         return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    public static void checkNew(BaseEntity entity) {
+        if (!entity.isNew()) {
+            throw new IllegalArgumentException(entity + " must be new (id=null)");
+        }
     }
 }

@@ -48,6 +48,24 @@ function save() {
     });
 }
 
+var failedNote;
+
+function closeNoty() {
+    if (failedNote) {
+        failedNote.close();
+        failedNote = undefined;
+    }
+}
+
+function failNoty(event, jqXHR, options, jsExc) {
+    closeNoty();
+    failedNote = noty({
+        text: 'Failed: ' + jqXHR.statusText + "<br>" + jqXHR.responseJSON,
+        type: 'error',
+        layout: 'bottomRight'
+    });
+}
+
 function renderEditBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">' +

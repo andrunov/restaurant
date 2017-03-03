@@ -1,9 +1,14 @@
-package ru.agorbunov.restaurant.web.user;
+package ru.agorbunov.restaurant.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.Role;
 import ru.agorbunov.restaurant.model.User;
+import ru.agorbunov.restaurant.service.UserService;
+import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.util.List;
 
@@ -12,38 +17,45 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/ajax/admin/users")
-public class UserAjaxController extends UserAbstractController {
+public class UserAjaxController {
 
-    @Override
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private UserService service;
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User get(@PathVariable("id") int id) {
-        return super.get(id);
+        log.info("get " + id);
+        return service.get(id);
     }
 
-    @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
-        return super.getAll();
+        log.info("getAll");
+        return service.getAll();
     }
 
-    @Override
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
-        super.delete(id);
+        log.info("delete " + id);
+        service.delete(id);
     }
-
 
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("name") String name,
                                @RequestParam("email") String email,
                                @RequestParam("password") String password) {
-
         User user = new User(id, name, email, password, null, Role.USER);
         if (user.isNew()) {
-            super.create(user);
+            ValidationUtil.checkNew(user);
+            log.info("create " + user);
+            service.save(user);
         } else {
-            super.update(user, id);
+            log.info("update " + user);
+            service.save(user);
         }
     }
 }
