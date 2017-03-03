@@ -14,7 +14,7 @@ CREATE TABLE users
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name       VARCHAR NOT NULL,
-  email      VARCHAR NOT NULL,
+  email      VARCHAR NOT NULL UNIQUE,
   password   VARCHAR NOT NULL
 );
 
