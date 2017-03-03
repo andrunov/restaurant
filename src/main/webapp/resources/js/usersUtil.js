@@ -1,7 +1,9 @@
+/**
+ * Created by Admin on 03.03.2017.
+ */
 var ajaxUrl = 'ajax/admin/users/';
 var datatableApi;
 
-// $(document).ready(function () {
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "paging": false,
@@ -14,10 +16,7 @@ $(function () {
                 "data": "email"
             },
             {
-                "data": "email"
-            },
-            {
-                "data": "password"
+                "data": "roles"
             },
             {
                 "defaultContent": "Edit",
@@ -27,13 +26,13 @@ $(function () {
                 "defaultContent": "Delete",
                 "orderable": false
             }
-        ],
-        "order": [
-            [
-                0,
-                "asc"
+            ],
+            "order": [
+                [
+                    0,
+                    "asc"
+                ]
             ]
-        ]
-    });
+        });
     makeEditable();
 });

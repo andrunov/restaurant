@@ -4,6 +4,6 @@
 <hr>
 <div class="footer">
     <div class="container">
-        <spring:message code="app.footer"/>
+        <fmt:message key="app.footer"/>
     </div>
 </div>

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Admin on 28.02.2017.
  */
 @RestController
-@RequestMapping(value = "/ajax/users")
+@RequestMapping(value = "/ajax/admin/users")
 public class UserAjaxController extends UserAbstractController {
 
     @Override

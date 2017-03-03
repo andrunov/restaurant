@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <fmt:setBundle basename="messages.app"/>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <script type="text/javascript" src="resources/js/datatableUtil.js" defer></script>
-<script type="text/javascript" src="resources/js/userDatatable.js" defer></script>
+<script type="text/javascript" src="resources/js/usersUtil.js" defer></script>
+
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -20,8 +20,7 @@
                 <a class="btn btn-sm btn-info" onclick="add()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
-
-                <table class="table table-striped">
+                <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
                         <th><fmt:message key="users.name"/></th>
@@ -37,14 +36,12 @@
                             <td><c:out value="${user.name}"/></td>
                             <td><a href="mailto:${user.email}">${user.email}</a></td>
                             <td>${user.roles}</td>
-                            <td><a class="btn btn-xs btn-primary edit id=${user.id}">
+                            <td><a class="btn btn-xs btn-primary">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a></td>
-                            <td><a class="btn btn-xs btn-danger delete delete?id=${user.id}">
+                            <td><a class="btn btn-xs btn-danger" onclick="deleteRow(${user.id})">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </a></td>
-                            <%--<td><a href="users/update?id=${user.id}"><fmt:message key="common.update"/></a></td>--%>
-                            <%--<td><a href="users/delete?id=${user.id}"><fmt:message key="common.delete"/></a></td>--%>
                         </tr>
                         </c:forEach>
                     </table>
@@ -53,6 +50,7 @@
         </div>
     </div>
 <jsp:include page="fragments/footer.jsp"/>
+
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
