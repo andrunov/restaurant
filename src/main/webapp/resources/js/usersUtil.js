@@ -4,8 +4,16 @@
 var ajaxUrl = 'ajax/admin/users/';
 var datatableApi;
 
+function updateTable() {
+    $.get(ajaxUrl, updateTableByData);
+}
+
 $(function () {
     datatableApi = $('#datatable').DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
         "paging": false,
         "info": true,
         "columns": [
@@ -13,26 +21,35 @@ $(function () {
                 "data": "name"
             },
             {
-                "data": "email"
+                "data": "email",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        return '<a href="mailto:' + data + '">' + data + '</a>';
+                    }
+                    return data;
+                }
             },
             {
                 "data": "roles"
             },
             {
-                "defaultContent": "Edit",
-                "orderable": false
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderEditBtn
             },
             {
-                "defaultContent": "Delete",
-                "orderable": false
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderDeleteBtn
             }
-            ],
-            "order": [
-                [
-                    0,
-                    "asc"
-                ]
+        ],
+        "order": [
+            [
+                0,
+                "asc"
             ]
-        });
-    makeEditable();
+        ],
+        "createdRow": "",
+        "initComplete": makeEditable
+    });
 });
