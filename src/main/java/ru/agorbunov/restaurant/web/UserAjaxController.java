@@ -48,7 +48,8 @@ public class UserAjaxController {
                                @RequestParam("name") String name,
                                @RequestParam("email") String email,
                                @RequestParam("password") String password) {
-        User user = new User(id, name, email, password, null, Role.USER);
+        User user = new User(name, email, password, Role.USER);
+        user.setId(id);
         if (user.isNew()) {
             ValidationUtil.checkNew(user);
             log.info("create " + user);

@@ -57,16 +57,11 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        super(id);
+    public User(String name, String email, String password, Role role, Role... roles) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.roles = EnumSet.of(role, roles);
-    }
-
-    public User(String name, String email, String password, Role role, Role... roles) {
-        this(null, name, email, password, role,roles);
     }
 
     public String getName() {
