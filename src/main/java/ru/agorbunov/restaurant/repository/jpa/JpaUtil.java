@@ -1,4 +1,4 @@
-package ru.agorbunov.restaurant.repository;
+package ru.agorbunov.restaurant.repository.jpa;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

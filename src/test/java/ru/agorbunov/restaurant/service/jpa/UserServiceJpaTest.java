@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import ru.agorbunov.restaurant.Profiles;
-import ru.agorbunov.restaurant.repository.JpaUtil;
+import ru.agorbunov.restaurant.repository.jpa.JpaUtil;
 import ru.agorbunov.restaurant.service.UserServiceImplTest;
 
 /**
