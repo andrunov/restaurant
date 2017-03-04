@@ -50,6 +50,7 @@ public class UserAjaxController {
                                @RequestParam("password") String password) {
         User user = new User(name, email, password, Role.USER);
         user.setId(id);
+        checkEmpty(user);
         if (user.isNew()) {
             ValidationUtil.checkNew(user);
             log.info("create " + user);
@@ -58,5 +59,11 @@ public class UserAjaxController {
             log.info("update " + user);
             service.save(user);
         }
+    }
+
+    private void checkEmpty(User user){
+        ValidationUtil.checkEmpty(user.getName(),"name");
+        ValidationUtil.checkEmpty(user.getEmail(),"email");
+        ValidationUtil.checkEmpty(user.getPassword(),"password");
     }
 }
