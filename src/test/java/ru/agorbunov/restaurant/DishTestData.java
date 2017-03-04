@@ -16,34 +16,79 @@ public class DishTestData {
 
     public static final ModelMatcher<Dish> MATCHER = new ModelMatcher<>();
 
+    public static final Dish DISH_01 = new Dish("Каша овсяная",1.25);
+    public static final Dish DISH_02 = new Dish("Сырники",3.45);
+    public static final Dish DISH_03 = new Dish("Блины",2.48);
+    public static final Dish DISH_04 = new Dish("Суп гороховый",5.57);
+    public static final Dish DISH_05 = new Dish("Рассольник",6.87);
+    public static final Dish DISH_06 = new Dish("Жульен с грибами",12.47);
+    public static final Dish DISH_07 = new Dish("Пельмени",7.96);
+    public static final Dish DISH_08 = new Dish("Котлета по киевски",14.58);
+    public static final Dish DISH_09 = new Dish("Чай черный",0.55);
+    public static final Dish DISH_10 = new Dish("Чай зеленый",0.55);
+    public static final Dish DISH_11 = new Dish("Кофе черный",0.75);
+    public static final Dish DISH_12 = new Dish("Кофе белый",0.95);
+    public static final Dish DISH_13 = new Dish("Котлета по питерски",12.54);
+    public static final Dish DISH_14 = new Dish("Поросенок под хреном",24.58);
+    public static final Dish DISH_15 = new Dish("Чебурек",4.62);
+    public static final Dish DISH_16 = new Dish("Беляш",4.12);
+    public static final Dish DISH_17 = new Dish("Чай черный с лимоном",1.95);
+    public static final Dish DISH_18 = new Dish("Борщ",17.58);
+    public static final Dish DISH_19 = new Dish("Плов узбекский",12.75);
+    public static final Dish DISH_20 = new Dish("Салат оливье",8.12);
 
-    public static final Dish DISH_01 = new Dish("Каша овсяная",1.25, MENU_LIST_01, Arrays.asList(ORDER_01, ORDER_02));
-    public static final Dish DISH_02 = new Dish("Сырники",3.45,MENU_LIST_01,Arrays.asList(ORDER_01, ORDER_02));
-    public static final Dish DISH_03 = new Dish("Блины",2.48, MENU_LIST_01,Collections.singletonList(null));
-    public static final Dish DISH_04 = new Dish("Суп гороховый",5.57,MENU_LIST_01,Arrays.asList(ORDER_01, ORDER_02));
-    public static final Dish DISH_05 = new Dish("Рассольник",6.87,MENU_LIST_01,Collections.singletonList(ORDER_02));
-    public static final Dish DISH_06 = new Dish("Жульен с грибами",12.47,MENU_LIST_02,Collections.singletonList(ORDER_03));
-    public static final Dish DISH_07 = new Dish("Пельмени",7.96, MENU_LIST_02,Collections.singletonList(ORDER_03));
-    public static final Dish DISH_08 = new Dish("Котлета по киевски",14.58, MENU_LIST_02,Arrays.asList(ORDER_03, ORDER_04));
-    public static final Dish DISH_09 = new Dish("Чай черный",0.55, MENU_LIST_02,Collections.singletonList(ORDER_04));
-    public static final Dish DISH_10 = new Dish("Чай зеленый",0.55,MENU_LIST_03,Collections.singletonList(ORDER_05));
-    public static final Dish DISH_11 = new Dish("Кофе черный",0.75,MENU_LIST_03,Collections.singletonList(ORDER_05));
-    public static final Dish DISH_12 = new Dish("Кофе белый",0.95,MENU_LIST_03,Collections.singletonList(null));
-    public static final Dish DISH_13 = new Dish("Котлета по питерски",12.54,MENU_LIST_03,Collections.singletonList(null));
-    public static final Dish DISH_14 = new Dish("Поросенок под хреном",24.58,MENU_LIST_03,Collections.singletonList(null));
-    public static final Dish DISH_15 = new Dish("Чебурек",4.62,MENU_LIST_04,Collections.singletonList(ORDER_06));
-    public static final Dish DISH_16 = new Dish("Беляш",4.12,MENU_LIST_04,Collections.singletonList(ORDER_06));
-    public static final Dish DISH_17 = new Dish("Чай черный с лимоном",1.95,MENU_LIST_04,Collections.singletonList(ORDER_06));
-    public static final Dish DISH_18 = new Dish("Борщ",17.58,MENU_LIST_04,Collections.singletonList(ORDER_06));
-    public static final Dish DISH_19 = new Dish("Плов узбекский",12.75,MENU_LIST_04,Collections.singletonList(ORDER_06));
-    public static final Dish DISH_20 = new Dish("Салат оливье",8.12,MENU_LIST_04,Collections.singletonList(ORDER_06));
-
-    public static final Dish DISH_CREATED = new Dish("Созданная еда",3.12,MENU_LIST_01,Collections.singletonList(ORDER_01));
+    public static final Dish DISH_CREATED = new Dish("Созданная еда",3.12);
 
     public static final int DISH_01_ID = 100020;
     public static final int MENU_LIST_01_ID = 100016;
     public static final int MENU_LIST_02_ID = 100017;
     public static final int ORDER_01_ID = 100010;
     public static final int ORDER_02_ID = 100011;
+
+    static {
+        DISH_01.setMenuList(MENU_LIST_01);
+        DISH_01.setOrders(Arrays.asList(ORDER_01, ORDER_02));
+        DISH_02.setMenuList(MENU_LIST_01);
+        DISH_02.setOrders(Arrays.asList(ORDER_01, ORDER_02));
+        DISH_03.setMenuList(MENU_LIST_01);
+        DISH_03.setOrders(Collections.singletonList(null));
+        DISH_04.setMenuList(MENU_LIST_01);
+        DISH_04.setOrders(Arrays.asList(ORDER_01, ORDER_02));
+        DISH_05.setMenuList(MENU_LIST_01);
+        DISH_05.setOrders(Collections.singletonList(ORDER_02));
+        DISH_06.setMenuList(MENU_LIST_02);
+        DISH_06.setOrders(Collections.singletonList(ORDER_03));
+        DISH_07.setMenuList(MENU_LIST_02);
+        DISH_07.setOrders(Collections.singletonList(ORDER_03));
+        DISH_08.setMenuList(MENU_LIST_02);
+        DISH_08.setOrders(Arrays.asList(ORDER_03, ORDER_04));
+        DISH_09.setMenuList(MENU_LIST_02);
+        DISH_09.setOrders(Collections.singletonList(ORDER_04));
+        DISH_10.setMenuList(MENU_LIST_03);
+        DISH_10.setOrders(Collections.singletonList(ORDER_05));
+        DISH_11.setMenuList(MENU_LIST_03);
+        DISH_11.setOrders(Collections.singletonList(ORDER_05));
+        DISH_12.setMenuList(MENU_LIST_03);
+        DISH_12.setOrders(Collections.singletonList(null));
+        DISH_13.setMenuList(MENU_LIST_03);
+        DISH_13.setOrders(Collections.singletonList(null));
+        DISH_14.setMenuList(MENU_LIST_03);
+        DISH_14.setOrders(Collections.singletonList(null));
+        DISH_15.setMenuList(MENU_LIST_04);
+        DISH_15.setOrders(Collections.singletonList(ORDER_06));
+        DISH_16.setMenuList(MENU_LIST_04);
+        DISH_16.setOrders(Collections.singletonList(ORDER_06));
+        DISH_17.setMenuList(MENU_LIST_04);
+        DISH_17.setOrders(Collections.singletonList(ORDER_06));
+        DISH_18.setMenuList(MENU_LIST_04);
+        DISH_18.setOrders(Collections.singletonList(ORDER_06));
+        DISH_19.setMenuList(MENU_LIST_04);
+        DISH_19.setOrders(Collections.singletonList(ORDER_06));
+        DISH_20.setMenuList(MENU_LIST_04);
+        DISH_20.setOrders(Collections.singletonList(ORDER_06));
+        DISH_CREATED.setMenuList(MENU_LIST_01);
+        DISH_CREATED.setOrders(Collections.singletonList(ORDER_01));
+
+    }
 
 }

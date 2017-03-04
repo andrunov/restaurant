@@ -44,11 +44,9 @@ public class Dish extends BaseEntity {
     public Dish() {
     }
 
-    public Dish(String description, Double price, MenuList menuList, List<Order> orders) {
+    public Dish(String description, Double price) {
         this.description = description;
         this.price = price;
-        this.menuList = menuList;
-        this.orders = orders;
     }
 
     public String getDescription() {
