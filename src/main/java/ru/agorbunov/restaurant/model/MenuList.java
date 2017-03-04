@@ -38,9 +38,8 @@ public class MenuList extends BaseEntity {
     public MenuList() {
     }
 
-    public MenuList(Restaurant restaurant, List<Dish> dishList, LocalDateTime dateTime) {
+    public MenuList(Restaurant restaurant, LocalDateTime dateTime) {
         this.restaurant = restaurant;
-        this.dishList = dishList;
         this.dateTime = dateTime;
     }
 

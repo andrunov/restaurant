@@ -30,16 +30,13 @@ public class User extends BaseEntity {
     public static final String DELETE = "User.delete";
 
     @Column(nullable = false)
-    @NotBlank
     private String name;
 
     @Column(nullable = false, unique = true)
     @Email
-    @NotBlank
     private String email;
 
     @Column(nullable = false)
-    @NotBlank
     private String password;
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
