@@ -41,13 +41,6 @@ public class Restaurant extends BaseEntity {
     public Restaurant() {
     }
 
-    public Restaurant(String name, String address, List<MenuList> menuLists, List<Order> orders) {
-        this.name = name;
-        this.address = address;
-        this.menuLists = menuLists;
-        this.orders = orders;
-    }
-
     public Restaurant(String name, String address) {
         this.name = name;
         this.address = address;

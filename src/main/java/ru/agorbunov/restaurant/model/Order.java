@@ -47,10 +47,9 @@ public class Order extends BaseEntity {
     public Order() {
     }
 
-    public Order(User user, Restaurant restaurant, List<Dish> dishes, LocalDateTime dateTime) {
+    public Order(User user, Restaurant restaurant, LocalDateTime dateTime) {
         this.user = user;
         this.restaurant = restaurant;
-        this.dishes = dishes;
         this.dateTime = dateTime;
     }
 

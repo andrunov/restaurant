@@ -44,8 +44,7 @@ public class ValidationUtil {
             throw new IllegalArgumentException(entity + " must be new (id=null)");
         }
     }
-    // TODO remove before production if JPA profile
-    //for jdbc profile use only
+
     public static void checkEmpty(String string, String description){
         if ((string==null)||(string.trim().equals(""))){
             throw new IllegalArgumentException(description + " must be not empty");

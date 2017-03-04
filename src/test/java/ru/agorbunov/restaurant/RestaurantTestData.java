@@ -16,25 +16,27 @@ public class RestaurantTestData {
 
     public static final ModelMatcher<Restaurant> MATCHER = new ModelMatcher<>();
 
-    public static final Restaurant RESTAURANT_01 = new Restaurant("Ёлки-палки","ул. Некрасова, 14"
-                                                                     ,Collections.singletonList(MENU_LIST_01)
-                                                                     , Arrays.asList(ORDER_01,ORDER_02));
-    public static final Restaurant RESTAURANT_02 = new Restaurant("Пиццерия","пл. Пушкина, 6"
-                                                                     , Collections.singletonList(MENU_LIST_02)
-                                                                     ,Arrays.asList(ORDER_03,ORDER_04));
-    public static final Restaurant RESTAURANT_03 = new Restaurant("Закусочная","Привокзальная пл, 3"
-                                                                     , Collections.singletonList(MENU_LIST_03)
-                                                                     , Collections.singletonList(ORDER_05));
-    public static final Restaurant RESTAURANT_04 = new Restaurant("Прага","ул. Арбат, 1"
-                                                                     , Collections.singletonList(MENU_LIST_04)
-                                                                     , Collections.singletonList(ORDER_06));
+    public static final Restaurant RESTAURANT_01 = new Restaurant("Ёлки-палки","ул. Некрасова, 14");
+    public static final Restaurant RESTAURANT_02 = new Restaurant("Пиццерия","пл. Пушкина, 6");
+    public static final Restaurant RESTAURANT_03 = new Restaurant("Закусочная","Привокзальная пл, 3");
+    public static final Restaurant RESTAURANT_04 = new Restaurant("Прага","ул. Арбат, 1");
+    public static final Restaurant RESTAURANT_CREATED = new Restaurant("Созданный ресторант","ул. Новая, 1");
 
     public static int RESTAURANT_01_ID = 100006;
     public static int RESTAURANT_02_ID = 100007;
 
-    public static final Restaurant RESTAURANT_CREATED = new Restaurant("Созданный ресторант","ул. Новая, 1"
-                                                                            , Collections.singletonList(MENU_LIST_01)
-                                                                            , Collections.singletonList(ORDER_01));
+    static {
+        RESTAURANT_01.setMenuLists(Collections.singletonList(MENU_LIST_01));
+        RESTAURANT_01.setOrders(Arrays.asList(ORDER_01,ORDER_02));
+        RESTAURANT_02.setMenuLists(Collections.singletonList(MENU_LIST_02));
+        RESTAURANT_02.setOrders(Arrays.asList(ORDER_03,ORDER_04));
+        RESTAURANT_03.setMenuLists(Collections.singletonList(MENU_LIST_03));
+        RESTAURANT_03.setOrders(Collections.singletonList(ORDER_05));
+        RESTAURANT_04.setMenuLists(Collections.singletonList(MENU_LIST_04));
+        RESTAURANT_04.setOrders(Collections.singletonList(ORDER_06));
+        RESTAURANT_CREATED.setMenuLists(Collections.singletonList(MENU_LIST_01));
+        RESTAURANT_CREATED.setOrders(Collections.singletonList(ORDER_01));
+    }
 
 
 }
