@@ -19,8 +19,8 @@
         <button type="submit"><fmt:message key="common.select"/></button>
     </form>
     <ul>
-        <li><a href="users"><fmt:message key="users.title"/></a></li>
-        <li><a href="restaurants"><fmt:message key="restaurants.title"/></a></li>
+        <li><strong><a href="users"><fmt:message key="users.title"/></a></strong></li>
+        <li><strong><a href="restaurants"><fmt:message key="restaurants.title"/></a></strong></li>
     </ul>
     </div>
 </div>

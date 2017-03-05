@@ -11,15 +11,16 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<div class="jumbotron">
-    <div class="container">
+<div class="container">
+    <div class="jumbotron">
         <div class="shadow">
             <h3><fmt:message key="users.title"/></h3>
             <div class="view-box">
-                <a class="btn btn-sm btn-info" onclick="add()">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <a class="btn btn-primary" type="button" onclick="add()">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <fmt:message key="users.add"/>
                 </a>
-                <table class="table table-striped display" id="datatable">
+                <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
                         <th><fmt:message key="users.name"/></th>

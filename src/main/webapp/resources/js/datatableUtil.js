@@ -68,14 +68,14 @@ function failNoty(event, jqXHR, options, jsExc) {
 
 function renderEditBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">' +
-            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
+        return '<a class="btn btn-primary" onclick="updateRow(' + row.id + ');">' +
+            '<span class="glyphicon glyphicon-edit"></span></a>';
     }
 }
 
 function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">'+
-            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+        return '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">'+
+            '<span class="glyphicon glyphicon-remove-circle"></span></a>';
     }
 }
