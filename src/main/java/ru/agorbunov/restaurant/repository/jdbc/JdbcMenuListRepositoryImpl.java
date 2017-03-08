@@ -104,7 +104,12 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
 
     @Override
     public List<MenuList> getAll() {
-        return jdbcTemplate.query("SELECT * FROM menu_lists", ROW_MAPPER);
+        return jdbcTemplate.query("SELECT * FROM menu_lists ORDER BY date_time DESC", ROW_MAPPER);
+    }
+
+    @Override
+    public List<MenuList> getByRestaurant(int restaurantId) {
+        return jdbcTemplate.query("SELECT * FROM menu_lists WHERE restaurant_id=? ORDER BY date_time DESC", ROW_MAPPER, restaurantId);
     }
 
     private MenuList setDishes(MenuList m) {

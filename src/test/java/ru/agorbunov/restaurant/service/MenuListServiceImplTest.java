@@ -9,6 +9,7 @@ import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static ru.agorbunov.restaurant.MenuListTestData.*;
 
@@ -23,7 +24,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     @Test
     public void save() throws Exception {
         service.save(MENU_LIST_CREATED,RESTAURANT_01_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(MENU_LIST_01,MENU_LIST_02,MENU_LIST_03,MENU_LIST_04,MENU_LIST_CREATED),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(MENU_LIST_CREATED,MENU_LIST_01,MENU_LIST_02,MENU_LIST_03,MENU_LIST_04),service.getAll());
     }
 
     @Test
@@ -101,4 +102,8 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
         service.getWith(MENU_LIST_01_ID, RESTAURANT_02_ID);
     }
 
+    @Test
+    public void getByRestaurant() throws Exception {
+        MATCHER.assertCollectionEquals(Collections.singletonList(MENU_LIST_01),service.getByRestaurant(RESTAURANT_01_ID));
+    }
 }

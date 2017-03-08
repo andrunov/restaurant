@@ -12,7 +12,8 @@ import java.util.List;
  */
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = MenuList.GET_ALL, query = "SELECT m from MenuList m"),
+        @NamedQuery(name = MenuList.GET_ALL, query = "SELECT m from MenuList m ORDER BY m.dateTime desc"),
+        @NamedQuery(name = MenuList.GET_ALL_BY_RESTAURANT, query = "SELECT m from MenuList m where m.restaurant.id=:restaurantId ORDER BY m.dateTime desc"),
         @NamedQuery(name = MenuList.GET_WITH, query = "SELECT m from MenuList m left join fetch m.dishList where m.id=:id"),
         @NamedQuery(name = MenuList.DELETE, query = "DELETE FROM MenuList m WHERE m.id=:id")
 })
@@ -21,6 +22,7 @@ import java.util.List;
 public class MenuList extends BaseEntity {
 
     public static final String GET_ALL = "MenuList.getAll";
+    public static final String GET_ALL_BY_RESTAURANT = "MenuList.getAllbyRestaurant";
     public static final String DELETE = "MenuList.delete";
     public static final String GET_WITH = "MenuList.getWith";
 
