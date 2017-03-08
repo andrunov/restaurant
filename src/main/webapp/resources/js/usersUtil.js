@@ -3,6 +3,9 @@
  */
 var ajaxUrl = 'ajax/admin/users/';
 var datatableApi;
+var editTitleKey ="users.edit";
+var addTitleKey ="users.add";
+
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);

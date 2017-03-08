@@ -8,11 +8,13 @@ function makeEditable() {
 }
 
 function add() {
+    $('#modalTitle').html(i18n[addTitleKey]);
     form[0].reset();
     $('#editRow').modal();
 }
 
 function updateRow(id) {
+    $('#modalTitle').html(i18n[editTitleKey]);
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);

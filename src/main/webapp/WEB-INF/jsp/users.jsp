@@ -42,7 +42,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><fmt:message key="users.add"/></h2>
+                <h2 class="modal-title" id="modalTitle"></h2>
+
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">

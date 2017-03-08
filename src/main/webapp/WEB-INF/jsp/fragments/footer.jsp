@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setBundle basename="messages.app"/>
+
 <hr>
     <div class="navbar-fixed-bottom">
         <div class="container">
@@ -12,3 +14,10 @@
 </div>
 
 
+<script type="text/javascript">
+    var i18n = [];
+
+    <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete","users.add","users.edit"}%>'>
+    i18n['${key}'] = '<fmt:message key="${key}"/>';
+    </c:forEach>
+</script>
