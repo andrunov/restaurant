@@ -1,11 +1,7 @@
 package ru.agorbunov.restaurant.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import ru.agorbunov.restaurant.service.RestaurantService;
 
 /**
  * Created by Admin on 26.02.2017.
@@ -13,10 +9,8 @@ import ru.agorbunov.restaurant.service.RestaurantService;
 @Controller
 public class RootController {
 
-    @Autowired
-    private RestaurantService restaurantService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public String root() {
         return "index";
     }
