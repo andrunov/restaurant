@@ -2,7 +2,6 @@ package ru.agorbunov.restaurant.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,13 +22,12 @@ public class RootController {
     }
 
     @GetMapping("/users")
-    public String users(Model model) {
+    public String users() {
         return "users";
     }
 
-    @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
-    public String restaurants(Model model) {
-        model.addAttribute("restaurants", restaurantService.getAll());
+    @GetMapping(value = "/restaurants")
+    public String restaurants() {
         return "restaurants";
     }
 
