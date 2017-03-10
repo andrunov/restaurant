@@ -33,6 +33,8 @@ function deleteRow(id) {
     });
 }
 
+
+
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
 }

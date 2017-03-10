@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.MenuList;
+import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.service.MenuListService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
@@ -27,15 +28,17 @@ public class MenuListAjaxController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MenuList> getAll(Integer restaurantId) {
+    public List<MenuList> getAll() {
         log.info("getAll");
-        return service.getByRestaurant(Integer.valueOf(100006));
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        return service.getByRestaurant(currentRestaurant.getId());
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public MenuList menuList(@PathVariable("id") int id) {
         log.info("get " + id);
-        return service.get(id,100006);
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        return service.get(id,currentRestaurant.getId());
     }
 
     @DeleteMapping(value = "/{id}")

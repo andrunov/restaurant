@@ -1,7 +1,4 @@
 /**
- * Created by Admin on 08.03.2017.
- */
-/**
  * Created by Admin on 03.03.2017.
  */
 var ajaxUrl = '/ajax/restaurants/';
@@ -31,6 +28,11 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "render": linkBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
                 "render": renderEditBtn
             },
             {
@@ -49,3 +51,11 @@ $(function () {
         "initComplete": makeEditable
     });
 });
+
+function linkBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick=location.href="/menuLists/'+ row.id +'">' +
+            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+}
+
