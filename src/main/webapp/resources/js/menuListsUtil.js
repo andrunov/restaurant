@@ -1,13 +1,10 @@
 /**
- * Created by Admin on 08.03.2017.
- */
-/**
  * Created by Admin on 03.03.2017.
  */
-var ajaxUrl = '/ajax/restaurants/';
+var ajaxUrl = '/ajax/menuLists';
 var datatableApi;
-var editTitleKey ="restaurants.edit";
-var addTitleKey ="restaurants.add";
+var editTitleKey ="menuLists.edit";
+var addTitleKey ="menuLists.add";
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
@@ -23,10 +20,7 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "name"
-            },
-            {
-                "data": "address"
+                "data": "dateTime"
             },
             {
                 "orderable": false,

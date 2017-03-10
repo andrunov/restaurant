@@ -25,5 +25,10 @@ public class RootController {
         return "restaurants";
     }
 
+    @GetMapping(value = "/menuLists")
+    public String menuLists() {
+        return "menuLists";
+    }
+
 
 }

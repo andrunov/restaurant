@@ -81,3 +81,7 @@ function renderDeleteBtn(data, type, row) {
             '<span class="glyphicon glyphicon-remove-circle"></span></a>';
     }
 }
+
+function formatDate(date) {
+    return date.toString().replace('T', ' ').substr(0, 16);
+}

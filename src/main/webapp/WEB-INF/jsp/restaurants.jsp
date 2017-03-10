@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><fmt:message key="restaurants.address"/></label>
+                        <label for="address" class="control-label col-xs-3"><fmt:message key="restaurants.address"/></label>
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="address" name="address" placeholder="<fmt:message key="restaurants.address"/>">

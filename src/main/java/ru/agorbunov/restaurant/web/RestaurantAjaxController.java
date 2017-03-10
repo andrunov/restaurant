@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Admin on 01.03.2017.
  */
 @RestController
-@RequestMapping(value =  "/ajax/admin/restaurants")
+@RequestMapping(value =  "/ajax/restaurants")
 public class RestaurantAjaxController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());

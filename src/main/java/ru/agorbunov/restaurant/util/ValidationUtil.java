@@ -6,6 +6,8 @@ import org.springframework.validation.BindingResult;
 import ru.agorbunov.restaurant.model.BaseEntity;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by Admin on 19.02.2017.
  */
@@ -47,6 +49,12 @@ public class ValidationUtil {
 
     public static void checkEmpty(String string, String description){
         if ((string==null)||(string.trim().equals(""))){
+            throw new IllegalArgumentException(description + " must be not empty");
+        }
+    }
+
+    public static void checkEmpty(LocalDateTime dateTime, String description){
+        if (dateTime==null){
             throw new IllegalArgumentException(description + " must be not empty");
         }
     }
