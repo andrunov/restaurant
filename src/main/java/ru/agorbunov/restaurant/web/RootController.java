@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.agorbunov.restaurant.service.RestaurantService;
+import ru.agorbunov.restaurant.service.UserService;
 
 /**
  * Created by Admin on 26.02.2017.
@@ -19,6 +20,9 @@ public class RootController {
 
     @Autowired
     private RestaurantService restaurantService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/")
     public String root() {
@@ -45,6 +49,18 @@ public class RootController {
     public String menuLists(@PathVariable("id") int id) {
         CurrentEntities.setCurrentRestaurant(restaurantService.get(id));
         return "redirect:/menuLists";
+    }
+
+    @GetMapping(value = "/orders")
+    public String orders(Model model) {
+        model.addAttribute(CurrentEntities.getCurrentUser());
+        return "orders";
+    }
+
+    @GetMapping(value = "/orders/{id}")
+    public String orders(@PathVariable("id") int id) {
+        CurrentEntities.setCurrentUser(userService.get(id));
+        return "redirect:/orders";
     }
 
 

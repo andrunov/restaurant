@@ -1,11 +1,10 @@
 /**
- * Created by Admin on 03.03.2017.
+ * Created by Admin on 11.03.2017.
  */
-var ajaxUrl = 'ajax/admin/users/';
+var ajaxUrl = '/ajax/restaurants/';
 var datatableApi;
-var editTitleKey ="users.edit";
-var addTitleKey ="users.add";
-
+var editTitleKey ="restaurants.edit";
+var addTitleKey ="restaurants.add";
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
@@ -24,16 +23,7 @@ $(function () {
                 "data": "name"
             },
             {
-                "data": "email",
-                "render": function (data, type, row) {
-                    if (type == 'display') {
-                        return '<a href="mailto:' + data + '">' + data + '</a>';
-                    }
-                    return data;
-                }
-            },
-            {
-                "data": "roles"
+                "data": "address"
             },
             {
                 "orderable": false,
@@ -64,7 +54,8 @@ $(function () {
 
 function linkBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick=location.href="/orders/'+ row.id +'">' +
+        return '<a class="btn btn-primary" onclick=location.href="/menuLists/'+ row.id +'">' +
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
     }
 }
+

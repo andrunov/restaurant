@@ -6,7 +6,7 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <script type="text/javascript" src="resources/js/datatableUtil.js" defer></script>
-<script type="text/javascript" src="resources/js/usersUtil.js" defer></script>
+<script type="text/javascript" src="resources/js/ordersUtil.js" defer></script>
 
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -14,28 +14,26 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="users.title"/></h3>
+            <h3><fmt:message key="orders.title"/></h3>
+            <p>${user.name}, ${user.email}</p>
             <div class="view-box">
                 <a class="btn btn-primary" type="button" onclick="add()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    <fmt:message key="users.add"/>
+                    <fmt:message key="orders.add"/>
                 </a>
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
-                        <th><fmt:message key="users.name"/></th>
-                        <th><fmt:message key="users.email"/></th>
-                        <th><fmt:message key="users.roles"/></th>
-                        <th><fmt:message key="orders.title"/></th>
+                        <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="common.update"/></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
     </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 
 <div class="modal fade" id="editRow">
@@ -51,26 +49,12 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><fmt:message key="users.name"/></label>
+                        <label for="dateTime" class="control-label col-xs-3"><fmt:message
+                                key="common.dateTime"/></label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="<fmt:message key="users.name"/>">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="control-label col-xs-3"><fmt:message key="users.email"/></label>
-
-                        <div class="col-xs-9">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="<fmt:message key="users.email"/>">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="control-label col-xs-3"><fmt:message key="users.password"/></label>
-
-                        <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="<fmt:message key="users.password"/>">
+                            <input class="form-control" id="dateTime" name="dateTime"
+                                   placeholder="<fmt:message key="common.dateTime"/>">
                         </div>
                     </div>
 
@@ -88,3 +72,6 @@
 </div>
 </body>
 </html>
+
+
+
