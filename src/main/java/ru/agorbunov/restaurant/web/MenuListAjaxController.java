@@ -3,11 +3,13 @@ package ru.agorbunov.restaurant.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.service.MenuListService;
+import ru.agorbunov.restaurant.util.DateTimeUtil;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
@@ -50,7 +52,7 @@ public class MenuListAjaxController {
 
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("dateTime") LocalDateTime dateTime){
+                               @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         MenuList menuList = new MenuList(currentRestaurant, dateTime);
         menuList.setId(id);

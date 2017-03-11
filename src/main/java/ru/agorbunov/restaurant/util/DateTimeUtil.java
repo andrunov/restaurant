@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
  * Created by Admin on 10.03.2017.
  */
 public class DateTimeUtil {
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
