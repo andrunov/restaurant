@@ -15,6 +15,7 @@
     <div class="jumbotron">
         <div class="shadow">
             <h3><fmt:message key="menuLists.title"/></h3>
+            <p>${restaurant.name}, ${restaurant.address}</p>
             <div class="view-box">
                 <a class="btn btn-primary" type="button" onclick="add()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
