@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.Profiles;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
+import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.sql.DataSource;
@@ -31,6 +32,7 @@ import java.util.List;
 public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     private static final BeanPropertyRowMapper<Order> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
     private static final BeanPropertyRowMapper<Dish> DISH_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
+    private static final BeanPropertyRowMapper<Restaurant> RESTAURANT_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Restaurant.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -139,7 +141,11 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     @Override
     public List<Order> getByUser(int userId) {
-        return jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? ORDER BY date_time DESC ", ROW_MAPPER,userId);
+        List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? ORDER BY date_time DESC ", ROW_MAPPER,userId);
+        for (Order order : result) {
+            setRestaurant(order);
+        }
+        return result;
     }
 
     private Order setDishes(Order o) {
@@ -147,6 +153,15 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
             List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes AS d LEFT JOIN orders_dishes AS od ON d.id = od.dish_id WHERE od.order_id=?",
                     DISH_ROW_MAPPER, o.getId());
             o.setDishes(dishes);
+        }
+        return o;
+    }
+
+    private Order setRestaurant(Order o){
+        if (o != null) {
+            List<Restaurant> restaurants = jdbcTemplate.query("SELECT * FROM restaurants AS r LEFT JOIN orders AS o ON r.id = o.restaurant_id WHERE o.id=?",
+                    RESTAURANT_ROW_MAPPER, o.getId());
+            o.setRestaurant(restaurants.get(0));
         }
         return o;
     }

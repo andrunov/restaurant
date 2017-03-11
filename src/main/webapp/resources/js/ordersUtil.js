@@ -23,6 +23,15 @@ $(function () {
                 "data": "dateTime"
             },
             {
+                "data": "restaurant",
+                "render": function (date, type, row) {
+                    // if (type == 'display') {
+                    //     return date.toString();
+                    // }
+                    return (date.name +', '+ date.address);
+                }
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "render": linkBtn

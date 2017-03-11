@@ -25,6 +25,7 @@
                     <thead>
                     <tr>
                         <th><fmt:message key="common.dateTime"/></th>
+                        <th><fmt:message key="restaurants.name"/></th>
                         <th><fmt:message key="dish.title"/></th>
                         <th><fmt:message key="common.update"/></th>
                         <th><fmt:message key="common.delete"/></th>
