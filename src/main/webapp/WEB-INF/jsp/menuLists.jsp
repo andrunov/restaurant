@@ -24,8 +24,8 @@
                     <thead>
                     <tr>
                         <th><fmt:message key="common.dateTime"/></th>
-                        <th/>
-                        <th/>
+                        <th><fmt:message key="common.update"/></th>
+                        <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
                 </table>
@@ -35,46 +35,40 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 
-<%--<div class="modal fade" id="editRow">--%>
-    <%--<div class="modal-dialog">--%>
-        <%--<div class="modal-content">--%>
-            <%--<div class="modal-header">--%>
-                <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--%>
-                <%--<h2 class="modal-title" id="modalTitle"></h2>--%>
+<div class="modal fade" id="editRow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="modalTitle"></h2>
 
-            <%--</div>--%>
-            <%--<div class="modal-body">--%>
-                <%--<form class="form-horizontal" method="post" id="detailsForm">--%>
-                    <%--<input type="text" hidden="hidden" id="id" name="id">--%>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" id="detailsForm">
+                    <input type="text" hidden="hidden" id="id" name="id">
 
-                    <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;<label for="name" class="control-label col-xs-3"><fmt:message key="restaurants.name"/></label>&ndash;%&gt;--%>
+                    <div class="form-group">
+                        <label for="dateTime" class="control-label col-xs-3"><fmt:message
+                                key="common.dateTime"/></label>
 
-                        <%--&lt;%&ndash;<div class="col-xs-9">&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<input type="text" class="form-control" id="name" name="name" placeholder="<fmt:message key="restaurants.name"/>">&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                        <div class="col-xs-9">
+                            <input class="form-control" id="dateTime" name="dateTime"
+                                   placeholder="<fmt:message key="common.dateTime"/>">
+                        </div>
+                    </div>
 
-                    <%--<div class="form-group">--%>
-                        <%--<label for="d" class="control-label col-xs-3"><fmt:message key="restaurants.address"/></label>--%>
-
-                        <%--<div class="col-xs-9">--%>
-                            <%--<input type="text" class="form-control" id="address" name="address" placeholder="<fmt:message key="restaurants.address"/>">--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="form-group">--%>
-                        <%--<div class="col-xs-offset-3 col-xs-9">--%>
-                            <%--<button type="button" onclick="save()" class="btn btn-primary">--%>
-                                <%--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>--%>
-                            <%--</button>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</form>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-<%--</div>--%>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="button" onclick="save()" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 

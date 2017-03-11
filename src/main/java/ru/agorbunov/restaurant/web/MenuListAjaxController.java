@@ -10,6 +10,7 @@ import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.service.MenuListService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -47,21 +48,22 @@ public class MenuListAjaxController {
         service.delete(id);
     }
 
-//    @PostMapping
-//    public void createOrUpdate(@RequestParam("id") Integer id,
-//                               @RequestParam("dateTime") LocalDateTime dateTime){
-//        MenuList menuList = new MenuList(currentRestaurant, dateTime);
-//        menuList.setId(id);
-//        checkEmpty(menuList);
-//        if (menuList.isNew()) {
-//            ValidationUtil.checkNew(menuList);
-//            log.info("create " + menuList);
-//            service.save(menuList,currentRestaurant.getId());
-//        } else {
-//            log.info("update " + menuList);
-//            service.save(menuList,currentRestaurant.getId());
-//        }
-//    }
+    @PostMapping
+    public void createOrUpdate(@RequestParam("id") Integer id,
+                               @RequestParam("dateTime") LocalDateTime dateTime){
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        MenuList menuList = new MenuList(currentRestaurant, dateTime);
+        menuList.setId(id);
+        checkEmpty(menuList);
+        if (menuList.isNew()) {
+            ValidationUtil.checkNew(menuList);
+            log.info("create " + menuList);
+            service.save(menuList,currentRestaurant.getId());
+        } else {
+            log.info("update " + menuList);
+            service.save(menuList,currentRestaurant.getId());
+        }
+    }
 
     private void checkEmpty(MenuList menuList){
         ValidationUtil.checkEmpty(menuList.getDateTime(),"dateTime");

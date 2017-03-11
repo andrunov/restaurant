@@ -1,7 +1,7 @@
 /**
  * Created by Admin on 03.03.2017.
  */
-var ajaxUrl = '/ajax/menuLists';
+var ajaxUrl = '/ajax/menuLists/';
 var datatableApi;
 var editTitleKey ="menuLists.edit";
 var addTitleKey ="menuLists.add";
