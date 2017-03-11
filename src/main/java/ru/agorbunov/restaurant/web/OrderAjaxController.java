@@ -26,16 +26,17 @@ public class OrderAjaxController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Order get(@PathVariable("id") int id,
-                     @PathVariable("userId") int userId,
                      @PathVariable("restaurantId") int restaurantId) {
         log.info("get " + id);
-        return service.get(id,userId,restaurantId);
+        User currentUser = CurrentEntities.getCurrentUser();
+        return service.get(id, currentUser.getId(),restaurantId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getAll() {
-        log.info("getAll");
-        return service.getAll();
+    public List<Order> getByUser() {
+        log.info("getByUser");
+        User currentUser = CurrentEntities.getCurrentUser();
+        return service.getByUser(currentUser.getId());
     }
 
 

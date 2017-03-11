@@ -1,10 +1,10 @@
 /**
  * Created by Admin on 11.03.2017.
  */
-var ajaxUrl = '/ajax/restaurants/';
+var ajaxUrl = '/ajax/orders/';
 var datatableApi;
-var editTitleKey ="restaurants.edit";
-var addTitleKey ="restaurants.add";
+var editTitleKey ="orders.edit";
+var addTitleKey ="orders.add";
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
@@ -20,10 +20,7 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "name"
-            },
-            {
-                "data": "address"
+                "data": "dateTime"
             },
             {
                 "orderable": false,
@@ -54,7 +51,7 @@ $(function () {
 
 function linkBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick=location.href="/menuLists/'+ row.id +'">' +
+        return '<a class="btn btn-primary" onclick=location.href="/dishes/'+ row.id +'">' +
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
     }
 }

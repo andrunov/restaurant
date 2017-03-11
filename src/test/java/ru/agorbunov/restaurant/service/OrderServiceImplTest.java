@@ -9,6 +9,7 @@ import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static ru.agorbunov.restaurant.OrderTestData.*;
 
@@ -23,7 +24,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     @Test
     public void save() throws Exception {
         service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_02,ORDER_03,ORDER_04,ORDER_05,ORDER_06,ORDER_CREATED),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_CREATED,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
     }
 
     @Test
@@ -36,7 +37,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     @Test
     public void delete() throws Exception {
         service.delete(ORDER_01_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_02,ORDER_03,ORDER_04,ORDER_05,ORDER_06),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
 
     }
 
@@ -48,7 +49,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void getAll() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_02,ORDER_03,ORDER_04,ORDER_05,ORDER_06),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
     }
 
     @Test
@@ -99,6 +100,11 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", ORDER_01_ID));
         service.getWith(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
+    }
+
+    @Test
+    public void getByUser() throws Exception{
+        MATCHER.assertCollectionEquals(Collections.singletonList(ORDER_01),service.getByUser(USER_01_ID));
     }
 
 

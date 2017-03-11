@@ -134,7 +134,12 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     @Override
     public List<Order> getAll() {
-        return jdbcTemplate.query("SELECT * FROM orders", ROW_MAPPER);
+        return jdbcTemplate.query("SELECT * FROM orders ORDER BY date_time DESC ", ROW_MAPPER);
+    }
+
+    @Override
+    public List<Order> getByUser(int userId) {
+        return jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? ORDER BY date_time DESC ", ROW_MAPPER,userId);
     }
 
     private Order setDishes(Order o) {

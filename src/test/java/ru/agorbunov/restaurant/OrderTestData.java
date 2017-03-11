@@ -44,8 +44,4 @@ public class OrderTestData {
         ORDER_06.setDishes(Arrays.asList(DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20));
         ORDER_CREATED.setDishes(Arrays.asList(DISH_01, DISH_02));
     }
-
-
-
-
 }
