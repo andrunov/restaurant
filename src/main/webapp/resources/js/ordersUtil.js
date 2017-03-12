@@ -20,14 +20,17 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "dateTime"
+                "data": "dateTime",
+                "render": function (date, type, row) {
+                    if (type == 'display') {
+                        return formatDate(date);
+                    }
+                    return date;
+                }
             },
             {
                 "data": "restaurant",
                 "render": function (date, type, row) {
-                    // if (type == 'display') {
-                    //     return date.toString();
-                    // }
                     return (date.name +', '+ date.address);
                 }
             },
@@ -39,7 +42,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": renderEditBtn1
             },
             {
                 "orderable": false,
@@ -56,6 +59,38 @@ $(function () {
         "createdRow": "",
         "initComplete": makeEditable
     });
+
+    var startDate = $('#startDate');
+    var endDate = $('#endDate');
+    startDate.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        formatDate: 'Y-m-d',
+        onShow: function (ct) {
+            this.setOptions({
+                maxDate: endDate.val() ? endDate.val() : false
+            })
+        }
+    });
+    endDate.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        formatDate: 'Y-m-d',
+        onShow: function (ct) {
+            this.setOptions({
+                minDate: startDate.val() ? startDate.val() : false
+            })
+        }
+    });
+
+    $('#startTime, #endTime').datetimepicker({
+        datepicker: false,
+        format: 'H:i'
+    });
+
+    $('#dateTime').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
 });
 
 function linkBtn(data, type, row) {
@@ -65,3 +100,21 @@ function linkBtn(data, type, row) {
     }
 }
 
+function renderEditBtn1(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="updateRow1(' + row.id +','+  row.restaurant.id+');">' +
+            '<span class="glyphicon glyphicon-edit"></span></a>';
+    }
+}
+
+function updateRow1(id,restaurantId) {
+    $('#modalTitle').html(i18n[editTitleKey]);
+    $.get(ajaxUrl + id +'&'+ restaurantId, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(
+                key === "dateTime" ? formatDate(value) : value
+            );
+        });
+        $('#editRow').modal();
+    });
+}

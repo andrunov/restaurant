@@ -2,6 +2,8 @@ package ru.agorbunov.restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
+import ru.agorbunov.restaurant.util.DateTimeUtil;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -44,6 +46,7 @@ public class Order extends BaseEntity {
     private List<Dish> dishes;
 
     @Column(name = "date_time" , nullable = false)
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;
 
     public Order() {
