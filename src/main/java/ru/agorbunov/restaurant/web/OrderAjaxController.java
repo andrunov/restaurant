@@ -60,7 +60,7 @@ public class OrderAjaxController {
                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        Order order = new Order(currentUser,currentRestaurant,dateTime);
+        Order order = new Order(currentUser,currentRestaurant, dateTime);
         order.setId(id);
         checkEmpty(order);
         if (order.isNew()) {

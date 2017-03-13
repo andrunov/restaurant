@@ -81,17 +81,13 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         if (order.isNew()) {
             Number newKey = insertOrder.executeAndReturnKey(map);
             order.setId(newKey.intValue());
-            if (dishIds!=null) {
-                insertDishes(order.getId(), dishIds);
-            }
+            insertDishes(order.getId(), dishIds);
         } else {
             if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
                 return null;
             }else {
                 deleteDishes(order.getId());
-                if (dishIds!=null) {
-                    insertDishes(order.getId(), dishIds);
-                }
+                insertDishes(order.getId(), dishIds);
             }
         }
 
@@ -163,7 +159,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     private Order setRestaurant(Order o){
         if (o != null) {
-            List<Restaurant> restaurants = jdbcTemplate.query("SELECT ID, NAME,ADDRESS FROM restaurants AS r JOIN orders AS o ON r.id = o.restaurant_id WHERE o.id=?",
+            List<Restaurant> restaurants = jdbcTemplate.query("SELECT r.id, r.name, r.address FROM restaurants AS r JOIN orders AS o ON r.id = o.restaurant_id WHERE o.id=?",
                     RESTAURANT_ROW_MAPPER, o.getId());
             o.setRestaurant(DataAccessUtils.singleResult(restaurants));
         }
