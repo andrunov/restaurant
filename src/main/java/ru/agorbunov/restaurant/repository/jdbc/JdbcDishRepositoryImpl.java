@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.Dish;
+import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.DishRepository;
 
@@ -28,6 +29,7 @@ import java.util.List;
 public class JdbcDishRepositoryImpl implements DishRepository {
     private static final BeanPropertyRowMapper<Dish> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
     private static final BeanPropertyRowMapper<Order> ORDER_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
+    private static final BeanPropertyRowMapper<MenuList> MENU_LIST_ROW_MAPPER = BeanPropertyRowMapper.newInstance(MenuList.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -104,6 +106,15 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    public List<Dish> getByMenuList(int menuListId) {
+        List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE menu_list_id=?", ROW_MAPPER, menuListId);
+        for (Dish dish : dishes) {
+            setMenuList(dish);
+        }
+        return dishes;
+    }
+
+    @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=?", id) != 0;
@@ -119,6 +130,15 @@ public class JdbcDishRepositoryImpl implements DishRepository {
             List<Order> orders = jdbcTemplate.query("SELECT * FROM orders AS o LEFT JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=?",
                     ORDER_ROW_MAPPER, d.getId());
             d.setOrders(orders);
+        }
+        return d;
+    }
+
+    private Dish setMenuList(Dish d){
+        if (d != null) {
+            List<MenuList> dishes = jdbcTemplate.query("SELECT m.id, m.date_time FROM menu_lists AS m JOIN dishes AS d ON m.id = d.menu_list_id WHERE d.id=?",
+                    MENU_LIST_ROW_MAPPER, d.getId());
+            d.setMenuList(DataAccessUtils.singleResult(dishes));
         }
         return d;
     }

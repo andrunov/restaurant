@@ -70,4 +70,11 @@ public class JpaDishRepositoryImpl implements DishRepository {
                                         .getSingleResult();
         return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;
     }
+
+    @Override
+    public List<Dish> getByMenuList(int menuListId) {
+        return em.createNamedQuery(Dish.GET_ALL_BY_MENU_LIST, Dish.class)
+                .setParameter("menuListId",menuListId)
+                .getResultList();
+    }
 }

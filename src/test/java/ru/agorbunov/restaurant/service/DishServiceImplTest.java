@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.MenuListTestData;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
@@ -101,6 +102,11 @@ public class DishServiceImplTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", 10));
         service.getWith(DISH_01_ID,10);
+    }
+
+    @Test
+    public void getByMenuList() throws Exception{
+        MATCHER.assertCollectionEquals(Arrays.asList(DISH_01, DISH_02, DISH_03, DISH_04, DISH_05),service.getByMenuList(MenuListTestData.MENU_LIST_01_ID));
     }
 
 }
