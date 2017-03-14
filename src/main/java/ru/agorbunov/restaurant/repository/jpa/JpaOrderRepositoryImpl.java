@@ -73,7 +73,7 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order getWith(int id, int userId, int restaurantId) {
+    public Order getWithDishes(int id, int userId, int restaurantId) {
         Order order = (Order)em.createNamedQuery(Order.GET_WITH)
                                           .setParameter("id",id)
                                           .getSingleResult();

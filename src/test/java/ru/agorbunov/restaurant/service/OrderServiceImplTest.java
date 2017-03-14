@@ -90,7 +90,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     @Test
     public void getWith() throws Exception {
         ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
-        Order order = service.getWith(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
+        Order order = service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         MATCHER.assertEquals(ORDER_01,order);
         DishMatcher.assertCollectionEquals(ORDER_01.getDishes(),order.getDishes());
     }
@@ -99,7 +99,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void getWithNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", ORDER_01_ID));
-        service.getWith(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
+        service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_02_ID);
     }
 
     @Test

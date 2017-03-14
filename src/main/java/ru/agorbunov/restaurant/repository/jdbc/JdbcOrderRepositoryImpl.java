@@ -122,7 +122,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     }
 
     @Override
-    public Order getWith(int id, int userId, int restaurantId) {
+    public Order getWithDishes(int id, int userId, int restaurantId) {
         List<Order> orders = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
         Order result = DataAccessUtils.singleResult(orders);
         return setDishes(result);
