@@ -56,4 +56,9 @@ public class DishServiceImpl implements DishService {
     public List<Dish> getByMenuList(int menuListId) {
         return repository.getByMenuList(menuListId);
     }
+
+    @Override
+    public List<Dish> getByOrder(int orderId) {
+        return repository.getByOrder(orderId);
+    }
 }

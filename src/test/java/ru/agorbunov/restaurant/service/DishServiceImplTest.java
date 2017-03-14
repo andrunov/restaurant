@@ -121,7 +121,10 @@ public class DishServiceImplTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(DISH_01, DISH_02, DISH_03, DISH_04, DISH_05),service.getByMenuList(MenuListTestData.MENU_LIST_01_ID));
     }
 
-
+    @Test
+    public void getByOrder() throws Exception{
+        MATCHER.assertCollectionEquals(Arrays.asList(DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20),service.getByOrder(OrderTestData.ORDER_06_ID));
+    }
 
 
 }

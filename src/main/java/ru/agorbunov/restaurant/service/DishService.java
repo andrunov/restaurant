@@ -18,4 +18,6 @@ public interface DishService extends BaseService<Dish> {
     Dish getWithOrders(int id, int menulistId);
 
     List<Dish> getByMenuList(int menuListId);
+
+    List<Dish> getByOrder(int orderId);
 }

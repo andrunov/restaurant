@@ -18,4 +18,6 @@ public interface DishRepository extends BaseRepository<Dish> {
     Dish getWithOrders(int id, int menuListId);
 
     List<Dish> getByMenuList(int menuListId);
+
+    List<Dish> getByOrder(int orderId);
 }

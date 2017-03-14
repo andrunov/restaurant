@@ -137,6 +137,15 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     }
 
     @Override
+    public List<Dish> getByOrder(int orderId) {
+        List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes AS d LEFT JOIN orders_dishes AS od ON d.id = od.dish_id WHERE od.order_id=?", ROW_MAPPER, orderId);
+//        for (Dish dish : dishes) {
+//            setMenuList(dish);
+//        }
+        return dishes;
+    }
+
+    @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=?", id) != 0;

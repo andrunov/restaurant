@@ -94,4 +94,12 @@ public class JpaDishRepositoryImpl implements DishRepository {
                 .setParameter("menuListId",menuListId)
                 .getResultList();
     }
+
+    @Override
+    public List<Dish> getByOrder(int orderId) {
+        List<Order> result = em.createNamedQuery(Dish.GET_ALL_BY_ORDER, Order.class)
+                .setParameter("orderId",orderId)
+                .getResultList();
+        return result.get(0).getDishes();
+    }
 }
