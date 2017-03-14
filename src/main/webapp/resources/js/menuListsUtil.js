@@ -31,6 +31,11 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "render": linkBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
                 "render": renderEditBtn
             },
             {
@@ -81,3 +86,10 @@ $(function () {
         format: 'Y-m-d H:i'
     });
 });
+
+function linkBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick=location.href="/dishes/'+ row.id +'">' +
+            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+}

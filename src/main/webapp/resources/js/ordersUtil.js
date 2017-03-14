@@ -42,7 +42,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn1
+                "render": renderEditOrderBtn
             },
             {
                 "orderable": false,
@@ -100,14 +100,14 @@ function linkBtn(data, type, row) {
     }
 }
 
-function renderEditBtn1(data, type, row) {
+function renderEditOrderBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick="updateRow1(' + row.id +','+  row.restaurant.id+');">' +
+        return '<a class="btn btn-primary" onclick="updateOrderRow(' + row.id +','+  row.restaurant.id+');">' +
             '<span class="glyphicon glyphicon-edit"></span></a>';
     }
 }
 
-function updateRow1(id,restaurantId) {
+function updateOrderRow(id,restaurantId) {
     $('#modalTitle').html(i18n[editTitleKey]);
     $.get(ajaxUrl + id +'&'+ restaurantId, function (data) {
         $.each(data, function (key, value) {

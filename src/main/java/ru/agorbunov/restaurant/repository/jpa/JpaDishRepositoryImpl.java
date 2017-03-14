@@ -24,7 +24,24 @@ public class JpaDishRepositoryImpl implements DishRepository {
 
     @Override
     @Transactional
-    public Dish save(Dish dish, int menuListId, int... ordersIds) {
+    public Dish save(Dish dish, int menuListId) {
+        if (!dish.isNew() && get(dish.getId(), menuListId) == null) {
+            return null;
+        }
+        dish.setMenuList(em.getReference(MenuList.class, menuListId));
+
+        if (dish.isNew()){
+            em.persist(dish);
+            return dish;
+        }else {
+            return em.merge(dish);
+        }
+    }
+
+    @Override
+    @Transactional
+    public Dish saveWithOrders(Dish dish, int menuListId, int... ordersIds) {
+        this.save(dish,menuListId);
         if (!dish.isNew() && get(dish.getId(), menuListId) == null) {
             return null;
         }

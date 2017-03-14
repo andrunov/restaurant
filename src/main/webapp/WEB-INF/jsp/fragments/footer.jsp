@@ -15,7 +15,12 @@
 
 <script type="text/javascript">
     var i18n = [];
-    <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete","users.add","users.edit","restaurants.add","restaurants.edit","menuLists.add","menuLists.edit","orders.add","orders.edit","dishes.add","dishes.edit"}%>'>
+    <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete",
+                                                    "users.add","users.edit",
+                                                    "restaurants.add","restaurants.edit",
+                                                    "menuLists.add","menuLists.edit",
+                                                    "orders.add","orders.edit",
+                                                    "dishes.add","dishes.edit"}%>'>
     i18n['${key}'] = '<fmt:message key="${key}"/>';
     </c:forEach>
 </script>

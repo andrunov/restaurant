@@ -45,9 +45,31 @@ public class JdbcDishRepositoryImpl implements DishRepository {
                 .withTableName("dishes")
                 .usingGeneratedKeyColumns("id");
     }
+
     @Override
     @Transactional
-    public Dish save(Dish dish, int menulistId, int... ordersIds) {
+    public Dish save(Dish dish, int menulistId) {
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", dish.getId())
+                .addValue("menu_list_id", menulistId)
+                .addValue("description", dish.getDescription())
+                .addValue("price", dish.getPrice());
+
+        if (dish.isNew()) {
+            Number newKey = insertDish.executeAndReturnKey(map);
+            dish.setId(newKey.intValue());
+        } else {
+            if(namedParameterJdbcTemplate.update("UPDATE dishes SET description=:description, price=:price WHERE id=:id AND menu_list_id=:menu_list_id", map)==0){
+                return null;
+            }
+        }
+
+        return dish;
+    }
+
+    @Override
+    @Transactional
+    public Dish saveWithOrders(Dish dish, int menulistId, int... ordersIds) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", dish.getId())
                 .addValue("menu_list_id", menulistId)

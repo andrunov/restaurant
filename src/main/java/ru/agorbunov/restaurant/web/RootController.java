@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import ru.agorbunov.restaurant.model.Restaurant;
+import ru.agorbunov.restaurant.service.MenuListService;
 import ru.agorbunov.restaurant.service.RestaurantService;
 import ru.agorbunov.restaurant.service.UserService;
 
@@ -23,6 +25,9 @@ public class RootController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MenuListService menuListService;
 
     @GetMapping(value = "/")
     public String root() {
@@ -61,6 +66,20 @@ public class RootController {
     public String orders(@PathVariable("id") int id) {
         CurrentEntities.setCurrentUser(userService.get(id));
         return "redirect:/orders";
+    }
+
+    @GetMapping(value = "/dishes")
+    public String dishes(Model model) {
+        model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
+        model.addAttribute("localDate",CurrentEntities.getCurrentMenuList().getDateTime().toLocalDate().toString());
+        return "dishes";
+    }
+
+    @GetMapping(value = "/dishes/{id}")
+    public String dishes(@PathVariable("id") int id) {
+        Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
+        CurrentEntities.setCurrentMenuList(menuListService.get(id,restaurant.getId()));
+        return "redirect:/dishes";
     }
 
 

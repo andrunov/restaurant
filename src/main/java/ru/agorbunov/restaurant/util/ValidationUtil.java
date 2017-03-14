@@ -53,6 +53,12 @@ public class ValidationUtil {
         }
     }
 
+    public static void checkEmpty(Double value, String description){
+        if (value<=0.0){
+            throw new IllegalArgumentException(description + " must be positive and more than zero");
+        }
+    }
+
     public static void checkEmpty(LocalDateTime dateTime, String description){
         if (dateTime==null){
             throw new IllegalArgumentException(description + " must be not empty");

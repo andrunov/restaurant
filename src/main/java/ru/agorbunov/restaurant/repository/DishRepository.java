@@ -9,7 +9,9 @@ import java.util.List;
  */
 public interface DishRepository extends BaseRepository<Dish> {
 
-    Dish save(Dish dish,  int menulistId, int...ordersIds);
+    Dish save(Dish dish,  int menulistId);
+
+    Dish saveWithOrders(Dish dish,  int menulistId, int...ordersIds);
 
     Dish get(int id, int menuListId);
 
