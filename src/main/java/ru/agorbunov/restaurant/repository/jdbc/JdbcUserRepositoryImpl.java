@@ -77,7 +77,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getWith(int id) {
+    public User getWithOrders(int id) {
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
         User result = DataAccessUtils.singleResult(users);
         setRoles(result);

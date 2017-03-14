@@ -47,8 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getWith(int id) {
-        return checkNotFoundWithId(repository.getWith(id),id);
+    public User getWithOrders(int id) {
+        return checkNotFoundWithId(repository.getWithOrders(id),id);
     }
 
     @CacheEvict(value = "users", allEntries = true)

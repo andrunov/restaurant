@@ -11,5 +11,5 @@ public interface UserRepository extends BaseRepository<User> {
 
     User get(int id);
 
-    User getWith(int id);
+    User getWithOrders(int id);
 }

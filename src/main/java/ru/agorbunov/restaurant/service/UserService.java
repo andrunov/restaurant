@@ -11,7 +11,7 @@ public interface UserService extends BaseService<User> {
 
     User get(int id);
 
-    User getWith(int id);
+    User getWithOrders(int id);
 
     void evictCache();
 }

@@ -92,7 +92,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
     @Test
     public void getWith() throws Exception{
         ModelMatcher<Order> OrderMatcher = new ModelMatcher<>();
-        User user = service.getWith(USER_02_ID);
+        User user = service.getWithOrders(USER_02_ID);
         OrderMatcher.assertCollectionEquals(USER_02.getOrders(),user.getOrders());
     }
 }
