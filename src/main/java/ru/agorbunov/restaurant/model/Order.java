@@ -16,7 +16,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId order by o.dateTime desc "),
-        @NamedQuery(name = Order.GET_WITH, query = "SELECT o from Order o left join fetch o.dishes where o.id=:id"),
+        @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o left join fetch o.dishes where o.id=:id"),
         @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id")
 })
 @Entity
@@ -26,7 +26,7 @@ public class Order extends BaseEntity {
     public static final String GET_ALL = "Order.getAll";
     public static final String GET_ALL_BY_USER = "Order.getAllbyUser";
     public static final String DELETE = "Order.delete";
-    public static final String GET_WITH = "Order.getWithOrders";
+    public static final String GET_WITH_DISHES = "Order.getWithDishes";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

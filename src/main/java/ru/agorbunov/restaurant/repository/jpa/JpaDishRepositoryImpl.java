@@ -82,7 +82,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
 
     @Override
     public Dish getWithOrders(int id, int menuListId) {
-        Dish dish = (Dish)em.createNamedQuery(Dish.GET_WITH)
+        Dish dish = (Dish)em.createNamedQuery(Dish.GET_WITH_ORDERS)
                                         .setParameter("id",id)
                                         .getSingleResult();
         return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;

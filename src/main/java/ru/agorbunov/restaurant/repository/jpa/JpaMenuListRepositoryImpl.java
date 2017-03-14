@@ -57,7 +57,7 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
 
     @Override
     public MenuList getWithDishes(int id, int restaurantId) {
-        MenuList menuList = (MenuList)em.createNamedQuery(MenuList.GET_WITH)
+        MenuList menuList = (MenuList)em.createNamedQuery(MenuList.GET_WITH_DISHES)
                                         .setParameter("id",id)
                                         .getSingleResult();
         return menuList != null && menuList.getRestaurant().getId() == restaurantId ? menuList : null;

@@ -51,7 +51,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getWithOrders(int id) {
-        return (User)em.createNamedQuery(User.GET_WITH)
+        return (User)em.createNamedQuery(User.GET_WITH_ORDERS)
                 .setParameter("id",id)
                 .getSingleResult();
     }
