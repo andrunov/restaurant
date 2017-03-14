@@ -26,7 +26,7 @@ public class MenuList extends BaseEntity {
     public static final String GET_ALL = "MenuList.getAll";
     public static final String GET_ALL_BY_RESTAURANT = "MenuList.getAllbyRestaurant";
     public static final String DELETE = "MenuList.delete";
-    public static final String GET_WITH = "MenuList.getWith";
+    public static final String GET_WITH = "MenuList.getWithOrders";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)

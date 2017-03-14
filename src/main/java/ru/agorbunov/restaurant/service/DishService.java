@@ -11,11 +11,11 @@ public interface DishService extends BaseService<Dish> {
 
     Dish save(Dish dish,  int menulistId);
 
-    Dish saveWithOrders(Dish dish,  int menulistId, int...ordersIds);
+    Dish save(Dish dish,  int menulistId, int...ordersIds);
 
     Dish get(int id, int menulistId);
 
-    Dish getWith(int id, int menulistId);
+    Dish getWithOrders(int id, int menulistId);
 
     List<Dish> getByMenuList(int menuListId);
 }

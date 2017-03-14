@@ -40,7 +40,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
 
     @Override
     @Transactional
-    public Dish saveWithOrders(Dish dish, int menuListId, int... ordersIds) {
+    public Dish save(Dish dish, int menuListId, int... ordersIds) {
         this.save(dish,menuListId);
         if (!dish.isNew() && get(dish.getId(), menuListId) == null) {
             return null;
@@ -81,7 +81,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
     }
 
     @Override
-    public Dish getWith(int id, int menuListId) {
+    public Dish getWithOrders(int id, int menuListId) {
         Dish dish = (Dish)em.createNamedQuery(Dish.GET_WITH)
                                         .setParameter("id",id)
                                         .getSingleResult();

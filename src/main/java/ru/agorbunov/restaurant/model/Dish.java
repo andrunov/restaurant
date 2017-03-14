@@ -23,7 +23,7 @@ public class Dish extends BaseEntity {
     public static final String GET_ALL = "Dish.getAll";
     public static final String GET_ALL_BY_MENU_LIST = "Dish.getAllByMenuList";
     public static final String DELETE = "Dish.delete";
-    public static final String GET_WITH = "Dish.getWith";
+    public static final String GET_WITH = "Dish.getWithOrders";
 
     @Column(nullable = false)
     private String description;

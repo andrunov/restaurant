@@ -11,11 +11,11 @@ public interface DishRepository extends BaseRepository<Dish> {
 
     Dish save(Dish dish,  int menulistId);
 
-    Dish saveWithOrders(Dish dish,  int menulistId, int...ordersIds);
+    Dish save(Dish dish,  int menulistId, int...ordersIds);
 
     Dish get(int id, int menuListId);
 
-    Dish getWith(int id, int menuListId);
+    Dish getWithOrders(int id, int menuListId);
 
     List<Dish> getByMenuList(int menuListId);
 }

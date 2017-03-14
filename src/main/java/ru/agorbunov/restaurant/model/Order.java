@@ -26,7 +26,7 @@ public class Order extends BaseEntity {
     public static final String GET_ALL = "Order.getAll";
     public static final String GET_ALL_BY_USER = "Order.getAllbyUser";
     public static final String DELETE = "Order.delete";
-    public static final String GET_WITH = "Order.getWith";
+    public static final String GET_WITH = "Order.getWithOrders";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

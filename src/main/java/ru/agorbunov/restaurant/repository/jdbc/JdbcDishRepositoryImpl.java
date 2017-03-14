@@ -69,7 +69,7 @@ public class JdbcDishRepositoryImpl implements DishRepository {
 
     @Override
     @Transactional
-    public Dish saveWithOrders(Dish dish, int menulistId, int... ordersIds) {
+    public Dish save(Dish dish, int menulistId, int... ordersIds) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", dish.getId())
                 .addValue("menu_list_id", menulistId)
@@ -121,7 +121,7 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     }
 
     @Override
-    public Dish getWith(int id, int menuListId) {
+    public Dish getWithOrders(int id, int menuListId) {
         List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE id=? AND menu_list_id=?", ROW_MAPPER, id,menuListId);
         Dish result = DataAccessUtils.singleResult(dishes);
         return setOrders(result);

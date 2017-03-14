@@ -24,7 +24,7 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     public static final String GET_ALL = "User.getAll";
-    public static final String GET_WITH = "User.getWith";
+    public static final String GET_WITH = "User.getWithOrders";
     public static final String DELETE = "User.delete";
 
     @Column(nullable = false)

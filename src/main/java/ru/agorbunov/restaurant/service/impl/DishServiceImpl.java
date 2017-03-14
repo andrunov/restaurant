@@ -27,9 +27,9 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish saveWithOrders(Dish dish, int menuListId, int...ordersIds ) {
+    public Dish save(Dish dish, int menuListId, int...ordersIds ) {
         Assert.notNull(dish,"dish must not be null");
-        return checkNotFoundWithId(repository.saveWithOrders(dish,menuListId,ordersIds),dish.getId());
+        return checkNotFoundWithId(repository.save(dish,menuListId,ordersIds),dish.getId());
     }
 
     @Override
@@ -48,8 +48,8 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish getWith(int id, int menulistId) {
-        return checkNotFoundWithId(repository.getWith(id,menulistId),id);
+    public Dish getWithOrders(int id, int menulistId) {
+        return checkNotFoundWithId(repository.getWithOrders(id,menulistId),id);
     }
 
     @Override
