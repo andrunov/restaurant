@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
-import ru.agorbunov.restaurant.service.DishService;
+import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.MenuListService;
+import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.service.RestaurantService;
 import ru.agorbunov.restaurant.service.UserService;
 
@@ -32,7 +32,7 @@ public class RootController {
     private MenuListService menuListService;
 
     @Autowired
-    private DishService dishService;
+    private OrderService orderService;
 
     @GetMapping(value = "/")
     public String root() {
@@ -89,16 +89,20 @@ public class RootController {
 
     @GetMapping(value = "/orders_dishes")
     public String orders_dishes(Model model) {
+        model.addAttribute("user",CurrentEntities.getCurrentUser());
         model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
-        model.addAttribute("localDate",CurrentEntities.getCurrentMenuList().getDateTime().toLocalDate().toString());
-        return "dishes";
+        model.addAttribute("localDate",CurrentEntities.getCurrentOrder()
+                                        .getDateTime().toString().replace('T', ' '));
+        return "orders_dishes";
     }
 
-    @GetMapping(value = "/orders_dishes/{id}")
-    public String orders_dishes(@PathVariable("id") int id) {
-        Order order = CurrentEntities.getCurrentOrder();
-//        CurrentEntities.setCurrentMenuList(dishService.g(id,order.getId()));
-        return "redirect:/dishes";
+    @GetMapping(value = "/orders_dishes/{id}&{restaurantId}")
+    public String orders_dishes(@PathVariable("id") int id,
+                                @PathVariable("restaurantId") int restaurantId){
+        User user = CurrentEntities.getCurrentUser();
+        CurrentEntities.setCurrentRestaurant(restaurantService.get(restaurantId));
+        CurrentEntities.setCurrentOrder(orderService.get(id,user.getId(),restaurantId));
+        return "redirect:/orders_dishes";
     }
 
 }
