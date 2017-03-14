@@ -90,7 +90,7 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
     }
 
     @Override
-    public MenuList getWith(int id, int restaurantId) {
+    public MenuList getWithDishes(int id, int restaurantId) {
         List<MenuList> menuLists = jdbcTemplate.query("SELECT * FROM menu_lists WHERE id=? AND restaurant_id=?", ROW_MAPPER, id,restaurantId);
         MenuList result = DataAccessUtils.singleResult(menuLists);
         return setDishes(result);

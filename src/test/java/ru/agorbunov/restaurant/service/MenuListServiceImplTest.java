@@ -90,7 +90,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     @Test
     public void getWith() throws Exception {
         ModelMatcher<Dish> MatcherDish = new ModelMatcher<>();
-        MenuList menuList = service.getWith(MENU_LIST_01_ID, RESTAURANT_01_ID);
+        MenuList menuList = service.getWithDishes(MENU_LIST_01_ID, RESTAURANT_01_ID);
         MATCHER.assertEquals(MENU_LIST_01,menuList);
         MatcherDish.assertCollectionEquals(MENU_LIST_01.getDishList(),menuList.getDishList());
     }
@@ -99,7 +99,7 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void getWithNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage(String.format("Not found entity with id=%d", MENU_LIST_01_ID));
-        service.getWith(MENU_LIST_01_ID, RESTAURANT_02_ID);
+        service.getWithDishes(MENU_LIST_01_ID, RESTAURANT_02_ID);
     }
 
     @Test
