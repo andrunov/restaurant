@@ -11,5 +11,5 @@ public interface RestaurantRepository extends BaseRepository<Restaurant> {
 
     Restaurant get(int id);
 
-    Restaurant getWith(int id);
+    Restaurant getWithMenuLists(int id);
 }

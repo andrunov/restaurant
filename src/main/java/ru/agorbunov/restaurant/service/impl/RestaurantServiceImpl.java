@@ -47,8 +47,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant getWith(int id) {
-        return checkNotFoundWithId(repository.getWith(id),id);
+    public Restaurant getWithMenuLists(int id) {
+        return checkNotFoundWithId(repository.getWithMenuLists(id),id);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

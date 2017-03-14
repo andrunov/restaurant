@@ -11,7 +11,7 @@ public interface RestaurantService extends BaseService<Restaurant> {
 
     Restaurant get(int id);
 
-    Restaurant getWith(int id);
+    Restaurant getWithMenuLists(int id);
 
     void evictCache();
 

@@ -66,7 +66,7 @@ public class JdbcRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant getWith(int id) {
+    public Restaurant getWithMenuLists(int id) {
         List<Restaurant> restaurants = jdbcTemplate.query("SELECT * FROM restaurants WHERE id=?", ROW_MAPPER, id);
         Restaurant result = DataAccessUtils.singleResult(restaurants);
         setOrders(result);

@@ -50,7 +50,7 @@ public class JpaRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant getWith(int id) {
+    public Restaurant getWithMenuLists(int id) {
         Restaurant result = (Restaurant)em.createNamedQuery(Restaurant.GET_WITH_MENU_LISTS)
                             .setParameter("id",id)
                             .getSingleResult();
