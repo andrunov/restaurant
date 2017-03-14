@@ -17,17 +17,17 @@
             <h3><fmt:message key="orders.title"/></h3>
             <p>${user.name}, ${user.email}</p>
             <div class="view-box">
-                <a class="btn btn-primary" type="button" onclick="add()">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    <fmt:message key="orders.add"/>
-                </a>
+                <%--<a class="btn btn-primary" type="button" onclick="add()">--%>
+                    <%--<span class="glyphicon glyphicon-plus-sign"></span>--%>
+                    <%--<fmt:message key="orders.add"/>--%>
+                <%--</a>--%>
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="restaurants.name"/></th>
-                        <th><fmt:message key="dishes.title"/></th>
-                        <th><fmt:message key="common.update"/></th>
+                        <th><fmt:message key="orders.content"/></th>
+                        <th><fmt:message key="app.changeTateTime"/></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>

@@ -36,7 +36,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": renderEditMenuListBtn
             },
             {
                 "orderable": false,
@@ -91,5 +91,12 @@ function linkBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick=location.href="/dishes/'+ row.id +'">' +
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+}
+
+function renderEditMenuListBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="updateRow(' + row.id + ');">' +
+            '<span class="glyphicon glyphicon-time"></span></a>';
     }
 }

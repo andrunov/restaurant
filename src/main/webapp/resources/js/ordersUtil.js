@@ -103,7 +103,7 @@ function linkBtn(data, type, row) {
 function renderEditOrderBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="updateOrderRow(' + row.id +','+  row.restaurant.id+');">' +
-            '<span class="glyphicon glyphicon-edit"></span></a>';
+            '<span class="glyphicon glyphicon-time"></span></a>';
     }
 }
 
