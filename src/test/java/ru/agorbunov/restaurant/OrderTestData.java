@@ -27,6 +27,7 @@ public class OrderTestData {
     public static final Order ORDER_CREATED = new Order(USER_01,RESTAURANT_01, LocalDateTime.of(2017,1,16,9,30));
 
     public static final int ORDER_01_ID = 100010;
+    public static final int ORDER_05_ID = 100014;
     public static final int USER_01_ID = 100000;
     public static final int RESTAURANT_01_ID = 100006;
     public static final int RESTAURANT_02_ID = 100007;

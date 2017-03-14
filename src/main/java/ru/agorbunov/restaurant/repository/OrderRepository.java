@@ -11,6 +11,8 @@ public interface OrderRepository extends BaseRepository<Order> {
 
     Order save(Order order,  int userId, int restaurantId, int... dishIds);
 
+    Order save(Order order,  int userId, int restaurantId);
+
     Order get(int id, int userId, int restaurantId);
 
     Order getWithDishes(int id, int userId, int restaurantId);

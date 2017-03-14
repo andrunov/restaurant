@@ -48,6 +48,23 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
 
     @Override
     @Transactional
+    public Order save(Order order, int userId, int restaurantId) {
+        if (!order.isNew() && get(order.getId(), userId, restaurantId) == null) {
+            return null;
+        }
+        order.setUser(em.getReference(User.class, userId));
+        order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
+
+        if (order.isNew()){
+            em.persist(order);
+            return order;
+        }else {
+            return em.merge(order);
+        }
+    }
+
+    @Override
+    @Transactional
     public boolean delete(int id) {
         return em.createNamedQuery(Order.DELETE)
                 .setParameter("id", id)

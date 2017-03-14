@@ -24,6 +24,7 @@ public class RestaurantTestData {
 
     public static int RESTAURANT_01_ID = 100006;
     public static int RESTAURANT_02_ID = 100007;
+    public static int RESTAURANT_03_ID = 100008;
 
     static {
         RESTAURANT_01.setMenuLists(Collections.singletonList(MENU_LIST_01));

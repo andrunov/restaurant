@@ -2,6 +2,9 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.DishTestData;
+import ru.agorbunov.restaurant.RestaurantTestData;
+import ru.agorbunov.restaurant.UserTestData;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
@@ -11,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static ru.agorbunov.restaurant.DishTestData.DISH_10;
+import static ru.agorbunov.restaurant.DishTestData.DISH_11;
 import static ru.agorbunov.restaurant.OrderTestData.*;
 
 /**
@@ -25,6 +30,14 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void save() throws Exception {
         service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_CREATED,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
+    }
+
+    @Test
+    public void saveWithoutOrders() throws Exception {
+        Order order = service.get(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
+        service.save(order, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
+        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DISH_10, DISH_11),
+                                                    service.getWithDishes(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID).getDishes());
     }
 
     @Test

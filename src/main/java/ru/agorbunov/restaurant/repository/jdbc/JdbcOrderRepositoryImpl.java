@@ -94,6 +94,27 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return order;
     }
 
+    @Override
+    @Transactional
+    public Order save(Order order, int userId, int restaurantId) {
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", order.getId())
+                .addValue("user_id", userId)
+                .addValue("restaurant_id", restaurantId)
+                .addValue("date_time", toDbDateTime(order.getDateTime()));
+
+        if (order.isNew()) {
+            Number newKey = insertOrder.executeAndReturnKey(map);
+            order.setId(newKey.intValue());
+        } else {
+            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
+                return null;
+            }
+        }
+
+        return order;
+    }
+
     private boolean deleteDishes(int orderId){
         return jdbcTemplate.update("DELETE FROM orders_dishes WHERE order_id=?", orderId) != 0;
 
