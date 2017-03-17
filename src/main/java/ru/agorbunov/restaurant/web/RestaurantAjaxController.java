@@ -30,7 +30,7 @@ public class RestaurantAjaxController {
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant restaurant(@PathVariable("id") int id) {
+    public Restaurant getRestaurant(@PathVariable("id") int id) {
         log.info("get " + id);
         return service.get(id);
     }

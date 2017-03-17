@@ -25,7 +25,7 @@ public class UserAjaxController {
     private UserService service;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id) {
+    public User getUser(@PathVariable("id") int id) {
         log.info("get " + id);
         return service.get(id);
     }

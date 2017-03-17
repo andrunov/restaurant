@@ -2,9 +2,13 @@
  * Created by Admin on 11.03.2017.
  */
 var ajaxUrl = '/ajax/orders/';
+var ajaxRestaurantUrl = '/ajax/restaurants/';
 var datatableApi;
+var restaurantDatatableApi;
 var editTitleKey ="orders.edit";
 var addTitleKey ="orders.add";
+var selectRestaurantKey ="restaurants.select";
+var restaurantId;
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
@@ -59,6 +63,37 @@ $(function () {
         "createdRow": "",
         "initComplete": makeEditable
     });
+
+    $('#selectRestaurantDatatable').DataTable({
+        "ajax": {
+            "url": ajaxRestaurantUrl,
+            "dataSrc": ""
+        },
+        "paging": false,
+        "info": true,
+        "columns": [
+            {
+                "data": "name"
+            },
+            {
+                "data": "address"
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": ""
+            },
+        ],
+        "order": [
+            [
+                0,
+                "asc"
+            ]
+        ],
+        "createdRow": "",
+        "initComplete": ""
+    });
+
 
     var startDate = $('#startDate');
     var endDate = $('#endDate');
@@ -118,3 +153,18 @@ function updateOrderRow(id,restaurantId) {
         $('#editRow').modal();
     });
 }
+
+function addOrder() {
+    $('#modalTitle2').html(i18n[selectRestaurantKey]);
+    $('#addOrder').modal();
+}
+
+function selectBtn() {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="">' +
+            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+    $('#addOrder').modal('hide');
+}
+
+//onclick="restaurantId = row.id "

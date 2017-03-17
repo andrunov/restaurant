@@ -27,37 +27,37 @@ public class OrderAjaxController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private OrderService service;
+    private OrderService orderService;
 
     @Autowired
     private RestaurantService restaurantService;
 
     @GetMapping(value = "/{id}&{restaurantId}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Order menuList(@PathVariable("id") int id,
+    public Order getOrder(@PathVariable("id") int id,
                           @PathVariable("restaurantId") int restaurantId){
         log.info("get " + id);
         User currentUser = CurrentEntities.getCurrentUser();
         CurrentEntities.setCurrentRestaurant(restaurantService.get(restaurantId));
-        return service.get(id, currentUser.getId(),restaurantId);
+        return orderService.get(id, currentUser.getId(),restaurantId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getByUser() {
         log.info("getByUser");
         User currentUser = CurrentEntities.getCurrentUser();
-        return service.getByUser(currentUser.getId());
+        return orderService.getByUser(currentUser.getId());
     }
 
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
-        service.delete(id);
+        orderService.delete(id);
     }
 
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
+                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         Order order = new Order(currentUser,currentRestaurant, dateTime);
@@ -66,10 +66,10 @@ public class OrderAjaxController {
         if (order.isNew()) {
             ValidationUtil.checkNew(order);
             log.info("create " + order);
-            service.save(order,currentUser.getId(),currentRestaurant.getId());
+            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
         } else {
             log.info("update " + order);
-            service.save(order,currentUser.getId(),currentRestaurant.getId());
+            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
         }
     }
 

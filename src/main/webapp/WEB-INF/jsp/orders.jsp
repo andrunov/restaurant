@@ -8,6 +8,7 @@
 <script type="text/javascript" src="resources/js/datatableUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/ordersUtil.js" defer></script>
 
+
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -17,10 +18,10 @@
             <h3><fmt:message key="orders.title"/></h3>
             <p>${user.name}, ${user.email}</p>
             <div class="view-box">
-                <%--<a class="btn btn-primary" type="button" onclick="add()">--%>
-                    <%--<span class="glyphicon glyphicon-plus-sign"></span>--%>
-                    <%--<fmt:message key="orders.add"/>--%>
-                <%--</a>--%>
+                <a class="btn btn-primary" type="button" onclick="addOrder()">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <fmt:message key="orders.add"/>
+                </a>
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
@@ -72,6 +73,31 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addOrder">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="modalTitle2"></h2>
+            </div>
+
+            <div class="modal-body">
+
+                <table class="table table-hover table-bordered " id="selectRestaurantDatatable">
+                    <thead>
+                    <tr>
+                        <th><fmt:message key="restaurants.name"/></th>
+                        <th><fmt:message key="restaurants.address"/></th>
+                        <th><fmt:message key="app.select"/></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 

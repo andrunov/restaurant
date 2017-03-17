@@ -17,7 +17,7 @@
     var i18n = [];
     <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete",
                                                     "users.add","users.edit",
-                                                    "restaurants.add","restaurants.edit",
+                                                    "restaurants.add","restaurants.edit","restaurants.select",
                                                     "menuLists.add","menuLists.edit",
                                                     "orders.add","orders.edit",
                                                     "dishes.add","dishes.edit"}%>'>

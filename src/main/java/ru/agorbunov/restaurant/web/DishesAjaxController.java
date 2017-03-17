@@ -35,7 +35,7 @@ public class DishesAjaxController {
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Dish dish(@PathVariable("id") int id) {
+    public Dish getDish(@PathVariable("id") int id) {
         log.info("get " + id);
         MenuList MenuList = CurrentEntities.getCurrentMenuList();
         return service.get(id,MenuList.getId());

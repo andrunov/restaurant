@@ -38,7 +38,7 @@ public class MenuListAjaxController {
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public MenuList menuList(@PathVariable("id") int id) {
+    public MenuList getMenuList(@PathVariable("id") int id) {
         log.info("get " + id);
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         return service.get(id,currentRestaurant.getId());
