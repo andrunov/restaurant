@@ -1,21 +1,31 @@
 /**
  * Created by Admin on 11.03.2017.
  */
+//URL variables
 var ajaxUrl = '/ajax/orders/';
 var ajaxRestaurantUrl = '/ajax/restaurants/';
+var ajaxMenuListUrl = '/ajax/menuLists/';
+var ajaxDishesUrl = '/ajax/dishes/';
+var setRestaurantUrl = '/menuLists/';
+var setMenuListUrl = '/dishes/';
+var goOrdersDishes = '/orders_dishes/';
+
+//main form datatableAPI (orders table)
 var datatableApi;
-var restaurantDatatableApi;
+
+//title variables - must have equivalents in Resource Bundle
 var editTitleKey ="orders.edit";
 var addTitleKey ="orders.add";
 var selectRestaurantKey ="restaurants.select";
-var restaurantId;
+var selectMenuListKey ="menuLists.select";
+var selectDishesKey ="dishes.select";
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
 $(function () {
-    datatableApi = $('#datatable').DataTable({
+    datatableApi = $('#ordersDT').DataTable({
         "ajax": {
             "url": ajaxUrl,
             "dataSrc": ""
@@ -64,7 +74,7 @@ $(function () {
         "initComplete": makeEditable
     });
 
-    $('#selectRestaurantDatatable').DataTable({
+    $('#restaurantDT').DataTable({
         "ajax": {
             "url": ajaxRestaurantUrl,
             "dataSrc": ""
@@ -81,8 +91,8 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": ""
-            },
+                "render": selectRestaurantBtn
+            }
         ],
         "order": [
             [
@@ -94,7 +104,7 @@ $(function () {
         "initComplete": ""
     });
 
-
+    //datetimepicker
     var startDate = $('#startDate');
     var endDate = $('#endDate');
     startDate.datetimepicker({
@@ -107,6 +117,7 @@ $(function () {
             })
         }
     });
+    
     endDate.datetimepicker({
         timepicker: false,
         format: 'Y-m-d',
@@ -130,7 +141,7 @@ $(function () {
 
 function linkBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick=location.href="/orders_dishes/' + row.id +'&'+  row.restaurant.id+'">' +
+        return '<a class="btn btn-primary" onclick=location.href="' +goOrdersDishes + row.id +'&'+  row.restaurant.id+'">' +
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
     }
 }
@@ -156,15 +167,125 @@ function updateOrderRow(id,restaurantId) {
 
 function addOrder() {
     $('#modalTitle2').html(i18n[selectRestaurantKey]);
-    $('#addOrder').modal();
+    $('#selectRestaurant').modal();
 }
 
-function selectBtn() {
+function selectRestaurantBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick="">' +
+        return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +');">' +
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
     }
-    $('#addOrder').modal('hide');
 }
 
-//onclick="restaurantId = row.id "
+function openMenuListWindow(id) {
+
+    //set current restaurant
+    $.ajax({
+        type: "GET",
+        url: setRestaurantUrl+id
+    });
+
+    //Datatable for menuList modal window re-initialisation
+    $('#menuListDT').DataTable({
+        "ajax": {
+            "url": ajaxMenuListUrl,
+            "dataSrc": ""
+        },
+        "destroy": true,
+        "paging": false,
+        "info": true,
+        "columns": [
+            {
+                "data": "dateTime",
+                "render": function (date, type, row) {
+                    if (type == 'display') {
+                        return formatDate(date);
+                    }
+                    return date;
+                }
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": selectMenuListBtn
+            }
+        ],
+        "order": [
+            [
+                0,
+                "asc"
+            ]
+        ],
+        "createdRow": "",
+        "initComplete": ""
+    });
+    $('#modalTitle3').html(i18n[selectMenuListKey]);
+    $('#selectMenuList').modal();
+    $('#selectRestaurant').modal('hide');
+
+}
+
+function selectMenuListBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="openDishWindow(' + row.id +');">' +
+            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+}
+
+function openDishWindow(id) {
+
+    //set current menuList
+    $.ajax({
+        type: "GET",
+        url: setMenuListUrl+id
+    });
+
+    //Datatable for dishes modal window re-initialisation
+    $('#dishDT').DataTable({
+        "ajax": {
+            "url": ajaxDishesUrl,
+            "dataSrc": ""
+        },
+        "destroy": true,
+        "paging": false,
+        "info": true,
+        "columns": [
+            {
+                "data": "description"
+            },
+            {
+                "data": "price"
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": ""
+            }
+        ],
+        "order": [
+            [
+                0,
+                "asc"
+            ]
+        ],
+        "createdRow": "",
+        "initComplete": ""
+    });
+    $('#modalTitle4').html(i18n[selectDishesKey]);
+    $('#selectDishes').modal();
+    $('#selectMenuList').modal('hide');
+
+}
+
+// function complete() {
+    // var form = $('#detailsForm');
+    // $.ajax({
+    //     type: "POST",
+    //     url: ajaxUrl,
+    //     data: form.serialize(),
+    //     success: function () {
+    //         $('#editRow').modal('hide');
+    //         updateTable();
+    //     }
+    // });
+// }

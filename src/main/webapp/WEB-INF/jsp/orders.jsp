@@ -12,6 +12,7 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
+<%--orders datatable--%>
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
@@ -22,7 +23,7 @@
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <fmt:message key="orders.add"/>
                 </a>
-                <table class="table table-hover table-bordered " id="datatable">
+                <table class="table table-hover table-bordered " id="ordersDT">
                     <thead>
                     <tr>
                         <th><fmt:message key="common.dateTime"/></th>
@@ -39,6 +40,7 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 
+<%--edit dateTime modal window--%>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -74,7 +76,9 @@
     </div>
 </div>
 
-<div class="modal fade" id="addOrder">
+
+<%-- restaurant modal window--%>
+<div class="modal fade" id="selectRestaurant">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -84,7 +88,7 @@
 
             <div class="modal-body">
 
-                <table class="table table-hover table-bordered " id="selectRestaurantDatatable">
+                <table class="table table-hover table-bordered " id="restaurantDT">
                     <thead>
                     <tr>
                         <th><fmt:message key="restaurants.name"/></th>
@@ -93,6 +97,62 @@
                     </tr>
                     </thead>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--menuList modal window--%>
+<div class="modal fade" id="selectMenuList">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="modalTitle3"></h2>
+            </div>
+
+            <div class="modal-body">
+
+                <table class="table table-hover table-bordered " id="menuListDT">
+                    <thead>
+                    <tr>
+                        <th><fmt:message key="common.dateTime"/></th>
+                        <th><fmt:message key="menuLists.content"/></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--dishes modal window--%>
+<div class="modal fade" id="selectDishes">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="modalTitle4"></h2>
+            </div>
+
+            <div class="modal-body">
+
+                <table class="table table-hover table-bordered " id="dishDT">
+                    <thead>
+                    <tr>
+                        <th><fmt:message key="dishes.description"/></th>
+                        <th><fmt:message key="dishes.price"/></th>
+                        <th><fmt:message key="common.select"/></th>
+                    </tr>
+                    </thead>
+                </table>
+
+                    <%--<div class="col-xs-offset-3 col-xs-9">--%>
+                        <%--<button type="button" onclick="complete()" class="btn btn-primary">--%>
+                            <%--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>--%>
+                        <%--</button>--%>
+                    <%--</div>--%>
+
             </div>
         </div>
     </div>
