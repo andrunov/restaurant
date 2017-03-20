@@ -137,6 +137,9 @@
 
             <div class="modal-body">
 
+                <form class="form-horizontal" method="post" id="dishForm">
+
+
                 <table class="table table-hover table-bordered " id="dishDT">
                     <thead>
                     <tr>
@@ -147,12 +150,13 @@
                     </thead>
                 </table>
 
-                    <%--<div class="col-xs-offset-3 col-xs-9">--%>
-                        <%--<button type="button" onclick="complete()" class="btn btn-primary">--%>
-                            <%--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>--%>
-                        <%--</button>--%>
-                    <%--</div>--%>
+                    <div class="col-xs-offset-3 col-xs-9">
+                        <button type="button" onclick="complete()" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </button>
+                    </div>
 
+                </form>
             </div>
         </div>
     </div>

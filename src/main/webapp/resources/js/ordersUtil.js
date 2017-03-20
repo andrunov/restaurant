@@ -12,6 +12,7 @@ var goOrdersDishes = '/orders_dishes/';
 
 //main form datatableAPI (orders table)
 var datatableApi;
+var dishDTApi;
 
 //title variables - must have equivalents in Resource Bundle
 var editTitleKey ="orders.edit";
@@ -241,7 +242,7 @@ function openDishWindow(id) {
     });
 
     //Datatable for dishes modal window re-initialisation
-    $('#dishDT').DataTable({
+    dishDTApi = $('#dishDT').DataTable({
         "ajax": {
             "url": ajaxDishesUrl,
             "dataSrc": ""
@@ -259,7 +260,12 @@ function openDishWindow(id) {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": ""
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        return '<input type="checkbox" ' + (data ? 'checked' : '') + ' onclick="enable($(this),' + row.id + ');"/>';
+                    }
+                    return data;
+                }
             }
         ],
         "order": [
@@ -277,15 +283,15 @@ function openDishWindow(id) {
 
 }
 
-// function complete() {
-    // var form = $('#detailsForm');
-    // $.ajax({
-    //     type: "POST",
-    //     url: ajaxUrl,
-    //     data: form.serialize(),
-    //     success: function () {
-    //         $('#editRow').modal('hide');
-    //         updateTable();
-    //     }
-    // });
-// }
+function complete() {
+    var form = $('#dishForm');
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: dishDTApi.toString(),
+        success: function () {
+            $('#selectDishes').modal('hide');
+            updateTable();
+        }
+    });
+}
