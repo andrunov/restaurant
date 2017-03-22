@@ -44,6 +44,7 @@ CREATE TABLE orders(
 
 CREATE TABLE menu_lists(
   id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  description    VARCHAR NOT NULL,
   date_time      TIMESTAMP NOT NULL,
   restaurant_id INTEGER NOT NULL ,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE

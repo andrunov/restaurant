@@ -39,11 +39,11 @@ INSERT INTO orders(user_id, restaurant_id, date_time) VALUES
   (100004,100008,'2017-01-15 14:17:00'),
   (100005,100009,'2017-01-15 09:29:00');
 
-INSERT INTO menu_lists(restaurant_id, date_time) VALUES
-  (100006,'2017-01-14 16:30:00'),
-  (100007,'2017-01-14 15:45:00'),
-  (100008,'2017-01-14 15:40:00'),
-  (100009,'2017-01-14 15:32:00');
+INSERT INTO menu_lists(restaurant_id, description, date_time) VALUES
+  (100006,'Меню на 14.01','2017-01-14 16:30:00'),
+  (100007,'Обед комплексный','2017-01-14 15:45:00'),
+  (100008,'Обед','2017-01-14 15:40:00'),
+  (100009,'Обед','2017-01-14 15:32:00');
 
 INSERT INTO dishes( menu_list_id,description,price) VALUES
   (100016,'Каша овсяная',1.25),

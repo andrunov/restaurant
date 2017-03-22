@@ -70,13 +70,14 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", menuList.getId())
                 .addValue("restaurant_id", restaurantId)
+                .addValue("description", menuList.getDescription())
                 .addValue("date_time", toDbDateTime(menuList.getDateTime()));
 
         if (menuList.isNew()) {
             Number newKey = insertMenuList.executeAndReturnKey(map);
             menuList.setId(newKey.intValue());
         } else {
-            if(namedParameterJdbcTemplate.update("UPDATE menu_lists SET date_time=:date_time WHERE id=:id AND restaurant_id=:restaurant_id", map)==0){
+            if(namedParameterJdbcTemplate.update("UPDATE menu_lists SET date_time=:date_time, description=:description WHERE id=:id AND restaurant_id=:restaurant_id", map)==0){
                 return null;
             }
         }

@@ -52,9 +52,10 @@ public class MenuListAjaxController {
 
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
+                               @RequestParam("description")String description,
                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        MenuList menuList = new MenuList(currentRestaurant, dateTime);
+        MenuList menuList = new MenuList(currentRestaurant, description, dateTime);
         menuList.setId(id);
         checkEmpty(menuList);
         if (menuList.isNew()) {

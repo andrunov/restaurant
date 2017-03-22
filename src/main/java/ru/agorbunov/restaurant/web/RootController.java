@@ -76,6 +76,7 @@ public class RootController {
     @GetMapping(value = "/dishes")
     public String dishes(Model model) {
         model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
+        model.addAttribute("description",CurrentEntities.getCurrentMenuList().getDescription());
         model.addAttribute("localDate",CurrentEntities.getCurrentMenuList().getDateTime().toLocalDate().toString());
         return "dishes";
     }

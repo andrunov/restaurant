@@ -24,9 +24,10 @@
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
+                        <th><fmt:message key="menuLists.description"/></th>
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="menuLists.content"/></th>
-                        <th><fmt:message key="app.changeTateTime"/></th>
+                        <th><fmt:message key="common.update"/></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
@@ -48,6 +49,16 @@
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
                     <input type="text" hidden="hidden" id="id" name="id">
+
+                    <div class="form-group">
+                        <label for="description" class="control-label col-xs-3"><fmt:message
+                                key="menuLists.description"/></label>
+
+                        <div class="col-xs-9">
+                            <input class="form-control" id="description" name="description"
+                                   placeholder="<fmt:message key="menuLists.description"/>">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="dateTime" class="control-label col-xs-3"><fmt:message

@@ -16,12 +16,12 @@ public class MenuListTestData {
 
     public static final ModelMatcher<MenuList> MATCHER = new ModelMatcher<>();
 
-    public static final MenuList MENU_LIST_01 = new MenuList(RESTAURANT_01, LocalDateTime.of(2017,1,14,16,30));
-    public static final MenuList MENU_LIST_02 = new MenuList(RESTAURANT_02, LocalDateTime.of(2017,1,14,15,45));
-    public static final MenuList MENU_LIST_03 = new MenuList(RESTAURANT_03, LocalDateTime.of(2017,1,14,15,40));
-    public static final MenuList MENU_LIST_04 = new MenuList(RESTAURANT_04, LocalDateTime.of(2017,1,14,15,32));
+    public static final MenuList MENU_LIST_01 = new MenuList(RESTAURANT_01, "Меню на 14.01", LocalDateTime.of(2017,1,14,16,30));
+    public static final MenuList MENU_LIST_02 = new MenuList(RESTAURANT_02,"Обед комплексный", LocalDateTime.of(2017,1,14,15,45));
+    public static final MenuList MENU_LIST_03 = new MenuList(RESTAURANT_03, "Обед" ,LocalDateTime.of(2017,1,14,15,40));
+    public static final MenuList MENU_LIST_04 = new MenuList(RESTAURANT_04,"Обед" , LocalDateTime.of(2017,1,14,15,32));
 
-    public static final MenuList MENU_LIST_CREATED = new MenuList(RESTAURANT_01, LocalDateTime.of(2017,1,15,15,0));
+    public static final MenuList MENU_LIST_CREATED = new MenuList(RESTAURANT_01,"Завтрак" , LocalDateTime.of(2017,1,15,15,0));
 
     public static final int MENU_LIST_01_ID = 100016;
     public static final int RESTAURANT_01_ID = 100006;

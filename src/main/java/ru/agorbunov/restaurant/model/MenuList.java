@@ -28,6 +28,9 @@ public class MenuList extends BaseEntity {
     public static final String DELETE = "MenuList.delete";
     public static final String GET_WITH_DISHES = "MenuList.getWithDishes";
 
+    @Column(nullable = false)
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -43,8 +46,9 @@ public class MenuList extends BaseEntity {
     public MenuList() {
     }
 
-    public MenuList(Restaurant restaurant, LocalDateTime dateTime) {
+    public MenuList(Restaurant restaurant, String description, LocalDateTime dateTime) {
         this.restaurant = restaurant;
+        this.description = description;
         this.dateTime = dateTime;
     }
 
@@ -72,10 +76,19 @@ public class MenuList extends BaseEntity {
         this.dateTime = dateTime;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "MenuList{" +
-                "dateTime=" + dateTime +
+                "description='" + description + '\'' +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
