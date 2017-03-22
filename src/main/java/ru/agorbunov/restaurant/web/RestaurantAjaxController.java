@@ -35,6 +35,14 @@ public class RestaurantAjaxController {
         return service.get(id);
     }
 
+    @GetMapping(value = "/set/{id}")
+    public String setRestaurant(@PathVariable("id") int id) {
+        log.info("set " + id);
+        Restaurant restaurant = service.get(id);
+        CurrentEntities.setCurrentRestaurant(restaurant);
+        return String.format("%s, %s", restaurant.getName(), restaurant.getAddress());
+    }
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);

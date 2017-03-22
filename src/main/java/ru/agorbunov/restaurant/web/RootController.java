@@ -93,7 +93,7 @@ public class RootController {
         model.addAttribute("user",CurrentEntities.getCurrentUser());
         model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
         model.addAttribute("localDate",CurrentEntities.getCurrentOrder()
-                                        .getDateTime().toString().replace('T', ' '));
+                                        .getDateTime().toString().replace('T', ' ').substring(0,16));
         return "orders_dishes";
     }
 

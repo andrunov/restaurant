@@ -6,7 +6,7 @@ var ajaxUrl = '/ajax/orders/';
 var ajaxRestaurantUrl = '/ajax/restaurants/';
 var ajaxMenuListUrl = '/ajax/menuLists/';
 var ajaxDishesUrl = '/ajax/dishes/';
-var setRestaurantUrl = '/menuLists/';
+var setRestaurantUrl = '/ajax/restaurants/set/';
 var setMenuListUrl = '/dishes/';
 var goOrdersDishes = '/orders_dishes/';
 
@@ -178,12 +178,16 @@ function selectRestaurantBtn(data, type, row) {
     }
 }
 
+
 function openMenuListWindow(id) {
 
     //set current restaurant
     $.ajax({
         type: "GET",
-        url: setRestaurantUrl+id
+        url: setRestaurantUrl+id,
+        success: function(data){
+            $('#modalTitle35').html(data);
+        }
     });
 
     //Datatable for menuList modal window re-initialisation
@@ -196,6 +200,9 @@ function openMenuListWindow(id) {
         "paging": false,
         "info": true,
         "columns": [
+            {
+                "data": "description"
+            },
             {
                 "data": "dateTime",
                 "render": function (date, type, row) {
