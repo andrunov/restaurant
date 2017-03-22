@@ -3,7 +3,6 @@ package ru.agorbunov.restaurant.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.Order;
@@ -11,10 +10,10 @@ import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.service.RestaurantService;
-import ru.agorbunov.restaurant.util.DateTimeUtil;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,21 +54,36 @@ public class OrderAjaxController {
         orderService.delete(id);
     }
 
+//    @PostMapping
+//    public void update(@RequestParam("id") Integer id,
+//                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
+//        User currentUser = CurrentEntities.getCurrentUser();
+//        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+//        Order order = new Order(currentUser,currentRestaurant, dateTime);
+//        order.setId(id);
+//        checkEmpty(order);
+//        if (order.isNew()) {
+//            ValidationUtil.checkNew(order);
+//            log.info("create " + order);
+//            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
+//        } else {
+//            log.info("update " + order);
+//            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
+//        }
+//    }
+
     @PostMapping
-    public void createOrUpdate(@RequestParam("id") Integer id,
-                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
+    public void create(@RequestParam("dishIds")String[] dishIds ){
+        int[] dishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        LocalDateTime dateTime = LocalDateTime.now();
         Order order = new Order(currentUser,currentRestaurant, dateTime);
-        order.setId(id);
         checkEmpty(order);
         if (order.isNew()) {
             ValidationUtil.checkNew(order);
             log.info("create " + order);
-            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
-        } else {
-            log.info("update " + order);
-            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
+            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),dishesIds);
         }
     }
 

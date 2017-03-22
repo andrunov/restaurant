@@ -93,7 +93,7 @@
                     <tr>
                         <th><fmt:message key="restaurants.name"/></th>
                         <th><fmt:message key="restaurants.address"/></th>
-                        <th><fmt:message key="app.select"/></th>
+                        <th><fmt:message key="common.select"/></th>
                     </tr>
                     </thead>
                 </table>
@@ -137,26 +137,21 @@
 
             <div class="modal-body">
 
-                <form class="form-horizontal" method="post" id="dishForm">
-
-
                 <table class="table table-hover table-bordered " id="dishDT">
                     <thead>
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>
                         <th><fmt:message key="dishes.price"/></th>
-                        <th><fmt:message key="common.select"/></th>
                     </tr>
                     </thead>
                 </table>
 
-                    <div class="col-xs-offset-3 col-xs-9">
+                    <%--<div class="col-xs-offset-3 col-xs-9">--%>
                         <button type="button" onclick="complete()" class="btn btn-primary">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </button>
-                    </div>
+                    <%--</div>--%>
 
-                </form>
             </div>
         </div>
     </div>

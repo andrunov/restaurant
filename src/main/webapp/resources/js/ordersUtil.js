@@ -256,16 +256,6 @@ function openDishWindow(id) {
             },
             {
                 "data": "price"
-            },
-            {
-                "orderable": false,
-                "defaultContent": "",
-                "render": function (data, type, row) {
-                    if (type == 'display') {
-                        return '<input type="checkbox" ' + (data ? 'checked' : '') + ' onclick="enable($(this),' + row.id + ');"/>';
-                    }
-                    return data;
-                }
             }
         ],
         "order": [
@@ -277,6 +267,9 @@ function openDishWindow(id) {
         "createdRow": "",
         "initComplete": ""
     });
+    $('#dishDT').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    } );
     $('#modalTitle4').html(i18n[selectDishesKey]);
     $('#selectDishes').modal();
     $('#selectMenuList').modal('hide');
@@ -284,14 +277,21 @@ function openDishWindow(id) {
 }
 
 function complete() {
-    var form = $('#dishForm');
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: dishDTApi.toString(),
+        data: getIndexesArr(dishDTApi.rows( '.selected' ).data() ),
         success: function () {
             $('#selectDishes').modal('hide');
             updateTable();
         }
     });
+}
+
+function getIndexesArr(arr) {
+    var dishIds=[];
+    for (var i = 0; i < arr.length; i++){
+        dishIds.push(arr[i].id)
+    }
+    return "id= &dateTime=2017-01-15%2009%3A26&dishIds=" + dishIds;
 }
