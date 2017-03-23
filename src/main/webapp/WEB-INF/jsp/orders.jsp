@@ -119,7 +119,7 @@
                 </table>
                 <div class="span7 text-center">
                     <a class="btn btn-primary" type="button" onclick="complete()">
-                        <span class="glyphicon glyphicon-saved"></span>
+                        <span class="glyphicon glyphicon-ok"></span>
                         <fmt:message key="common.complete"/>
                     </a>
                 </div>

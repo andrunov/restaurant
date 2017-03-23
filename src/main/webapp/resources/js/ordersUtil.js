@@ -133,7 +133,7 @@ function addOrder() {
 function selectRestaurantBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +');">' +
-            '<span class="glyphicon glyphicon-saved"></span></a>';
+            '<span class="glyphicon glyphicon-ok"></span></a>';
     }
 }
 
@@ -194,7 +194,7 @@ function openMenuListWindow(id) {
 function selectMenuListBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openDishWindow(' + row.id +');">' +
-            '<span class="glyphicon glyphicon-saved"></span></a>';
+            '<span class="glyphicon glyphicon-ok"></span></a>';
     }
 }
 
@@ -281,9 +281,9 @@ function getIndexesArr(arr) {
     return "dishIds=" + dishIds;
 }
 
-function selectRowBtn() {
-    if (type == 'display') {
-        return '<a class="btn btn-primary" onclick="function () {  };">' +
-            '<span class="glyphicon glyphicon-saved"></span></a>';
-    }
-}
+// function selectRowBtn() {
+//     if (type == 'display') {
+//         return '<a class="btn btn-primary" onclick="function () {  };">' +
+//             '<span class="glyphicon glyphicon-saved"></span></a>';
+//     }
+// }
