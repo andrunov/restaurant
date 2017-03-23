@@ -27,9 +27,9 @@
                     <thead>
                     <tr>
                         <th><fmt:message key="common.dateTime"/></th>
-                        <th><fmt:message key="restaurants.name"/></th>
+                        <th><fmt:message key="restaurants.nameAndAddress"/></th>
                         <th><fmt:message key="orders.content"/></th>
-                        <th><fmt:message key="app.changeTateTime"/></th>
+                        <%--<th><fmt:message key="app.changeTateTime"/></th>--%>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
@@ -40,50 +40,13 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 
-<%--edit dateTime modal window--%>
-<div class="modal fade" id="editRow">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle"></h2>
-
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" method="post" id="detailsForm">
-                    <input type="text" hidden="hidden" id="id" name="id">
-
-                    <div class="form-group">
-                        <label for="dateTime" class="control-label col-xs-3"><fmt:message
-                                key="common.dateTime"/></label>
-
-                        <div class="col-xs-9">
-                            <input class="form-control" id="dateTime" name="dateTime"
-                                   placeholder="<fmt:message key="common.dateTime"/>">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
-                            <button type="button" onclick="save()" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <%-- restaurant modal window--%>
 <div class="modal fade" id="selectRestaurant">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle2"></h2>
+                <h2 class="modal-title"> <fmt:message key="restaurants.select"/></h2>
             </div>
 
             <div class="modal-body">
@@ -108,8 +71,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle3"></h2>
-                <h3 class="modal-title" id="modalTitle35"></h3>
+                <h2 class="modal-title"><fmt:message key="menuLists.select"/></h2>
+                <h3 class="modal-title" id="modalTitleRestaurant"></h3>
 
             </div>
 
@@ -137,7 +100,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle4"></h2>
+                <h2 class="modal-title"><fmt:message key="dishes.select"/></h2>
+                <h3 class="modal-title" id="modalTitleRestaurant2"></h3>
+                <h3 class="modal-title" id="modalTitleMenuList"></h3>
+
             </div>
 
             <div class="modal-body">
@@ -147,6 +113,7 @@
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>
                         <th><fmt:message key="dishes.price"/></th>
+                        <th><fmt:message key="app.select"/></th>
                     </tr>
                     </thead>
                 </table>

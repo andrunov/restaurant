@@ -36,8 +36,8 @@ public class RestaurantAjaxController {
     }
 
     @GetMapping(value = "/set/{id}")
-    public String setRestaurant(@PathVariable("id") int id) {
-        log.info("set " + id);
+    public String setCurrentRestaurant(@PathVariable("id") int id) {
+        log.info("set current restaurant" + id);
         Restaurant restaurant = service.get(id);
         CurrentEntities.setCurrentRestaurant(restaurant);
         return String.format("%s, %s", restaurant.getName(), restaurant.getAddress());

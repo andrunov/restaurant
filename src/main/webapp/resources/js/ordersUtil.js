@@ -7,7 +7,7 @@ var ajaxRestaurantUrl = '/ajax/restaurants/';
 var ajaxMenuListUrl = '/ajax/menuLists/';
 var ajaxDishesUrl = '/ajax/dishes/';
 var setRestaurantUrl = '/ajax/restaurants/set/';
-var setMenuListUrl = '/dishes/';
+var setMenuListUrl = '/ajax/menuLists/set/';
 var goOrdersDishes = '/orders_dishes/';
 
 //main form datatableAPI (orders table)
@@ -17,9 +17,9 @@ var dishDTApi;
 //title variables - must have equivalents in Resource Bundle
 var editTitleKey ="orders.edit";
 var addTitleKey ="orders.add";
-var selectRestaurantKey ="restaurants.select";
-var selectMenuListKey ="menuLists.select";
-var selectDishesKey ="dishes.select";
+
+//variable for save title for multiple use
+var currentRestaurantTitle;
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
@@ -53,11 +53,6 @@ $(function () {
                 "orderable": false,
                 "defaultContent": "",
                 "render": linkBtn
-            },
-            {
-                "orderable": false,
-                "defaultContent": "",
-                "render": renderEditOrderBtn
             },
             {
                 "orderable": false,
@@ -101,42 +96,7 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": "",
-        "initComplete": ""
-    });
-
-    //datetimepicker
-    var startDate = $('#startDate');
-    var endDate = $('#endDate');
-    startDate.datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-        formatDate: 'Y-m-d',
-        onShow: function (ct) {
-            this.setOptions({
-                maxDate: endDate.val() ? endDate.val() : false
-            })
-        }
-    });
-    
-    endDate.datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-        formatDate: 'Y-m-d',
-        onShow: function (ct) {
-            this.setOptions({
-                minDate: startDate.val() ? startDate.val() : false
-            })
-        }
-    });
-
-    $('#startTime, #endTime').datetimepicker({
-        datepicker: false,
-        format: 'H:i'
-    });
-
-    $('#dateTime').datetimepicker({
-        format: 'Y-m-d H:i'
+        "createdRow": ""
     });
 });
 
@@ -147,34 +107,33 @@ function linkBtn(data, type, row) {
     }
 }
 
-function renderEditOrderBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-primary" onclick="updateOrderRow(' + row.id +','+  row.restaurant.id+');">' +
-            '<span class="glyphicon glyphicon-time"></span></a>';
-    }
-}
+// function renderEditOrderBtn(data, type, row) {
+//     if (type == 'display') {
+//         return '<a class="btn btn-primary" onclick="updateOrderRow(' + row.id +','+  row.restaurant.id+');">' +
+//             '<span class="glyphicon glyphicon-time"></span></a>';
+//     }
+// }
 
-function updateOrderRow(id,restaurantId) {
-    $('#modalTitle').html(i18n[editTitleKey]);
-    $.get(ajaxUrl + id +'&'+ restaurantId, function (data) {
-        $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(
-                key === "dateTime" ? formatDate(value) : value
-            );
-        });
-        $('#editRow').modal();
-    });
-}
+// function updateOrderRow(id,restaurantId) {
+//     // $('#modalTitle').html(i18n[editTitleKey]);
+//     $.get(ajaxUrl + id +'&'+ restaurantId, function (data) {
+//         $.each(data, function (key, value) {
+//             form.find("input[name='" + key + "']").val(
+//                 key === "dateTime" ? formatDate(value) : value
+//             );
+//         });
+//         $('#editRow').modal();
+//     });
+// }
 
 function addOrder() {
-    $('#modalTitle2').html(i18n[selectRestaurantKey]);
     $('#selectRestaurant').modal();
 }
 
 function selectRestaurantBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +');">' +
-            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+            '<span class="glyphicon glyphicon-saved"></span></a>';
     }
 }
 
@@ -186,7 +145,8 @@ function openMenuListWindow(id) {
         type: "GET",
         url: setRestaurantUrl+id,
         success: function(data){
-            $('#modalTitle35').html(data);
+            $('#modalTitleRestaurant').html(data);
+            currentRestaurantTitle = data;
         }
     });
 
@@ -225,9 +185,7 @@ function openMenuListWindow(id) {
             ]
         ],
         "createdRow": "",
-        "initComplete": ""
     });
-    $('#modalTitle3').html(i18n[selectMenuListKey]);
     $('#selectMenuList').modal();
     $('#selectRestaurant').modal('hide');
 
@@ -236,7 +194,7 @@ function openMenuListWindow(id) {
 function selectMenuListBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openDishWindow(' + row.id +');">' +
-            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+            '<span class="glyphicon glyphicon-saved"></span></a>';
     }
 }
 
@@ -245,7 +203,11 @@ function openDishWindow(id) {
     //set current menuList
     $.ajax({
         type: "GET",
-        url: setMenuListUrl+id
+        url: setMenuListUrl+id,
+        success: function(data){
+            $('#modalTitleRestaurant2').html(currentRestaurantTitle);
+            $('#modalTitleMenuList').html(data);
+        }
     });
 
     //Datatable for dishes modal window re-initialisation
@@ -263,6 +225,16 @@ function openDishWindow(id) {
             },
             {
                 "data": "price"
+            },
+            {
+                'targets': 0,
+                'searchable': false,
+                'orderable': false,
+                'width': '1%',
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="checkbox">';
+                }
             }
         ],
         "order": [
@@ -270,17 +242,23 @@ function openDishWindow(id) {
                 0,
                 "asc"
             ]
-        ],
-        "createdRow": "",
-        "initComplete": ""
+        ]
     });
-    $('#dishDT').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
-    $('#modalTitle4').html(i18n[selectDishesKey]);
+
+    // Handle click on checkbox
+    $('#dishDT tbody').on('click', 'input[type="checkbox"]', function(e){
+        var $row = $(this).closest('tr');
+
+        if(this.checked){
+            $row.addClass('selected');
+        } else {
+            $row.removeClass('selected');
+        }
+
+        e.stopPropagation();
+    });
     $('#selectDishes').modal();
     $('#selectMenuList').modal('hide');
-
 }
 
 function complete() {
@@ -300,5 +278,12 @@ function getIndexesArr(arr) {
     for (var i = 0; i < arr.length; i++){
         dishIds.push(arr[i].id)
     }
-    return "id= &dateTime=2017-01-15%2009%3A26&dishIds=" + dishIds;
+    return "dishIds=" + dishIds;
+}
+
+function selectRowBtn() {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="function () {  };">' +
+            '<span class="glyphicon glyphicon-saved"></span></a>';
+    }
 }

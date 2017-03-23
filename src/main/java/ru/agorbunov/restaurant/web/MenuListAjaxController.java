@@ -44,6 +44,16 @@ public class MenuListAjaxController {
         return service.get(id,currentRestaurant.getId());
     }
 
+    @GetMapping(value = "/set/{id}")
+    public String setCurrentMenuList(@PathVariable("id") int id) {
+        log.info("set current menuList " + id);
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        MenuList menuList = service.get(id,currentRestaurant.getId());
+        CurrentEntities.setCurrentMenuList(menuList);
+        return String.format("%s, %s", menuList.getDescription(),
+                                        menuList.getDateTime().toLocalDate().toString());
+    }
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
