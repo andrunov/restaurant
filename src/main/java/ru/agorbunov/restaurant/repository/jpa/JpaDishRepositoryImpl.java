@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 27.01.2017.
@@ -96,7 +97,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
     }
 
     @Override
-    public List<Dish> getByOrder(int orderId) {
+    public Map<Dish,Integer> getByOrder(int orderId) {
         List<Order> result = em.createNamedQuery(Dish.GET_ALL_BY_ORDER, Order.class)
                 .setParameter("orderId",orderId)
                 .getResultList();

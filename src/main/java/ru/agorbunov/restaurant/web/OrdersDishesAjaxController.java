@@ -9,7 +9,7 @@ import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.service.DishService;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 14.03.2017.
@@ -26,7 +26,7 @@ public class OrdersDishesAjaxController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Dish> getByOrder() {
+    public Map<Dish,Integer> getByOrder() {
         log.info("getByOrder");
         Order order = CurrentEntities.getCurrentOrder();
         return service.getByOrder(order.getId());

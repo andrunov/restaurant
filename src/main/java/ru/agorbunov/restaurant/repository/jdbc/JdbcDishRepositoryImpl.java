@@ -18,7 +18,9 @@ import ru.agorbunov.restaurant.repository.DishRepository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 21.02.2017.
@@ -98,12 +100,14 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     }
 
     private void insertOrders(int dishId, int... orderIds) {
-        jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (dish_id,order_id) VALUES (?, ?)",
+        jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (dish_id,order_id,dish_quantity) VALUES (?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
                         ps.setInt(1, dishId);
                         ps.setInt(2, orderIds[i]);
+//                        default dish quantity. will change longer
+                        ps.setInt(3, 1);
                     }
 
                     @Override
@@ -137,12 +141,18 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     }
 
     @Override
-    public List<Dish> getByOrder(int orderId) {
-        List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes AS d LEFT JOIN orders_dishes AS od ON d.id = od.dish_id WHERE od.order_id=?", ROW_MAPPER, orderId);
-//        for (Dish dish : dishes) {
-//            setMenuList(dish);
-//        }
-        return dishes;
+    public Map<Dish,Integer> getByOrder(int orderId) {
+        List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od LEFT JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",orderId);
+        Map<Dish,Integer> dishMap = new LinkedHashMap<>();
+        for (Map row : results){
+            Dish dish = new Dish();
+            dish.setId((Integer)row.get("id"));
+            dish.setDescription((String) row.get("description"));
+            dish.setPrice((Double) row.get("price"));
+            Integer dishQuantity = (Integer)row.get("dish_quantity");
+            dishMap.put(dish,dishQuantity);
+        }
+        return dishMap;
     }
 
     @Override

@@ -10,8 +10,9 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 30.01.2017.
@@ -33,9 +34,9 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         order.setUser(em.getReference(User.class, userId));
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
-        List<Dish> dishes = new ArrayList<>();
+        Map<Dish,Integer> dishes = new HashMap<>();
         for (int id : dishesId){
-            dishes.add(em.getReference(Dish.class, id));
+            dishes.put(em.getReference(Dish.class, id),1);
         }
         order.setDishes(dishes);
         if (order.isNew()){

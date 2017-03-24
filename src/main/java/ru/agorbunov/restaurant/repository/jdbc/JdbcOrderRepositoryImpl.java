@@ -22,7 +22,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 21.02.2017.
@@ -31,12 +33,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     private static final BeanPropertyRowMapper<Order> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
-    private static final BeanPropertyRowMapper<Dish> DISH_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
     private static final BeanPropertyRowMapper<Restaurant> RESTAURANT_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Restaurant.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -121,12 +121,14 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     }
 
     private void insertDishes(int orderId, int... dishIds) {
-        jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (order_id, dish_id) VALUES (?, ?)",
+        jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (order_id, dish_id, dish_quantity) VALUES (?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
                             ps.setInt(1, orderId);
                             ps.setInt(2, dishIds[i]);
+//                          default dish quantity, will change longer
+                            ps.setInt(3, 1);
                     }
 
                     @Override
@@ -171,9 +173,17 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     private Order setDishes(Order o) {
         if (o != null) {
-            List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes AS d LEFT JOIN orders_dishes AS od ON d.id = od.dish_id WHERE od.order_id=?",
-                    DISH_ROW_MAPPER, o.getId());
-            o.setDishes(dishes);
+            List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od LEFT JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",o.getId());
+            Map<Dish,Integer> dishMap = new LinkedHashMap<>();
+            for (Map row : results){
+                Dish dish = new Dish();
+                dish.setId((Integer)row.get("id"));
+                dish.setDescription((String) row.get("description"));
+                dish.setPrice((Double) row.get("price"));
+                Integer dishQuantity = (Integer)row.get("dish_quantity");
+                dishMap.put(dish,dishQuantity);
+            }
+            o.setDishes(dishMap);
         }
         return o;
     }

@@ -3,6 +3,7 @@ package ru.agorbunov.restaurant.service;
 import ru.agorbunov.restaurant.model.Dish;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 30.01.2017.
@@ -19,5 +20,5 @@ public interface DishService extends BaseService<Dish> {
 
     List<Dish> getByMenuList(int menuListId);
 
-    List<Dish> getByOrder(int orderId);
+    Map<Dish, Integer> getByOrder(int orderId);
 }

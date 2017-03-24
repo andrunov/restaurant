@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static ru.agorbunov.restaurant.DishTestData.DISH_10;
-import static ru.agorbunov.restaurant.DishTestData.DISH_11;
 import static ru.agorbunov.restaurant.OrderTestData.*;
 
 /**
@@ -24,7 +22,7 @@ import static ru.agorbunov.restaurant.OrderTestData.*;
 public class OrderServiceImplTest extends AbstractServiceTest {
 
     @Autowired
-    private OrderService service;
+    protected OrderService service;
 
     @Test
     public void save() throws Exception {
@@ -36,8 +34,8 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void saveWithoutOrders() throws Exception {
         Order order = service.get(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
         service.save(order, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
-        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DISH_10, DISH_11),
-                                                    service.getWithDishes(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID).getDishes());
+        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH_10, DishTestData.DISH_11),
+                                                    service.getWithDishes(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID).getDishes().keySet());
     }
 
     @Test
@@ -103,9 +101,11 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     @Test
     public void getWith() throws Exception {
         ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
-        Order order = service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
-        MATCHER.assertEquals(ORDER_01,order);
-        DishMatcher.assertCollectionEquals(ORDER_01.getDishes(),order.getDishes());
+        ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
+        Order order = service.getWithDishes(ORDER_06_ID,USER_06_ID,RESTAURANT_04_ID);
+        MATCHER.assertEquals(ORDER_06,order);
+        DishMatcher.assertCollectionEquals(ORDER_06.getDishes().keySet(),order.getDishes().keySet());
+        IntegerMatcher.assertCollectionEquals(ORDER_06.getDishes().values(),order.getDishes().values());
     }
 
     @Test

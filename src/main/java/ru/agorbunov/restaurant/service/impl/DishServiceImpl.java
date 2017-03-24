@@ -8,6 +8,7 @@ import ru.agorbunov.restaurant.repository.DishRepository;
 import ru.agorbunov.restaurant.service.DishService;
 
 import java.util.List;
+import java.util.Map;
 
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
@@ -58,7 +59,7 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public List<Dish> getByOrder(int orderId) {
+    public Map<Dish,Integer> getByOrder(int orderId) {
         return repository.getByOrder(orderId);
     }
 }

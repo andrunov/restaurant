@@ -123,7 +123,9 @@ public class DishServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void getByOrder() throws Exception{
-        MATCHER.assertCollectionEquals(Arrays.asList(DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20),service.getByOrder(OrderTestData.ORDER_06_ID));
+        MATCHER.assertCollectionEquals(Arrays.asList(DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20),service.getByOrder(OrderTestData.ORDER_06_ID).keySet());
+        ModelMatcher<Integer> integerMatcher = new ModelMatcher<>();
+        integerMatcher.assertCollectionEquals(OrderTestData.ORDER_06_DISH_QUANTITY,service.getByOrder(OrderTestData.ORDER_06_ID).values());
     }
 
 

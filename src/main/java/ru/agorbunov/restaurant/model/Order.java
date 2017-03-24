@@ -7,7 +7,7 @@ import ru.agorbunov.restaurant.util.DateTimeUtil;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -43,7 +43,7 @@ public class Order extends BaseEntity {
             name="orders_dishes",
             joinColumns=@JoinColumn(name="order_id", referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"))
-    private List<Dish> dishes;
+    private Map<Dish,Integer> dishes;
 
     @Column(name = "date_time" , nullable = false)
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
@@ -74,11 +74,11 @@ public class Order extends BaseEntity {
         this.restaurant = restaurant;
     }
 
-    public List<Dish> getDishes() {
+    public Map<Dish, Integer> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(Map<Dish, Integer> dishes) {
         this.dishes = dishes;
     }
 

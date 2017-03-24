@@ -1,10 +1,14 @@
 package ru.agorbunov.restaurant;
 
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
+import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static ru.agorbunov.restaurant.DishTestData.*;
 import static ru.agorbunov.restaurant.RestaurantTestData.*;
@@ -30,20 +34,60 @@ public class OrderTestData {
     public static final int ORDER_05_ID = 100014;
     public static final int ORDER_06_ID = 100015;
     public static final int USER_01_ID = 100000;
+    public static final int USER_06_ID = 100005;
     public static final int RESTAURANT_01_ID = 100006;
     public static final int RESTAURANT_02_ID = 100007;
+    public static final int RESTAURANT_04_ID = 100009;
     public static final int DISH_01_ID = 100020;
     public static final int DISH_02_ID = 100021;
     public static final int DISH_03_ID = 100022;
     public static final int DISH_04_ID = 100023;
+    public static final List<Integer> ORDER_06_DISH_QUANTITY = Arrays.asList(1,1,1,2,3,1);
+
 
     static {
-        ORDER_01.setDishes(Arrays.asList(DISH_01, DISH_02, DISH_04));
-        ORDER_02.setDishes(Arrays.asList(DISH_01, DISH_02, DISH_04, DISH_05));
-        ORDER_03.setDishes(Arrays.asList(DISH_06, DISH_07, DISH_08));
-        ORDER_04.setDishes(Arrays.asList(DISH_08, DISH_09));
-        ORDER_05.setDishes(Arrays.asList(DISH_10, DISH_11));
-        ORDER_06.setDishes(Arrays.asList(DISH_15, DISH_16, DISH_17, DISH_18, DISH_19, DISH_20));
-        ORDER_CREATED.setDishes(Arrays.asList(DISH_01, DISH_02));
+
+        Map<Dish,Integer> dishes01 = new HashMap<>();
+        dishes01.put(DISH_01,1);
+        dishes01.put(DISH_02,2);
+        dishes01.put(DISH_04,1);
+        ORDER_01.setDishes(dishes01);
+
+        Map<Dish,Integer> dishes02 = new HashMap<>();
+        dishes02.put(DISH_01,1);
+        dishes02.put(DISH_02,1);
+        dishes02.put(DISH_04,2);
+        dishes02.put(DISH_05,1);
+        ORDER_02.setDishes(dishes02);
+
+        Map<Dish,Integer> dishes03 = new HashMap<>();
+        dishes03.put(DISH_06,1);
+        dishes03.put(DISH_07,2);
+        dishes03.put(DISH_08,1);
+        ORDER_03.setDishes(dishes03);
+
+        Map<Dish,Integer> dishes04 = new HashMap<>();
+        dishes04.put(DISH_08,1);
+        dishes04.put(DISH_09,2);
+        ORDER_04.setDishes(dishes04);
+
+        Map<Dish,Integer> dishes05 = new HashMap<>();
+        dishes05.put(DISH_10,1);
+        dishes05.put(DISH_11,2);
+        ORDER_05.setDishes(dishes05);
+
+        Map<Dish,Integer> dishes06 = new HashMap<>();
+        dishes06.put(DISH_15,1);
+        dishes06.put(DISH_16,1);
+        dishes06.put(DISH_17,1);
+        dishes06.put(DISH_18,2);
+        dishes06.put(DISH_19,3);
+        dishes06.put(DISH_20,1);
+        ORDER_06.setDishes(dishes06);
+
+        Map<Dish,Integer> dishes07 = new HashMap<>();
+        dishes07.put(DISH_01,1);
+        dishes07.put(DISH_02,1);
+        ORDER_CREATED.setDishes(dishes07);
     }
 }
