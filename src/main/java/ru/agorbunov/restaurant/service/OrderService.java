@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface OrderService extends BaseService<Order> {
 
-    Order save(Order order, int userId, int restaurantId, int... dishesId);
+    Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues);
 
     Order save(Order order, int userId, int restaurantId);
 

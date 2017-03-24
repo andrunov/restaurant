@@ -71,7 +71,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     @Override
     @Transactional
-    public Order save(Order order, int userId, int restaurantId, int... dishIds) {
+    public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", order.getId())
                 .addValue("user_id", userId)
@@ -81,13 +81,13 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         if (order.isNew()) {
             Number newKey = insertOrder.executeAndReturnKey(map);
             order.setId(newKey.intValue());
-            insertDishes(order.getId(), dishIds);
+            insertDishes(order.getId(), dishIds, dishQuantityValues);
         } else {
             if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
                 return null;
             }else {
                 deleteDishes(order.getId());
-                insertDishes(order.getId(), dishIds);
+                insertDishes(order.getId(), dishIds, dishQuantityValues);
             }
         }
 
@@ -120,15 +120,14 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     }
 
-    private void insertDishes(int orderId, int... dishIds) {
+    private void insertDishes(int orderId, int[] dishIds, int[] dishQuantityValues) {
         jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (order_id, dish_id, dish_quantity) VALUES (?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
                             ps.setInt(1, orderId);
                             ps.setInt(2, dishIds[i]);
-//                          default dish quantity, will change longer
-                            ps.setInt(3, 1);
+                            ps.setInt(3, dishQuantityValues[i]);
                     }
 
                     @Override

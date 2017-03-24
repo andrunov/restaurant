@@ -21,9 +21,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository repository;
 
     @Override
-    public Order save(Order order, int userId, int restaurantId, int... dishesId) {
+    public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         Assert.notNull(order,"order must not be null");
-        return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishesId),order.getId());
+        return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
     }
 
     @Override

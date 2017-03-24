@@ -27,7 +27,7 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
 
     @Override
     @Transactional
-    public Order save(Order order, int userId, int restaurantId, int... dishesId) {
+    public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         if (!order.isNew() && get(order.getId(), userId, restaurantId) == null) {
             return null;
         }
@@ -35,7 +35,7 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
         Map<Dish,Integer> dishes = new HashMap<>();
-        for (int id : dishesId){
+        for (int id : dishIds){
             dishes.put(em.getReference(Dish.class, id),1);
         }
         order.setDishes(dishes);

@@ -83,7 +83,7 @@ public class OrderAjaxController {
         if (order.isNew()) {
             ValidationUtil.checkNew(order);
             log.info("create " + order);
-            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),dishesIds);
+//            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),dishesIds);
         }
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface OrderRepository extends BaseRepository<Order> {
 
-    Order save(Order order,  int userId, int restaurantId, int... dishIds);
+    Order save(Order order,  int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues);
 
     Order save(Order order,  int userId, int restaurantId);
 

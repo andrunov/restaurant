@@ -13,6 +13,8 @@ import ru.agorbunov.restaurant.util.exception.NotFoundException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static ru.agorbunov.restaurant.OrderTestData.*;
 
@@ -26,7 +28,9 @@ public class OrderServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void save() throws Exception {
-        service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
+        int dishIds[] = {DISH_01_ID,DISH_02_ID};
+        int dishQuantityValues[] = {1,1};
+        service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, dishIds,dishQuantityValues);
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_CREATED,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
     }
 
@@ -42,7 +46,9 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void saveNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("order must not be null");
-        service.save(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
+        int dishIds[] = {DISH_01_ID,DISH_02_ID};
+        int dishQuantityValues[] = {1,1};
+        service.save(null,USER_01_ID,RESTAURANT_01_ID, dishIds,dishQuantityValues);
     }
 
     @Test
@@ -79,8 +85,22 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void update() throws Exception{
         Order order = service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         order.setDateTime( LocalDateTime.of(2017,2,16,17,46));
-        service.save(order,USER_01_ID,RESTAURANT_01_ID,DISH_01_ID,DISH_02_ID,DISH_04_ID);
-        MATCHER.assertEquals(order, service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID));
+        Map<Dish,Integer> dishes = new LinkedHashMap<>();
+        dishes.put(DishTestData.DISH_01,1);
+        dishes.put(DishTestData.DISH_02,2);
+        dishes.put(DishTestData.DISH_03,3);
+        dishes.put(DishTestData.DISH_04,4);
+        order.setDishes(dishes);
+        int dishIds[] = {DISH_01_ID,DISH_02_ID,DISH_03_ID,DISH_04_ID};
+        int dishQuantityValues[] = {1,2,3,4};
+        service.save(order,USER_01_ID,RESTAURANT_01_ID,dishIds,dishQuantityValues);
+        Order orderSaved = service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
+        MATCHER.assertEquals(order, orderSaved);
+        ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
+        DishMatcher.assertCollectionEquals(order.getDishes().keySet(),orderSaved.getDishes().keySet());
+        ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
+        IntegerMatcher.assertCollectionEquals(order.getDishes().values(),orderSaved.getDishes().values());
+
     }
 
     @Test
@@ -95,7 +115,9 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void updateNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("order must not be null");
-        service.save(null,USER_01_ID,RESTAURANT_01_ID, DISH_01_ID,DISH_02_ID);
+        int dishIds[] = {DISH_01_ID,DISH_02_ID};
+        int dishQuantityValues[] = {1,1};
+        service.save(null,USER_01_ID,RESTAURANT_01_ID, dishIds,dishQuantityValues);
     }
 
     @Test
