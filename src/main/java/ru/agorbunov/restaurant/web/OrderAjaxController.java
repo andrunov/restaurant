@@ -75,6 +75,11 @@ public class OrderAjaxController {
     @PostMapping
     public void create(@RequestParam("dishIds")String[] dishIds ){
         int[] dishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
+//        set dishes quantities as 1 default values, will be changed longer
+        int[] dishQuantityValues = new int[dishesIds.length];
+        for (int i = 0; i < dishQuantityValues.length; i++){
+            dishQuantityValues[i] = 1;
+        }
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         LocalDateTime dateTime = LocalDateTime.now();
@@ -83,7 +88,7 @@ public class OrderAjaxController {
         if (order.isNew()) {
             ValidationUtil.checkNew(order);
             log.info("create " + order);
-//            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),dishesIds);
+            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),dishesIds,dishQuantityValues);
         }
     }
 
