@@ -69,6 +69,7 @@ public class JdbcDishRepositoryImpl implements DishRepository {
         return dish;
     }
 
+    // TODO: 24.03.2017 remove method in case of not  relevance
     @Override
     @Transactional
     public Dish save(Dish dish, int menulistId, int... ordersIds) {
