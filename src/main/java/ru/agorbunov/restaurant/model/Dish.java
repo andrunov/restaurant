@@ -13,7 +13,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = Dish.GET_ALL, query = "SELECT d from Dish d"),
         @NamedQuery(name = Dish.GET_ALL_BY_MENU_LIST, query = "SELECT d from Dish d join fetch d.menuList where d.menuList.id=:menuListId"),
-        @NamedQuery(name = Dish.GET_ALL_BY_ORDER, query = "SELECT o from Order o left join fetch o.dishes WHERE o.id=:orderId"),
+        @NamedQuery(name = Dish.GET_ALL_BY_ORDER, query = "SELECT o from Order o left join fetch o.ordersDishesList WHERE o.id=:orderId"),
         @NamedQuery(name = Dish.GET_WITH_ORDERS, query = "SELECT d from Dish d left join fetch d.orders WHERE d.id=:id"),
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id")
 })
