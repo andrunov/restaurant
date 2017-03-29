@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,6 +38,20 @@ public class Dish extends BaseEntity {
     @JoinColumn(name = "menu_list_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MenuList menuList;
+
+    @OneToMany(fetch = FetchType.LAZY ,mappedBy = "dish")
+    private List<OrdersDishes> ordersDishesList;
+
+    public List<OrdersDishes> getOrdersDishesList() {
+        return ordersDishesList;
+    }
+
+    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
+        this.ordersDishesList = ordersDishesList;
+    }
+
+
+
 
     @ManyToMany
     @JoinTable(

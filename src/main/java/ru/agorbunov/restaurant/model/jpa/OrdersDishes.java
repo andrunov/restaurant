@@ -10,41 +10,26 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="orders_dishes")
-@IdClass(OrdersDishesId.class)
 public class OrdersDishes {
 
-    @Id
-    private int orderId;
+    @EmbeddedId
+    private OrdersDishesId id;
 
-    @Id
-    private int dishId;
+    @ManyToOne
+    @MapsId("orderId")
+    @JoinColumn(name="order_id")
+    private Order order;
+
+    @ManyToOne
+    @MapsId("dishId")
+    @JoinColumn(name="dish_id")
+    private Dish dish;
 
     @Column(name = "dish_quantity", nullable = false)
     private int dishQuantity;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name="order_id", referencedColumnName="id")
-    private Order order;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name="dish_id", referencedColumnName="id")
-    private Dish dish;
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getDishId() {
-        return dishId;
-    }
-
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
-    }
 
     public int getDishQuantity() {
         return dishQuantity;
