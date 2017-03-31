@@ -9,7 +9,7 @@ import ru.agorbunov.restaurant.repository.DishRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,17 +41,17 @@ public class JpaDishRepositoryImpl implements DishRepository {
 
     @Override
     @Transactional
-    public Dish save(Dish dish, int menuListId, int... ordersIds) {
+    public Dish save(Dish dish, int menuListId, int[] ordersIds, int[] dishQuantityValues) {
         this.save(dish,menuListId);
         if (!dish.isNew() && get(dish.getId(), menuListId) == null) {
             return null;
         }
         dish.setMenuList(em.getReference(MenuList.class, menuListId));
-        List<Order> orders = new ArrayList<>();
-        for (int id : ordersIds){
-            orders.add(em.getReference(Order.class, id));
+        Map<Order,Integer> ordersDishes = new LinkedHashMap<>();
+        for (int i = 0; i < ordersIds.length;i++){
+            ordersDishes.put(em.getReference(Order.class, ordersIds[i]),dishQuantityValues[i]);
         }
-        dish.setOrders(orders);
+        dish.setOrdersDishesList(ordersDishes);
 
         if (dish.isNew()){
             em.persist(dish);

@@ -10,6 +10,7 @@ import ru.agorbunov.restaurant.service.DishService;
 import java.util.List;
 import java.util.Map;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -28,9 +29,10 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish save(Dish dish, int menuListId, int...ordersIds ) {
+    public Dish save(Dish dish, int menuListId, int[] ordersIds, int[] dishQuantityValues ) {
         Assert.notNull(dish,"dish must not be null");
-        return checkNotFoundWithId(repository.save(dish,menuListId,ordersIds),dish.getId());
+        checkArrCompatibility(ordersIds,dishQuantityValues);
+        return checkNotFoundWithId(repository.save(dish,menuListId,ordersIds,dishQuantityValues),dish.getId());
     }
 
     @Override

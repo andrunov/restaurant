@@ -72,7 +72,7 @@ public class JdbcDishRepositoryImpl implements DishRepository {
     // TODO: 24.03.2017 remove method in case of not  relevance
     @Override
     @Transactional
-    public Dish save(Dish dish, int menulistId, int... ordersIds) {
+    public Dish save(Dish dish, int menulistId, int[] ordersIds, int[]dishValues) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", dish.getId())
                 .addValue("menu_list_id", menulistId)

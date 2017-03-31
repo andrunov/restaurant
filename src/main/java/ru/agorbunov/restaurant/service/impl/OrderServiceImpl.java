@@ -9,6 +9,7 @@ import ru.agorbunov.restaurant.service.OrderService;
 
 import java.util.List;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -23,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         Assert.notNull(order,"order must not be null");
+        checkArrCompatibility(dishIds,dishQuantityValues);
         return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
     }
 

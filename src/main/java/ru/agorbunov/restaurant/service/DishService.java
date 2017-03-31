@@ -12,7 +12,7 @@ public interface DishService extends BaseService<Dish> {
 
     Dish save(Dish dish,  int menulistId);
 
-    Dish save(Dish dish,  int menulistId, int...ordersIds);
+    Dish save(Dish dish,  int menulistId, int[] ordersIds, int[] dishQuantityValues);
 
     Dish get(int id, int menulistId);
 

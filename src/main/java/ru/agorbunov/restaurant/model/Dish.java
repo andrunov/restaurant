@@ -6,6 +6,7 @@ import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -46,8 +47,16 @@ public class Dish extends BaseEntity {
         return ordersDishesList;
     }
 
-    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
-        this.ordersDishesList = ordersDishesList;
+    public void setOrdersDishesList(Map<Order,Integer> ordersDishesMap){
+        List<OrdersDishes> result = null;
+        for (Map.Entry<Order,Integer> entry : ordersDishesMap.entrySet()){
+            OrdersDishes orderDishes = new OrdersDishes();
+            orderDishes.setDish(this);
+            orderDishes.setOrder(entry.getKey());
+            orderDishes.setDishQuantity(entry.getValue());
+            result.add(orderDishes);
+        }
+        this.ordersDishesList = result;
     }
 
 

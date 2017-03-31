@@ -102,6 +102,7 @@ public class Order extends BaseEntity {
         List<OrdersDishes> result = new ArrayList<>();
         for (Map.Entry<Dish,Integer> dishEntry : dishes.entrySet()){
             OrdersDishes orderDishes = new OrdersDishes();
+            orderDishes.setOrder(this);
             orderDishes.setDish(dishEntry.getKey());
             orderDishes.setDishQuantity(dishEntry.getValue());
             result.add(orderDishes);
