@@ -82,13 +82,13 @@ public class Order extends BaseEntity {
         this.restaurant = restaurant;
     }
 
-    public List<OrdersDishes> getOrdersDishesList() {
-        return ordersDishesList;
-    }
-
-    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
-        this.ordersDishesList = ordersDishesList;
-    }
+//    public List<OrdersDishes> getOrdersDishesList() {
+//        return ordersDishesList;
+//    }
+//
+//    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
+//        this.ordersDishesList = ordersDishesList;
+//    }
 
     public Map<Dish, Integer> getDishes() {
         Map<Dish,Integer> result = new LinkedHashMap();

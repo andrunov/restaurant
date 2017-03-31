@@ -28,9 +28,6 @@ public class OrdersDishes {
     @Column(name = "dish_quantity", nullable = false)
     private int dishQuantity;
 
-
-
-
     public int getDishQuantity() {
         return dishQuantity;
     }

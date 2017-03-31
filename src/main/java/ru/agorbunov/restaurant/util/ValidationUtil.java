@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import ru.agorbunov.restaurant.model.BaseEntity;
+import ru.agorbunov.restaurant.util.exception.ArraysIncompatibilityException;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
@@ -62,6 +63,12 @@ public class ValidationUtil {
     public static void checkEmpty(LocalDateTime dateTime, String description){
         if (dateTime==null){
             throw new IllegalArgumentException(description + " must be not empty");
+        }
+    }
+
+    public static void checkArrCompatibility(int[] arr1,int[]arr2){
+        if (arr1.length!=arr2.length){
+            throw new ArraysIncompatibilityException("arrays must have equals length");
         }
     }
 

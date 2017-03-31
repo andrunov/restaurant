@@ -10,7 +10,7 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,16 +28,18 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     @Override
     @Transactional
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
+
         if (!order.isNew() && get(order.getId(), userId, restaurantId) == null) {
             return null;
         }
         order.setUser(em.getReference(User.class, userId));
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
-        Map<Dish,Integer> dishes = new HashMap<>();
-        for (int id : dishIds){
-            dishes.put(em.getReference(Dish.class, id),1);
+        Map<Dish,Integer> dishes = new LinkedHashMap<>();
+        for (int i = 0; i < dishIds.length; i++){
+            dishes.put(em.getReference(Dish.class, dishIds[i]),dishQuantityValues[i]);
         }
+
         order.setDishes(dishes);
         if (order.isNew()){
             em.persist(order);

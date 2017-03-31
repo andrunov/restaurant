@@ -30,8 +30,14 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     public void save() throws Exception {
         int dishIds[] = {DISH_01_ID,DISH_02_ID};
         int dishQuantityValues[] = {1,1};
-        service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, dishIds,dishQuantityValues);
+        Order orderSaved = service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, dishIds,dishQuantityValues);
+        int orderSavedId = orderSaved.getId();
+        orderSaved = service.getWithDishes(orderSavedId,USER_01_ID,RESTAURANT_01_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_CREATED,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
+        ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
+        DishMatcher.assertCollectionEquals(ORDER_CREATED.getDishes().keySet(), orderSaved.getDishes().keySet());
+        ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
+        IntegerMatcher.assertCollectionEquals(ORDER_CREATED.getDishes().values(), orderSaved.getDishes().values());
     }
 
     @Test
