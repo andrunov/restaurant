@@ -4,14 +4,12 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
+import ru.agorbunov.restaurant.util.ComparatorUtil;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -46,14 +44,6 @@ public class Order extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY ,mappedBy = "order")
     private List<OrdersDishes> ordersDishesList;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "orders_dishes",
-//            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "dish_id", referencedColumnName = "id"))
-//    protected List<Dish> dishes;
-//    private Map<Dish,Integer> dishes;
 
     @Column(name = "date_time" , nullable = false)
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
@@ -93,7 +83,7 @@ public class Order extends BaseEntity {
     }
 
     public Map<Dish, Integer> getDishes() {
-        Map<Dish,Integer> result = new LinkedHashMap();
+        Map<Dish,Integer> result = new TreeMap<>(ComparatorUtil.dishComparator);
         for (OrdersDishes ordersDishes : ordersDishesList){
             result.put(ordersDishes.getDish(),ordersDishes.getDishQuantity());
         }

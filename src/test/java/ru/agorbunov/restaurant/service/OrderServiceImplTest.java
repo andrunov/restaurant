@@ -44,7 +44,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         order.setDateTime( LocalDateTime.of(2017,3,16,19,56));
         service.save(order, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
         MATCHER.assertEquals(order,service.get(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID));
-        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH_10, DishTestData.DISH_11),
+        DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH_11, DishTestData.DISH_10),
                 service.getWithDishes(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID).getDishes().keySet());
     }
 
@@ -88,8 +88,6 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    /* dishes №1,2,4 are updating quantity
-    * dish №3 is inserting */
     public void update() throws Exception{
         Order order = service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         order.setDateTime( LocalDateTime.of(2017,2,16,17,46));
@@ -99,13 +97,13 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         Order orderSaved = service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         MATCHER.assertEquals(order, orderSaved);
         ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
-        DishMatcher.assertCollectionEquals(Arrays.asList(DishTestData.DISH_01,
-                DishTestData.DISH_02,
-                DishTestData.DISH_04,
-                DishTestData.DISH_03),
-                orderSaved.getDishes().keySet());
+        DishMatcher.assertCollectionEquals(Arrays.asList(DishTestData.DISH_03,
+                                                        DishTestData.DISH_01,
+                                                        DishTestData.DISH_04,
+                                                        DishTestData.DISH_02),
+                                                        orderSaved.getDishes().keySet());
         ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
-        IntegerMatcher.assertCollectionEquals(Arrays.asList(1,2,4,3),orderSaved.getDishes().values());
+        IntegerMatcher.assertCollectionEquals(Arrays.asList(3,1,4,2),orderSaved.getDishes().values());
     }
 
     @Test
