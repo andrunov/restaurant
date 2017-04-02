@@ -18,7 +18,7 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId order by o.dateTime desc "),
-        @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o left join fetch o.ordersDishesList where o.id=:id"),
+        @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o left join fetch o.dishes where o.id=:id"),
         @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id"),
         @NamedQuery(name = Order.DELETE_ORDERS_DISHES, query = "DELETE FROM OrdersDishes od WHERE od.order.id=:id")
 })
@@ -43,7 +43,7 @@ public class Order extends BaseEntity {
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.LAZY ,mappedBy = "order")
-    private List<OrdersDishes> ordersDishesList;
+    private List<OrdersDishes> dishes;
 
     @Column(name = "date_time" , nullable = false)
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
@@ -74,17 +74,9 @@ public class Order extends BaseEntity {
         this.restaurant = restaurant;
     }
 
-    public List<OrdersDishes> getOrdersDishesList() {
-        return ordersDishesList;
-    }
-
-    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
-        this.ordersDishesList = ordersDishesList;
-    }
-
     public Map<Dish, Integer> getDishes() {
         Map<Dish,Integer> result = new TreeMap<>(ComparatorUtil.dishComparator);
-        for (OrdersDishes ordersDishes : ordersDishesList){
+        for (OrdersDishes ordersDishes : dishes){
             result.put(ordersDishes.getDish(),ordersDishes.getDishQuantity());
         }
         return result;
@@ -99,7 +91,7 @@ public class Order extends BaseEntity {
             orderDishes.setDishQuantity(dishEntry.getValue());
             result.add(orderDishes);
         }
-        this.ordersDishesList = result;
+        this.dishes = result;
     }
 
     public LocalDateTime getDateTime() {
