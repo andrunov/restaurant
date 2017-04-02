@@ -3,10 +3,13 @@ package ru.agorbunov.restaurant.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
+import ru.agorbunov.restaurant.util.ComparatorUtil;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Admin on 17.01.2017.
@@ -41,33 +44,27 @@ public class Dish extends BaseEntity {
     private MenuList menuList;
 
     @OneToMany(fetch = FetchType.LAZY ,mappedBy = "dish")
-    private List<OrdersDishes> ordersDishesList;
+    private List<OrdersDishes> orders;
 
-    public List<OrdersDishes> getOrdersDishesList() {
-        return ordersDishesList;
-    }
-
-    public void setOrdersDishesList(Map<Order,Integer> ordersDishesMap){
-        List<OrdersDishes> result = null;
-        for (Map.Entry<Order,Integer> entry : ordersDishesMap.entrySet()){
-            OrdersDishes orderDishes = new OrdersDishes();
-            orderDishes.setDish(this);
-            orderDishes.setOrder(entry.getKey());
-            orderDishes.setDishQuantity(entry.getValue());
-            result.add(orderDishes);
+    public Map<Order,Integer> getOrders() {
+        Map<Order,Integer> result = new TreeMap<>(ComparatorUtil.orderComparator);
+        for (OrdersDishes order : orders){
+            result.put(order.getOrder(),order.getDishQuantity());
         }
-        this.ordersDishesList = result;
+        return result;
     }
 
-
-
-
-    @ManyToMany
-    @JoinTable(
-            name="orders_dishes",
-            joinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="order_id", referencedColumnName="id"))
-    private List<Order> orders;
+    public void setOrders(Map<Order,Integer> ordersMap) {
+        List<OrdersDishes> result = new ArrayList<>();
+        for (Map.Entry<Order,Integer> order : ordersMap.entrySet()){
+            OrdersDishes element = new OrdersDishes();
+            element.setDish(this);
+            element.setOrder(order.getKey());
+            element.setDishQuantity(order.getValue());
+            result.add(element);
+        }
+        this.orders = result;
+    }
 
     public Dish() {
     }
@@ -99,14 +96,6 @@ public class Dish extends BaseEntity {
 
     public void setMenuList(MenuList menuList) {
         this.menuList = menuList;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 
     @Override

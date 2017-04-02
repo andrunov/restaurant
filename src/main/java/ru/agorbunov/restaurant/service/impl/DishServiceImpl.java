@@ -29,13 +29,6 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish save(Dish dish, int menuListId, int[] ordersIds, int[] dishQuantityValues ) {
-        Assert.notNull(dish,"dish must not be null");
-        checkArrCompatibility(ordersIds,dishQuantityValues);
-        return checkNotFoundWithId(repository.save(dish,menuListId,ordersIds,dishQuantityValues),dish.getId());
-    }
-
-    @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }

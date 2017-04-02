@@ -2,7 +2,6 @@ package ru.agorbunov.restaurant.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,10 +13,10 @@ import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.DishRepository;
+import ru.agorbunov.restaurant.util.DateTimeUtil;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +26,7 @@ import java.util.Map;
  */
 @Repository
 @Transactional(readOnly = true)
-
-public class JdbcDishRepositoryImpl implements DishRepository {
+public class JdbcDishRepositoryImpl<T> implements DishRepository {
     private static final BeanPropertyRowMapper<Dish> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
     private static final BeanPropertyRowMapper<Order> ORDER_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
     private static final BeanPropertyRowMapper<MenuList> MENU_LIST_ROW_MAPPER = BeanPropertyRowMapper.newInstance(MenuList.class);
@@ -56,7 +54,6 @@ public class JdbcDishRepositoryImpl implements DishRepository {
                 .addValue("menu_list_id", menulistId)
                 .addValue("description", dish.getDescription())
                 .addValue("price", dish.getPrice());
-
         if (dish.isNew()) {
             Number newKey = insertDish.executeAndReturnKey(map);
             dish.setId(newKey.intValue());
@@ -65,57 +62,12 @@ public class JdbcDishRepositoryImpl implements DishRepository {
                 return null;
             }
         }
-
-        return dish;
-    }
-
-    // TODO: 24.03.2017 remove method in case of not  relevance
-    @Override
-    @Transactional
-    public Dish save(Dish dish, int menulistId, int[] ordersIds, int[]dishValues) {
-        MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("id", dish.getId())
-                .addValue("menu_list_id", menulistId)
-                .addValue("description", dish.getDescription())
-                .addValue("price", dish.getPrice());
-
-        if (dish.isNew()) {
-            Number newKey = insertDish.executeAndReturnKey(map);
-            dish.setId(newKey.intValue());
-            insertOrders(dish.getId(),ordersIds);
-        } else {
-            if(namedParameterJdbcTemplate.update("UPDATE dishes SET description=:description, price=:price WHERE id=:id AND menu_list_id=:menu_list_id", map)==0){
-                return null;
-            }else {
-                deleteOrders(dish.getId());
-                insertOrders(dish.getId(),ordersIds);
-            }
-        }
-
         return dish;
     }
 
     private boolean deleteOrders(int dishId){
         return jdbcTemplate.update("DELETE FROM orders_dishes WHERE dish_id=?", dishId) != 0;
 
-    }
-
-    private void insertOrders(int dishId, int... orderIds) {
-        jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (dish_id,order_id,dish_quantity) VALUES (?, ?, ?)",
-                new BatchPreparedStatementSetter() {
-                    @Override
-                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setInt(1, dishId);
-                        ps.setInt(2, orderIds[i]);
-//                        default dish quantity. will change longer
-                        ps.setInt(3, 1);
-                    }
-
-                    @Override
-                    public int getBatchSize() {
-                        return orderIds.length;
-                    }
-                });
     }
 
     @Override
@@ -169,9 +121,18 @@ public class JdbcDishRepositoryImpl implements DishRepository {
 
     private Dish setOrders(Dish d) {
         if (d != null) {
-            List<Order> orders = jdbcTemplate.query("SELECT * FROM orders AS o LEFT JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=?",
-                    ORDER_ROW_MAPPER, d.getId());
-            d.setOrders(orders);
+            List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT o.*, od.dish_quantity FROM orders AS o LEFT JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=?", d.getId());
+            Map<Order,Integer> orderMap = new HashMap<>();
+            for (Map row : results){
+                Order order = new Order();
+                order.setId((Integer)row.get("id"));
+                order.setDateTime(DateTimeUtil.parseLocalDateTime(row.get("date_time")
+                                  .toString().substring(0,16),
+                                  DateTimeUtil.DATE_TIME_FORMATTER));
+                Integer dishQuantity = (Integer)row.get("dish_quantity");
+                orderMap.put(order,dishQuantity);
+            }
+            d.setOrders(orderMap);
         }
         return d;
     }

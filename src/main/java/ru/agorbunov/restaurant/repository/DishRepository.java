@@ -12,9 +12,6 @@ public interface DishRepository extends BaseRepository<Dish> {
 
     Dish save(Dish dish,  int menulistId);
 
-    // TODO: 24.03.2017 remove method in case of not  relevance
-    Dish save(Dish dish,  int menulistId, int[] ordersIds, int[] dishQuantityValues);
-
     Dish get(int id, int menuListId);
 
     Dish getWithOrders(int id, int menuListId);

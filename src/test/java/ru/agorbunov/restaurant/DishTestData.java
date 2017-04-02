@@ -3,11 +3,7 @@ package ru.agorbunov.restaurant;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import static ru.agorbunov.restaurant.MenuListTestData.*;
-import static ru.agorbunov.restaurant.OrderTestData.*;
 
 /**
  * Created by Admin on 20.01.2017.
@@ -47,48 +43,27 @@ public class DishTestData {
     public static final int ORDER_02_ID = 100011;
 
     static {
-        DISH_01.setMenuList(MENU_LIST_01);
-        DISH_01.setOrders(Arrays.asList(ORDER_01, ORDER_02));
-        DISH_02.setMenuList(MENU_LIST_01);
-        DISH_02.setOrders(Arrays.asList(ORDER_01, ORDER_02));
-        DISH_03.setMenuList(MENU_LIST_01);
-        DISH_03.setOrders(Collections.singletonList(null));
-        DISH_04.setMenuList(MENU_LIST_01);
-        DISH_04.setOrders(Arrays.asList(ORDER_01, ORDER_02));
-        DISH_05.setMenuList(MENU_LIST_01);
-        DISH_05.setOrders(Collections.singletonList(ORDER_02));
-        DISH_06.setMenuList(MENU_LIST_02);
-        DISH_06.setOrders(Collections.singletonList(ORDER_03));
-        DISH_07.setMenuList(MENU_LIST_02);
-        DISH_07.setOrders(Collections.singletonList(ORDER_03));
-        DISH_08.setMenuList(MENU_LIST_02);
-        DISH_08.setOrders(Arrays.asList(ORDER_03, ORDER_04));
-        DISH_09.setMenuList(MENU_LIST_02);
-        DISH_09.setOrders(Collections.singletonList(ORDER_04));
-        DISH_10.setMenuList(MENU_LIST_03);
-        DISH_10.setOrders(Collections.singletonList(ORDER_05));
-        DISH_11.setMenuList(MENU_LIST_03);
-        DISH_11.setOrders(Collections.singletonList(ORDER_05));
-        DISH_12.setMenuList(MENU_LIST_03);
-        DISH_12.setOrders(Collections.singletonList(null));
-        DISH_13.setMenuList(MENU_LIST_03);
-        DISH_13.setOrders(Collections.singletonList(null));
-        DISH_14.setMenuList(MENU_LIST_03);
-        DISH_14.setOrders(Collections.singletonList(null));
-        DISH_15.setMenuList(MENU_LIST_04);
-        DISH_15.setOrders(Collections.singletonList(ORDER_06));
-        DISH_16.setMenuList(MENU_LIST_04);
-        DISH_16.setOrders(Collections.singletonList(ORDER_06));
-        DISH_17.setMenuList(MENU_LIST_04);
-        DISH_17.setOrders(Collections.singletonList(ORDER_06));
-        DISH_18.setMenuList(MENU_LIST_04);
-        DISH_18.setOrders(Collections.singletonList(ORDER_06));
-        DISH_19.setMenuList(MENU_LIST_04);
-        DISH_19.setOrders(Collections.singletonList(ORDER_06));
-        DISH_20.setMenuList(MENU_LIST_04);
-        DISH_20.setOrders(Collections.singletonList(ORDER_06));
-        DISH_CREATED.setMenuList(MENU_LIST_01);
-        DISH_CREATED.setOrders(Collections.singletonList(ORDER_01));
+        DISH_01.setMenuList(MENU_LIST_01); //  ORDER_01, ORDER_02
+        DISH_02.setMenuList(MENU_LIST_01); //  ORDER_01, ORDER_02
+        DISH_03.setMenuList(MENU_LIST_01); //  no orders
+        DISH_04.setMenuList(MENU_LIST_01); //  ORDER_01, ORDER_02
+        DISH_05.setMenuList(MENU_LIST_01); //  ORDER_02
+        DISH_06.setMenuList(MENU_LIST_02); //  ORDER_03
+        DISH_07.setMenuList(MENU_LIST_02); //  ORDER_03
+        DISH_08.setMenuList(MENU_LIST_02); //  ORDER_03, ORDER_04
+        DISH_09.setMenuList(MENU_LIST_02); //  ORDER_04
+        DISH_10.setMenuList(MENU_LIST_03); //  ORDER_05
+        DISH_11.setMenuList(MENU_LIST_03); //  ORDER_05
+        DISH_12.setMenuList(MENU_LIST_03); //  no orders
+        DISH_13.setMenuList(MENU_LIST_03); //  no orders
+        DISH_14.setMenuList(MENU_LIST_03); //  no orders
+        DISH_15.setMenuList(MENU_LIST_04); //  ORDER_06
+        DISH_16.setMenuList(MENU_LIST_04); //  ORDER_06
+        DISH_17.setMenuList(MENU_LIST_04); //  ORDER_06
+        DISH_18.setMenuList(MENU_LIST_04); //  ORDER_06
+        DISH_19.setMenuList(MENU_LIST_04); //  ORDER_06
+        DISH_20.setMenuList(MENU_LIST_04); //  ORDER_06
+        DISH_CREATED.setMenuList(MENU_LIST_01); //  ORDER_01
 
     }
 

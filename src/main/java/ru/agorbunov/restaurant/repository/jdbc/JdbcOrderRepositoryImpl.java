@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -173,7 +173,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     private Order setDishes(Order o) {
         if (o != null) {
             List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od LEFT JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",o.getId());
-            Map<Dish,Integer> dishMap = new LinkedHashMap<>();
+            Map<Dish,Integer> dishMap = new HashMap<>();
             for (Map row : results){
                 Dish dish = new Dish();
                 dish.setId((Integer)row.get("id"));
