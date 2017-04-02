@@ -76,19 +76,19 @@ public class Order extends BaseEntity {
 
     public Map<Dish, Integer> getDishes() {
         Map<Dish,Integer> result = new TreeMap<>(ComparatorUtil.dishComparator);
-        for (OrdersDishes ordersDishes : dishes){
-            result.put(ordersDishes.getDish(),ordersDishes.getDishQuantity());
+        for (OrdersDishes dish : dishes){
+            result.put(dish.getDish(), dish.getDishQuantity());
         }
         return result;
     }
 
     public void setDishes(Map<Dish, Integer> dishes) {
         List<OrdersDishes> result = new ArrayList<>();
-        for (Map.Entry<Dish,Integer> dishEntry : dishes.entrySet()){
+        for (Map.Entry<Dish,Integer> dish : dishes.entrySet()){
             OrdersDishes orderDishes = new OrdersDishes();
             orderDishes.setOrder(this);
-            orderDishes.setDish(dishEntry.getKey());
-            orderDishes.setDishQuantity(dishEntry.getValue());
+            orderDishes.setDish(dish.getKey());
+            orderDishes.setDishQuantity(dish.getValue());
             result.add(orderDishes);
         }
         this.dishes = result;
