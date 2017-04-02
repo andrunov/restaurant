@@ -6,13 +6,13 @@ import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
+import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Admin on 30.01.2017.
@@ -35,12 +35,24 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         order.setUser(em.getReference(User.class, userId));
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
-        Map<Dish,Integer> dishes = new LinkedHashMap<>();
-        for (int i = 0; i < dishIds.length; i++){
-            dishes.put(em.getReference(Dish.class, dishIds[i]),dishQuantityValues[i]);
+        if (!order.isNew()) {
+            deleteOrdersDishes(order.getId());
         }
+        em.flush();
+//
+        List<OrdersDishes> odList = new ArrayList<>();
+        for (int i = 0; i < dishIds.length; i++){
+            OrdersDishes od = new OrdersDishes();
+            od.setOrder(order);
+            od.setDish(em.getReference(Dish.class, dishIds[i]));
+            od.setDishQuantity(dishQuantityValues[i]);
+            em.persist(od);
+//            em.merge(od);
+            odList.add(od);
+        }
+        em.flush();
+        order.setOrdersDishesList(odList);
 
-        order.setDishes(dishes);
         if (order.isNew()){
             em.persist(order);
             return order;
@@ -71,6 +83,12 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     public boolean delete(int id) {
         return em.createNamedQuery(Order.DELETE)
                 .setParameter("id", id)
+                .executeUpdate() !=0;
+    }
+
+    private boolean deleteOrdersDishes(int orderId) {
+        return em.createNamedQuery(Order.DELETE_ORDERS_DISHES)
+                .setParameter("id", orderId)
                 .executeUpdate() !=0;
     }
 

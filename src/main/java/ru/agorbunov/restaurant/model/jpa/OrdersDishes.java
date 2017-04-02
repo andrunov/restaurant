@@ -10,19 +10,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="orders_dishes")
+@IdClass(OrdersDishesId.class)
 public class OrdersDishes {
 
-    @EmbeddedId
-    private OrdersDishesId id;
-
+    @Id
     @ManyToOne
-    @MapsId("orderId")
-    @JoinColumn(name="order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
+    @Id
     @ManyToOne
-    @MapsId("dishId")
-    @JoinColumn(name="dish_id")
+    @JoinColumn(name = "dish_id", referencedColumnName = "id")
     private Dish dish;
 
     @Column(name = "dish_quantity", nullable = false)

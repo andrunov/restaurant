@@ -61,9 +61,10 @@ CREATE TABLE dishes
 
 CREATE TABLE orders_dishes
 (
-  order_id         INTEGER NOT NULL ,
-  dish_id          INTEGER NOT NULL ,
+  order_id         INTEGER NOT NULL,
+  dish_id          INTEGER NOT NULL,
   dish_quantity   INTEGER NOT NULL,
+  PRIMARY KEY (order_id,dish_id),
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
 );

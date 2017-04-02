@@ -41,11 +41,13 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    public void saveWithoutOrders() throws Exception {
+    public void updateWithoutDishes() throws Exception {
         Order order = service.get(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
+        order.setDateTime( LocalDateTime.of(2017,3,16,19,56));
         service.save(order, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID);
+        MATCHER.assertEquals(order,service.get(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID));
         DishTestData.MATCHER.assertCollectionEquals(Arrays.asList(DishTestData.DISH_10, DishTestData.DISH_11),
-                                                    service.getWithDishes(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID).getDishes().keySet());
+                service.getWithDishes(ORDER_05_ID, UserTestData.USER_05_ID, RestaurantTestData.RESTAURANT_03_ID).getDishes().keySet());
     }
 
     @Test

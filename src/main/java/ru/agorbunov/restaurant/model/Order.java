@@ -21,7 +21,8 @@ import java.util.Map;
         @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o left join fetch o.ordersDishesList where o.id=:id"),
-        @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id")
+        @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id"),
+        @NamedQuery(name = Order.DELETE_ORDERS_DISHES, query = "DELETE FROM OrdersDishes od WHERE od.order.id=:id")
 })
 @Entity
 @Table(name = "orders")
@@ -30,6 +31,7 @@ public class Order extends BaseEntity {
     public static final String GET_ALL = "Order.getAll";
     public static final String GET_ALL_BY_USER = "Order.getAllbyUser";
     public static final String DELETE = "Order.delete";
+    public static final String DELETE_ORDERS_DISHES = "Order.deleteOrdersDishes";
     public static final String GET_WITH_DISHES = "Order.getWithDishes";
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -82,13 +84,13 @@ public class Order extends BaseEntity {
         this.restaurant = restaurant;
     }
 
-//    public List<OrdersDishes> getOrdersDishesList() {
-//        return ordersDishesList;
-//    }
-//
-//    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
-//        this.ordersDishesList = ordersDishesList;
-//    }
+    public List<OrdersDishes> getOrdersDishesList() {
+        return ordersDishesList;
+    }
+
+    public void setOrdersDishesList(List<OrdersDishes> ordersDishesList) {
+        this.ordersDishesList = ordersDishesList;
+    }
 
     public Map<Dish, Integer> getDishes() {
         Map<Dish,Integer> result = new LinkedHashMap();
