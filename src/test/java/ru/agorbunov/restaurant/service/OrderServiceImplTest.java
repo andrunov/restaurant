@@ -13,8 +13,6 @@ import ru.agorbunov.restaurant.util.exception.NotFoundException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static ru.agorbunov.restaurant.OrderTestData.*;
 
@@ -90,25 +88,24 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    /* dishes №1,2,4 are updating quantity
+    * dish №3 is inserting */
     public void update() throws Exception{
         Order order = service.get(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         order.setDateTime( LocalDateTime.of(2017,2,16,17,46));
-        Map<Dish,Integer> dishes = new LinkedHashMap<>();
-        dishes.put(DishTestData.DISH_01,1);
-        dishes.put(DishTestData.DISH_02,2);
-        dishes.put(DishTestData.DISH_03,3);
-        dishes.put(DishTestData.DISH_04,4);
-        order.setDishes(dishes);
         int dishIds[] = {DISH_01_ID,DISH_02_ID,DISH_03_ID,DISH_04_ID};
         int dishQuantityValues[] = {1,2,3,4};
         service.save(order,USER_01_ID,RESTAURANT_01_ID,dishIds,dishQuantityValues);
         Order orderSaved = service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         MATCHER.assertEquals(order, orderSaved);
         ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
-        DishMatcher.assertCollectionEquals(order.getDishes().keySet(),orderSaved.getDishes().keySet());
+        DishMatcher.assertCollectionEquals(Arrays.asList(DishTestData.DISH_01,
+                DishTestData.DISH_02,
+                DishTestData.DISH_04,
+                DishTestData.DISH_03),
+                orderSaved.getDishes().keySet());
         ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
-        IntegerMatcher.assertCollectionEquals(order.getDishes().values(),orderSaved.getDishes().values());
-
+        IntegerMatcher.assertCollectionEquals(Arrays.asList(1,2,4,3),orderSaved.getDishes().values());
     }
 
     @Test

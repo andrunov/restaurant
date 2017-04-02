@@ -7,11 +7,11 @@ import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
+import ru.agorbunov.restaurant.model.jpa.OrdersDishesId;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +24,6 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     @PersistenceContext
     private EntityManager em;
 
-
     @Override
     @Transactional
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
@@ -34,30 +33,29 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         }
         order.setUser(em.getReference(User.class, userId));
         order.setRestaurant(em.getReference(Restaurant.class, restaurantId));
-
-        if (!order.isNew()) {
-            deleteOrdersDishes(order.getId());
+        if (order.isNew()){
+            em.persist(order);
+        }else {
+            order = em.merge(order);
         }
-        em.flush();
-//
-        List<OrdersDishes> odList = new ArrayList<>();
+        setOrdersDishes(order,dishIds,dishQuantityValues);
+        return order;
+    }
+
+    private void setOrdersDishes(Order order, int[] dishIds, int[] dishQuantityValues) {
         for (int i = 0; i < dishIds.length; i++){
             OrdersDishes od = new OrdersDishes();
             od.setOrder(order);
             od.setDish(em.getReference(Dish.class, dishIds[i]));
             od.setDishQuantity(dishQuantityValues[i]);
-            em.persist(od);
-//            em.merge(od);
-            odList.add(od);
-        }
-        em.flush();
-        order.setOrdersDishesList(odList);
-
-        if (order.isNew()){
-            em.persist(order);
-            return order;
-        }else {
-            return em.merge(order);
+            OrdersDishesId id = new OrdersDishesId();
+            id.setDish(dishIds[i]);
+            id.setOrder(order.getId());
+            if (em.find(OrdersDishes.class,id)!=null){
+                em.merge(od);
+            }else {
+                em.persist(od);
+            }
         }
     }
 
@@ -83,12 +81,6 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     public boolean delete(int id) {
         return em.createNamedQuery(Order.DELETE)
                 .setParameter("id", id)
-                .executeUpdate() !=0;
-    }
-
-    private boolean deleteOrdersDishes(int orderId) {
-        return em.createNamedQuery(Order.DELETE_ORDERS_DISHES)
-                .setParameter("id", orderId)
                 .executeUpdate() !=0;
     }
 
