@@ -3,6 +3,9 @@ package ru.agorbunov.restaurant;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static ru.agorbunov.restaurant.MenuListTestData.*;
 
 /**
@@ -41,6 +44,8 @@ public class DishTestData {
     public static final int MENU_LIST_02_ID = 100017;
     public static final int ORDER_01_ID = 100010;
     public static final int ORDER_02_ID = 100011;
+    public static final List<Integer> DISH_01_IN_ORDERS_QUANTITY = Arrays.asList(1, 1);
+
 
     static {
         DISH_01.setMenuList(MENU_LIST_01); //  ORDER_01, ORDER_02

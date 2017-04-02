@@ -42,7 +42,7 @@ public class OrderTestData {
     public static final int DISH_02_ID = 100021;
     public static final int DISH_03_ID = 100022;
     public static final int DISH_04_ID = 100023;
-    public static final List<Integer> ORDER_06_DISH_QUANTITY = Arrays.asList(1,1,1,2,3,1);
+    public static final List<Integer> ORDER_06_DISH_QUANTITY = Arrays.asList(1, 2, 3, 1, 1, 1);
 
 
     static {

@@ -13,13 +13,11 @@ import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.DishRepository;
+import ru.agorbunov.restaurant.util.ComparatorUtil;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Admin on 21.02.2017.
@@ -96,7 +94,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
     @Override
     public Map<Dish,Integer> getByOrder(int orderId) {
         List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od LEFT JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",orderId);
-        Map<Dish,Integer> dishMap = new LinkedHashMap<>();
+        Map<Dish,Integer> dishMap = new TreeMap<>(ComparatorUtil.dishComparator);
         for (Map row : results){
             Dish dish = new Dish();
             dish.setId((Integer)row.get("id"));
