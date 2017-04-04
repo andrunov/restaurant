@@ -25,6 +25,9 @@ $(function () {
                 "data": "price"
             },
             {
+                "data": "quantity"
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "render": renderDeleteBtn

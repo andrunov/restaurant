@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.service.DishService;
+import ru.agorbunov.restaurant.to.DishTo;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by Admin on 14.03.2017.
@@ -26,17 +26,16 @@ public class OrdersDishesAjaxController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<Dish,Integer> getByOrder() {
+    public List<DishTo> getByOrder() {
         log.info("getByOrder");
         Order order = CurrentEntities.getCurrentOrder();
-        return service.getByOrder(order.getId());
+        return DishTo.toList(service.getByOrder(order.getId()));
     }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
         service.delete(id);
-
     }
 
 }

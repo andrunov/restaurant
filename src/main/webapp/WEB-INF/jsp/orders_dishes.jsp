@@ -28,6 +28,7 @@
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>
                         <th><fmt:message key="dishes.price"/></th>
+                        <th><fmt:message key="common.quantity"/></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
