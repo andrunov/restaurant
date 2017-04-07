@@ -19,15 +19,12 @@
             <p>${restaurant.name}, ${restaurant.address}</p>
             <p>${localDate}</p>
             <div class="view-box">
-                <%--<a class="btn btn-primary" type="button" onclick="add()">--%>
-                    <%--<span class="glyphicon glyphicon-plus-sign"></span>--%>
-                    <%--<fmt:message key="dishes.add"/>--%>
-                <%--</a>--%>
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>
                         <th><fmt:message key="dishes.price"/></th>
+                        <th>increase</th>
                         <th><fmt:message key="common.quantity"/></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
