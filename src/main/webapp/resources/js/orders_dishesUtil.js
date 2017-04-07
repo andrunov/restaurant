@@ -28,10 +28,18 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderPlusBtn
             },
             {
-                "data": "quantity"
+                "data": "quantity",
+                "className": "dt-center"
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "className": "dt-center",
+                "render": renderMinusBtn
             },
             {
                 "orderable": false,
@@ -52,16 +60,35 @@ $(function () {
 
 function renderPlusBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-danger" onclick="inc('+row.id+');">'+
-            '<span class="glyphicon glyphicon-remove-circle"></span></a>';
+        return '<a class="btn btn-default" onclick="plus('+row.id+');">'+
+            '<span class="glyphicon glyphicon-plus"></span></a>';
     }
 }
 
-function inc(id) {
+function renderMinusBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-default" onclick="minus('+row.id+');">'+
+            '<span class="glyphicon glyphicon-minus"></span></a>';
+    }
+}
 
+function plus(id) {
     var index = '#' + id;
     var d = datatableApi.row(index).data();
     d.quantity++;
+    datatableApi
+        .row(index)
+        .data( d )
+        .draw();
+}
+
+function minus(id) {
+    var index = '#' + id;
+    var d = datatableApi.row(index).data();
+    d.quantity--;
+    if (d.quantity <= 0){
+        d.quantity = 0;
+    }
     datatableApi
         .row(index)
         .data( d )

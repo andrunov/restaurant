@@ -24,8 +24,9 @@
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>
                         <th><fmt:message key="dishes.price"/></th>
-                        <th>increase</th>
-                        <th><fmt:message key="common.quantity"/></th>
+                        <th class="col-xs-1"><span class="glyphicon glyphicon-plus"></span></th>
+                        <th class="col-xs-1"><fmt:message key="common.quantity"/></th>
+                        <th class="col-xs-1"><span class="glyphicon glyphicon-minus"></span></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
