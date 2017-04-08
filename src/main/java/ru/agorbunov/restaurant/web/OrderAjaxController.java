@@ -84,6 +84,7 @@ public class OrderAjaxController {
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         LocalDateTime dateTime = LocalDateTime.now();
         Order order = new Order(currentUser,currentRestaurant, dateTime);
+        CurrentEntities.setCurrentOrder(order);
         checkEmpty(order);
         if (order.isNew()) {
             ValidationUtil.checkNew(order);

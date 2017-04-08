@@ -9,6 +9,7 @@ var ajaxDishesUrl = '/ajax/dishes/';
 var setRestaurantUrl = '/ajax/restaurants/set/';
 var setMenuListUrl = '/ajax/menuLists/set/';
 var goOrdersDishes = '/orders_dishes/';
+var redirectOrdersDishes = 'orders_dishes';
 
 //main form datatableAPI (orders table)
 var datatableApi;
@@ -268,7 +269,8 @@ function complete() {
         data: getIndexesArr(dishDTApi.rows( '.selected' ).data() ),
         success: function () {
             $('#selectDishes').modal('hide');
-            updateTable();
+            // updateTable();
+            location.href = redirectOrdersDishes;
         }
     });
 }
