@@ -2,7 +2,10 @@
  * Created by Admin on 14.03.2017.
  */
 var ajaxUrl = '/ajax/orders_dishes/';
+var ajaxOrdersUrl = '/ajax/orders/update';
 var datatableApi;
+var redirectOrders = 'orders';
+
 var addTitleKey ="dishes.add";
 
 function updateTable() {
@@ -95,3 +98,25 @@ function minus(id) {
         .draw();
 }
 
+function complete() {
+    $.ajax({
+        type: "POST",
+        url: ajaxOrdersUrl,
+        data: getRequestParam(datatableApi.rows().data() ),
+        success: function () {
+            location.href = redirectOrders;
+        }
+    });
+}
+
+function getRequestParam(arr) {
+    var dishIds=[];
+    for (var i = 0; i < arr.length; i++){
+        dishIds.push(arr[i].id)
+    }
+    var dishQuantityValues=[];
+    for (var i = 0; i < arr.length; i++){
+        dishQuantityValues.push(arr[i].quantity)
+    }
+    return "dishIds=" + dishIds+"&dishQuantityValues="+ dishQuantityValues;
+}

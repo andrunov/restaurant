@@ -54,31 +54,13 @@ public class OrderAjaxController {
         orderService.delete(id);
     }
 
-//    @PostMapping
-//    public void update(@RequestParam("id") Integer id,
-//                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
-//        User currentUser = CurrentEntities.getCurrentUser();
-//        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-//        Order order = new Order(currentUser,currentRestaurant, dateTime);
-//        order.setId(id);
-//        checkEmpty(order);
-//        if (order.isNew()) {
-//            ValidationUtil.checkNew(order);
-//            log.info("create " + order);
-//            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
-//        } else {
-//            log.info("update " + order);
-//            orderService.save(order,currentUser.getId(),currentRestaurant.getId());
-//        }
-//    }
-
     @PostMapping
     public void create(@RequestParam("dishIds")String[] dishIds ){
-        int[] dishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
+        int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
 //        set dishes quantities as 1 default values, will be changed longer
-        int[] dishQuantityValues = new int[dishesIds.length];
-        for (int i = 0; i < dishQuantityValues.length; i++){
-            dishQuantityValues[i] = 1;
+        int[] intDishQuantityValues = new int[intDishesIds.length];
+        for (int i = 0; i < intDishQuantityValues.length; i++){
+            intDishQuantityValues[i] = 1;
         }
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
@@ -89,8 +71,21 @@ public class OrderAjaxController {
         if (order.isNew()) {
             ValidationUtil.checkNew(order);
             log.info("create " + order);
-            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),dishesIds,dishQuantityValues);
+            orderService.save(order,currentUser.getId(),currentRestaurant.getId(),intDishesIds,intDishQuantityValues);
         }
+    }
+
+    @PostMapping(value = "/update")
+    public void update(@RequestParam("dishIds")String[] dishIds,
+                       @RequestParam("dishQuantityValues")String[] dishQuantityValues){
+        int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
+        int[] intDishQuantityValues = Arrays.stream(dishQuantityValues).mapToInt(Integer::parseInt).toArray();
+        User currentUser = CurrentEntities.getCurrentUser();
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        Order order = CurrentEntities.getCurrentOrder();
+        checkEmpty(order);
+        log.info("update " + order);
+        orderService.save(order,currentUser.getId(),currentRestaurant.getId(),intDishesIds,intDishQuantityValues);
     }
 
     private void checkEmpty(Order order){
