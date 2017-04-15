@@ -35,7 +35,8 @@ public class OrdersDishesAjaxController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
-        service.delete(id);
+        int orderId = CurrentEntities.getCurrentOrder().getId();
+        service.deleteFromOrder(id,orderId);
     }
 
 }
