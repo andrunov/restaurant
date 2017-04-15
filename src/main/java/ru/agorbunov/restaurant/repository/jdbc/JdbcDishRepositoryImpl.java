@@ -108,6 +108,12 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
 
     @Override
     @Transactional
+    public boolean deleteFromOrder(int id, int orderId) {
+        return jdbcTemplate.update("DELETE FROM orders_dishes WHERE dish_id=? AND order_id=?", id, orderId) != 0;
+    }
+
+    @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=?", id) != 0;
     }

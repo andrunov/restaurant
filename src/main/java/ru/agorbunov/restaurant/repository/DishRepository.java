@@ -19,4 +19,6 @@ public interface DishRepository extends BaseRepository<Dish> {
     List<Dish> getByMenuList(int menuListId);
 
     Map<Dish, Integer> getByOrder(int orderId);
+
+    boolean deleteFromOrder(int id,int orderId);
 }

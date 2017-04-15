@@ -15,6 +15,7 @@ import java.util.TreeMap;
  * Created by Admin on 17.01.2017.
  */
 @SuppressWarnings("JpaQlInspection")
+@NamedNativeQuery(name = Dish.DELETE_FROM_ORDERS, query = "DELETE FROM orders_dishes WHERE dish_id=? AND order_id=?")
 @NamedQueries({
         @NamedQuery(name = Dish.GET_ALL, query = "SELECT d from Dish d"),
         @NamedQuery(name = Dish.GET_ALL_BY_MENU_LIST, query = "SELECT d from Dish d join fetch d.menuList where d.menuList.id=:menuListId"),
@@ -31,6 +32,7 @@ public class Dish extends BaseEntity {
     public static final String GET_ALL_BY_ORDER = "Dish.getAllByOrder";
     public static final String DELETE = "Dish.delete";
     public static final String GET_WITH_ORDERS = "Dish.getWithOrders";
+    public static final String DELETE_FROM_ORDERS = "deleteFromOrders";
 
     @Column(nullable = false)
     private String description;

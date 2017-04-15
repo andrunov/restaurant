@@ -79,4 +79,13 @@ public class JpaDishRepositoryImpl implements DishRepository {
                 .getResultList();
         return result.get(0).getDishes();
     }
+
+    @Override
+    @Transactional
+    public boolean deleteFromOrder(int id, int orderId) {
+        return em.createNamedQuery(Dish.DELETE_FROM_ORDERS)
+                .setParameter(1, id)
+                .setParameter(2,orderId)
+                .executeUpdate() !=0;
+    }
 }

@@ -57,4 +57,9 @@ public class DishServiceImpl implements DishService {
     public Map<Dish,Integer> getByOrder(int orderId) {
         return repository.getByOrder(orderId);
     }
+
+    @Override
+    public boolean deleteFromOrder(int id, int orderId) {
+        return repository.deleteFromOrder(id,orderId);
+    }
 }
