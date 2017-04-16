@@ -121,4 +121,11 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
                                     .setParameter("userId",userId)
                                     .getResultList();
     }
+
+    @Override
+    public List<Order> getByDish(int dishId) {
+        return em.createNamedQuery(Order.GET_ALL_BY_DISH)
+                                    .setParameter(1,dishId)
+                                    .getResultList();
+    }
 }

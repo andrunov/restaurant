@@ -170,6 +170,15 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
+    @Override
+    public List<Order> getByDish(int dishId) {
+        List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o RIGHT JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ", ROW_MAPPER,dishId);
+        for (Order order : result) {
+            setRestaurant(order);
+        }
+        return result;
+    }
+
     private Order setDishes(Order o) {
         if (o != null) {
             List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od LEFT JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",o.getId());

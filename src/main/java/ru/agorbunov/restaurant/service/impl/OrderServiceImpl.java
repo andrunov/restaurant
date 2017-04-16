@@ -62,7 +62,12 @@ public class OrderServiceImpl implements OrderService {
         return repository.getByUser(userId);
     }
 
-    /*remove dishes vith quantity==0 in order*/
+    @Override
+    public List<Order> getByDish(int dishId) {
+        return repository.getByDish(dishId);
+    }
+
+    /*remove dishes with quantity==0 in order*/
     public static int[][] removeNullValues(int[] dishIds, int[]dishQuantityValues){
         int newCapacity = 0;
         for (int value : dishQuantityValues ){

@@ -19,4 +19,6 @@ public interface OrderService extends BaseService<Order> {
 
     List<Order> getByUser(int userId);
 
+    List<Order> getByDish(int dishId);
+
 }

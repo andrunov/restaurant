@@ -145,5 +145,10 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(Collections.singletonList(ORDER_01),service.getByUser(USER_01_ID));
     }
 
+    @Test
+    public void getByDish() throws Exception{
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_02),service.getByDish(DISH_02_ID));
+    }
+
 
 }
