@@ -16,7 +16,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = MenuList.GET_ALL, query = "SELECT m from MenuList m ORDER BY m.dateTime desc"),
         @NamedQuery(name = MenuList.GET_ALL_BY_RESTAURANT, query = "SELECT m from MenuList m where m.restaurant.id=:restaurantId ORDER BY m.dateTime desc"),
-        @NamedQuery(name = MenuList.GET_WITH_DISHES, query = "SELECT m from MenuList m left join fetch m.dishList where m.id=:id"),
+        @NamedQuery(name = MenuList.GET_WITH_DISHES, query = "SELECT m from MenuList m join fetch m.dishList where m.id=:id"),
         @NamedQuery(name = MenuList.DELETE, query = "DELETE FROM MenuList m WHERE m.id=:id")
 })
 @Entity

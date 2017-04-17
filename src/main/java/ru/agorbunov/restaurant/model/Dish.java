@@ -19,8 +19,8 @@ import java.util.TreeMap;
 @NamedQueries({
         @NamedQuery(name = Dish.GET_ALL, query = "SELECT d from Dish d"),
         @NamedQuery(name = Dish.GET_ALL_BY_MENU_LIST, query = "SELECT d from Dish d join fetch d.menuList where d.menuList.id=:menuListId"),
-        @NamedQuery(name = Dish.GET_ALL_BY_ORDER, query = "SELECT o from Order o left join fetch o.dishes WHERE o.id=:orderId"),
-        @NamedQuery(name = Dish.GET_WITH_ORDERS, query = "SELECT d from Dish d left join fetch d.orders WHERE d.id=:id"),
+        @NamedQuery(name = Dish.GET_ALL_BY_ORDER, query = "SELECT o from Order o join fetch o.dishes WHERE o.id=:orderId"),
+        @NamedQuery(name = Dish.GET_WITH_ORDERS, query = "SELECT d from Dish d join fetch d.orders WHERE d.id=:id"),
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id")
 })
 @Entity
@@ -32,7 +32,7 @@ public class Dish extends BaseEntity {
     public static final String GET_ALL_BY_ORDER = "Dish.getAllByOrder";
     public static final String DELETE = "Dish.delete";
     public static final String GET_WITH_ORDERS = "Dish.getWithOrders";
-    public static final String DELETE_FROM_ORDERS = "deleteFromOrders";
+    public static final String DELETE_FROM_ORDERS = "Dish.deleteFromOrders";
 
     @Column(nullable = false)
     private String description;

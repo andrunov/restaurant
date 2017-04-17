@@ -26,7 +26,6 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class JdbcDishRepositoryImpl<T> implements DishRepository {
     private static final BeanPropertyRowMapper<Dish> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
-    private static final BeanPropertyRowMapper<Order> ORDER_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
     private static final BeanPropertyRowMapper<MenuList> MENU_LIST_ROW_MAPPER = BeanPropertyRowMapper.newInstance(MenuList.class);
 
     @Autowired
@@ -93,7 +92,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
 
     @Override
     public Map<Dish,Integer> getByOrder(int orderId) {
-        List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od LEFT JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",orderId);
+        List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",orderId);
         Map<Dish,Integer> dishMap = new TreeMap<>(ComparatorUtil.dishComparator);
         for (Map row : results){
             Dish dish = new Dish();
@@ -125,7 +124,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
 
     private Dish setOrders(Dish d) {
         if (d != null) {
-            List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT o.*, od.dish_quantity FROM orders AS o LEFT JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=?", d.getId());
+            List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT o.*, od.dish_quantity FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=?", d.getId());
             Map<Order,Integer> orderMap = new HashMap<>();
             for (Map row : results){
                 Order order = new Order();

@@ -13,8 +13,8 @@ import java.util.List;
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Restaurant.GET_ALL, query = "SELECT r from Restaurant r"),
-        @NamedQuery(name = Restaurant.GET_WITH_MENU_LISTS, query = "SELECT r from Restaurant r left join fetch r.menuLists WHERE r.id=:id"),
-        @NamedQuery(name = Restaurant.GET_WITH_ORDERS, query = "SELECT r from Restaurant r left join fetch r.orders WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.GET_WITH_MENU_LISTS, query = "SELECT r from Restaurant r join fetch r.menuLists WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.GET_WITH_ORDERS, query = "SELECT r from Restaurant r join fetch r.orders WHERE r.id=:id"),
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id")
 })
 @Entity

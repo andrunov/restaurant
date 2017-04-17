@@ -16,7 +16,7 @@ import java.util.Set;
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = User.GET_ALL, query = "SELECT u from User u"),
-        @NamedQuery(name = User.GET_WITH_ORDERS, query = "SELECT u from User u LEFT JOIN FETCH u.orders WHERE u.id = :id"),
+        @NamedQuery(name = User.GET_WITH_ORDERS, query = "SELECT u from User u JOIN FETCH u.orders WHERE u.id = :id"),
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id")
 })
 @Entity

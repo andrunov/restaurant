@@ -15,11 +15,11 @@ import java.util.*;
  * Created by Admin on 17.01.2017.
  */
 @SuppressWarnings("JpaQlInspection")
-@NamedNativeQuery(name = Order.GET_ALL_BY_DISH, query = "SELECT o.* FROM orders AS o LEFT JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ",resultClass = Order.class)
+@NamedNativeQuery(name = Order.GET_ALL_BY_DISH, query = "SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ",resultClass = Order.class)
 @NamedQueries({
         @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId order by o.dateTime desc "),
-        @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o left join fetch o.dishes where o.id=:id"),
+        @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o join fetch o.dishes where o.id=:id"),
         @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id"),
         @NamedQuery(name = Order.DELETE_ORDERS_DISHES, query = "DELETE FROM OrdersDishes od WHERE od.order.id=:id")
 })
