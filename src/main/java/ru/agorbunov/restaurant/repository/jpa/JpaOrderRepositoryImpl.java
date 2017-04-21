@@ -12,6 +12,7 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -124,8 +125,20 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
 
     @Override
     public List<Order> getByDish(int dishId) {
-        return em.createNamedQuery(Order.GET_ALL_BY_DISH,Order.class)
+        List<Order> result = new ArrayList<>();
+        List<Order> orders = em.createNamedQuery(Order.GET_ALL_BY_DISH,Order.class)
                                     .setParameter(0,dishId)
                                     .getResultList();
+
+        for (Order order : orders){
+            result.add(getWithUser(order));
+        }
+        return result;
+    }
+
+    private Order getWithUser(Order order){
+        return (Order)em.createNamedQuery(Order.GET_WITH_USER)
+                                    .setParameter("id",order.getId())
+                                    .getSingleResult();
     }
 }
