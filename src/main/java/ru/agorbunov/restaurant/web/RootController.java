@@ -7,12 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
-import ru.agorbunov.restaurant.service.MenuListService;
-import ru.agorbunov.restaurant.service.OrderService;
-import ru.agorbunov.restaurant.service.RestaurantService;
-import ru.agorbunov.restaurant.service.UserService;
+import ru.agorbunov.restaurant.service.*;
 
 /**
  * Created by Admin on 26.02.2017.
@@ -33,6 +31,9 @@ public class RootController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private DishService dishService;
 
     @GetMapping(value = "/")
     public String root() {
@@ -104,6 +105,23 @@ public class RootController {
         CurrentEntities.setCurrentRestaurant(restaurantService.get(restaurantId));
         CurrentEntities.setCurrentOrder(orderService.get(id,user.getId(),restaurantId));
         return "redirect:/orders_dishes";
+    }
+
+    @GetMapping(value = "/orders_by_dish")
+    public String ordersByDish(Model model){
+        model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
+        model.addAttribute("menuList",CurrentEntities.getCurrentMenuList());
+        model.addAttribute("localDate",CurrentEntities.getCurrentMenuList()
+                .getDateTime().toString().replace('T', ' ').substring(0,16));
+        model.addAttribute("dish",CurrentEntities.getCurrentDish());
+        return "orders_by_dish";
+    }
+
+    @GetMapping(value = "/orders_by_dish/{id}")
+    public String ordersByDish(@PathVariable("id") int id){
+        MenuList menuList = CurrentEntities.getCurrentMenuList();
+        CurrentEntities.setCurrentDish(dishService.get(id,menuList.getId()));
+        return "redirect:/orders_by_dish";
     }
 
 }

@@ -2,6 +2,7 @@
  * Created by Admin on 13.03.2017.
  */
 var ajaxUrl = '/ajax/dishes/';
+var goOrdersByDish = '/orders_by_dish/';
 var datatableApi;
 var editTitleKey ="dishes.edit";
 var addTitleKey ="dishes.add";
@@ -28,6 +29,11 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "render": linkBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
                 "render": renderEditBtn
             },
             {
@@ -47,3 +53,9 @@ $(function () {
     });
 });
 
+function linkBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick=location.href="' +goOrdersByDish + row.id +'">' +
+            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+}

@@ -15,6 +15,7 @@ import ru.agorbunov.restaurant.Profiles;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
+import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.sql.DataSource;
@@ -34,6 +35,7 @@ import java.util.Map;
 public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     private static final BeanPropertyRowMapper<Order> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
     private static final BeanPropertyRowMapper<Restaurant> RESTAURANT_ROW_MAPPER = BeanPropertyRowMapper.newInstance(Restaurant.class);
+    private static final BeanPropertyRowMapper<User> USER_ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -174,7 +176,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     public List<Order> getByDish(int dishId) {
         List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ", ROW_MAPPER,dishId);
         for (Order order : result) {
-            setRestaurant(order);
+            setUser(order);
         }
         return result;
     }
@@ -201,6 +203,15 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
             List<Restaurant> restaurants = jdbcTemplate.query("SELECT r.id, r.name, r.address FROM restaurants AS r JOIN orders AS o ON r.id = o.restaurant_id WHERE o.id=?",
                     RESTAURANT_ROW_MAPPER, o.getId());
             o.setRestaurant(DataAccessUtils.singleResult(restaurants));
+        }
+        return o;
+    }
+
+    private Order setUser(Order o){
+        if (o != null) {
+            List<User> users = jdbcTemplate.query("SELECT u.id, u.name, u.email FROM users AS u JOIN orders AS o ON u.id = o.user_id WHERE o.id=?",
+                    USER_ROW_MAPPER, o.getId());
+            o.setUser(DataAccessUtils.singleResult(users));
         }
         return o;
     }
