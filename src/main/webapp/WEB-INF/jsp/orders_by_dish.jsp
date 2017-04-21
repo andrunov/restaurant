@@ -32,8 +32,7 @@
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="users.name"/></th>
                         <th><fmt:message key="users.email"/></th>
-                    <%--<th><fmt:message key="orders.content"/></th>--%>
-                        <%--<th><fmt:message key="common.delete"/></th>--%>
+                        <th><fmt:message key="orders.content"/></th>
                     </tr>
                     </thead>
                 </table>

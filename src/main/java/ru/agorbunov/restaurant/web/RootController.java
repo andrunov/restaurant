@@ -99,13 +99,24 @@ public class RootController {
     }
 
     @GetMapping(value = "/orders_dishes/{id}&{restaurantId}")
-    public String orders_dishes(@PathVariable("id") int id,
+    public String orders_dishesByRestaurant(@PathVariable("id") int id,
                                 @PathVariable("restaurantId") int restaurantId){
         User user = CurrentEntities.getCurrentUser();
         CurrentEntities.setCurrentRestaurant(restaurantService.get(restaurantId));
         CurrentEntities.setCurrentOrder(orderService.get(id,user.getId(),restaurantId));
         return "redirect:/orders_dishes";
     }
+
+    @GetMapping(value = "/orders_dishes_by_user/{id}&{userId}")
+    public String orders_dishesByUser(@PathVariable("id") int id,
+                                @PathVariable("userId") int userId){
+        User user = userService.get(userId);
+        CurrentEntities.setCurrentUser(user);
+        Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
+        CurrentEntities.setCurrentOrder(orderService.get(id,user.getId(),restaurant.getId()));
+        return "redirect:/orders_dishes";
+    }
+
 
     @GetMapping(value = "/orders_by_dish")
     public String ordersByDish(Model model){

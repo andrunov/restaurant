@@ -2,6 +2,8 @@
  * Created by Admin on 17.04.2017.
  */
 var ajaxUrl = '/ajax/order_by_dish/';
+var goOrdersDishes = '/orders_dishes_by_user/';
+
 var datatableApi;
 
 $(function () {
@@ -37,16 +39,11 @@ $(function () {
                     return data.email;
                 }
             },
-            // {
-            //     "orderable": false,
-            //     "defaultContent": "",
-            //     "render": linkBtn
-            // },
-            // {
-            //     "orderable": false,
-            //     "defaultContent": "",
-            //     "render": renderDeleteBtn
-            // }
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": linkBtn
+            }
         ],
         "order": [
             [
@@ -54,7 +51,13 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": "",
-        "initComplete": makeEditable
+        "createdRow": ""
     });
 });
+
+function linkBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick=location.href="' +goOrdersDishes + row.id +'&'+  row.user.id +'">' +
+            '<span class="glyphicon glyphicon-list-alt"></span></a>';
+    }
+}
