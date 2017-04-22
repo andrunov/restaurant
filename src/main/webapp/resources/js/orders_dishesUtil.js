@@ -17,7 +17,7 @@ var datatableApi;
 /*url for redirect to orders.jsp after POST method*/
 var redirectOrdersUrl = 'orders';
 
-/*variable links to dishes.add internationalization resource */
+/*variable links to dishes.add resource bundle */
 var addTitleKey ="dishes.add";
 
 /*function to update DataTable by data from server*/

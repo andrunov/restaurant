@@ -34,10 +34,10 @@ var datatableApi;
 /*variable links to DataTable represents dishes in dishes modal window (id="selectDishes")*/
 var dishDTApi;
 
-/*variable links to orders.edit internationalization resource */
+/*variable links to orders.edit resource bundle */
 var editTitleKey ="orders.edit";
 
-/*variable links to orders.add internationalization resource */
+/*variable links to orders.add resource bundle */
 var addTitleKey ="orders.add";
 
 /*variable for save title for multiple use */

@@ -12,10 +12,10 @@ var goDishes = '/dishes/';
 /*variable links to DataTable represents menu lists in menuList.jsp*/
 var datatableApi;
 
-/*variable links to menuLists.edit internationalization resource */
+/*variable links to menuLists.edit resource bundle */
 var editTitleKey ="menuLists.edit";
 
-/*variable links to menuLists.add internationalization resource */
+/*variable links to menuLists.add resource bundle */
 var addTitleKey ="menuLists.add";
 
 /*function to update DataTable by data from server*/

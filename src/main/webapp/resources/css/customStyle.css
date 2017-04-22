@@ -1,38 +1,41 @@
-/** цвет фона и рамки навигационного меню *!*/
+/*Bootstrap customise style*/
+
+/*background and border navigation bar color*/
 .navbar-default {
 background-color: #72a2be;
 border-color: #436d96;
 top: 5px;
 }
 
- /*цвет текста, содержащий название сайта или бренда */
+/*color of brand name text*/
 .navbar-default .navbar-brand {
     color: #f1a195;
 }
-/*цвет элемента использующегося в футере */
+
+/*color of footer elements*/
 .navbar-link{
     background-color: #bed1dc;
     border-color: #5f62a0;
 }
 
-/* цвет текста (название сайта или бренда), при поднесении к нему курсора мышки или при его нахождении в фокусе */
+/*color of brand name text in mouse focus*/
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #97ecf1;
 }
 
-/* Цвет пунктов навигационного меню */
+/*color of navigation bar items*/
 .navbar-default .navbar-nav > li > a {
     color: #ecf0f1;
 }
 
-/* Цвет пункта меню, при поднесении к нему курсора мышки или при его нахождении в фокусе */
+/*color of navigation bar items in mouse focus*/
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
     color: #d1ffed;
 }
 
-/* Цвет и фон активного пункта меню, а также поднесении к нему курсора мышки или при его нахождении в фокусе */
+/*color of active navigation bar items and in mouse focus*/
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -42,33 +45,33 @@ top: 5px;
 
 /*TODO remove unusual elements before deployment */
 /**************/
-/* Цвет стрелочки (треугольничка), открывшегося пункта меню */
+/*!* Цвет стрелочки (треугольничка), открывшегося пункта меню *!
 .navbar-default .navbar-nav > .open > a .caret,
 .navbar-default .navbar-nav > .open > a:hover .caret,
 .navbar-default .navbar-nav > .open > a:focus .caret {
     border-top-color: #d1ffed;
     border-bottom-color: #d1ffed;
 }
-/* CSS стили для мобильных устройств */
-/* Цвет рамки у кнопки, которая открывает меню */
+!* CSS стили для мобильных устройств *!
+!* Цвет рамки у кнопки, которая открывает меню *!
 .navbar-default .navbar-toggle {
     border-color: #27ae60;
 }
-/* Цвет фона кнопки (которая открывает меню) при поднесении к ней курсора мышки или при нахождении её в фокусе */
+!* Цвет фона кнопки (которая открывает меню) при поднесении к ней курсора мышки или при нахождении её в фокусе *!
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
     background-color: #27ae60;
 }
-/* Цвет полосочек в кнопочке, которая открывает меню */
+!* Цвет полосочек в кнопочке, которая открывает меню *!
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #ecf0f1;
 }
-/* Цвет пунктов меню в раскрывающихся списках */
+!* Цвет пунктов меню в раскрывающихся списках *!
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #ecf0f1;
     }
-    /* Цвет и фон пункта меню в раскрывающихся списках, при поднесении к нему курсора мышки или при нахождении его в фокусе */
+    !* Цвет и фон пункта меню в раскрывающихся списках, при поднесении к нему курсора мышки или при нахождении его в фокусе *!
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
         color: #d1ffed;
@@ -76,46 +79,46 @@ top: 5px;
     }
 }
 
-/* Цвет и фон открытого пункта меню, а также поднесении к нему курсора мышки или при его нахождении в фокусе */
+!* Цвет и фон открытого пункта меню, а также поднесении к нему курсора мышки или при его нахождении в фокусе *!
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
     color: #d1ffed;
     background-color: #27ae60;
 }
-/* Цвет стрелочки (треугольничка) у раскрывающихся пунктов меню */
+!* Цвет стрелочки (треугольничка) у раскрывающихся пунктов меню *!
 .navbar-default .navbar-nav > .dropdown > a .caret {
     border-top-color: #ecf0f1;
     border-bottom-color: #ecf0f1;
 }
-/* Цвет стрелочки (треугольничка) при поднесении к нему курсора мышки или при его нахождении в фокусе */
+!* Цвет стрелочки (треугольничка) при поднесении к нему курсора мышки или при его нахождении в фокусе *!
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
     border-top-color: #d1ffed;
     border-bottom-color: #d1ffed;
-}
+}*/
 
 /******************/
 
 
-/*Цвет основного элемента*/
+/*Jumbotron color*/
 .jumbotron {
     background-color: #c2d6e1;
     border-color: #5f62a0;
 }
 
-/*цвет строки таблицы при наведении фокуса*/
+/*color of table row in focus*/
 .table-hover tbody tr:hover {
     background-color: #dbe4f4;
 }
 
-/*цвет фона выпадающего окна*/
+/*modal window background color*/
 .modal-content{
     background-color: #c2d6e1;
     border-color: #436d96;
 }
 
-/*цвет текста заголовка выпадающего окна*/
+/*modal window header text color*/
 .modal-header .modal-title{
     color: #4096c1;
 }

@@ -12,10 +12,10 @@ var goOrdersUrl = '/orders/';
 /*variable links to DataTable represents users in users.jsp*/
 var datatableApi;
 
-/*variable links to users.edit internationalization resource */
+/*variable links to users.edit resource bundle */
 var editTitleKey ="users.edit";
 
-/*variable links to users.add internationalization resource */
+/*variable links to users.add resource bundle */
 var addTitleKey ="users.add";
 
 /*function to update DataTable by data from server*/

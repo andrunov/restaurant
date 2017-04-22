@@ -12,10 +12,10 @@ var goOrdersByDish = '/orders_by_dish/';
 /*variable links to DataTable represents dishes in dishes.jsp*/
 var datatableApi;
 
-/*variable links to dishes.edit internationalization resource */
+/*variable links to dishes.edit resource bundle */
 var editTitleKey ="dishes.edit";
 
-/*variable links to dishes.add internationalization resource */
+/*variable links to dishes.add resource bundle */
 var addTitleKey ="dishes.add";
 
 /*function to update DataTable by data from server*/

@@ -1,3 +1,4 @@
+<%--footer of any page, includes link to application repository in WEB--%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,6 +14,7 @@
     </div>
 </div>
 
+<%--function creates an array of bundle resourses specify of users lical--%>
 <script type="text/javascript">
     var i18n = [];
     <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete",
