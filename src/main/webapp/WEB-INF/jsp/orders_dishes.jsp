@@ -1,3 +1,5 @@
+<%--shows content of order. Uses for update exist order
+or as finish 4-th step of creation new order--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 

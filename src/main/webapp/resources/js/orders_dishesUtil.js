@@ -1,7 +1,7 @@
 /**
  * Class serves orders_dishes.jsp
- * use to update created orders
- * and as 4-th step of creation new order
+ * use to update exist orders
+ * and as final 4-th step of creation new order
  * - specify the dishes quantities
  */
 
