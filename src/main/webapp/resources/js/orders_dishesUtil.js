@@ -127,15 +127,23 @@ function complete() {
     });
 }
 
-/*function to get arrays of dishes and according dishes quantities*/
+/*function to get arrays of dishes and according dishes quantities
+* ignore dishes with null quantities*/
 function getRequestParam(arr) {
     var dishIds=[];
-    for (var i = 0; i < arr.length; i++){
-        dishIds.push(arr[i].id)
-    }
     var dishQuantityValues=[];
+    var dishNullQuantityIndexes=[];
     for (var i = 0; i < arr.length; i++){
-        dishQuantityValues.push(arr[i].quantity)
+        if (arr[i].quantity == 0){
+            dishNullQuantityIndexes.push(i)
+        }else {
+            dishQuantityValues.push(arr[i].quantity)
+        }
+    }
+    for (var i = 0; i < arr.length; i++){
+        if (($.inArray(i,dishNullQuantityIndexes))==-1){
+            dishIds.push(arr[i].id)
+        }
     }
     return "dishIds=" + dishIds+"&dishQuantityValues="+ dishQuantityValues;
 }

@@ -19,6 +19,6 @@ public interface OrderRepository extends BaseRepository<Order> {
 
     List<Order> getByUser(int userId);
 
-    List getByDish(int dishId);
+    List<Order> getByDish(int dishId);
 
 }

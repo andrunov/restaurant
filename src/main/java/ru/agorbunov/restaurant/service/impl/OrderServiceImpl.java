@@ -25,9 +25,6 @@ public class OrderServiceImpl implements OrderService {
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         Assert.notNull(order,"order must not be null");
         checkArrCompatibility(dishIds,dishQuantityValues);
-        int[][] copyValues = removeNullValues(dishIds,dishQuantityValues);
-        dishIds = copyValues[0];
-        dishQuantityValues = copyValues[1];
         return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
     }
 
@@ -65,24 +62,5 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getByDish(int dishId) {
         return repository.getByDish(dishId);
-    }
-
-    /*remove dishes with quantity==0 in order*/
-    public static int[][] removeNullValues(int[] dishIds, int[]dishQuantityValues){
-        int newCapacity = 0;
-        for (int value : dishQuantityValues ){
-            if (value > 0) newCapacity++;
-        }
-        int[] copyDishIds = new int[newCapacity];
-        int[] copyDishQuantityValues = new int[newCapacity];
-        int counter = 0;
-        for (int i = 0; i < dishQuantityValues.length; i++){
-            if (dishQuantityValues[i]>0){
-                copyDishIds[counter] = dishIds[i];
-                copyDishQuantityValues[counter] = dishQuantityValues[i];
-                counter++;
-            }
-        }
-        return new int[][]{copyDishIds,copyDishQuantityValues};
     }
 }
