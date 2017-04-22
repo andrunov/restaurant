@@ -1,32 +1,56 @@
 /**
- * Created by Admin on 11.03.2017.
+ * Class serves orders.jsp
+ * works with orders of specify user
  */
-//URL variables
+
+/*url for exchange JSON data between main form DataTable (id="ordersDT")
+*represents orders and server*/
 var ajaxUrl = '/ajax/orders/';
+
+/*url for exchange JSON data between restaurant modal window DataTable (id="restaurantDT") and server*/
 var ajaxRestaurantUrl = '/ajax/restaurants/';
+
+/*url for exchange JSON data between menuList modal window DataTable (id="menuListDT") and server*/
 var ajaxMenuListUrl = '/ajax/menuLists/';
+
+/*url for exchange JSON data between dishes modal window DataTable (id="dishDT") and server*/
 var ajaxDishesUrl = '/ajax/dishes/';
-var setRestaurantUrl = '/ajax/restaurants/set/';
-var setMenuListUrl = '/ajax/menuLists/set/';
+
+/*url getRestaurantUrl + id use for take restaurant by AJAX*/
+var getRestaurantUrl = '/ajax/restaurants/set/';
+
+/*url getMenuListUrl + id use for take menuList by AJAX*/
+var getMenuListUrl = '/ajax/menuLists/set/';
+
+/*url for link to orders_dishes.jsp*/
 var goOrdersDishes = '/orders_dishes/';
+
+/*url for redirect to orders_dishes.jsp after POST method*/
 var redirectOrdersDishes = 'orders_dishes';
 
-//main form datatableAPI (orders table)
+/*variable links to main form DataTable represents orders in orders.jsp*/
 var datatableApi;
+
+/*variable links to DataTable represents dishes in dishes modal window (id="selectDishes")*/
 var dishDTApi;
 
-//title variables - must have equivalents in Resource Bundle
+/*variable links to orders.edit internationalization resource */
 var editTitleKey ="orders.edit";
+
+/*variable links to orders.add internationalization resource */
 var addTitleKey ="orders.add";
 
-//variable for save title for multiple use
+/*variable for save title for multiple use */
 var currentRestaurantTitle;
 
+/*function to update DataTable by data from server*/
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+/*document.ready function*/
 $(function () {
+    /*DataTable represents orders in main form initialization*/
     datatableApi = $('#ordersDT').DataTable({
         "ajax": {
             "url": ajaxUrl,
@@ -67,10 +91,10 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": "",
-        "initComplete": makeEditable
+        "createdRow": ""
     });
 
+    /*DataTable represents restaurants in modal window initialization*/
     $('#restaurantDT').DataTable({
         "ajax": {
             "url": ajaxRestaurantUrl,
@@ -101,6 +125,7 @@ $(function () {
     });
 });
 
+/*function for link to orders_dishes.jsp*/
 function linkBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick=location.href="' +goOrdersDishes + row.id +'&'+  row.restaurant.id+'">' +
@@ -108,29 +133,14 @@ function linkBtn(data, type, row) {
     }
 }
 
-// function renderEditOrderBtn(data, type, row) {
-//     if (type == 'display') {
-//         return '<a class="btn btn-primary" onclick="updateOrderRow(' + row.id +','+  row.restaurant.id+');">' +
-//             '<span class="glyphicon glyphicon-time"></span></a>';
-//     }
-// }
-
-// function updateOrderRow(id,restaurantId) {
-//     // $('#modalTitle').html(i18n[editTitleKey]);
-//     $.get(ajaxUrl + id +'&'+ restaurantId, function (data) {
-//         $.each(data, function (key, value) {
-//             form.find("input[name='" + key + "']").val(
-//                 key === "dateTime" ? formatDate(value) : value
-//             );
-//         });
-//         $('#editRow').modal();
-//     });
-// }
-
+/*function for begin procedure of order addition
+* 1-st step: open modal window of restaurant select*/
 function addOrder() {
     $('#selectRestaurant').modal();
 }
 
+/*render function draw button for restaurant selection
+* and finish 1-st step of order addition procedure*/
 function selectRestaurantBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +');">' +
@@ -138,20 +148,22 @@ function selectRestaurantBtn(data, type, row) {
     }
 }
 
-
+/*function of 2-nd step of order addition
+* get restaurant by id from server and to memory it in server
+* open modal window for menu list selection
+* hide modal window of restaurant select*/
 function openMenuListWindow(id) {
-
     //set current restaurant
     $.ajax({
         type: "GET",
-        url: setRestaurantUrl+id,
+        url: getRestaurantUrl+id,
         success: function(data){
             $('#modalTitleRestaurant').html(data);
             currentRestaurantTitle = data;
         }
     });
 
-    //Datatable for menuList modal window re-initialisation
+    //DataTable for menuList modal window initialisation
     $('#menuListDT').DataTable({
         "ajax": {
             "url": ajaxMenuListUrl,
@@ -185,13 +197,14 @@ function openMenuListWindow(id) {
                 "asc"
             ]
         ],
-        "createdRow": "",
+        "createdRow": ""
     });
     $('#selectMenuList').modal();
     $('#selectRestaurant').modal('hide');
-
 }
 
+/*render function draw button for menuList selection
+ * and finish 2-nd step of order addition procedure*/
 function selectMenuListBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openDishWindow(' + row.id +');">' +
@@ -199,19 +212,23 @@ function selectMenuListBtn(data, type, row) {
     }
 }
 
+/*function of 3-rd step of order addition
+ * get menuList by id from server and to memory it in server
+ * open modal window for dish selection
+ * hide modal window of menuList select*/
 function openDishWindow(id) {
 
     //set current menuList
     $.ajax({
         type: "GET",
-        url: setMenuListUrl+id,
+        url: getMenuListUrl+id,
         success: function(data){
             $('#modalTitleRestaurant2').html(currentRestaurantTitle);
             $('#modalTitleMenuList').html(data);
         }
     });
 
-    //Datatable for dishes modal window re-initialisation
+    //DataTable for dishes modal window initialisation
     dishDTApi = $('#dishDT').DataTable({
         "ajax": {
             "url": ajaxDishesUrl,
@@ -246,22 +263,24 @@ function openDishWindow(id) {
         ]
     });
 
-    // Handle click on checkbox
+    // Handle multiple choice checkbox of dishes
     $('#dishDT tbody').on('click', 'input[type="checkbox"]', function(e){
         var $row = $(this).closest('tr');
-
         if(this.checked){
             $row.addClass('selected');
         } else {
             $row.removeClass('selected');
         }
-
         e.stopPropagation();
     });
     $('#selectDishes').modal();
     $('#selectMenuList').modal('hide');
 }
 
+/*function finish 3-rd step of order addition procedure
+* send selected data to server fo create new order
+* and redirect to orders_dishes.jsp for 4-th step
+* of creation new order - specify dishes quantities*/
 function complete() {
     $.ajax({
         type: "POST",
@@ -275,6 +294,7 @@ function complete() {
     });
 }
 
+/*function creates dishes id array for sending to server*/
 function getIndexesArr(arr) {
     var dishIds=[];
     for (var i = 0; i < arr.length; i++){
@@ -283,9 +303,3 @@ function getIndexesArr(arr) {
     return "dishIds=" + dishIds;
 }
 
-// function selectRowBtn() {
-//     if (type == 'display') {
-//         return '<a class="btn btn-primary" onclick="function () {  };">' +
-//             '<span class="glyphicon glyphicon-saved"></span></a>';
-//     }
-// }

@@ -1,15 +1,29 @@
 /**
- * Created by Admin on 03.03.2017.
+ * Class serves menuList.jsp
+ * works with menuLists of specific restaurant
  */
+
+/*url for exchange JSON data between DataTable and server*/
 var ajaxUrl = '/ajax/menuLists/';
+
+/*url for link to order_by_dish.jsp*/
+var goDishes = '/dishes/';
+
+/*variable links to DataTable represents menu lists in menuList.jsp*/
 var datatableApi;
+
+/*variable links to menuLists.edit internationalization resource */
 var editTitleKey ="menuLists.edit";
+
+/*variable links to menuLists.add internationalization resource */
 var addTitleKey ="menuLists.add";
 
+/*function to update DataTable by data from server*/
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+/*document.ready function*/
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {
@@ -57,6 +71,7 @@ $(function () {
         "initComplete": makeEditable
     });
 
+    /*set datetimepicker*/
     var startDate = $('#startDate');
     var endDate = $('#endDate');
     startDate.datetimepicker({
@@ -80,23 +95,27 @@ $(function () {
         }
     });
 
+    /*set field with datetimepicker*/
     $('#startTime, #endTime').datetimepicker({
         datepicker: false,
         format: 'H:i'
     });
 
+    /*set field with datetimepicker*/
     $('#dateTime').datetimepicker({
         format: 'Y-m-d H:i'
     });
 });
 
+/*function for link to dishes.jsp*/
 function linkBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick=location.href="/dishes/'+ row.id +'">' +
+        return '<a class="btn btn-primary" onclick=location.href="'+ goDishes + row.id +'">' +
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
     }
 }
 
+/*render function draw button for update row*/
 function renderEditMenuListBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="updateRow(' + row.id + ');">' +

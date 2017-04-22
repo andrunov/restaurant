@@ -1,17 +1,31 @@
 /**
- * Created by Admin on 14.03.2017.
+ * Class serves orders_dishes.jsp
+ * use to update created orders
+ * and as 4-th step of creation new order
+ * - specify the dishes quantities
  */
-var ajaxUrl = '/ajax/orders_dishes/';
-var ajaxOrdersUrl = '/ajax/orders/update';
-var datatableApi;
-var redirectOrders = 'orders';
 
+/*url for exchange JSON data between DataTable and server*/
+var ajaxUrl = '/ajax/orders_dishes/';
+
+/*url for finally load data to server*/
+var ajaxOrdersUrl = '/ajax/orders/update';
+
+/*variable links to DataTable represents dishes and dishes quantities in orders_dishes.jsp*/
+var datatableApi;
+
+/*url for redirect to orders.jsp after POST method*/
+var redirectOrdersUrl = 'orders';
+
+/*variable links to dishes.add internationalization resource */
 var addTitleKey ="dishes.add";
 
+/*function to update DataTable by data from server*/
 function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+    $.get(ajaxUrl, updateTableByData());
 }
 
+/*document.ready function*/
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {
@@ -56,11 +70,11 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": "",
-        "initComplete": makeEditable
+        "createdRow": ""
     });
 });
 
+/*render function draw button for increase quantity of current Dish by 1*/
 function renderPlusBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-default" onclick="plus('+row.id+');">'+
@@ -68,6 +82,7 @@ function renderPlusBtn(data, type, row) {
     }
 }
 
+/*render function draw button for decrease quantity of current Dish by 1*/
 function renderMinusBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-default" onclick="minus('+row.id+');">'+
@@ -75,6 +90,7 @@ function renderMinusBtn(data, type, row) {
     }
 }
 
+/*function for increase quantity of current Dish by 1*/
 function plus(id) {
     var index = '#' + id;
     var d = datatableApi.row(index).data();
@@ -85,6 +101,7 @@ function plus(id) {
         .draw();
 }
 
+/*function for decrease quantity of current Dish by 1*/
 function minus(id) {
     var index = '#' + id;
     var d = datatableApi.row(index).data();
@@ -98,17 +115,19 @@ function minus(id) {
         .draw();
 }
 
+/*function for finally load data to server*/
 function complete() {
     $.ajax({
         type: "POST",
         url: ajaxOrdersUrl,
         data: getRequestParam(datatableApi.rows().data() ),
         success: function () {
-            location.href = redirectOrders;
+            location.href = redirectOrdersUrl;
         }
     });
 }
 
+/*function to get arrays of dishes and according dishes quantities*/
 function getRequestParam(arr) {
     var dishIds=[];
     for (var i = 0; i < arr.length; i++){

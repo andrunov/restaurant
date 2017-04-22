@@ -29,7 +29,6 @@
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="restaurants.nameAndAddress"/></th>
                         <th><fmt:message key="orders.content"/></th>
-                        <%--<th><fmt:message key="app.changeTateTime"/></th>--%>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
@@ -48,9 +47,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h2 class="modal-title"> <fmt:message key="restaurants.select"/></h2>
             </div>
-
             <div class="modal-body">
-
                 <table class="table table-hover table-bordered " id="restaurantDT">
                     <thead>
                     <tr>
@@ -73,11 +70,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h2 class="modal-title"><fmt:message key="menuLists.select"/></h2>
                 <h3 class="modal-title" id="modalTitleRestaurant"></h3>
-
             </div>
-
             <div class="modal-body">
-
                 <table class="table table-hover table-bordered " id="menuListDT">
                     <thead>
                     <tr>
@@ -95,7 +89,6 @@
 <%--dishes modal window--%>
 <div class="modal fade" id="selectDishes">
     <div class="container">
-
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -103,11 +96,8 @@
                 <h2 class="modal-title"><fmt:message key="dishes.select"/></h2>
                 <h3 class="modal-title" id="modalTitleRestaurant2"></h3>
                 <h3 class="modal-title" id="modalTitleMenuList"></h3>
-
             </div>
-
             <div class="modal-body">
-
                 <table class="table table-hover table-bordered " id="dishDT">
                     <thead>
                     <tr>
@@ -128,7 +118,6 @@
     </div>
     </div>
 </div>
-
 </body>
 </html>
 

@@ -1,11 +1,18 @@
 /**
- * Created by Admin on 17.04.2017.
+ * Class serves orders_by_dish.jsp
+ * works with orders of specify dish
  */
+
+/*url for exchange JSON data between DataTable and server*/
 var ajaxUrl = '/ajax/order_by_dish/';
+
+/*url for link to orders_dishes.jsp*/
 var goOrdersDishes = '/orders_dishes_by_user/';
 
+/*variable links to DataTable represents orders in orders_by_dish.jsp*/
 var datatableApi;
 
+/*document.ready function*/
 $(function () {
     datatableApi = $('#ordersDT').DataTable({
         "ajax": {
@@ -55,6 +62,7 @@ $(function () {
     });
 });
 
+/*function for link to orders_dishes.jsp*/
 function linkBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick=location.href="' +goOrdersDishes + row.id +'&'+  row.user.id +'">' +
