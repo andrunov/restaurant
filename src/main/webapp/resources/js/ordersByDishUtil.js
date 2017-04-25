@@ -14,6 +14,11 @@ var datatableApi;
 
 /*document.ready function*/
 $(function () {
+    
+    /*set cross-page variable "ordersDishesPostRedirectUrl" as 'orders_by_dish' for return
+     * to this page (orders_by_dish.jsp) after call POST-method in orders_dishes.jsp */
+    localStorage.setItem("ordersDishesPostRedirectUrl",'orders_by_dish');
+
     datatableApi = $('#ordersDT').DataTable({
         "ajax": {
             "url": ajaxUrl,

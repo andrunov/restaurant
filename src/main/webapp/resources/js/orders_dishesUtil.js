@@ -14,9 +14,6 @@ var ajaxOrdersUrl = '/ajax/orders/update';
 /*variable links to DataTable represents dishes and dishes quantities in orders_dishes.jsp*/
 var datatableApi;
 
-/*url for redirect to orders.jsp after POST method*/
-var redirectOrdersUrl = 'orders';
-
 /*variable links to dishes.add resource bundle */
 var addTitleKey ="dishes.add";
 
@@ -115,14 +112,16 @@ function minus(id) {
         .draw();
 }
 
-/*function for finally load data to server*/
+/*function for finally load data to server
+* and redirect to exact page from which
+ * this page (orders_dishes.jsp) was called*/
 function complete() {
     $.ajax({
         type: "POST",
         url: ajaxOrdersUrl,
         data: getRequestParam(datatableApi.rows().data() ),
         success: function () {
-            location.href = redirectOrdersUrl;
+            location.href = localStorage.getItem("ordersDishesPostRedirectUrl");
         }
     });
 }
