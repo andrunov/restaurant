@@ -82,3 +82,34 @@ function linkBtn(data, type, row) {
             '<span class="glyphicon glyphicon-list-alt"></span></a>';
     }
 }
+
+/*render function draw button for update row*/
+function renderEditBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="updateRow(' + row.id + ');">' +
+            '<span class="glyphicon glyphicon-edit"></span></a>';
+    }
+}
+
+/*method to update row in tables */
+function updateRow(id) {
+    // document.getElementById('ADMIN').checked = false;
+    // document.getElementById('USER').checked = false;
+    $('#modalTitle').html(i18n[editTitleKey]);
+    $("#ADMIN").prop("checked", false);
+    $("#USER").prop("checked", false);
+
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            if (key === "roles") {
+                for (var i = 0; i < value.length; i++) {
+                    $("#" + value[i]).click();
+                }
+            }
+            else {
+                form.find("input[name='" + key + "']").val(value);
+            }
+        });
+        $('#editRow').modal();
+    });
+}

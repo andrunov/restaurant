@@ -10,6 +10,7 @@ import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.UserService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,8 +48,15 @@ public class UserAjaxController {
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("name") String name,
                                @RequestParam("email") String email,
-                               @RequestParam("password") String password) {
-        User user = new User(name, email, password, Role.USER);
+                               @RequestParam("password") String password,
+                               @RequestParam("roles") String[] roleValues) {
+        Role[] roles = new Role[roleValues.length];
+        for (int i = 0; i < roleValues.length; i++){
+            roles[i] = Role.valueOf(roleValues[i]);
+        }
+        Role firstRole = roles[0];
+        Role[] restRoles = Arrays.copyOfRange(roles,roles.length - 1, roleValues.length);
+        User user = new User(name, email, password, firstRole, restRoles);
         user.setId(id);
         checkEmpty(user);
         if (user.isNew()) {

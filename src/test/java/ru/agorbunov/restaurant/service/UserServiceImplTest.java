@@ -1,5 +1,6 @@
 package ru.agorbunov.restaurant.service;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static ru.agorbunov.restaurant.UserTestData.*;
 
@@ -63,6 +65,10 @@ public class UserServiceImplTest extends AbstractServiceTest {
     public void get() throws Exception {
         User user = service.get(USER_01_ID);
         MATCHER.assertEquals(USER_01, user);
+        Assert.assertEquals(Collections.singletonList(USER_01.getRoles()),
+                            Collections.singletonList(user.getRoles()));
+
+
     }
 
     @Test

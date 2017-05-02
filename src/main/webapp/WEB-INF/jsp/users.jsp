@@ -1,6 +1,7 @@
 <%--shows users--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <fmt:setBundle basename="messages.app"/>
 
@@ -71,6 +72,22 @@
 
                         <div class="col-xs-9">
                             <input type="password" class="form-control" id="password" name="password" placeholder="<fmt:message key="users.password"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="control-label col-xs-3"><fmt:message key="users.roles"/></label>
+
+                        <div class="col-xs-9">
+                            <p>
+                                <label  for="ADMIN"><fmt:message key="users.admin"/></label>
+                                <input type="checkbox" id="ADMIN" name="roles" value="ADMIN">
+                            </p>
+
+                            <p>
+                                <label  for="USER"><fmt:message key="users.user"/></label>
+                                <input type="checkbox" id="USER" name="roles" value="USER">
+                            </p>
                         </div>
                     </div>
 

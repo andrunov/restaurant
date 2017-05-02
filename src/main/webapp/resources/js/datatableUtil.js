@@ -23,7 +23,7 @@ function add() {
     $('#editRow').modal();
 }
 
-/*method to update row in tables includes DateTime field*/
+/*method to update row in tables that may includes DateTime field*/
 function updateRow(id) {
     $('#modalTitle').html(i18n[editTitleKey]);
     $.get(ajaxUrl + id, function (data) {
