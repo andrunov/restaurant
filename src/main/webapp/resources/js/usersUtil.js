@@ -46,7 +46,17 @@ $(function () {
                 }
             },
             {
-                "data": "roles"
+                "data": "roles",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        var localRoles = [];
+                        for (var i = 0; i < data.length; i++){
+                            localRoles.push(i18n["roles." + data[i]])
+                        }
+                        return localRoles;
+                    }
+                    return data;
+                }
             },
             {
                 "orderable": false,

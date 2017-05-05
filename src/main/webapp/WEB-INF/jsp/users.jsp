@@ -80,12 +80,12 @@
 
                         <div class="col-xs-9">
                             <p>
-                                <label  for="ADMIN"><fmt:message key="users.admin"/></label>
+                                <label  for="ADMIN"><fmt:message key="roles.ADMIN"/></label>
                                 <input type="checkbox" id="ADMIN" name="roles" value="ADMIN">
                             </p>
 
                             <p>
-                                <label  for="USER"><fmt:message key="users.user"/></label>
+                                <label  for="USER"><fmt:message key="roles.USER"/></label>
                                 <input type="checkbox" id="USER" name="roles" value="USER">
                             </p>
                         </div>

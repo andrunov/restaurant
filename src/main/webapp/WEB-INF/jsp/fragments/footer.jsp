@@ -16,8 +16,9 @@
 
 <%--function creates an array of bundle resourses specify of users lical--%>
 <script type="text/javascript">
-    var i18n = [];
+    var i18n = {};
     <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete",
+                                                    "roles.ADMIN","roles.USER",
                                                     "users.add","users.edit",
                                                     "restaurants.add","restaurants.edit","restaurants.select",
                                                     "menuLists.add","menuLists.edit", "menuLists.select",
