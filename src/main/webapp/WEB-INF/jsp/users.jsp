@@ -25,6 +25,7 @@
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><fmt:message key="users.name"/></th>
                         <th><fmt:message key="users.email"/></th>
                         <th><fmt:message key="users.roles"/></th>

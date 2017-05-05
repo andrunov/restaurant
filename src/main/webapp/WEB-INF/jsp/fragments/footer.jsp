@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<%--function creates an array of bundle resourses specify of users lical--%>
+<%--function creates an array of bundle resourses specify of users local--%>
 <script type="text/javascript">
     var i18n = {};
     <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete",

@@ -33,9 +33,32 @@ $(function () {
         "paging": false,
         "info": true,
         "columns": [
+            /*add column with image depending of Role*/
+            {
+                "orderable": false,
+                "data": "roles",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        var isAdmin = false;
+                        for (var i = 0; i < data.length; i++){
+                            if (data[i] === "ADMIN"){
+                                isAdmin = true;
+                            }
+                        }
+                        if (isAdmin){
+                            return '<span class="glyphicon glyphicon-star"></span>';
+                        }
+                        else {
+                            return '<span class="glyphicon glyphicon-user"></span>';
+                        }
+                    }
+                    return null;
+                }
+            },
             {
                 "data": "name"
             },
+            /*adjust e-mail column*/
             {
                 "data": "email",
                 "render": function (data, type, row) {
@@ -45,6 +68,7 @@ $(function () {
                     return data;
                 }
             },
+            /*internationalization of enum Role values*/
             {
                 "data": "roles",
                 "render": function (data, type, row) {
@@ -76,12 +100,27 @@ $(function () {
         ],
         "order": [
             [
-                0,
+                1,
                 "asc"
             ]
         ],
-        "createdRow": "",
+        /*customize row style depending of Role*/
+        "createdRow": function (row, data, dataIndex) {
+            var isAdmin = false;
+            for (var i = 0; i < data.roles.length; i++){
+                if (data.roles[i] === "ADMIN"){
+                    isAdmin = true;
+                }
+            }
+            $(row).addClass(isAdmin ? 'isAdmin' : 'isUser');
+        },
         "initComplete": makeEditable
+    });
+
+    datatableApi.each(function(){
+        if ($(this).text() == 'N') {
+            $(this).css('background-color','#f00');
+        }
     });
 });
 
