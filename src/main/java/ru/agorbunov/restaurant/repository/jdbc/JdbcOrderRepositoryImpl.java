@@ -76,6 +76,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", order.getId())
+                .addValue("status", order.getStatus().toString())
                 .addValue("user_id", userId)
                 .addValue("restaurant_id", restaurantId)
                 .addValue("date_time", toDbDateTime(order.getDateTime()));
@@ -85,7 +86,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
             order.setId(newKey.intValue());
             insertDishes(order.getId(), dishIds, dishQuantityValues);
         } else {
-            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
+            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time, status=:status WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
                 return null;
             }else {
                 deleteDishes(order.getId());
@@ -101,6 +102,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     public Order save(Order order, int userId, int restaurantId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", order.getId())
+                .addValue("status", order.getStatus().toString())
                 .addValue("user_id", userId)
                 .addValue("restaurant_id", restaurantId)
                 .addValue("date_time", toDbDateTime(order.getDateTime()));
@@ -109,7 +111,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
             Number newKey = insertOrder.executeAndReturnKey(map);
             order.setId(newKey.intValue());
         } else {
-            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
+            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time, status=:status WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
                 return null;
             }
         }

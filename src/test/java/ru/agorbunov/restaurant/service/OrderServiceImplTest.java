@@ -1,5 +1,6 @@
 package ru.agorbunov.restaurant.service;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.agorbunov.restaurant.DishTestData;
@@ -8,6 +9,7 @@ import ru.agorbunov.restaurant.UserTestData;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.Order;
+import ru.agorbunov.restaurant.model.Status;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
@@ -93,6 +95,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         order.setDateTime( LocalDateTime.of(2017,2,16,17,46));
         int dishIds[] = {DISH_01_ID,DISH_02_ID,DISH_03_ID,DISH_04_ID};
         int dishQuantityValues[] = {1,2,3,4};
+        order.setStatus(Status.PREPARING);
         service.save(order,USER_01_ID,RESTAURANT_01_ID,dishIds,dishQuantityValues);
         Order orderSaved = service.getWithDishes(ORDER_01_ID,USER_01_ID,RESTAURANT_01_ID);
         MATCHER.assertEquals(order, orderSaved);
@@ -104,6 +107,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
                                                         orderSaved.getDishes().keySet());
         ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
         IntegerMatcher.assertCollectionEquals(Arrays.asList(3,1,4,2),orderSaved.getDishes().values());
+        Assert.assertEquals(Status.PREPARING,orderSaved.getStatus());
     }
 
     @Test

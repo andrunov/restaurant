@@ -37,7 +37,8 @@ CREATE TABLE orders(
   id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id         INTEGER NOT NULL ,
   restaurant_id  INTEGER NOT NULL ,
-  date_time    TIMESTAMP NOT NULL,
+  date_time     TIMESTAMP NOT NULL,
+  status        VARCHAR,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );

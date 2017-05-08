@@ -53,6 +53,10 @@ public class Order extends BaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public Order() {
     }
 
@@ -60,6 +64,15 @@ public class Order extends BaseEntity {
         this.user = user;
         this.restaurant = restaurant;
         this.dateTime = dateTime;
+        this.status = Status.ACCEPTED;
+    }
+
+    public Order(User user, Restaurant restaurant, List<OrdersDishes> dishes, LocalDateTime dateTime, Status status) {
+        this.user = user;
+        this.restaurant = restaurant;
+        this.dishes = dishes;
+        this.dateTime = dateTime;
+        this.status = status;
     }
 
     public User getUser() {
@@ -104,6 +117,14 @@ public class Order extends BaseEntity {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
