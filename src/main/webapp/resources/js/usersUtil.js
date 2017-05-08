@@ -46,10 +46,10 @@ $(function () {
                             }
                         }
                         if (isAdmin){
-                            return '<span class="glyphicon glyphicon-star"></span>';
+                            return '<img  src="resources/pictures/admin.png" />';
                         }
                         else {
-                            return '<span class="glyphicon glyphicon-user"></span>';
+                            return '<img  src="resources/pictures/user.png" />';
                         }
                     }
                     return null;
