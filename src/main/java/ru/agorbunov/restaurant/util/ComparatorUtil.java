@@ -6,7 +6,7 @@ import ru.agorbunov.restaurant.model.Order;
 import java.util.Comparator;
 
 /**
- * Created by Admin on 02.04.2017.
+ * Class for different comparing methods
  */
 public class ComparatorUtil {
     public static Comparator<Dish> dishComparator = new Comparator<Dish>() {

@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Created by Admin on 10.03.2017.
+ * Class for actions with LocalDate, LocalTime and LocalDateTime classes
  */
 public class DateTimeUtil {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";

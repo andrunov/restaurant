@@ -10,7 +10,7 @@ import ru.agorbunov.restaurant.util.exception.NotFoundException;
 import java.time.LocalDateTime;
 
 /**
- * Created by Admin on 19.02.2017.
+ * Class for different validation methods
  */
 public class ValidationUtil {
 

@@ -77,17 +77,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label  class="control-label col-xs-3"><fmt:message key="users.roles"/></label>
+                        <p>
+                            <label  class="control-label col-xs-3"><fmt:message key="users.roles"/></label>
+                        </p>
 
                         <div class="col-xs-9">
                             <p>
-                                <label  for="ADMIN"><fmt:message key="roles.ADMIN"/></label>
                                 <input type="checkbox" id="ADMIN" name="roles" value="ADMIN">
+                                <label  for="ADMIN"><fmt:message key="roles.ADMIN"/></label>
                             </p>
 
                             <p>
-                                <label  for="USER"><fmt:message key="roles.USER"/></label>
                                 <input type="checkbox" id="USER" name="roles" value="USER">
+                                <label  for="USER"><fmt:message key="roles.USER"/></label>
                             </p>
                         </div>
                     </div>
