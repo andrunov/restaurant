@@ -135,12 +135,36 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="dateTime" class="control-label col-xs-3"><fmt:message
-                                key="common.dateTime"/></label>
+                        <label for="dateTime" class="control-label col-xs-3"><fmt:message  key="common.dateTime"/></label>
 
                         <div class="col-xs-9">
                             <input class="form-control" id="dateTime" name="dateTime"
                                    placeholder="<fmt:message key="common.dateTime"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <p>
+                            <label  class="control-label col-xs-3"><fmt:message key="order.status"/></label>
+                        </p>
+
+                        <div class="col-xs-9">
+                            <p>
+                                <input name="status" type="radio" id="ACCEPTED" value="ACCEPTED">
+                                <label  for="ACCEPTED"><fmt:message key="status.ACCEPTED"/></label>
+                            </p>
+                            <p>
+                                <input name="status" type="radio" id="PREPARING" value="PREPARING">
+                                <label  for="PREPARING"><fmt:message key="status.PREPARING"/></label>
+                            </p>
+                            <p>
+                                <input name="status" type="radio" id="READY" value="READY">
+                                <label  for="READY"><fmt:message key="status.READY"/></label>
+                            </p>
+                            <p>
+                                <input name="status" type="radio" id="FINISHED" value="FINISHED">
+                                <label  for="FINISHED"><fmt:message key="status.FINISHED"/></label>
+                            </p>
                         </div>
                     </div>
 

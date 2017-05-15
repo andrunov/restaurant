@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Restaurant;
+import ru.agorbunov.restaurant.model.Status;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.service.RestaurantService;
@@ -80,12 +81,14 @@ public class OrderAjaxController {
     }
 
     @PostMapping
-    public void update(@RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
+    public void update(@RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime,
+                       @RequestParam("status") String status){
         User user = CurrentEntities.getCurrentUser();
         Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
         Order order = CurrentEntities.getCurrentOrder();
         checkEmpty(order);
         order.setDateTime(dateTime);
+        order.setStatus(Status.valueOf(status));
         log.info("update " + order);
         orderService.save(order,user.getId(),restaurant.getId());
     }

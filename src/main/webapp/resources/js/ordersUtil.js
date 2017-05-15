@@ -359,9 +359,13 @@ function updateRow(id,restaurantId) {
     $('#modalTitle').html(i18n[editTitleKey]);
     $.get(ajaxUrl + id+'&'+restaurantId, function (data) {
         $.each(data, function (key, value) {
-            $('#detailsForm').find("input[name='" + key + "']").val(
-                key === "dateTime" ? formatDate(value) : value
-            );
+            if (key === "status") {
+                    $("#" + value).click();
+            }else {
+                $('#detailsForm').find("input[name='" + key + "']").val(
+                    key === "dateTime" ? formatDate(value) : value
+                );
+            }
         });
         $('#editRow').modal();
     });

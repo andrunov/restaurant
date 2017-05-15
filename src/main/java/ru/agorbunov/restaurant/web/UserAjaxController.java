@@ -50,6 +50,7 @@ public class UserAjaxController {
                                @RequestParam("email") String email,
                                @RequestParam("password") String password,
                                @RequestParam("roles") String[] roleValues) {
+        // TODO: 15.05.2017 refactor parsing roles
         Role[] roles = new Role[roleValues.length];
         for (int i = 0; i < roleValues.length; i++){
             roles[i] = Role.valueOf(roleValues[i]);
