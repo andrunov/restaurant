@@ -18,6 +18,7 @@ import ru.agorbunov.restaurant.service.*;
 @Controller
 public class RootController {
 
+//    TODO write logger in methods
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

@@ -27,9 +27,11 @@
                 <table class="table table-hover table-bordered " id="ordersDT">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="restaurants.nameAndAddress"/></th>
                         <th><fmt:message key="orders.content"/></th>
+                        <th><fmt:message key="common.update"/></th>
                         <th><fmt:message key="common.delete"/></th>
                     </tr>
                     </thead>
@@ -117,6 +119,41 @@
             </div>
         </div>
     </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editRow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="modalTitle"></h2>
+
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" id="detailsForm">
+                    <input type="text" hidden="hidden" id="id" name="id">
+
+                    <div class="form-group">
+                        <label for="dateTime" class="control-label col-xs-3"><fmt:message
+                                key="common.dateTime"/></label>
+
+                        <div class="col-xs-9">
+                            <input class="form-control" id="dateTime" name="dateTime"
+                                   placeholder="<fmt:message key="common.dateTime"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="button" onclick="save()" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>

@@ -4,8 +4,11 @@
  */
 
 /*url for exchange JSON data between main form DataTable (id="ordersDT")
-*represents orders and server*/
+ *represents orders and server*/
 var ajaxUrl = '/ajax/orders/';
+
+/*url use only for create new Order*/
+var ajaxUrlCreateNew = '/ajax/orders/create';
 
 /*url for exchange JSON data between restaurant modal window DataTable (id="restaurantDT") and server*/
 var ajaxRestaurantUrl = '/ajax/restaurants/';
@@ -64,6 +67,28 @@ $(function () {
         "paging": false,
         "info": true,
         "columns": [
+            /*add column with image depending of Status*/
+            {
+                "orderable": false,
+                "data": "status",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        if (data=== "ACCEPTED"){
+                            return '<img  src="resources/pictures/accepted.png" />';
+                        }
+                        else if(data=== "PREPARING"){
+                            return '<img  src="resources/pictures/preparing.png" />';
+                        }
+                        else if(data=== "READY"){
+                            return '<img  src="resources/pictures/ready.png" />';
+                        }
+                        else {
+                            return '<img  src="resources/pictures/finished.png" />';
+                        }
+                    }
+                    return null;
+                }
+            },
             {
                 "data": "dateTime",
                 "render": function (date, type, row) {
@@ -87,6 +112,11 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "render": renderEditBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
                 "render": renderDeleteBtn
             }
         ],
@@ -96,7 +126,8 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": ""
+        "createdRow": "",
+        "initComplete": makeEditable
     });
 
     /*DataTable represents restaurants in modal window initialization*/
@@ -289,7 +320,7 @@ function openDishWindow(id) {
 function complete() {
     $.ajax({
         type: "POST",
-        url: ajaxUrl,
+        url: ajaxUrlCreateNew,
         data: getIndexesArr(dishDTApi.rows( '.selected' ).data() ),
         success: function () {
             $('#selectDishes').modal('hide');
@@ -308,3 +339,26 @@ function getIndexesArr(arr) {
     return "dishIds=" + dishIds;
 }
 
+/*render function draw button for update row*/
+function renderEditBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-primary" onclick="updateRow(' + row.id +','+  row.restaurant.id+');">' +
+            '<span class="glyphicon glyphicon-edit"></span></a>';
+    }
+}
+
+/*method to update row with new DataTime and Status*/
+function updateRow(id,restaurantId) {
+    //fill modal form with data and open it
+    $('#modalTitle').html(i18n[editTitleKey]);
+    $.get(ajaxUrl + id+'&'+restaurantId, function (data) {
+        $.each(data, function (key, value) {
+            $('#detailsForm').find("input[name='" + key + "']").val(
+                key === "dateTime" ? formatDate(value) : value
+            );
+        });
+        $('#editRow').modal();
+    });
+
+
+}

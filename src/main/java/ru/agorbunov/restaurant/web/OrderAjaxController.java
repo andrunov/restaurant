@@ -3,6 +3,7 @@ package ru.agorbunov.restaurant.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.Order;
@@ -10,6 +11,7 @@ import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.service.RestaurantService;
+import ru.agorbunov.restaurant.util.DateTimeUtil;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
@@ -35,9 +37,11 @@ public class OrderAjaxController {
     public Order getOrder(@PathVariable("id") int id,
                           @PathVariable("restaurantId") int restaurantId){
         log.info("get " + id);
-        User currentUser = CurrentEntities.getCurrentUser();
+        User user = CurrentEntities.getCurrentUser();
         CurrentEntities.setCurrentRestaurant(restaurantService.get(restaurantId));
-        return orderService.get(id, currentUser.getId(),restaurantId);
+        Order order = orderService.get(id, user.getId(),restaurantId);
+        CurrentEntities.setCurrentOrder(order);
+        return order;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +58,7 @@ public class OrderAjaxController {
         orderService.delete(id);
     }
 
-    @PostMapping
+    @PostMapping(value = "/create")
     public void create(@RequestParam("dishIds")String[] dishIds ){
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
 //        set dishes quantities as 1 default values, will be changed longer
@@ -73,6 +77,17 @@ public class OrderAjaxController {
             log.info("create " + order);
             orderService.save(order,currentUser.getId(),currentRestaurant.getId(),intDishesIds,intDishQuantityValues);
         }
+    }
+
+    @PostMapping
+    public void update(@RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime){
+        User user = CurrentEntities.getCurrentUser();
+        Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
+        Order order = CurrentEntities.getCurrentOrder();
+        checkEmpty(order);
+        order.setDateTime(dateTime);
+        log.info("update " + order);
+        orderService.save(order,user.getId(),restaurant.getId());
     }
 
     @PostMapping(value = "/update")
