@@ -159,6 +159,12 @@ $(function () {
         ],
         "createdRow": ""
     });
+
+    /*set field with datetimepicker*/
+    $('#dateTime').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
+    
 });
 
 /*function for link to orders_dishes.jsp*/
@@ -359,6 +365,4 @@ function updateRow(id,restaurantId) {
         });
         $('#editRow').modal();
     });
-
-
 }
