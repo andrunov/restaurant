@@ -1,7 +1,7 @@
 package ru.agorbunov.restaurant.model;
 
 /**
- * Represents type of user
+ * Represents roles of user
  */
 public enum Role {
     USER,

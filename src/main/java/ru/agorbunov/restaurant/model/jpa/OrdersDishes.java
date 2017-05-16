@@ -6,23 +6,27 @@ import ru.agorbunov.restaurant.model.Order;
 import javax.persistence.*;
 
 /**
- * Created by Admin on 28.03.2017.
+ * Entity represents many-to0many relationship between Order and Dish
+ * with one additional field - quantity of dishes
  */
 @Entity
 @Table(name="orders_dishes")
 @IdClass(OrdersDishesId.class)
 public class OrdersDishes {
 
+    /*represents Order*/
     @Id
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
+    /*represents Dish*/
     @Id
     @ManyToOne
     @JoinColumn(name = "dish_id", referencedColumnName = "id")
     private Dish dish;
 
+    /*represents quantity of dishes*/
     @Column(name = "dish_quantity", nullable = false)
     private int dishQuantity;
 

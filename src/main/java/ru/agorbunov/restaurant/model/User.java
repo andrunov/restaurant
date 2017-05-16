@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Admin on 17.01.2017.
+ * Class represents users
  */
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SuppressWarnings("JpaQlInspection")
@@ -27,16 +27,20 @@ public class User extends BaseEntity {
     public static final String GET_WITH_ORDERS = "User.getWithOrders";
     public static final String DELETE = "User.delete";
 
+    /*user's name*/
     @Column(nullable = false)
     private String name;
 
+    /*users e-mail*/
     @Column(nullable = false, unique = true)
     @Email
     private String email;
 
+    /*users password*/
     @Column(nullable = false)
     private String password;
 
+    /*users roles*/
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -44,6 +48,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    /*orders has made by the user */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;
 

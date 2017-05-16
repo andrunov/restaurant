@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Admin on 17.01.2017.
+ * Class represents restaurant
  */
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SuppressWarnings("JpaQlInspection")
@@ -26,15 +26,19 @@ public class Restaurant extends BaseEntity {
     public static final String GET_WITH_ORDERS = "Restaurant.getWithOrders";
     public static final String DELETE = "Restaurant.delete";
 
+    /*name of restaurant*/
     @Column(nullable = false)
     private String name;
 
+    /*address of restaurant*/
     @Column(nullable = false)
     private String address;
 
+    /*menuLists of restaurant*/
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "restaurant")
     private List<MenuList> menuLists;
 
+    /*orders ordered in the restaurant  */
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "restaurant")
     private  List<Order> orders;
 

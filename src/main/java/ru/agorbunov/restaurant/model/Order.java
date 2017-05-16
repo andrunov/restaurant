@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * Created by Admin on 17.01.2017.
+ * Class represents order
  */
 @SuppressWarnings("JpaQlInspection")
 @NamedNativeQuery(name = Order.GET_ALL_BY_DISH, query = "SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ",resultClass = Order.class)
@@ -33,26 +33,33 @@ public class Order extends BaseEntity {
     public static final String GET_WITH_USER = "Order.getWithUser";
     public static final String GET_ALL_BY_DISH = "Order.getAllbyDish";
     public static final String DELETE = "Order.delete";
-    public static final String DELETE_ORDERS_DISHES = "Order.deleteOrdersDishes";
+    static final String DELETE_ORDERS_DISHES = "Order.deleteOrdersDishes";
     public static final String GET_WITH_DISHES = "Order.getWithDishes";
 
+    /*user which has made the Order*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    /*restaurant in which Order was made*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
+    /*list of OrdersDishes elements that represents
+     *many-to-many relationship between Orders and Dishes
+     * with one additional field - quantity of Dish in order*/
     @OneToMany(fetch = FetchType.LAZY ,mappedBy = "order")
     private List<OrdersDishes> dishes;
 
+    /*Date and Time when Order made*/
     @Column(name = "date_time" , nullable = false)
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;
 
+    /*Status of order*/
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -91,6 +98,12 @@ public class Order extends BaseEntity {
         this.restaurant = restaurant;
     }
 
+
+    /*getter and setter of List<OrdersDishes> dishes returns and accepts
+    * Map<Dish,Integer> for comfortable use in other layers*/
+
+    /*method returns from List<OrdersDishes> orders map with keys - dishes and values -
+    * quantities of this dish in the order  */
     public Map<Dish, Integer> getDishes() {
         Map<Dish,Integer> result = new TreeMap<>(ComparatorUtil.dishComparator);
         for (OrdersDishes dish : dishes){
@@ -99,6 +112,8 @@ public class Order extends BaseEntity {
         return result;
     }
 
+    /*method save map wit keys - dishes and values
+    *- quantities of this dish in the order into  List<OrdersDishes> dishes*/
     public void setDishes(Map<Dish, Integer> dishes) {
         List<OrdersDishes> result = new ArrayList<>();
         for (Map.Entry<Dish,Integer> dish : dishes.entrySet()){

@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by Admin on 17.01.2017.
+ * Class represents dish
  */
 @SuppressWarnings("JpaQlInspection")
 @NamedNativeQuery(name = Dish.DELETE_FROM_ORDERS, query = "DELETE FROM orders_dishes WHERE dish_id=? AND order_id=?")
@@ -34,39 +34,25 @@ public class Dish extends BaseEntity {
     public static final String GET_WITH_ORDERS = "Dish.getWithOrders";
     public static final String DELETE_FROM_ORDERS = "Dish.deleteFromOrders";
 
+    /*Name of dish*/
     @Column(nullable = false)
     private String description;
 
+    /*price of dish*/
     @Column(nullable = false)
     private Double price;
 
+    /*menuList to which this dish is belonging*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_list_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MenuList menuList;
 
+    /*list of OrdersDishes elements that represents
+     *many-to-many relationship between Orders and Dishes
+     * with one additional field - quantity of Dish in order*/
     @OneToMany(fetch = FetchType.LAZY ,mappedBy = "dish")
     private List<OrdersDishes> orders;
-
-    public Map<Order,Integer> getOrders() {
-        Map<Order,Integer> result = new TreeMap<>(ComparatorUtil.orderComparator);
-        for (OrdersDishes order : orders){
-            result.put(order.getOrder(),order.getDishQuantity());
-        }
-        return result;
-    }
-
-    public void setOrders(Map<Order,Integer> ordersMap) {
-        List<OrdersDishes> result = new ArrayList<>();
-        for (Map.Entry<Order,Integer> order : ordersMap.entrySet()){
-            OrdersDishes element = new OrdersDishes();
-            element.setDish(this);
-            element.setOrder(order.getKey());
-            element.setDishQuantity(order.getValue());
-            result.add(element);
-        }
-        this.orders = result;
-    }
 
     public Dish() {
     }
@@ -98,6 +84,33 @@ public class Dish extends BaseEntity {
 
     public void setMenuList(MenuList menuList) {
         this.menuList = menuList;
+    }
+
+    /*getter and setter of List<OrdersDishes> orders returns and accepts
+    * Map<Order,Integer> for comfortable use in other layers*/
+
+    /*method returns from List<OrdersDishes> orders map with keys - orders and values -
+    * quantities of orders of the dish  */
+    public Map<Order,Integer> getOrders() {
+        Map<Order,Integer> result = new TreeMap<>(ComparatorUtil.orderComparator);
+        for (OrdersDishes order : orders){
+            result.put(order.getOrder(),order.getDishQuantity());
+        }
+        return result;
+    }
+
+    /*method save map wit keys - orders and values
+    *- quantities of orders of the dish into  List<OrdersDishes> orders*/
+    public void setOrders(Map<Order,Integer> ordersMap) {
+        List<OrdersDishes> result = new ArrayList<>();
+        for (Map.Entry<Order,Integer> order : ordersMap.entrySet()){
+            OrdersDishes element = new OrdersDishes();
+            element.setDish(this);
+            element.setOrder(order.getKey());
+            element.setDishQuantity(order.getValue());
+            result.add(element);
+        }
+        this.orders = result;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by Admin on 20.01.2017.
+ * Class represents menu list
  */
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
@@ -28,17 +28,21 @@ public class MenuList extends BaseEntity {
     public static final String DELETE = "MenuList.delete";
     public static final String GET_WITH_DISHES = "MenuList.getWithDishes";
 
+    /*name of menuList*/
     @Column(nullable = false)
     private String description;
 
+    /*restaurant to which the menuList is belong*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
+    /*List of dishes that were include in menuList*/
     @OneToMany(fetch = FetchType.LAZY ,mappedBy = "menuList")
     private List<Dish> dishList;
 
+    /*Date and Time when menuList was made*/
     @Column(name = "date_time" , nullable = false)
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;

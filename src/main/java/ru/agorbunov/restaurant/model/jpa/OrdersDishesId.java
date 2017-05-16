@@ -3,12 +3,14 @@ package ru.agorbunov.restaurant.model.jpa;
 import java.io.Serializable;
 
 /**
- * Created by Admin on 28.03.2017.
+ * Class use as Id in many-to-mani relationship between Order and Dish
  */
 public class OrdersDishesId implements Serializable {
 
+    /*order id*/
     private int order;
 
+    /*dish id*/
     private int dish;
 
     public OrdersDishesId() {
