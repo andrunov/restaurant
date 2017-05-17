@@ -5,6 +5,7 @@ import ru.agorbunov.restaurant.model.Order;
 
 import javax.persistence.*;
 
+// TODO: 16.05.2017 remove from jdbs version
 /**
  * Entity represents many-to0many relationship between Order and Dish
  * with one additional field - quantity of dishes

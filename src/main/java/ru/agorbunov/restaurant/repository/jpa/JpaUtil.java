@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created by Admin on 24.02.2017.
+ * Util-Class for clean second Level HibernateCache
 // *
  */// TODO: 24.02.2017 delete before production JDBC var
 public class JpaUtil {

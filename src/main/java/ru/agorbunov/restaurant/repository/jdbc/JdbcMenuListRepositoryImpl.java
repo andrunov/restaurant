@@ -21,8 +21,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by Admin on 21.02.2017.
+ * MenuList-entities repository by Java DataBase Connectivity
+ * announced as abstract, consist inner classes for
+ * customise for different databases
  */
+//// TODO: 17.05.2017 remove profiles before production
 @Transactional(readOnly = true)
 public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepository {
     private static final BeanPropertyRowMapper<MenuList> ROW_MAPPER = BeanPropertyRowMapper.newInstance(MenuList.class);
@@ -36,6 +39,7 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
 
     private SimpleJdbcInsert insertMenuList;
 
+    /*method to specify behaviour different database with LocalDateTime*/
     protected abstract T toDbDateTime(LocalDateTime ldt);
 
 
@@ -46,6 +50,7 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
                 .usingGeneratedKeyColumns("id");
     }
 
+    /*Customise repository for Postgres*/
     @Repository
     @Profile(Profiles.POSTGRES)
     public static class Java8JdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<LocalDateTime> {
@@ -55,6 +60,7 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
         }
     }
 
+    /*Customise repository for HSQLDB*/
     @Repository
     @Profile(Profiles.HSQLDB)
     public static class TimestampJdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<Timestamp> {
@@ -64,6 +70,8 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
         }
     }
 
+    /*save menuList in database, restaurantId in parameters is Id
+    *of restaurant to which the menuList is belong*/
     @Override
     @Transactional
     public MenuList save(MenuList menuList, int restaurantId) {
@@ -84,12 +92,16 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
         return menuList;
     }
 
+    /*get menuList from database by Id, restaurantId in parameters is Id
+    *of restaurant to which the menuList is belong*/
     @Override
     public MenuList get(int id, int restaurantId) {
         List<MenuList> menuLists = jdbcTemplate.query("SELECT * FROM menu_lists WHERE id=? AND restaurant_id=?", ROW_MAPPER, id,restaurantId);
         return DataAccessUtils.singleResult(menuLists);
     }
 
+    /*get menuList from database by Id with collection of dishes which the menuList is have,
+    * restaurantId in parameters is Id of restaurant to which the menuList is belong*/
     @Override
     public MenuList getWithDishes(int id, int restaurantId) {
         List<MenuList> menuLists = jdbcTemplate.query("SELECT * FROM menu_lists WHERE id=? AND restaurant_id=?", ROW_MAPPER, id,restaurantId);
@@ -97,22 +109,27 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
         return setDishes(result);
     }
 
+    /*delete menuList from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM menu_lists WHERE id=?", id) != 0;
     }
 
+    /*get all menuLists from database*/
     @Override
     public List<MenuList> getAll() {
         return jdbcTemplate.query("SELECT * FROM menu_lists ORDER BY date_time DESC", ROW_MAPPER);
     }
 
+    /*get all menuLists from database that belongs to restaurant with Id pass as parameter */
     @Override
     public List<MenuList> getByRestaurant(int restaurantId) {
         return jdbcTemplate.query("SELECT * FROM menu_lists WHERE restaurant_id=? ORDER BY date_time DESC", ROW_MAPPER, restaurantId);
     }
 
+    /*get dishes from database which the menuList is have
+    *(menuList pass in parameter) and set it to dish as List<Dish> */
     private MenuList setDishes(MenuList m) {
         if (m != null) {
             List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes  WHERE menu_list_id=?",

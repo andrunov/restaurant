@@ -28,7 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Admin on 21.02.2017.
+ * Order-entities repository by Java DataBase Connectivity
+ * announced as abstract, consist inner classes for
+ * customise for different databases
  */
 //// TODO: 24.02.2017 remove profiles before production
 @Transactional(readOnly = true)
@@ -44,6 +46,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
 
     private SimpleJdbcInsert insertOrder;
 
+    /*method to specify behaviour different database with LocalDateTime*/
     protected abstract T toDbDateTime(LocalDateTime ldt);
 
     @Autowired
@@ -53,6 +56,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
+    /*Customise repository for Postgres*/
     @Repository
     @Profile(Profiles.POSTGRES)
     public static class Java8JdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<LocalDateTime> {
@@ -62,6 +66,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         }
     }
 
+    /*Customise repository for HSQLDB*/
     @Repository
     @Profile(Profiles.HSQLDB)
     public static class TimestampJdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<Timestamp> {
@@ -71,6 +76,10 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         }
     }
 
+    /*save order in database with dishes and their quantities that belongs to the order-
+    *,int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
+    * each dishId from first arr matches its quantity from second arr, arrays must have equal size
+    *userId and restaurantId in parameters is Ids of user and restaurant to which the order is belong*/
     @Override
     @Transactional
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
@@ -97,6 +106,8 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return order;
     }
 
+    /*save order in database, userId and restaurantId in parameters is Ids of
+    *user and restaurant to which the order is belong*/
     @Override
     @Transactional
     public Order save(Order order, int userId, int restaurantId) {
@@ -119,11 +130,15 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return order;
     }
 
+    /*delete dishes which belongs to order from database, Id of order pass in parameter */
     private boolean deleteDishes(int orderId){
         return jdbcTemplate.update("DELETE FROM orders_dishes WHERE order_id=?", orderId) != 0;
 
     }
 
+    /*saves order's dishes and their quantities to database,
+    * int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
+    * each dishId from first arr matches its quantity from second arr, arrays must have equal size*/
     private void insertDishes(int orderId, int[] dishIds, int[] dishQuantityValues) {
         jdbcTemplate.batchUpdate("INSERT INTO orders_dishes (order_id, dish_id, dish_quantity) VALUES (?, ?, ?)",
                 new BatchPreparedStatementSetter() {
@@ -141,12 +156,17 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
                 });
     }
 
+    /*get order from database by Id, userId and restaurantId in parameters is Ids of
+    *user and restaurant to which the order is belong*/
     @Override
     public Order get(int id, int userId, int restaurantId) {
         List<Order> orders = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
         return DataAccessUtils.singleResult(orders);
     }
 
+    /*get order from database by Id with collections of dishes which the order is have ,
+    *userId and restaurantId in parameters is Ids of
+    *user and restaurant to which the order is belong*/
     @Override
     public Order getWithDishes(int id, int userId, int restaurantId) {
         List<Order> orders = jdbcTemplate.query("SELECT * FROM orders WHERE id=? AND user_id=? AND restaurant_id=?", ROW_MAPPER, id,userId,restaurantId);
@@ -154,17 +174,20 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return setDishes(result);
     }
 
+    /*delete order from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM orders WHERE id=?", id) != 0;
     }
 
+    /*get all orders from database*/
     @Override
     public List<Order> getAll() {
         return jdbcTemplate.query("SELECT * FROM orders ORDER BY date_time DESC ", ROW_MAPPER);
     }
 
+    /*get all orders from database that belongs to user with Id pass as parameter */
     @Override
     public List<Order> getByUser(int userId) {
         List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? ORDER BY date_time DESC ", ROW_MAPPER,userId);
@@ -174,6 +197,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
+    /*get all orders from database that belongs to dish with Id pass as parameter */
     @Override
     public List<Order> getByDish(int dishId) {
         List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ", ROW_MAPPER,dishId);
@@ -183,6 +207,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
+    /*get order's dishes with their quantities and set them to the order*/
     private Order setDishes(Order o) {
         if (o != null) {
             List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",o.getId());
@@ -200,6 +225,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return o;
     }
 
+    /*get restaurant where order was made and set it to order*/
     private Order setRestaurant(Order o){
         if (o != null) {
             List<Restaurant> restaurants = jdbcTemplate.query("SELECT r.id, r.name, r.address FROM restaurants AS r JOIN orders AS o ON r.id = o.restaurant_id WHERE o.id=?",
@@ -209,6 +235,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return o;
     }
 
+    /*get user by which order was made and set it to order*/
     private Order setUser(Order o){
         if (o != null) {
             List<User> users = jdbcTemplate.query("SELECT u.id, u.name, u.email FROM users AS u JOIN orders AS o ON u.id = o.user_id WHERE o.id=?",

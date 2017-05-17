@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 /**
- * Created by Admin on 21.02.2017.
+ * Restaurant-entities repository by Java DataBase Connectivity
  */
 @Repository
 @Transactional(readOnly = true)
@@ -41,6 +41,8 @@ public class JdbcRestaurantRepositoryImpl implements RestaurantRepository {
                 .withTableName("restaurants")
                 .usingGeneratedKeyColumns("id");
     }
+
+    /*save restaurant in database*/
     @Override
     @Transactional
     public Restaurant save(Restaurant restaurant) {
@@ -59,12 +61,15 @@ public class JdbcRestaurantRepositoryImpl implements RestaurantRepository {
         return restaurant;
     }
 
+    /*get restaurant from database by Id*/
     @Override
     public Restaurant get(int id) {
         List<Restaurant> restaurants = jdbcTemplate.query("SELECT * FROM restaurants WHERE id=?", ROW_MAPPER, id);
         return DataAccessUtils.singleResult(restaurants);
     }
 
+    /*get restaurant from database by Id with collection of
+    *menuLists were issued by the restaurant*/
     @Override
     public Restaurant getWithMenuLists(int id) {
         List<Restaurant> restaurants = jdbcTemplate.query("SELECT * FROM restaurants WHERE id=?", ROW_MAPPER, id);
@@ -73,17 +78,21 @@ public class JdbcRestaurantRepositoryImpl implements RestaurantRepository {
         return setMenuLists(result);
     }
 
+    /*delete restaurant from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM restaurants WHERE id=?", id) != 0;
     }
 
+    /*get all restaurants from database*/
     @Override
-    public List getAll() {
+    public List<Restaurant> getAll() {
         return jdbcTemplate.query("SELECT * FROM restaurants", ROW_MAPPER);
     }
 
+    /*get menuLists from database which were issued by the restaurant
+    * and set them to Restaurant-entity as List<MenuList>*/
     private Restaurant setMenuLists(Restaurant r) {
         if (r != null) {
             List<MenuList> menuLists = jdbcTemplate.query("SELECT * FROM menu_lists  WHERE restaurant_id=?",
@@ -93,6 +102,8 @@ public class JdbcRestaurantRepositoryImpl implements RestaurantRepository {
         return r;
     }
 
+    /*get orders from database which were made in the restaurant
+    * and set them to Restaurant-entity as List<Order>*/
     private Restaurant setOrders(Restaurant r) {
         if (r != null) {
             List<Order> orders = jdbcTemplate.query("SELECT * FROM orders  WHERE restaurant_id=?",

@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Created by Admin on 28.01.2017.
+ * User-entities repository by Java Persistence API
  */
 @Repository
 @Transactional(readOnly = true)
@@ -19,7 +19,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     @PersistenceContext
     private EntityManager em;
 
-
+    /*save user in database*/
     @Override
     @Transactional
     public User save(User user) {
@@ -31,6 +31,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
         }
     }
 
+    /*delete user from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
@@ -39,16 +40,20 @@ public class JpaUserRepositoryImpl implements UserRepository {
                 .executeUpdate() !=0;
     }
 
+    /*get all users from database*/
     @Override
     public List<User> getAll() {
         return em.createNamedQuery(User.GET_ALL, User.class).getResultList();
     }
 
+    /*get user from database by Id*/
     @Override
     public User get(int id) {
         return em.find(User.class, id);
     }
 
+    /*get user from database by Id with collection of
+    *orders were made by the user*/
     @Override
     public User getWithOrders(int id) {
         return (User)em.createNamedQuery(User.GET_WITH_ORDERS)

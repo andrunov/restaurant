@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Created by Admin on 30.01.2017.
+ * MenuList-entities repository by Java Persistence API
  */
 @Repository
 @Transactional(readOnly = true)
@@ -20,7 +20,8 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
     @PersistenceContext
     private EntityManager em;
 
-
+    /*save menuList in database, restaurantId in parameters is Id
+    *of restaurant to which the menuList is belong*/
     @Override
     @Transactional
     public MenuList save(MenuList menuList, int restaurantId) {
@@ -36,6 +37,7 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
         }
     }
 
+    /*delete menuList from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
@@ -44,17 +46,22 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
                 .executeUpdate() !=0;
     }
 
+    /*get all menuLists from database*/
     @Override
     public List<MenuList> getAll() {
         return em.createNamedQuery(MenuList.GET_ALL, MenuList.class).getResultList();
     }
 
+    /*get menuList from database by Id, restaurantId in parameters is Id
+    *of restaurant to which the menuList is belong*/
     @Override
     public MenuList get(int id, int restaurantId) {
         MenuList menuList = em.find(MenuList.class,id);
         return menuList != null && menuList.getRestaurant().getId() == restaurantId ? menuList : null;
     }
 
+    /*get menuList from database by Id with collection of dishes which the menuList is have,
+    * restaurantId in parameters is Id of restaurant to which the menuList is belong*/
     @Override
     public MenuList getWithDishes(int id, int restaurantId) {
         MenuList menuList = (MenuList)em.createNamedQuery(MenuList.GET_WITH_DISHES)
@@ -63,6 +70,7 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
         return menuList != null && menuList.getRestaurant().getId() == restaurantId ? menuList : null;
     }
 
+    /*get all menuLists from database that belongs to restaurant with Id pass as parameter */
     @Override
     public List<MenuList> getByRestaurant(int restaurantId) {
         return em.createNamedQuery(MenuList.GET_ALL_BY_RESTAURANT, MenuList.class)

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Admin on 27.01.2017.
+ * Dish-entities repository by Java Persistence API
  */
 @Repository
 @Transactional(readOnly = true)
@@ -22,6 +22,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
     @PersistenceContext
     private EntityManager em;
 
+    /*save dish in database, menulistId in parameters is Id of menu list to which the dish is belong*/
     @Override
     @Transactional
     public Dish save(Dish dish, int menuListId) {
@@ -38,6 +39,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
         }
     }
 
+    /*delete dish from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
@@ -46,17 +48,21 @@ public class JpaDishRepositoryImpl implements DishRepository {
                 .executeUpdate() !=0;
     }
 
+    /*get all dishes from database*/
     @Override
     public List<Dish> getAll() {
         return em.createNamedQuery(Dish.GET_ALL, Dish.class).getResultList();
     }
 
+    /*get dish in database, menulistId in parameters is Id of menu list to which the dish is belong*/
     @Override
     public Dish get(int id, int menuListId) {
         Dish dish = em.find(Dish.class, id);
         return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;
     }
 
+    /*get dish from database bi Id with collection of orders which contains the dish,
+    * menulistId in parameters is Id of menu list to which the dish is belong*/
     @Override
     public Dish getWithOrders(int id, int menuListId) {
         Dish dish = (Dish)em.createNamedQuery(Dish.GET_WITH_ORDERS)
@@ -65,6 +71,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
         return dish != null && dish.getMenuList().getId() == menuListId ? dish : null;
     }
 
+    /*get all dishes from database that belongs to menuList with Id pass as parameter */
     @Override
     public List<Dish> getByMenuList(int menuListId) {
         return em.createNamedQuery(Dish.GET_ALL_BY_MENU_LIST, Dish.class)
@@ -72,6 +79,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
                 .getResultList();
     }
 
+    /*get all dishes-entities from database that belongs to order with Id pass as parameter */
     @Override
     public Map<Dish,Integer> getByOrder(int orderId) {
         List<Order> result = em.createNamedQuery(Dish.GET_ALL_BY_ORDER, Order.class)
@@ -80,6 +88,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
         return result.get(0).getDishes();
     }
 
+    /*delete dishes from order, dish Id and order Id pass in parameters */
     @Override
     @Transactional
     public boolean deleteFromOrder(int id, int orderId) {

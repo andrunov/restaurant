@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import java.util.*;
 
 /**
- * Created by Admin on 21.02.2017.
+ * Dish-entities repository by Java DataBase Connectivity
  */
 @Repository
 @Transactional(readOnly = true)
@@ -43,6 +43,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
+    /*save dish in database, menulistId in parameters is Id of menu list to which the dish is belong*/
     @Override
     @Transactional
     public Dish save(Dish dish, int menulistId) {
@@ -62,11 +63,8 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
         return dish;
     }
 
-    private boolean deleteOrders(int dishId){
-        return jdbcTemplate.update("DELETE FROM orders_dishes WHERE dish_id=?", dishId) != 0;
 
-    }
-
+    /*get dish from database by Id, menulistId in parameters is Id of menu list to which the dish is belong*/
     @Override
     public Dish get(int id, int menuListId) {
         List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE id=? AND menu_list_id=?", ROW_MAPPER, id,menuListId);
@@ -74,13 +72,15 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
 
     }
 
-    @Override
+    /*get dish from database bi Id with collection of orders which contains the dish,
+    * menulistId in parameters is Id of menu list to which the dish is belong*/    @Override
     public Dish getWithOrders(int id, int menuListId) {
         List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE id=? AND menu_list_id=?", ROW_MAPPER, id,menuListId);
         Dish result = DataAccessUtils.singleResult(dishes);
         return setOrders(result);
     }
 
+    /*get all dishes from database that belongs to menuList with Id pass as parameter */
     @Override
     public List<Dish> getByMenuList(int menuListId) {
         List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE menu_list_id=?", ROW_MAPPER, menuListId);
@@ -90,6 +90,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
         return dishes;
     }
 
+    /*get all dishes from database that belongs to order with Id pass as parameter */
     @Override
     public Map<Dish,Integer> getByOrder(int orderId) {
         List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT d.* , od.dish_quantity FROM orders_dishes AS od JOIN dishes as d ON d.id = od.dish_id WHERE od.order_id=? ",orderId);
@@ -105,23 +106,27 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
         return dishMap;
     }
 
+    /*delete dishes from order, dish Id and order Id pass in parameters */
     @Override
     @Transactional
     public boolean deleteFromOrder(int id, int orderId) {
         return jdbcTemplate.update("DELETE FROM orders_dishes WHERE dish_id=? AND order_id=?", id, orderId) != 0;
     }
 
+    /*delete dish from database by dish Id */
     @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=?", id) != 0;
     }
 
+    /*get all dishes from database*/
     @Override
     public List<Dish> getAll() {
         return jdbcTemplate.query("SELECT * FROM dishes", ROW_MAPPER);
     }
 
+    /*get all orders from database that contains the dish pass in parameter*/
     private Dish setOrders(Dish d) {
         if (d != null) {
             List<Map<String,Object>> results = jdbcTemplate.queryForList("SELECT o.*, od.dish_quantity FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=?", d.getId());
@@ -140,6 +145,8 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
         return d;
     }
 
+    /*get menuLists from database to which the dish is belong
+    *(dish pass in parameter) and set it to dish */
     private Dish setMenuList(Dish d){
         if (d != null) {
             List<MenuList> dishes = jdbcTemplate.query("SELECT m.id, m.date_time FROM menu_lists AS m JOIN dishes AS d ON m.id = d.menu_list_id WHERE d.id=?",

@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- * Created by Admin on 21.02.2017.
+ * User-entities repository by Java DataBase Connectivity
  */
 @Repository
 @Transactional(readOnly = true)
@@ -48,6 +48,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
+    /*save user in database*/
     @Override
     @Transactional
     public User save(User user) {
@@ -70,12 +71,15 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         return user;
     }
 
+    /*get user from database by Id*/
     @Override
     public User get(int id) {
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
         return setRoles(DataAccessUtils.singleResult(users));
     }
 
+    /*get user from database by Id with collection of
+    *orders were made by the user*/
     @Override
     public User getWithOrders(int id) {
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
@@ -85,14 +89,16 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         return result;
     }
 
+    /*delete user from database by Id */
     @Override
     @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM users WHERE id=?", id) != 0;
     }
 
+    /*get all users from database*/
     @Override
-    public List getAll() {
+    public List<User> getAll() {
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet("SELECT * FROM roles");
         Map<Integer, Set<Role>> map = new HashMap<>();
         while (rowSet.next()) {
@@ -104,6 +110,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         return users;
     }
 
+    /*get roles of user and saves them ti database*/
     private void insertRoles(User u) {
         Set<Role> roles = u.getRoles();
         Iterator<Role> iterator = roles.iterator();
@@ -123,10 +130,13 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 });
     }
 
+    /*delete roles of user from database*/
     private void deleteRoles(User u) {
         jdbcTemplate.update("DELETE FROM roles WHERE user_id=?", u.getId());
     }
 
+    /*gets roles from database which belongs to user
+    * and set them to the user as Set<Role>*/
     private User setRoles(User u) {
         if (u != null) {
             List<Role> roles = jdbcTemplate.query("SELECT role FROM roles  WHERE user_id=?",
@@ -136,6 +146,8 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         return u;
     }
 
+    /*gets orders from database which belongs to user
+    * and set them to the user as List<Order>*/
     private User setOrders(User u) {
         if (u != null) {
             List<Order> orders = jdbcTemplate.query("SELECT * FROM orders  WHERE user_id=?",
