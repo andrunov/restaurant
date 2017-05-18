@@ -1,7 +1,8 @@
 package ru.agorbunov.restaurant.util.exception;
 
 /**
- * Created by Admin on 31.03.2017.
+ * This exceptions must be thrown in case when two arrays have different size
+ * though these arrays must have equals size
  */
 public class ArraysIncompatibilityException extends RuntimeException {
     public ArraysIncompatibilityException(String message) {

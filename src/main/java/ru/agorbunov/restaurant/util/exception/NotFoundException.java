@@ -1,7 +1,8 @@
 package ru.agorbunov.restaurant.util.exception;
 
 /**
- * Created by Admin on 19.02.2017.
+ * This exception must be thrown in case not found entity
+ * in repository layer
  */
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {

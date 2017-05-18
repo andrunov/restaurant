@@ -9,6 +9,7 @@ import java.util.Comparator;
  * Class for different comparing methods
  */
 public class ComparatorUtil {
+    /*comparator for Dish class*/
     public static Comparator<Dish> dishComparator = new Comparator<Dish>() {
         @Override
         public int compare(Dish o1, Dish o2) {
@@ -16,6 +17,7 @@ public class ComparatorUtil {
         }
     };
 
+    /*comparator for Order class*/
     public static Comparator<Order> orderComparator = new Comparator<Order>() {
         @Override
         public int compare(Order o1, Order o2) {

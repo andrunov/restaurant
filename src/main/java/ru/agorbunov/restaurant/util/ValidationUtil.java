@@ -17,55 +17,67 @@ public class ValidationUtil {
     private ValidationUtil() {
     }
 
+    /*check that object was found in repository class
+    * use if from repository returns false in case of not found*/
     public static void checkNotFoundWithId(boolean found, int id) {
         checkNotFound(found, "id=" + id);
     }
 
+    /*check that object was found in repository class
+    * use if from repository returns null in case of not found*/
     public static <T> T checkNotFoundWithId(T object, int id) {
         return checkNotFound(object, "id=" + id);
     }
 
+    /*check that object was found or throw NotFoundException*/
     private static <T> T checkNotFound(T object, String msg) {
         checkNotFound(object != null, msg);
         return object;
     }
 
+    /*throws NotFoundException in case of not found object*/
     private static void checkNotFound(boolean found, String msg) {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);
         }
     }
 
+    // TODO: 18.05.2017 remove if not use
     public static ResponseEntity<String> getErrorResponse(BindingResult result) {
         StringBuilder sb = new StringBuilder();
         result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
         return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    /*check that entity is new*/
     public static void checkNew(BaseEntity entity) {
         if (!entity.isNew()) {
             throw new IllegalArgumentException(entity + " must be new (id=null)");
         }
     }
 
+    /*check that String not equals null or not equals empty string*/
     public static void checkEmpty(String string, String description){
         if ((string==null)||(string.trim().equals(""))){
             throw new IllegalArgumentException(description + " must be not empty");
         }
     }
 
+    /*check that Double bigger than zero */
     public static void checkEmpty(Double value, String description){
         if (value<=0.0){
             throw new IllegalArgumentException(description + " must be positive and more than zero");
         }
     }
 
+    /*check that LocalDateTime not equals null */
     public static void checkEmpty(LocalDateTime dateTime, String description){
         if (dateTime==null){
             throw new IllegalArgumentException(description + " must be not empty");
         }
     }
 
+    /*check that two arrays have equal size*/
     public static void checkArrCompatibility(int[] arr1,int[]arr2){
         if (arr1.length!=arr2.length){
             throw new ArraysIncompatibilityException("arrays must have equals length");

@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant;
 import org.springframework.test.context.ActiveProfilesResolver;
 
 /**
- * Created by Admin on 24.02.2017.
+ * Class for get active DB profile
  */
 public class ActiveDbProfileResolver implements ActiveProfilesResolver {
     @Override

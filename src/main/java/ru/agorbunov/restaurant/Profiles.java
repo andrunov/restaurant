@@ -1,7 +1,8 @@
 package ru.agorbunov.restaurant;
 
 /**
- * Created by Admin on 24.02.2017.
+ * Class for save names of profiles
+ * and get active DB profile
  */
 //// TODO: 24.02.2017 remove class before production
 public class Profiles {
@@ -11,7 +12,7 @@ public class Profiles {
             JDBC = "jdbc",
             JPA = "jpa";
 
-    public static String getActiveDbProfile() {
+    static String getActiveDbProfile() {
         try {
             Class.forName("org.postgresql.Driver");
             return Profiles.POSTGRES;
