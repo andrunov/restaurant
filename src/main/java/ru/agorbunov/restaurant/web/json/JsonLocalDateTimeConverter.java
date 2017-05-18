@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
- * Created by Admin on 10.03.2017.
+ * Class for customize serialize-deserialize LocalDateTime
  */
-public class JsonLocalDateTimeConverter {
-    public static class UserSettingSerializer extends JsonSerializer<LocalDateTime> {
+class JsonLocalDateTimeConverter {
+    static class UserSettingSerializer extends JsonSerializer<LocalDateTime> {
         @Override
         public void serialize(LocalDateTime ldt, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             jgen.writeString(DateTimeUtil.toString(ldt));
@@ -27,7 +27,7 @@ public class JsonLocalDateTimeConverter {
         }
     }
 
-    public static class UserSettingDeserializer extends JsonDeserializer<LocalDateTime> {
+    static class UserSettingDeserializer extends JsonDeserializer<LocalDateTime> {
         @Override
         public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctx) throws IOException {
             return DateTimeUtil.parseLocalDateTime(jp.getText());

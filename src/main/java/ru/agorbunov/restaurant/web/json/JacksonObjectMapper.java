@@ -10,7 +10,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import java.time.LocalDateTime;
 
 /**
- * Created by Admin on 10.03.2017.
+ * Class for auto-mapping fields by JSON annotations
  */
 public class JacksonObjectMapper  extends ObjectMapper {
 
@@ -23,11 +23,13 @@ public class JacksonObjectMapper  extends ObjectMapper {
     private JacksonObjectMapper() {
         registerModule(new Hibernate5Module());
 
+        /*customise LocalDateTime serialise-deserialize*/
         SimpleModule customModule = new SimpleModule("customModule");
         customModule.addSerializer(new JsonLocalDateTimeConverter.UserSettingSerializer());
         customModule.addDeserializer(LocalDateTime.class, new JsonLocalDateTimeConverter.UserSettingDeserializer());
         registerModule(customModule);
 
+        /*set visibility for fields*/
         setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
         setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         setSerializationInclusion(JsonInclude.Include.NON_NULL);
