@@ -12,7 +12,8 @@ import ru.agorbunov.restaurant.to.DishTo;
 import java.util.List;
 
 /**
- * Created by Admin on 14.03.2017.
+ * Rest controller for orders_dishes.jsp
+ * to exchange dish data with service-layer
  */
 @RestController
 @RequestMapping(value = "/ajax/orders_dishes")
@@ -20,11 +21,10 @@ public class OrdersDishesAjaxController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-
     @Autowired
     private DishService service;
 
-
+    /*get dishes of current order*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<DishTo> getByOrder() {
         log.info("getByOrder");
@@ -32,6 +32,7 @@ public class OrdersDishesAjaxController {
         return DishTo.toList(service.getByOrder(order.getId()));
     }
 
+    /*delete dish by Id and current order*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);

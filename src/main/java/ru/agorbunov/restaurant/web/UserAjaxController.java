@@ -15,7 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Admin on 28.02.2017.
+ * Rest controller for user.jsp
+ * to exchange user data with service-layer
  */
 @RestController
 @RequestMapping(value = "/ajax/admin/users")
@@ -26,25 +27,28 @@ public class UserAjaxController {
     @Autowired
     private UserService service;
 
+    /*get user by Id */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable("id") int id) {
         log.info("get " + id);
         return service.get(id);
     }
 
+    /*get all users */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
-
+    /*delete user by Id*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
         service.delete(id);
     }
 
+    /*create new user or update if exists*/
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("name") String name,
@@ -67,6 +71,7 @@ public class UserAjaxController {
         }
     }
 
+    /*check user for empty fields*/
     private void checkEmpty(User user){
         ValidationUtil.checkEmpty(user.getName(),"name");
         ValidationUtil.checkEmpty(user.getEmail(),"email");

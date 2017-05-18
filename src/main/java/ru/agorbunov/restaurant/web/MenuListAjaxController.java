@@ -16,20 +16,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by Admin on 09.03.2017.
+ * Rest controller for menuLists.jsp and other .jsp
+ * to exchange menuList data with service-layer
  */
 @RestController
 @RequestMapping(value =  "/ajax/menuLists")
 public class MenuListAjaxController {
 
-
     private final Logger log = LoggerFactory.getLogger(getClass());
-
 
     @Autowired
     private MenuListService service;
 
-
+    /*get all menu lists by current restaurant*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MenuList> getByRestaurant() {
         log.info("getByRestaurant");
@@ -37,6 +36,7 @@ public class MenuListAjaxController {
         return service.getByRestaurant(currentRestaurant.getId());
     }
 
+    /*get menuList by Id and current restaurant*/
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public MenuList getMenuList(@PathVariable("id") int id) {
         log.info("get " + id);
@@ -44,6 +44,8 @@ public class MenuListAjaxController {
         return service.get(id,currentRestaurant.getId());
     }
 
+    /*use for orders.jsp to update data in modal windows
+    * get menuList by Id and setup by its data fields in modal window*/
     @GetMapping(value = "/set/{id}")
     public String setCurrentMenuList(@PathVariable("id") int id) {
         log.info("set current menuList " + id);
@@ -54,12 +56,14 @@ public class MenuListAjaxController {
                                         menuList.getDateTime().toLocalDate().toString());
     }
 
+    /*delete menuList by Id*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
         service.delete(id);
     }
 
+    /*create new menuList or update if exist*/
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("description")String description,
@@ -78,6 +82,7 @@ public class MenuListAjaxController {
         }
     }
 
+    /*check menuList for empty fields*/
     private void checkEmpty(MenuList menuList){
         ValidationUtil.checkEmpty(menuList.getDateTime(),"dateTime");
     }

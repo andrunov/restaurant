@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by Admin on 17.04.2017.
+ * Rest controller for order_by_dish.jsp
+ * to exchange order data with service-layer
  */
 @RestController
 @RequestMapping(value = "/ajax/order_by_dish")
@@ -30,6 +31,7 @@ public class OrderByDishAjaxController {
     @Autowired
     private UserService userService;
 
+    /*get orders by current dish*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getByDish() {
         log.info("getByDish");
@@ -37,6 +39,7 @@ public class OrderByDishAjaxController {
         return orderService.getByDish(dish.getId());
     }
 
+    /*get order by Id of user by userId and of current restaurant */
     @GetMapping(value = "/{id}&{userId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Order getOrder(@PathVariable("id") int id,
                           @PathVariable("userId") int userId){
@@ -49,6 +52,7 @@ public class OrderByDishAjaxController {
         return order;
     }
 
+    /*update order, updates only DateTime and Status, dishes not touch*/
     @PostMapping
     public void update(@RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime,
                        @RequestParam("status") String status){
@@ -62,12 +66,14 @@ public class OrderByDishAjaxController {
         orderService.save(order,user.getId(),restaurant.getId());
     }
 
+    /*delete order by Id*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
         orderService.delete(id);
     }
 
+    /*check order for empty fields*/
     private void checkEmpty(Order order){
         ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
     }

@@ -12,7 +12,8 @@ import ru.agorbunov.restaurant.util.ValidationUtil;
 import java.util.List;
 
 /**
- * Created by Admin on 01.03.2017.
+ * Rest controller for restaurants.jsp and other .jsp
+ * to exchange restaurant data with service-layer
  */
 @RestController
 @RequestMapping(value =  "/ajax/restaurants")
@@ -23,18 +24,22 @@ public class RestaurantAjaxController {
     @Autowired
     private RestaurantService service;
 
+    /*get all restaurants*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurant> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
+    /*get restaurant by Id*/
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurant getRestaurant(@PathVariable("id") int id) {
         log.info("get " + id);
         return service.get(id);
     }
 
+    /*use in orders.jsp to setup data in modal window
+    * get restaurant by Id and setup by its data fields in modal window*/
     @GetMapping(value = "/set/{id}")
     public String setCurrentRestaurant(@PathVariable("id") int id) {
         log.info("set current restaurant" + id);
@@ -43,12 +48,14 @@ public class RestaurantAjaxController {
         return String.format("%s, %s", restaurant.getName(), restaurant.getAddress());
     }
 
+    /*delete restaurant by Id*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
         service.delete(id);
     }
 
+    /*create new restaurant or update if exist*/
     @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("name") String name,
@@ -66,6 +73,7 @@ public class RestaurantAjaxController {
         }
     }
 
+    /*check restaurant for empty fields*/
     private void checkEmpty(Restaurant restaurant){
         ValidationUtil.checkEmpty(restaurant.getName(),"name");
         ValidationUtil.checkEmpty(restaurant.getAddress(),"address");

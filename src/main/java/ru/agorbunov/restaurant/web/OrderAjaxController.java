@@ -20,7 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Admin on 08.03.2017.
+ * Rest controller for orders.jsp
+ * to exchange order data with service-layer
  */
 @RestController
 @RequestMapping(value = "/ajax/orders")
@@ -34,6 +35,7 @@ public class OrderAjaxController {
     @Autowired
     private RestaurantService restaurantService;
 
+    /*get order by Id of restaurant by restaurantId and of current user */
     @GetMapping(value = "/{id}&{restaurantId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Order getOrder(@PathVariable("id") int id,
                           @PathVariable("restaurantId") int restaurantId){
@@ -45,6 +47,7 @@ public class OrderAjaxController {
         return order;
     }
 
+    /*get all orders by current user*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getByUser() {
         log.info("getByUser");
@@ -52,13 +55,15 @@ public class OrderAjaxController {
         return orderService.getByUser(currentUser.getId());
     }
 
-
+    /*delete order by Id*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
         orderService.delete(id);
     }
 
+    /*create new order, in request parameters send only array of dishes Ids,
+    * dishes quantities sets as1 by default, change quantities will be offer to user in next steps*/
     @PostMapping(value = "/create")
     public void create(@RequestParam("dishIds")String[] dishIds ){
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
@@ -80,6 +85,7 @@ public class OrderAjaxController {
         }
     }
 
+    /*update order, updates only DateTime and Status, dishes not touch*/
     @PostMapping
     public void update(@RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime,
                        @RequestParam("status") String status){
@@ -93,6 +99,7 @@ public class OrderAjaxController {
         orderService.save(order,user.getId(),restaurant.getId());
     }
 
+    /*update order, update dishes and their quantities, DateTime and Status not touch*/
     @PostMapping(value = "/update")
     public void update(@RequestParam("dishIds")String[] dishIds,
                        @RequestParam("dishQuantityValues")String[] dishQuantityValues){
@@ -106,6 +113,7 @@ public class OrderAjaxController {
         orderService.save(order,currentUser.getId(),currentRestaurant.getId(),intDishesIds,intDishQuantityValues);
     }
 
+    /*check order for empty fields*/
     private void checkEmpty(Order order){
         ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
     }

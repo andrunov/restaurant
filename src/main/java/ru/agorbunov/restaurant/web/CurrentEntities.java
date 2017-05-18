@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.web;
 import ru.agorbunov.restaurant.model.*;
 
 /**
- * Created by Admin on 10.03.2017.
+ * Current entities of session
  */
 public class CurrentEntities {
 
