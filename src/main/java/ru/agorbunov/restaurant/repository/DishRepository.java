@@ -16,7 +16,7 @@ public interface DishRepository extends BaseRepository<Dish> {
     /*get dish from database by Id, menulistId in parameters is Id of menu list to which the dish is belong*/
     Dish get(int id, int menuListId);
 
-    /*get dish from database bi Id with collection of orders which contains the dish,
+    /*get dish from database by Id with collection of orders which contains the dish,
     * menulistId in parameters is Id of menu list to which the dish is belong*/
     Dish getWithOrders(int id, int menuListId);
 
@@ -26,6 +26,6 @@ public interface DishRepository extends BaseRepository<Dish> {
     /*get all dishes from database that belongs to order with Id pass as parameter */
     Map<Dish, Integer> getByOrder(int orderId);
 
-    /*delete dishes from order, dish Id and order Id pass in parameters */
+    /*delete references to dishes from order in database, dish Id and order Id pass in parameters */
     boolean deleteFromOrder(int id,int orderId);
 }

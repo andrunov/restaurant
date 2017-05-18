@@ -3,12 +3,14 @@ package ru.agorbunov.restaurant.service;
 import java.util.List;
 
 /**
- * Created by Admin on 27.01.2017.
+ * Base interface. This methods must have all services
  */
 public interface BaseService<T> {
 
+    /*delete entity by Id */
     void delete(int id);
 
+    /*get all entities*/
     List<T> getAll();
 
 }

@@ -88,7 +88,7 @@ public class JpaDishRepositoryImpl implements DishRepository {
         return result.get(0).getDishes();
     }
 
-    /*delete dishes from order, dish Id and order Id pass in parameters */
+    /*delete references to dishes from order in database, dish Id and order Id pass in parameters */
     @Override
     @Transactional
     public boolean deleteFromOrder(int id, int orderId) {

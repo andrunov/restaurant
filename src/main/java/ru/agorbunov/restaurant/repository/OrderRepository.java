@@ -9,14 +9,15 @@ import java.util.List;
  */
 public interface OrderRepository extends BaseRepository<Order> {
 
-    /*save order in database with dishes and their quantities that order is consist-
-    *,int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
-    * each dishId from first arr matches its quantity from second arr, arrays must have equal size
+    /*save order in database if it is new entity and update if it is exist,
+    *int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
+    *each dishId from first arr matches its quantity from second arr, arrays must have equal size
     *userId and restaurantId in parameters is Ids of user and restaurant to which the order is belong*/
     Order save(Order order,  int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues);
 
-    /*save order in database, userId and restaurantId in parameters is Ids of
-    *user and restaurant to which the order is belong*/
+    /*save order in database if it is new entity and update if it is exist,
+    *userId and restaurantId in parameters is Ids of user and restaurant to which the order is belong,
+    *if order is already exist and have collections of dishes they not erase in database*/
     Order save(Order order,  int userId, int restaurantId);
 
     /*get order from database by Id, userId and restaurantId in parameters is Ids of

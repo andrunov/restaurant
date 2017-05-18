@@ -14,7 +14,7 @@ import java.util.List;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Created by Admin on 29.01.2017.
+ * Restaurant-service
  */
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -22,6 +22,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Autowired
     private RestaurantRepository repository;
 
+    /*save restaurant, check that restaurant not null*/
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant save(Restaurant restaurant) {
@@ -29,28 +30,34 @@ public class RestaurantServiceImpl implements RestaurantService {
         return repository.save(restaurant);
     }
 
+    /*delete restaurant by Id, check that restaurant was found */
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }
 
+    /*get all restaurants*/
     @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
         return repository.getAll();
     }
 
+    /*get restaurant by Id, check that restaurant was found*/
     @Override
     public Restaurant get(int id) {
         return checkNotFoundWithId(repository.get(id),id);
     }
 
+    /*get restaurant by Id with collection of menuLists were issued by the restaurant,
+    * check that restaurant was found */
     @Override
     public Restaurant getWithMenuLists(int id) {
         return checkNotFoundWithId(repository.getWithMenuLists(id),id);
     }
 
+    /*evict service-layer cash of restaurant-entities*/
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void evictCache() {

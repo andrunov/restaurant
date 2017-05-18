@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    /*save user, check that user not noll*/
     @CacheEvict(value = "users",allEntries = true)
     @Override
     public User save(User user) {
@@ -29,28 +30,34 @@ public class UserServiceImpl implements UserService {
         return repository.save(user);
     }
 
+    /*delete user by Id, check that user was found */
     @CacheEvict(value = "users",allEntries = true)
     @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }
 
+    /*get all users*/
     @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.getAll();
     }
 
+    /*get user by Id, check that user was found*/
     @Override
     public User get(int id) {
         return checkNotFoundWithId(repository.get(id),id);
     }
 
+    /*get user by Id with collection of orders were made by the user,
+    * check that user was found*/
     @Override
     public User getWithOrders(int id) {
         return checkNotFoundWithId(repository.getWithOrders(id),id);
     }
 
+    /*evict service-layer cash of user-entities*/
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {

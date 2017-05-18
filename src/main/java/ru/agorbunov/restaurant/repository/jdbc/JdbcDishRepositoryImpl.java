@@ -106,7 +106,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
         return dishMap;
     }
 
-    /*delete dishes from order, dish Id and order Id pass in parameters */
+    /*delete references to dishes from order in database, dish Id and order Id pass in parameters */
     @Override
     @Transactional
     public boolean deleteFromOrder(int id, int orderId) {

@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.repository;
 import java.util.List;
 
 /**
- * Base interface. This interface methods must have all repositories
+ * Base interface. This methods must have all repositories
  */
 public interface BaseRepository<T> {
 

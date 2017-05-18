@@ -14,7 +14,7 @@ import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Created by Admin on 27.01.2017.
+ * Dish-service
  */
 @Service
 public class DishServiceImpl implements DishService {
@@ -22,42 +22,54 @@ public class DishServiceImpl implements DishService {
     @Autowired
     private DishRepository repository;
 
+    /*save dish, menulistId in parameters is Id of menu list to which the dish is belong
+    * check dish for not-null, and check that dish was found (dish must belongs to this menuList) */
     @Override
     public Dish save(Dish dish, int menuListId) {
         Assert.notNull(dish,"dish must not be null");
         return checkNotFoundWithId(repository.save(dish,menuListId),dish.getId());
     }
 
+    /*delete dish by Id, check that dish was found */
     @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id),id);
     }
 
+    /*get all dishes*/
     @Override
     public List<Dish> getAll() {
         return repository.getAll();
     }
 
+    /*get dish by Id, menulistId in parameters is Id of menu list to which the dish is belong,
+    * check that dish was found (dish must belongs to this menuList) */
     @Override
     public Dish get(int id, int menuListId) {
         return checkNotFoundWithId(repository.get(id,menuListId),id);
     }
 
+    /*get dish by Id with collection of orders which contains the dish,
+    * menulistId in parameters is Id of menu list to which the dish is belong,
+    * check that dish was found (dish must belongs to this menuList) */
     @Override
     public Dish getWithOrders(int id, int menulistId) {
         return checkNotFoundWithId(repository.getWithOrders(id,menulistId),id);
     }
 
+    /*get all dishes that belongs to menuList with Id pass as parameter */
     @Override
     public List<Dish> getByMenuList(int menuListId) {
         return repository.getByMenuList(menuListId);
     }
 
+    /*get all dishes that belongs to order with Id pass as parameter */
     @Override
     public Map<Dish,Integer> getByOrder(int orderId) {
         return repository.getByOrder(orderId);
     }
 
+    /*delete dishes from order, dish Id and order Id pass in parameters */
     @Override
     public boolean deleteFromOrder(int id, int orderId) {
         return repository.deleteFromOrder(id,orderId);
