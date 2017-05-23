@@ -5,7 +5,7 @@ import ru.agorbunov.restaurant.model.*;
 /**
  * Current entities of session
  */
-public class CurrentEntities {
+class CurrentEntities {
 
     private static User currentUser;
 
@@ -20,43 +20,43 @@ public class CurrentEntities {
     public CurrentEntities() {
     }
 
-    public static Restaurant getCurrentRestaurant() {
+    static Restaurant getCurrentRestaurant() {
         return currentRestaurant;
     }
 
-    public static User getCurrentUser() {
+    static User getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(User currentUser) {
+    static void setCurrentUser(User currentUser) {
         CurrentEntities.currentUser = currentUser;
     }
 
-    public static void setCurrentRestaurant(Restaurant currentRestaurant) {
+    static void setCurrentRestaurant(Restaurant currentRestaurant) {
         CurrentEntities.currentRestaurant = currentRestaurant;
     }
 
-    public static MenuList getCurrentMenuList() {
+    static MenuList getCurrentMenuList() {
         return currentMenuList;
     }
 
-    public static void setCurrentMenuList(MenuList currentMenuList) {
+    static void setCurrentMenuList(MenuList currentMenuList) {
         CurrentEntities.currentMenuList = currentMenuList;
     }
 
-    public static Order getCurrentOrder() {
+    static Order getCurrentOrder() {
         return currentOrder;
     }
 
-    public static void setCurrentOrder(Order currentOrder) {
+    static void setCurrentOrder(Order currentOrder) {
         CurrentEntities.currentOrder = currentOrder;
     }
 
-    public static Dish getCurrentDish() {
+    static Dish getCurrentDish() {
         return currentDish;
     }
 
-    public static void setCurrentDish(Dish currentDish) {
+    static void setCurrentDish(Dish currentDish) {
         CurrentEntities.currentDish = currentDish;
     }
 }
