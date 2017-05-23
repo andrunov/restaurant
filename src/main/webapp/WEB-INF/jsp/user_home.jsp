@@ -10,13 +10,11 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="container">
     <div class="jumbotron">
-        <%--<p class="container">--%>
-            <%--<p/>--%>
         </form>
-            <p><strong><a href="users"><fmt:message key="users.title"/></a></strong></p>
-            <p><strong><a href="restaurants"><fmt:message key="restaurants.title"/></a></strong></p>
-        </div>
+        <p><strong><a href="#">Профиль</a></strong></p>
+        <p><strong><a href="#">Мои заказы</a></strong></p>
     </div>
+</div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

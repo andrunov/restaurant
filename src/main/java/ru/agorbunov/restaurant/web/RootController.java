@@ -5,12 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Root-controller. Map root requests
@@ -36,12 +40,47 @@ public class RootController {
     @Autowired
     private DishService dishService;
 
-    /*return index.jsp and display home page*/
+    /*return admin_home.jsp and display home page*/
     @GetMapping(value = "/")
     public String root() {
         log.info("get /");
         return "index";
     }
+
+    // TODO: 23.05.2017 rewrite method with loggedUser
+    /*if request have errors put them into modrl and return back to login.jsp*/
+    @GetMapping(value = "/login")
+    public String login(ModelMap model,
+                        @RequestParam(value = "error", required = false) boolean error,
+                        @RequestParam(value = "message", required = false) String message) {
+        model.put("error", error);
+        model.put("message", message);
+        return "login";
+    }
+
+    /*redirect to home page according to user role*/
+    @GetMapping(value = "/welcome")
+    public String welcome(HttpServletRequest request){
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin_home";
+        }
+        return "redirect:/user_home";
+    }
+
+    /*return admin_home.jsp and display home page for users with Admin Role */
+    @GetMapping("/admin_home")
+    public String adminHome() {
+        log.info("get /admin_home");
+        return "admin_home";
+    }
+
+    /*return user_home.jsp and display home page for users with User Role only*/
+    @GetMapping("/user_home")
+    public String userHome() {
+        log.info("get /user_home");
+        return "user_home";
+    }
+
 
     /*return users.jsp and display all users*/
     @GetMapping("/users")
