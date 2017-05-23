@@ -23,7 +23,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" vertical-align: center>
                 <ul class="nav navbar-nav">
-                     <li><a href="#"><fmt:message key="app.logout"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out"></span></a></li>
+                     <li><a href="logout"><fmt:message key="app.logout"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out"></span></a></li>
                 </ul>
             </ul>
         </div><!--/.nav-collapse -->

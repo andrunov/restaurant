@@ -10,14 +10,8 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="container">
     <div class="jumbotron">
-        <p class="container">
-            <p/>
-        <form method="post" action="users">
-            <fmt:message key="app.login"/>: <select name="userId">
-            <option value="100000" selected>User</option>
-            <option value="100001">Admin</option>
-        </select>
-            <button type="submit"><fmt:message key="common.select"/></button>
+        <%--<p class="container">--%>
+            <%--<p/>--%>
         </form>
             <p><strong><a href="users"><fmt:message key="users.title"/></a></strong></p>
             <p><strong><a href="restaurants"><fmt:message key="restaurants.title"/></a></strong></p>
