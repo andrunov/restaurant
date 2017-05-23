@@ -7,8 +7,10 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
+<nav class="container">
+
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
         <div class="navbar-header navbar-brand"><fmt:message key="app.title"/></div>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" role="form" action="spring_security_check" method="post">
@@ -24,7 +26,7 @@
             </form>
         </div>
     </div>
-</div>
+</nav>
 
 <div class="jumbotron">
     <div class="container">
@@ -70,14 +72,13 @@
 </div>
 <div class="container">
     <div class="lead">
-        &nbsp;&nbsp;&nbsp;<a href="https://github.com/JavaOPs/topjava">Java Enterprise проект</a> с
-        регистрацией/авторизацией и интерфейсом на основе ролей (USER, ADMIN).
-        Администратор может создавать/редактировать/удалять/пользователей, а пользователь - управлять своим
-        профилем и данными (день, еда, калории) через UI (по AJAX) и по REST интерфейсу с базовой авторизацией.
-        Возможна фильтрация данных по датам и времени, при этом цвет записи таблицы еды зависит от того, превышает ли
-        сумма
-        калорий за день норму (редактируемый параметр в профиле пользователя).
-        Весь REST интерфейс покрывается JUnit тестами, используя Spring MVC Test и Spring Security Test.
+        <%--&lt;%&ndash;todo-change web address-%>--%>
+        &nbsp;&nbsp;&nbsp;<a href="https://github.com/JavaOPs/topjava">Java Enterprise проект</a>
+        Web-приложение для осуществления online-заказов в рестараны. По аналогии с электронным табло заказов
+        в McDonald's, только все упрощено и ресторанов много.
+        Два типа пользователей на основе ролей (USER, ADMIN).
+        Администратор может создавать/редактировать/удалять/пользователей, рестораны, меню, блюда и заказы,
+        а пользователь - управлять своим профилем, создавать и редактировать свои заказы.
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
@@ -87,5 +88,6 @@
         $('input[name="password"]').val(password)
     }
 </script>
+</nav>
 </body>
 </html>
