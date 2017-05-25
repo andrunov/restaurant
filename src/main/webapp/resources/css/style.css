@@ -1,11 +1,17 @@
 /*styles*/
 
 .isAdmin {
-    color: firebrick;
+    color: black;
+    text-decoration: underline;
 }
 
 .isUser {
     color: #72a2be;
+}
+
+.disabled {
+    color: dimgray;
+    text-decoration: line-through;
 }
 
 .error, .message {

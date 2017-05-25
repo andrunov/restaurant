@@ -54,12 +54,14 @@ public class UserAjaxController {
                                @RequestParam("name") String name,
                                @RequestParam("email") String email,
                                @RequestParam("password") String password,
-                               @RequestParam("roles") String[] roleValues) {
+                               @RequestParam("roles") String[] roleValues,
+                               @RequestParam(value = "enabled",required = false) String enabled) {
         Role[] roles = ParsingUtil.parseRoles(roleValues);
         Role firstRole = roles[0];
         Role[] restRoles = Arrays.copyOfRange(roles,roles.length - 1, roleValues.length);
         User user = new User(name, email, password, firstRole, restRoles);
         user.setId(id);
+        user.setEnabled(Boolean.parseBoolean(enabled));
         checkEmpty(user);
         if (user.isNew()) {
             ValidationUtil.checkNew(user);

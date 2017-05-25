@@ -76,6 +76,14 @@
                         </div>
                     </div>
 
+                    <table>
+                        <tr>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </table>
+
                     <div class="form-group">
                         <p>
                             <label  class="control-label col-xs-3"><fmt:message key="users.roles"/></label>
@@ -91,6 +99,14 @@
                                 <input type="checkbox" id="ROLE_USER" name="roles" value="ROLE_USER">
                                 <label  for="ROLE_USER"><fmt:message key="roles.ROLE_USER"/></label>
                             </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enabled" class="control-label col-xs-3"><fmt:message key="users.enabled"/></label>
+
+                        <div class="col-xs-9">
+                            <input type="checkbox" id="enabled" name="enabled" value="true" checked >
                         </div>
                     </div>
 

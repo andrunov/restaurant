@@ -36,12 +36,14 @@ $(function () {
             /*add column with image depending of Role*/
             {
                 "orderable": false,
-                "data": "roles",
                 "render": function (data, type, row) {
                     if (type == 'display') {
+                        if (!row.enabled){
+                            return '<img  src="resources/pictures/finished.png" />';
+                        }
                         var isAdmin = false;
-                        for (var i = 0; i < data.length; i++){
-                            if (data[i] === "ROLE_ADMIN"){
+                        for (var i = 0; i < row.roles.length; i++){
+                            if (row.roles[i] === "ROLE_ADMIN"){
                                 isAdmin = true;
                             }
                         }
@@ -113,6 +115,9 @@ $(function () {
                 }
             }
             $(row).addClass(isAdmin ? 'isAdmin' : 'isUser');
+            if (!data.enabled) {
+                $(row).addClass("disabled");
+            }
         },
         "initComplete": makeEditable
     });
@@ -152,8 +157,11 @@ function updateRow(id) {
         $.each(data, function (key, value) {
             if (key === "roles") {
                 for (var i = 0; i < value.length; i++) {
-                    $("#" + value[i]).click();
+                    $("#" + value[i]).prop("checked", true);
                 }
+            } 
+            else if (key === "enabled") {
+                $("#" + key).prop("checked", value);
             }
             else {
                 form.find("input[name='" + key + "']").val(value);

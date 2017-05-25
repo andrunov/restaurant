@@ -83,6 +83,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
         User user = service.get(USER_01_ID);
         user.setEmail("newmail@mail.ru");
         user.setName("обновленное имя");
+        user.setEnabled(false);
         service.save(user);
         MATCHER.assertEquals(user,service.get(USER_01_ID));
     }
