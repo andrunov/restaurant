@@ -35,11 +35,11 @@
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
             </div>
         </c:if>
-        <%--<c:if test="${not empty message}">--%>
-            <%--<div class="message">--%>
-                <%--<fmt:message key="${message}"/>--%>
-            <%--</div>--%>
-        <%--</c:if>--%>
+        <c:if test="${not empty message}">
+            <div class="message">
+                ${message}"
+            </div>
+        </c:if>
         <p></p>
         <p>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('rzanetti@gmail.com', '444')">

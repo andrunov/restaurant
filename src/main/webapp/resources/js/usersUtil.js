@@ -41,7 +41,7 @@ $(function () {
                     if (type == 'display') {
                         var isAdmin = false;
                         for (var i = 0; i < data.length; i++){
-                            if (data[i] === "ADMIN"){
+                            if (data[i] === "ROLE_ADMIN"){
                                 isAdmin = true;
                             }
                         }
@@ -108,7 +108,7 @@ $(function () {
         "createdRow": function (row, data, dataIndex) {
             var isAdmin = false;
             for (var i = 0; i < data.roles.length; i++){
-                if (data.roles[i] === "ADMIN"){
+                if (data.roles[i] === "ROLE_ADMIN"){
                     isAdmin = true;
                 }
             }
@@ -142,11 +142,11 @@ function renderEditBtn(data, type, row) {
 
 /*method to update row in tables */
 function updateRow(id) {
-    // document.getElementById('ADMIN').checked = false;
-    // document.getElementById('USER').checked = false;
+    // document.getElementById('ROLE_ADMIN').checked = false;
+    // document.getElementById('ROLE_USER').checked = false;
     $('#modalTitle').html(i18n[editTitleKey]);
-    $("#ADMIN").prop("checked", false);
-    $("#USER").prop("checked", false);
+    $("#ROLE_ADMIN").prop("checked", false);
+    $("#ROLE_USER").prop("checked", false);
 
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {

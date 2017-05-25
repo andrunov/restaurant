@@ -83,13 +83,13 @@
 
                         <div class="col-xs-9">
                             <p>
-                                <input type="checkbox" id="ADMIN" name="roles" value="ADMIN">
-                                <label  for="ADMIN"><fmt:message key="roles.ADMIN"/></label>
+                                <input type="checkbox" id="ROLE_ADMIN" name="roles" value="ROLE_ADMIN">
+                                <label  for="ROLE_ADMIN"><fmt:message key="roles.ROLE_ADMIN"/></label>
                             </p>
 
                             <p>
-                                <input type="checkbox" id="USER" name="roles" value="USER">
-                                <label  for="USER"><fmt:message key="roles.USER"/></label>
+                                <input type="checkbox" id="ROLE_USER" name="roles" value="ROLE_USER">
+                                <label  for="ROLE_USER"><fmt:message key="roles.ROLE_USER"/></label>
                             </p>
                         </div>
                     </div>

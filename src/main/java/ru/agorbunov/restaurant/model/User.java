@@ -40,6 +40,9 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
+    private boolean enabled = true;
+
     /*users roles*/
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
@@ -60,6 +63,7 @@ public class User extends BaseEntity {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.enabled = true;
         this.roles = EnumSet.of(role, roles);
     }
 
@@ -101,6 +105,14 @@ public class User extends BaseEntity {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

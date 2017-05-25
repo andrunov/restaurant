@@ -44,11 +44,11 @@ public class RootController {
     @GetMapping(value = "/")
     public String root() {
         log.info("get /");
-        return "index";
+        return "redirect:/home";
     }
 
     // TODO: 23.05.2017 rewrite method with loggedUser
-    /*if request have errors put them into modrl and return back to login.jsp*/
+    /*if request have errors put them into model and return back to login.jsp*/
     @GetMapping(value = "/login")
     public String login(ModelMap model,
                         @RequestParam(value = "error", required = false) boolean error,
@@ -58,29 +58,14 @@ public class RootController {
         return "login";
     }
 
-    /*redirect to home page according to user role*/
-    @GetMapping(value = "/welcome")
+    /*return home page according to user role*/
+    @GetMapping(value = "/home")
     public String welcome(HttpServletRequest request){
         if (request.isUserInRole("ROLE_ADMIN")) {
-            return "redirect:/admin_home";
+            return "admin_home";
         }
-        return "redirect:/user_home";
-    }
-
-    /*return admin_home.jsp and display home page for users with Admin Role */
-    @GetMapping("/admin_home")
-    public String adminHome() {
-        log.info("get /admin_home");
-        return "admin_home";
-    }
-
-    /*return user_home.jsp and display home page for users with User Role only*/
-    @GetMapping("/user_home")
-    public String userHome() {
-        log.info("get /user_home");
         return "user_home";
     }
-
 
     /*return users.jsp and display all users*/
     @GetMapping("/users")
