@@ -47,6 +47,10 @@ public class MenuList extends BaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;
 
+    /*enabled-disabled*/
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
+    private boolean enabled;
+
     public MenuList() {
     }
 
@@ -54,6 +58,7 @@ public class MenuList extends BaseEntity {
         this.restaurant = restaurant;
         this.description = description;
         this.dateTime = dateTime;
+        this.enabled = true;
     }
 
     public Restaurant getRestaurant() {
@@ -86,6 +91,14 @@ public class MenuList extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

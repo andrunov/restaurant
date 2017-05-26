@@ -40,8 +40,9 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    /*enabled-disabled*/
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
-    private boolean enabled = true;
+    private boolean enabled;
 
     /*users roles*/
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

@@ -50,6 +50,7 @@ CREATE TABLE menu_lists(
   description    VARCHAR(255),
   date_time      TIMESTAMP NOT NULL ,
   restaurant_id  INTEGER NOT NULL ,
+  enabled     BOOLEAN   DEFAULT TRUE,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 

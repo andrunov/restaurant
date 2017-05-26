@@ -49,6 +49,7 @@ CREATE TABLE menu_lists(
   description    VARCHAR NOT NULL,
   date_time      TIMESTAMP NOT NULL,
   restaurant_id INTEGER NOT NULL ,
+  enabled    BOOL DEFAULT TRUE,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
