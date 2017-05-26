@@ -25,6 +25,7 @@
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><fmt:message key="menuLists.description"/></th>
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="menuLists.content"/></th>
@@ -68,6 +69,17 @@
                         <div class="col-xs-9">
                             <input class="form-control" id="dateTime" name="dateTime"
                                    placeholder="<fmt:message key="common.dateTime"/>">
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <label for="enabled" class="text-right"><fmt:message key="users.enabled"/></label>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <input type="checkbox" id="enabled" name="enabled" value="true" checked >
                         </div>
                     </div>
 

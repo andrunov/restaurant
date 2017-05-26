@@ -76,11 +76,9 @@
                         </div>
                     </div>
 
-
-
                     <table class="table" >
                         <tr>
-                            <td class="col-md-2">
+                            <td>
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
@@ -92,11 +90,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="col-md-2">
+                            <td>
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
-                                            <label for="enabled" class="text-right"><fmt:message key="users.roles"/></label>
+                                            <label class="text-right"><fmt:message key="users.roles"/></label>
                                         </h3>
                                     </div>
                                     <div class="panel-body">

@@ -33,6 +33,22 @@ $(function () {
         "paging": false,
         "info": true,
         "columns": [
+            /*add column with image depending of Enabled*/
+            {
+                "orderable": false,
+                "data": "enabled",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        if (data){
+                            return '<img  src="resources/pictures/menulist.png" />';
+                        }
+                        else {
+                            return '<img  src="resources/pictures/cross.png" />';
+                        }
+                    }
+                    return null;
+                }
+            },
             {
                 "data": "description"
             },
@@ -67,7 +83,12 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": "",
+        /*customize row style depending of Enabled*/
+        "createdRow": function (row, data, dataIndex) {
+            if (!data.enabled) {
+                $(row).addClass("disabled");
+            }
+        },
         "initComplete": makeEditable
     });
 
@@ -91,4 +112,20 @@ function renderEditMenuListBtn(data, type, row) {
         return '<a class="btn btn-primary" onclick="updateRow(' + row.id + ');">' +
             '<span class="glyphicon glyphicon-time"></span></a>';
     }
+}
+
+/*method to update row in tables */
+function updateRow(id) {
+    $('#modalTitle').html(i18n[editTitleKey]);
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            if (key === "enabled") {
+                $("#" + key).prop("checked", value);
+            }
+            else {
+                form.find("input[name='" + key + "']").val(value);
+            }
+        });
+        $('#editRow').modal();
+    });
 }

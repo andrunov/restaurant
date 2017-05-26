@@ -33,7 +33,7 @@ $(function () {
         "paging": false,
         "info": true,
         "columns": [
-            /*add column with image depending of Role*/
+            /*add column with image depending of Role and Enabled*/
             {
                 "orderable": false,
                 "render": function (data, type, row) {
@@ -106,7 +106,7 @@ $(function () {
                 "asc"
             ]
         ],
-        /*customize row style depending of Role*/
+        /*customize row style depending of Role and Enabled*/
         "createdRow": function (row, data, dataIndex) {
             var isAdmin = false;
             for (var i = 0; i < data.roles.length; i++){
