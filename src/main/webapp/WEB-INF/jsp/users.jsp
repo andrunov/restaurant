@@ -76,40 +76,43 @@
                         </div>
                     </div>
 
-                    <table>
-                        <tr>
-                            <td>
 
+
+                    <table class="table" >
+                        <tr>
+                            <td class="col-md-2">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            <label for="enabled" class="text-right"><fmt:message key="users.enabled"/></label>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <input type="checkbox" id="enabled" name="enabled" value="true" checked >
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-md-2">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            <label for="enabled" class="text-right"><fmt:message key="users.roles"/></label>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            <input type="checkbox" id="ROLE_ADMIN" name="roles" value="ROLE_ADMIN">
+                                            <label  for="ROLE_ADMIN"><fmt:message key="roles.ROLE_ADMIN"/></label>
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" id="ROLE_USER" name="roles" value="ROLE_USER">
+                                            <label  for="ROLE_USER"><fmt:message key="roles.ROLE_USER"/></label>
+                                        </p>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </table>
-
-                    <div class="form-group">
-                        <p>
-                            <label  class="control-label col-xs-3"><fmt:message key="users.roles"/></label>
-                        </p>
-
-                        <div class="col-xs-9">
-                            <p>
-                                <input type="checkbox" id="ROLE_ADMIN" name="roles" value="ROLE_ADMIN">
-                                <label  for="ROLE_ADMIN"><fmt:message key="roles.ROLE_ADMIN"/></label>
-                            </p>
-
-                            <p>
-                                <input type="checkbox" id="ROLE_USER" name="roles" value="ROLE_USER">
-                                <label  for="ROLE_USER"><fmt:message key="roles.ROLE_USER"/></label>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="enabled" class="control-label col-xs-3"><fmt:message key="users.enabled"/></label>
-
-                        <div class="col-xs-9">
-                            <input type="checkbox" id="enabled" name="enabled" value="true" checked >
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="button" onclick="save()" class="btn btn-primary">

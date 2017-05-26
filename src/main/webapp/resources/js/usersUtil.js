@@ -39,7 +39,7 @@ $(function () {
                 "render": function (data, type, row) {
                     if (type == 'display') {
                         if (!row.enabled){
-                            return '<img  src="resources/pictures/finished.png" />';
+                            return '<img  src="resources/pictures/ghost.png" />';
                         }
                         var isAdmin = false;
                         for (var i = 0; i < row.roles.length; i++){
@@ -147,8 +147,6 @@ function renderEditBtn(data, type, row) {
 
 /*method to update row in tables */
 function updateRow(id) {
-    // document.getElementById('ROLE_ADMIN').checked = false;
-    // document.getElementById('ROLE_USER').checked = false;
     $('#modalTitle').html(i18n[editTitleKey]);
     $("#ROLE_ADMIN").prop("checked", false);
     $("#ROLE_USER").prop("checked", false);
