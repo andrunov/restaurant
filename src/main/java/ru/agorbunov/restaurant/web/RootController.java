@@ -3,6 +3,7 @@ package ru.agorbunov.restaurant.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -68,6 +69,7 @@ public class RootController {
     }
 
     /*return users.jsp and display all users*/
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public String users() {
         log.info("get /users");
@@ -169,6 +171,7 @@ public class RootController {
     }
 
     /*get id parameter to set current dish and redirect to orders_by_dish.jsp*/
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/orders_by_dish/{id}")
     public String ordersByDish(@PathVariable("id") int id){
         log.info("get /orders_by_dish/{id}");
@@ -178,6 +181,7 @@ public class RootController {
     }
 
     /*return orders_by_dish.jsp and display orders of current dish of current menu List of current restaurant*/
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/orders_by_dish")
     public String ordersByDish(Model model){
         log.info("get /orders_by_dish");
