@@ -17,6 +17,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = User.GET_ALL, query = "SELECT u from User u"),
         @NamedQuery(name = User.GET_WITH_ORDERS, query = "SELECT u from User u JOIN FETCH u.orders WHERE u.id = :id"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id")
 })
 @Entity
@@ -26,6 +27,8 @@ public class User extends BaseEntity {
     public static final String GET_ALL = "User.getAll";
     public static final String GET_WITH_ORDERS = "User.getWithOrders";
     public static final String DELETE = "User.delete";
+    public static final String BY_EMAIL = "User.getByEmail";
+
 
     /*user's name*/
     @Column(nullable = false)

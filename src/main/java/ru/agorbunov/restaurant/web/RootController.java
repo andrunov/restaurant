@@ -54,6 +54,7 @@ public class RootController {
     public String login(ModelMap model,
                         @RequestParam(value = "error", required = false) boolean error,
                         @RequestParam(value = "message", required = false) String message) {
+        log.info("get/login");
         model.put("error", error);
         model.put("message", message);
         return "login";
@@ -61,11 +62,15 @@ public class RootController {
 
     /*return home page according to user role*/
     @GetMapping(value = "/home")
-    public String welcome(HttpServletRequest request){
+    public String welcome(HttpServletRequest request, Model model){
+        log.info("get/home");
+        CurrentEntities.setCurrentUser(AuthorizedUser.get());
         if (request.isUserInRole("ROLE_ADMIN")) {
             return "admin_home";
+        }else {
+            model.addAttribute(CurrentEntities.getCurrentUser());
+            return "user_home";
         }
-        return "user_home";
     }
 
     /*return users.jsp and display all users*/

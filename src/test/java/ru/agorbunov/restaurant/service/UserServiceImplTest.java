@@ -67,8 +67,12 @@ public class UserServiceImplTest extends AbstractServiceTest {
         MATCHER.assertEquals(USER_01, user);
         Assert.assertEquals(Collections.singletonList(USER_01.getRoles()),
                             Collections.singletonList(user.getRoles()));
+    }
 
-
+    @Test
+    public void getByEmail() throws Exception {
+        User user = service.getByEmail("jbj@gmail.com");
+        MATCHER.assertEquals(USER_05, user);
     }
 
     @Test

@@ -157,4 +157,12 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         }
         return u;
     }
+
+    /*get user from database by email*/
+    @Override
+    public User getByEmail(String email) {
+        List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
+        return setRoles(DataAccessUtils.singleResult(users));
+    }
+
 }

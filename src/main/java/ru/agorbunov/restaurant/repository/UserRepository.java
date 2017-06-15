@@ -13,6 +13,9 @@ public interface UserRepository extends BaseRepository<User> {
     /*get user from database by Id*/
     User get(int id);
 
+    /*get user from database by email*/
+    User getByEmail(String email);
+
     /*get user from database by Id with collection of
     *orders were made by the user*/
     User getWithOrders(int id);

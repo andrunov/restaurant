@@ -1,5 +1,6 @@
 package ru.agorbunov.restaurant.repository.jpa;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.User;
@@ -59,6 +60,13 @@ public class JpaUserRepositoryImpl implements UserRepository {
         return (User)em.createNamedQuery(User.GET_WITH_ORDERS)
                 .setParameter("id",id)
                 .getSingleResult();
+    }
+
+    /*get user from database by email*/
+    @Override
+    public User getByEmail(String email) {
+        List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class).setParameter(1, email).getResultList();
+        return DataAccessUtils.singleResult(users);
     }
 
 

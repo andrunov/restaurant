@@ -3,21 +3,27 @@ package ru.agorbunov.restaurant.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.repository.UserRepository;
 import ru.agorbunov.restaurant.service.UserService;
+import ru.agorbunov.restaurant.util.ValidationUtil;
+import ru.agorbunov.restaurant.util.exception.NotFoundException;
+import ru.agorbunov.restaurant.web.AuthorizedUser;
 
 import java.util.List;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.*;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * Created by Admin on 28.01.2017.
  */
-@Service
-public class UserServiceImpl implements UserService {
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -57,10 +63,25 @@ public class UserServiceImpl implements UserService {
         return checkNotFoundWithId(repository.getWithOrders(id),id);
     }
 
+    /*get user by email, check that user was found*/
+    @Override
+    public User getByEmail(String email) throws NotFoundException {
+        Assert.notNull(email, "email must not be null");
+        return checkNotFound(repository.getByEmail(email), "email=" + email);
+    }
+
     /*evict service-layer cash of user-entities*/
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {
     }
 
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User u = repository.getByEmail(email.toLowerCase());
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(u);
+    }
 }

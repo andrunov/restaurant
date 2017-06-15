@@ -30,7 +30,7 @@ public class ValidationUtil {
     }
 
     /*check that object was found or throw NotFoundException*/
-    private static <T> T checkNotFound(T object, String msg) {
+    public static <T> T checkNotFound(T object, String msg) {
         checkNotFound(object != null, msg);
         return object;
     }
