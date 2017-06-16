@@ -9,6 +9,7 @@ import ru.agorbunov.restaurant.service.OrderService;
 
 import java.util.List;
 
+import static ru.agorbunov.restaurant.util.ValidationUtil.checkAcceptableUpdate;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
@@ -31,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         Assert.notNull(order,"order must not be null");
         checkArrCompatibility(dishIds,dishQuantityValues);
+        checkAcceptableUpdate(order);
         return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
     }
 
@@ -83,5 +85,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getByDish(int dishId) {
         return repository.getByDish(dishId);
+    }
+
+    /*delete order by Id, userId and restaurantId in parameters is Ids of
+   *user and restaurant to which the order is belong, check that updates acceptable*/
+    @Override
+    public void delete(int id, int userId, int restaurantId) {
+        Order order = get(id,userId,restaurantId);
+        checkAcceptableUpdate(order);
+        delete(id);
     }
 }

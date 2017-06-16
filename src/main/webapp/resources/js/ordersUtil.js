@@ -55,7 +55,7 @@ function updateTable() {
 $(function () {
     
     /*set cross-page variable "ordersDishesPostRedirectUrl" as 'orders' for return
-     * to this page (orders.jsp) after call POST-method in orders_dishes.jsp */
+     * to page orders.jsp after call POST-method in orders_dishes.jsp */
     localStorage.setItem("ordersDishesPostRedirectUrl",'orders');
     
     /*DataTable represents orders in main form initialization*/

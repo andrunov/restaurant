@@ -5,6 +5,7 @@ and bootstrap customise files --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <head>
+    <link rel="shortcut icon" href="">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <%--<link rel="stylesheet" href="resources/css/style.css">--%>

@@ -39,7 +39,7 @@ public class OrderAjaxController {
     @GetMapping(value = "/{id}&{restaurantId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Order getOrder(@PathVariable("id") int id,
                           @PathVariable("restaurantId") int restaurantId){
-        log.info("get " + id);
+        log.info("get " + id + ", " + restaurantId );
         User user = CurrentEntities.getCurrentUser();
         CurrentEntities.setCurrentRestaurant(restaurantService.get(restaurantId));
         Order order = orderService.get(id, user.getId(),restaurantId);
@@ -59,7 +59,9 @@ public class OrderAjaxController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
-        orderService.delete(id);
+        User user = CurrentEntities.getCurrentUser();
+        Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
+        orderService.delete(id,user.getId(),restaurant.getId());
     }
 
     /*create new order, in request parameters send only array of dishes Ids,

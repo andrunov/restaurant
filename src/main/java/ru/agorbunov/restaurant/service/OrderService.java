@@ -35,4 +35,8 @@ public interface OrderService extends BaseService<Order> {
     /*get all orders that belongs to dish with Id pass as parameter */
     List<Order> getByDish(int dishId);
 
+    /*delete order by Id, userId and restaurantId in parameters is Ids of
+    *user and restaurant to which the order is belong*/
+    void delete(int id, int userId, int restaurantId);
+
 }

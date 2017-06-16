@@ -4,10 +4,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import ru.agorbunov.restaurant.model.BaseEntity;
+import ru.agorbunov.restaurant.model.Order;
+import ru.agorbunov.restaurant.model.Role;
+import ru.agorbunov.restaurant.model.Status;
 import ru.agorbunov.restaurant.util.exception.ArraysIncompatibilityException;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
+import ru.agorbunov.restaurant.util.exception.RefuseToUpdateException;
+import ru.agorbunov.restaurant.web.AuthorizedUser;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * Class for different validation methods
@@ -81,6 +87,15 @@ public class ValidationUtil {
     public static void checkArrCompatibility(int[] arr1,int[]arr2){
         if (arr1.length!=arr2.length){
             throw new ArraysIncompatibilityException("arrays must have equals length");
+        }
+    }
+
+    public static void checkAcceptableUpdate(Order order){
+        if (order.getStatus() != Status.ACCEPTED){
+            Set<Role> roleSet = AuthorizedUser.get().getRoles();
+            if (!roleSet.contains(Role.ROLE_ADMIN)){
+                throw new RefuseToUpdateException("Updates refuse");
+            }
         }
     }
 
