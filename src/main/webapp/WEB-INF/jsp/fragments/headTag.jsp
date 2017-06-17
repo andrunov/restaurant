@@ -5,10 +5,10 @@ and bootstrap customise files --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <head>
-    <link rel="shortcut icon" href="">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="resources/pictures/favicon.ico">
 
-    <%--<link rel="stylesheet" href="resources/css/style.css">--%>
+<%--<link rel="stylesheet" href="resources/css/style.css">--%>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.13/css/dataTables.bootstrap.min.css">

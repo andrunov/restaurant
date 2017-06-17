@@ -107,6 +107,8 @@ $(function () {
         "initComplete": makeEditable
     });
 
+    $.datetimepicker.setLocale(localeCode);
+
     /*set field with datetimepicker*/
     $('#dateTime').datetimepicker({
         format: 'Y-m-d H:i'

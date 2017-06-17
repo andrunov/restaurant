@@ -1,5 +1,5 @@
 /**
- * Class serves orders.jsp
+ * Class serves user_home.jsp
  * works with orders of specify user
  */
 
@@ -54,10 +54,10 @@ function updateTable() {
 /*document.ready function*/
 $(function () {
 
-    /*set cross-page variable "ordersDishesPostRedirectUrl" as 'orders' for return
-     * to page orders.jsp after call POST-method in orders_dishes.jsp */
-    localStorage.setItem("ordersDishesPostRedirectUrl",'orders');
-    
+    /*set cross-page variable "ordersDishesPostRedirectUrl" as 'home' for return
+     * to page user_home.jsp after call POST-method in orders_dishes.jsp */
+    localStorage.setItem("ordersDishesPostRedirectUrl",'home');
+
     /*DataTable represents orders in main form initialization*/
     datatableApi = $('#ordersDT').DataTable({
         "ajax": {
@@ -112,11 +112,6 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
-            },
-            {
-                "orderable": false,
-                "defaultContent": "",
                 "render": renderDeleteBtn
             }
         ],
@@ -159,14 +154,14 @@ $(function () {
         ],
         "createdRow": ""
     });
-
+    
     $.datetimepicker.setLocale(localeCode);
 
     /*set field with datetimepicker*/
     $('#dateTime').datetimepicker({
         format: 'Y-m-d H:i'
     });
-    
+
 });
 
 /*function for link to orders_dishes.jsp*/
@@ -178,13 +173,13 @@ function linkBtn(data, type, row) {
 }
 
 /*function for begin procedure of order addition
-* 1-st step: open modal window of restaurant select*/
+ * 1-st step: open modal window of restaurant select*/
 function addOrder() {
     $('#selectRestaurant').modal();
 }
 
 /*render function draw button for restaurant selection
-* and finish 1-st step of order addition procedure*/
+ * and finish 1-st step of order addition procedure*/
 function selectRestaurantBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +');">' +
@@ -193,9 +188,9 @@ function selectRestaurantBtn(data, type, row) {
 }
 
 /*function of 2-nd step of order addition
-* get restaurant by id from server and to memory it in server
-* open modal window for menu list selection
-* hide modal window of restaurant select*/
+ * get restaurant by id from server and to memory it in server
+ * open modal window for menu list selection
+ * hide modal window of restaurant select*/
 function openMenuListWindow(id) {
     //set current restaurant
     $.ajax({
@@ -322,9 +317,9 @@ function openDishWindow(id) {
 }
 
 /*function finish 3-rd step of order addition procedure
-* send selected data to server fo create new order
-* and redirect to orders_dishes.jsp for 4-th step
-* of creation new order - specify dishes quantities*/
+ * send selected data to server fo create new order
+ * and redirect to orders_dishes.jsp for 4-th step
+ * of creation new order - specify dishes quantities*/
 function complete() {
     $.ajax({
         type: "POST",
@@ -347,14 +342,6 @@ function getIndexesArr(arr) {
     return "dishIds=" + dishIds;
 }
 
-/*render function draw button for update row*/
-function renderEditBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-primary" onclick="updateRow(' + row.id +','+  row.restaurant.id+');">' +
-            '<span class="glyphicon glyphicon-edit"></span></a>';
-    }
-}
-
 /*method to update row with new DataTime and Status*/
 function updateRow(id,restaurantId) {
     //fill modal form with data and open it
@@ -362,7 +349,7 @@ function updateRow(id,restaurantId) {
     $.get(ajaxUrl + id+'&'+restaurantId, function (data) {
         $.each(data, function (key, value) {
             if (key === "status") {
-                    $("#" + value).click();
+                $("#" + value).click();
             }else {
                 $('#detailsForm').find("input[name='" + key + "']").val(
                     key === "dateTime" ? formatDate(value) : value

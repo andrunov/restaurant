@@ -122,6 +122,7 @@
     </div>
 </div>
 
+<%--edit order modal window--%>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
