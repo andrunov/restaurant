@@ -24,7 +24,8 @@
             <ul class="nav navbar-nav navbar-right" vertical-align: center>
                 <ul class="nav navbar-nav">
                     <li>
-                     <li><a href="logout"><fmt:message key="app.logout"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out"></span></a></li>
+                    <a class="btn btn-info" role="button" href="profile">${user.name} <fmt:message key="app.profile"/></a>
+                    <li><a href="logout"><fmt:message key="app.logout"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out"></span></a></li>
                     </li>
                     <jsp:include page="lang.jsp"/>
                 </ul>

@@ -18,7 +18,7 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         this.loggedUser = user;
     }
 
-    private static AuthorizedUser safeGet() {
+    public static AuthorizedUser safeGet() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) {
             return null;
@@ -27,8 +27,8 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
     }
 
-    public static User get() {
-        User user = safeGet().getLoggedUser();
+    public static AuthorizedUser get() {
+        AuthorizedUser user = safeGet();
         requireNonNull(user, "No authorized user found");
         return user;
     }

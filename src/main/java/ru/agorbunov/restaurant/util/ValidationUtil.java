@@ -92,7 +92,7 @@ public class ValidationUtil {
 
     public static void checkAcceptableUpdate(Order order){
         if (order.getStatus() != Status.ACCEPTED){
-            Set<Role> roleSet = AuthorizedUser.get().getRoles();
+            Set<Role> roleSet = AuthorizedUser.get().getLoggedUser().getRoles();
             if (!roleSet.contains(Role.ROLE_ADMIN)){
                 throw new RefuseToUpdateException("Updates refuse");
             }

@@ -7,15 +7,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.*;
+import ru.agorbunov.restaurant.to.UserTo;
+import ru.agorbunov.restaurant.util.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * Root-controller. Map root requests
@@ -60,11 +66,11 @@ public class RootController {
         return "login";
     }
 
-    /*return home page according to user role*/
+    /*return home page according to userTo role*/
     @GetMapping(value = "/home")
     public String welcome(HttpServletRequest request, Model model){
         log.info("get/home");
-        CurrentEntities.setCurrentUser(AuthorizedUser.get());
+        CurrentEntities.setCurrentUser(AuthorizedUser.get().getLoggedUser());
         if (request.isUserInRole("ROLE_ADMIN")) {
             return "admin_home";
         }else {
@@ -104,7 +110,7 @@ public class RootController {
         return "menuLists";
     }
 
-    /*get id parameter to set current user and redirect to orders.jsp*/
+    /*get id parameter to set current userTo and redirect to orders.jsp*/
     @GetMapping(value = "/orders/{id}")
     public String orders(@PathVariable("id") int id) {
         log.info("get /orders/{id}");
@@ -112,7 +118,7 @@ public class RootController {
         return "redirect:/orders";
     }
 
-    /*return orders.jsp and display orders of current user*/
+    /*return orders.jsp and display orders of current userTo*/
     @GetMapping(value = "/orders")
     public String orders(Model model) {
         log.info("get /orders");
@@ -151,7 +157,7 @@ public class RootController {
         return "redirect:/orders_dishes";
     }
 
-    /*get userId parameter to set current user and id parameter to set current order
+    /*get userId parameter to set current userTo and id parameter to set current order
     * and redirect to orders_dishes.jsp*/
     @GetMapping(value = "/orders_dishes_by_user/{id}&{userId}")
     public String orders_dishesByUser(@PathVariable("id") int id,
@@ -164,7 +170,7 @@ public class RootController {
         return "redirect:/orders_dishes";
     }
 
-    /*return orders_dishes.jsp and display dishes of current order of current user and current restaurant*/
+    /*return orders_dishes.jsp and display dishes of current order of current userTo and current restaurant*/
     @GetMapping(value = "/orders_dishes")
     public String orders_dishes(Model model) {
         log.info("get /orders_dishes");
@@ -196,6 +202,24 @@ public class RootController {
                 .getDateTime().toString().replace('T', ' ').substring(0,16));
         model.addAttribute("dish",CurrentEntities.getCurrentDish());
         return "orders_by_dish";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
+        if (result.hasErrors()) {
+            return "profile";
+        } else {
+            User user = UserUtil.updateFromTo(AuthorizedUser.get().getLoggedUser(),userTo);
+            userService.save(user);
+            AuthorizedUser.get().setLoggedUser(user);
+            status.setComplete();
+            return "redirect:home";
+        }
     }
 
 }

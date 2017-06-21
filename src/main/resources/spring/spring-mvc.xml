@@ -41,6 +41,8 @@
         <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang"/>
         </bean>
+
+        <bean class="ru.agorbunov.restaurant.web.interceptor.ModelInterceptor"/>
     </mvc:interceptors>
 
 </beans>
