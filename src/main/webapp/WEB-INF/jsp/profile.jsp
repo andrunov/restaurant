@@ -17,7 +17,9 @@
     <div class="jumbotron">
         <div class="shadow">
 
-            <h3 class="page-header">${user.name}:  <fmt:message key="app.profile"/></h3>
+            <div class="span7 text-center">
+                 <h3 class="page-header">${user.name}:  <fmt:message key="app.profile"/></h3>
+            </div>
 
             <div class="view-box">
 
@@ -45,13 +47,12 @@
                     </div>
 
                     <div class="form-group">
-                            <div class="col-xs-offset-2 col-xs-10">
-                                <div class="pull-right">
-                                    <button type="submit" class="btn btn-primary">
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="span7 text-center">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <fmt:message key="common.complete"/>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

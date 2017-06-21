@@ -46,7 +46,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="span7 text-center">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                </div>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
@@ -112,9 +114,10 @@
                         </tr>
                     </table>
                     <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
+                        <div class="span7 text-center">
                             <button type="button" onclick="save()" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <fmt:message key="common.complete"/>
                             </button>
                         </div>
                     </div>
