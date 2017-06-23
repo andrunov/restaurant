@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setBundle basename="messages.app"/>
 
-
-<%--<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>--%>
-<%--<%@ taglib prefix="topjava" tagdir="/WEB-INF/tags" %>--%>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -18,12 +16,18 @@
         <div class="shadow">
 
             <div class="span7 text-center">
-                 <h3 class="page-header">${user.name}:  <fmt:message key="app.profile"/></h3>
+                <c:if test="${register==true}">
+                    <h3 class="page-header"><fmt:message key="app.register"/></h3>
+                </c:if>
+                <c:if test="${register!=true}">
+                    <h3 class="page-header">${user.name}:  <fmt:message key="app.profile"/></h3>
+                </c:if>
+
             </div>
 
             <div class="view-box">
 
-                <form class="form-horizontal" method="post" action="profile">
+                <form class="form-horizontal" method="post" action="${register ? 'register' : 'profile'}">
 
                     <div class="form-group">
                        <label for="name" class="control-label col-xs-3"><fmt:message key="users.name"/></label>

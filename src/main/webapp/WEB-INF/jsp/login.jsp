@@ -46,8 +46,9 @@
                 ${message}"
             </div>
         </c:if>
-        <p></p>
+        <br/>
         <p>
+            <a class="btn btn-lg btn-success" href="register"><fmt:message key="app.register"/> &raquo;</a>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('rzanetti@gmail.com', '444')">
                 <fmt:message key="app.login"/> User
             </button>
@@ -89,6 +90,9 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 <script type="text/javascript">
+    <c:if test="${not empty param.username}">
+    setCredentials("${param.username}", "");
+    </c:if>
     function setCredentials(username, password) {
         $('input[name="username"]').val(username)
         $('input[name="password"]').val(password)
