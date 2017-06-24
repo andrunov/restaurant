@@ -19,6 +19,8 @@ CREATE TABLE users
   enabled     BOOLEAN   DEFAULT TRUE
 );
 
+CREATE UNIQUE INDEX users_unique_email_idx ON USERS (email);
+
 CREATE TABLE roles
 (
   user_id INTEGER NOT NULL,

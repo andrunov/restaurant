@@ -238,7 +238,7 @@ public class RootController {
             User user = UserUtil.createNewFromTo(userTo);
             userService.save(user);
             status.setComplete();
-            return "redirect:login?message=app.registered&username=" + userTo.getEmail();
+            return "redirect:login?message=registersuccessfull&username=" + userTo.getEmail();
         }
     }
 

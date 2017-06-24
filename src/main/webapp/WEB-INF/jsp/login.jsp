@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <fmt:setBundle basename="messages.app"/>
 
 
@@ -36,14 +37,14 @@
 
 <div class="jumbotron">
     <div class="container">
-        <c:if test="${error}">
+        <c:if test="${param.error}">
             <div class="error">
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
             </div>
         </c:if>
-        <c:if test="${not empty message}">
+        <c:if test="${param.message=='registersuccessfull'}">
             <div class="message">
-                ${message}"
+                ${param.username}, <fmt:message key="app.registered"/>
             </div>
         </c:if>
         <br/>

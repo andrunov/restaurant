@@ -19,6 +19,8 @@ CREATE TABLE users
   enabled    BOOL DEFAULT TRUE
 );
 
+CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
+
 CREATE TABLE roles
 (
   user_id INTEGER NOT NULL,
