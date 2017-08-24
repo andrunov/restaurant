@@ -372,3 +372,23 @@ function updateRow(id,restaurantId) {
         $('#editRow').modal();
     });
 }
+
+/*render function draw button for delete row*/
+function renderDeleteBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-danger" onclick="deleteRow(' + row.id +','+  row.restaurant.id+');">'+
+            '<span class="glyphicon glyphicon-remove-circle"></span></a>';
+    }
+}
+
+/*method to delete row
+ * use in all forms*/
+function deleteRow(id,restaurantId) {
+    $.ajax({
+        url: ajaxUrl + id +'&'+ restaurantId,
+        type: 'DELETE',
+        success: function () {
+            updateTable();
+        }
+    });
+}

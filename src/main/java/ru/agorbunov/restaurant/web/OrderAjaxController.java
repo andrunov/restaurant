@@ -56,12 +56,12 @@ public class OrderAjaxController {
     }
 
     /*delete order by Id*/
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") int id) {
-        log.info("delete " + id);
+    @DeleteMapping(value = "/{id}&{restaurantId}")
+    public void delete(@PathVariable("id") int id,
+                       @PathVariable("restaurantId") int restaurantId) {
+        log.info("delete " + id + ", " + restaurantId );
         User user = CurrentEntities.getCurrentUser();
-        Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
-        orderService.delete(id,user.getId(),restaurant.getId());
+        orderService.delete(id, user.getId(), restaurantId);
     }
 
     /*create new order, in request parameters send only array of dishes Ids,
