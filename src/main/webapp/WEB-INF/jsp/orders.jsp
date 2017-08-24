@@ -19,11 +19,37 @@
         <div class="shadow">
             <h3><fmt:message key="orders.title"/></h3>
             <p>${user.name}, ${user.email}</p>
+            <table class="table borderless" >
+                <tr>
+                    <td>
+                        <a class="btn btn-primary" type="button" onclick="addOrder()">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <fmt:message key="orders.add"/>
+                        </a>
+                    </td>
+                    <td>
+                        <input name="status" type="radio" id="GET_ALL" value="ALL"/>
+                        <label  for="GET_ALL"><fmt:message key="status.ALL"/></label>
+                    </td>
+                    <td>
+                        <input name="status" type="radio" id="GET_ACCEPTED" value="ACCEPTED"/>
+                        <label  for="GET_ACCEPTED"><fmt:message key="status.ACCEPTED"/></label>
+                    </td>
+                    <td>
+                        <input name="status" type="radio" id="GET_PREPARING" value="PREPARING"/>
+                        <label  for="GET_PREPARING"><fmt:message key="status.PREPARING"/></label>
+                    </td>
+                    <td>
+                        <input name="status" type="radio" id="GET_READY" value="READY"/>
+                        <label  for="GET_READY"><fmt:message key="status.READY"/></label>
+                    </td>
+                    <td>
+                        <input name="status" type="radio" id="GET_FINISHED" value="FINISHED"/>
+                        <label  for="GET_FINISHED"><fmt:message key="status.FINISHED"/></label>
+                    </td>
+                </tr>
+            </table>
             <div class="view-box">
-                <a class="btn btn-primary" type="button" onclick="addOrder()">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    <fmt:message key="orders.add"/>
-                </a>
                 <table class="table table-hover table-bordered " id="ordersDT">
                     <thead>
                     <tr>
@@ -36,6 +62,8 @@
                     </tr>
                     </thead>
                 </table>
+
+
             </div>
         </div>
     </div>

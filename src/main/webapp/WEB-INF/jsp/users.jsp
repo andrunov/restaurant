@@ -13,6 +13,7 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
+<%--users datatable--%>
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
@@ -41,6 +42,7 @@
     </div>
 <jsp:include page="fragments/footer.jsp"/>
 
+<%--edit modal window--%>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">

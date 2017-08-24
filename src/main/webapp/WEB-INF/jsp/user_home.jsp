@@ -16,7 +16,6 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="container">
     <div class="jumbotron">
-        <p><strong><a href="#">Профиль</a></strong></p>
         <div class="shadow">
             <p><fmt:message key="common.welcome"/>, ${user.name}!</p>
             <div class="view-box">
