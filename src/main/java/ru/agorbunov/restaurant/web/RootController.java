@@ -121,7 +121,7 @@ public class RootController {
     @GetMapping(value = "/orders")
     public String orders(Model model) {
         log.info("get /orders");
-        model.addAttribute(CurrentEntities.getCurrentUser());
+        model.addAttribute("currentUser",CurrentEntities.getCurrentUser());
         return "orders";
     }
 

@@ -18,7 +18,7 @@
     <div class="jumbotron">
         <div class="shadow">
             <h3><fmt:message key="orders.title"/></h3>
-            <p>${user.name}, ${user.email}</p>
+            <p>${currentUser.name}, ${currentUser.email}</p>
             <table class="table borderless" >
                 <tr>
                     <td>
