@@ -10,8 +10,8 @@ import java.io.Serializable;
  * class for works with User entity in some web forms
  */
 public class UserTo implements Serializable{
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String name;

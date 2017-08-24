@@ -13,9 +13,6 @@
                 <li><a href="javascript:javascript:history.go(-1)">&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></li>
                 <li><a href="javascript:javascript:history.go(+1)">&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></a></li>
             </ul>
-            <div class="navbar-header">
-                <a class="navbar-brand"><fmt:message key="app.title"/></a>
-            </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/"><fmt:message key="app.home"/></a></li>
                 <li><a href="#">About</a></li>

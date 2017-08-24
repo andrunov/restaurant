@@ -213,7 +213,7 @@ public class RootController {
     public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
         log.info("post /profile");
         if (result.hasErrors()) {
-            return "profile";
+            return "redirect:profile";
         } else {
             User user = UserUtil.updateFromTo(AuthorizedUser.get().getLoggedUser(),userTo);
             userService.save(user);
