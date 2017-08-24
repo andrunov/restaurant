@@ -2,10 +2,7 @@ package ru.agorbunov.restaurant.repository.jpa;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.agorbunov.restaurant.model.Dish;
-import ru.agorbunov.restaurant.model.Order;
-import ru.agorbunov.restaurant.model.Restaurant;
-import ru.agorbunov.restaurant.model.User;
+import ru.agorbunov.restaurant.model.*;
 import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
 import ru.agorbunov.restaurant.model.jpa.OrdersDishesId;
 import ru.agorbunov.restaurant.repository.OrderRepository;
@@ -139,6 +136,16 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         return em.createNamedQuery(Order.GET_ALL_BY_USER, Order.class)
                                     .setParameter("userId",userId)
                                     .getResultList();
+    }
+
+    /*get all orders from database that belongs to user with Id pass as 1st parameter
+    * and with status pass as 2nd parameter */
+    @Override
+    public List<Order> getByUserAndStatus(int userId, String status) {
+        return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_STATUS, Order.class)
+                .setParameter("userId",userId)
+                .setParameter("status", Status.valueOf(status))
+                .getResultList();
     }
 
     /*get all orders from database that belongs to dish with Id pass as parameter */

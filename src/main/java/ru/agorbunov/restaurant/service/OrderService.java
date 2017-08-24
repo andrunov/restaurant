@@ -32,6 +32,10 @@ public interface OrderService extends BaseService<Order> {
     /*get all orders that belongs to user with Id pass as parameter */
     List<Order> getByUser(int userId);
 
+    /*get all orders that belongs to user with Id pass as 1st parameter
+    * and with status pass as 2nd parameter */
+    List<Order> getByUserAndStatus(int userId, String status);
+
     /*get all orders that belongs to dish with Id pass as parameter */
     List<Order> getByDish(int dishId);
 

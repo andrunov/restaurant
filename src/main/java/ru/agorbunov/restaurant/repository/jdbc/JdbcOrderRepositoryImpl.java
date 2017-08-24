@@ -198,6 +198,17 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
+    /*get all orders from database that belongs to user with Id pass as 1st parameter
+   * and with status pass as 2nd parameter */
+    @Override
+    public List<Order> getByUserAndStatus(int userId, String status) {
+        List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? AND status=? ORDER BY date_time DESC ", ROW_MAPPER,userId,status);
+        for (Order order : result) {
+            setRestaurant(order);
+        }
+        return result;
+    }
+
     /*get all orders from database that belongs to dish with Id pass as parameter */
     @Override
     public List<Order> getByDish(int dishId) {

@@ -29,7 +29,7 @@ import javax.validation.Valid;
 @Controller
 public class RootController {
 
-//    TODO write logger in methods
+    /*logger*/
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -54,7 +54,6 @@ public class RootController {
         return "redirect:/home";
     }
 
-    // TODO: 23.05.2017 rewrite method with loggedUser
     /*if request have errors put them into model and return back to login.jsp*/
     @GetMapping(value = "/login")
     public String login(ModelMap model,
@@ -206,11 +205,13 @@ public class RootController {
 
     @GetMapping("/profile")
     public String profile() {
+        log.info("get /profile");
         return "profile";
     }
 
     @PostMapping("/profile")
     public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
+        log.info("post /profile");
         if (result.hasErrors()) {
             return "profile";
         } else {
@@ -224,6 +225,7 @@ public class RootController {
 
     @GetMapping("/register")
     public String register(ModelMap model) {
+        log.info("get /register");
         model.addAttribute("userTo", new UserTo());
         model.addAttribute("register", true);
         return "profile";
@@ -231,6 +233,7 @@ public class RootController {
 
     @PostMapping("/register")
     public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        log.info("post /register");
         if (result.hasErrors()) {
             model.addAttribute("register", true);
             return "profile";

@@ -81,6 +81,13 @@ public class OrderServiceImpl implements OrderService {
         return repository.getByUser(userId);
     }
 
+    /*get all orders that belongs to user with Id pass as 1st parameter
+    * and with status pass as 2nd parameter */
+    @Override
+    public List<Order> getByUserAndStatus(int userId, String status) {
+        return repository.getByUserAndStatus(userId,status);
+    }
+
     /*get all orders that belongs to dish with Id pass as parameter */
     @Override
     public List<Order> getByDish(int dishId) {
