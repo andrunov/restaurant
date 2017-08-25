@@ -28,23 +28,23 @@
                         </a>
                     </td>
                     <td>
-                        <input name="status" type="radio" id="GET_ALL" value="ALL"/>
+                        <input name="filter" type="radio" checked="checked" id="GET_ALL" onclick="updateTable()"/>
                         <label  for="GET_ALL"><fmt:message key="status.ALL"/></label>
                     </td>
                     <td>
-                        <input name="status" type="radio" id="GET_ACCEPTED" value="ACCEPTED"/>
+                        <input name="filter" type="radio" id="GET_ACCEPTED" onclick="updateTableWithFilter('ACCEPTED')"/>
                         <label  for="GET_ACCEPTED"><fmt:message key="status.ACCEPTED"/></label>
                     </td>
                     <td>
-                        <input name="status" type="radio" id="GET_PREPARING" value="PREPARING"/>
+                        <input name="filter" type="radio" id="GET_PREPARING" onclick="updateTableWithFilter('PREPARING')"/>
                         <label  for="GET_PREPARING"><fmt:message key="status.PREPARING"/></label>
                     </td>
                     <td>
-                        <input name="status" type="radio" id="GET_READY" value="READY"/>
+                        <input name="filter" type="radio" id="GET_READY" onclick="updateTableWithFilter('READY')"/>
                         <label  for="GET_READY"><fmt:message key="status.READY"/></label>
                     </td>
                     <td>
-                        <input name="status" type="radio" id="GET_FINISHED" value="FINISHED"/>
+                        <input name="filter" type="radio" id="GET_FINISHED" onclick="updateTableWithFilter('FINISHED')"/>
                         <label  for="GET_FINISHED"><fmt:message key="status.FINISHED"/></label>
                     </td>
                 </tr>

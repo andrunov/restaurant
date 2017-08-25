@@ -4,8 +4,12 @@
  */
 
 /*url for exchange JSON data between main form DataTable (id="ordersDT")
- *represents orders and server*/
+ *represents orders, and server*/
 var ajaxUrl = '/ajax/orders/';
+
+/*url for exchange JSON data between main form DataTable (id="ordersDT")
+ *represents orders, and server, using filter by status*/
+var ajaxUrlWithFilter = '/ajax/orders/filterByStatus/';
 
 /*url use only for create new Order*/
 var ajaxUrlCreateNew = '/ajax/orders/create';
@@ -49,6 +53,10 @@ var currentRestaurantTitle;
 /*function to update DataTable by data from server*/
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
+}
+
+function updateTableWithFilter(statusKey){
+    $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
 }
 
 /*document.ready function*/

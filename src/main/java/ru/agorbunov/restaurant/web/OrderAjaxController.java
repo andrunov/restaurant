@@ -55,6 +55,14 @@ public class OrderAjaxController {
         return orderService.getByUser(currentUser.getId());
     }
 
+    /*get all orders by current user*/
+    @GetMapping(value = "/filterByStatus/{statusKey}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Order> getByUserWithFilter(@PathVariable("statusKey") String statusKey) {
+        log.info("getByUser");
+        User currentUser = CurrentEntities.getCurrentUser();
+        return orderService.getByUserAndStatus(currentUser.getId(),statusKey);
+    }
+
     /*delete order by Id*/
     @DeleteMapping(value = "/{id}&{restaurantId}")
     public void delete(@PathVariable("id") int id,
