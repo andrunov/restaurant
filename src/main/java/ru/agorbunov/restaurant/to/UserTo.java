@@ -20,7 +20,7 @@ public class UserTo implements Serializable{
     @NotBlank
     private String email;
 
-    @Size(min = 5, max = 64, message = " must between 5 and 64 characters")
+    @Size(min = 5, max = 20, message = "error.password")
     private String password;
 
     public UserTo() {

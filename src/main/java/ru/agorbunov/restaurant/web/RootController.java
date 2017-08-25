@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -213,7 +214,7 @@ public class RootController {
     public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
         log.info("post /profile");
         if (result.hasErrors()) {
-            return "redirect:profile";
+            return "profile";
         } else {
             User user = UserUtil.updateFromTo(AuthorizedUser.get().getLoggedUser(),userTo);
             userService.save(user);
@@ -236,6 +237,9 @@ public class RootController {
         log.info("post /register");
         if (result.hasErrors()) {
             model.addAttribute("register", true);
+            for (FieldError fieldError : result.getFieldErrors()){
+                model.addAttribute(fieldError.getField()+"ErrorMessage",fieldError.getDefaultMessage());
+            }
             return "profile";
         } else {
             User user = UserUtil.createNewFromTo(userTo);
