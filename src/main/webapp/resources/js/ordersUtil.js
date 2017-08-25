@@ -50,14 +50,24 @@ var addTitleKey ="orders.add";
 /*variable for save title for multiple use */
 var currentRestaurantTitle;
 
+/*variable for save current filter value*/
+var currentFilterValue;
+
 /*function to update DataTable by data from server*/
-function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+function updateTable(statusKey) {
+    if (statusKey == "ALL") {
+        $.get(ajaxUrl, updateTableByData);
+    }
+    else {
+        $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
+    }
+    currentFilterValue = statusKey;
 }
 
-function updateTableWithFilter(statusKey){
-    $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
-}
+// function updateTableWithFilter(statusKey){
+//     $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
+//     currentFilterValue = statusKey;
+// }
 
 /*document.ready function*/
 $(function () {
@@ -396,7 +406,21 @@ function deleteRow(id,restaurantId) {
         url: ajaxUrl + id +'&'+ restaurantId,
         type: 'DELETE',
         success: function () {
-            updateTable();
+            updateTable(currentFilterValue);
+        }
+    });
+}
+
+/*save data by AJAX*/
+function save() {
+    var form = $('#detailsForm');
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: form.serialize(),
+        success: function () {
+            $('#editRow').modal('hide');
+            updateTable(currentFilterValue);
         }
     });
 }
