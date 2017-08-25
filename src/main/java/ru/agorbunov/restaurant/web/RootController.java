@@ -211,9 +211,12 @@ public class RootController {
     }
 
     @PostMapping("/profile")
-    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
+    public String updateProfile(ModelMap model, @Valid UserTo userTo, BindingResult result, SessionStatus status) {
         log.info("post /profile");
         if (result.hasErrors()) {
+            for (FieldError fieldError : result.getFieldErrors()){
+                model.addAttribute(fieldError.getField()+"ErrorMessage",fieldError.getDefaultMessage());
+            }
             return "profile";
         } else {
             User user = UserUtil.updateFromTo(AuthorizedUser.get().getLoggedUser(),userTo);
