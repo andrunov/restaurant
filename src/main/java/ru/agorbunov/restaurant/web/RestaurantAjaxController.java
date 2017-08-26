@@ -38,15 +38,15 @@ public class RestaurantAjaxController {
         return service.get(id);
     }
 
-    /*use in orders.jsp to setup data in modal window
-    * get restaurant by Id and setup by its data fields in modal window*/
-    @GetMapping(value = "/set/{id}")
-    public String setCurrentRestaurant(@PathVariable("id") int id) {
-        log.info("set current restaurant" + id);
-        Restaurant restaurant = service.get(id);
-        CurrentEntities.setCurrentRestaurant(restaurant);
-        return String.format("%s, %s", restaurant.getName(), restaurant.getAddress());
-    }
+//    /*use in orders.jsp to setup data in modal window
+//    * get restaurant by Id and setup by its data fields in modal window*/
+//    @GetMapping(value = "/set/{id}")
+//    public String setCurrentRestaurant(@PathVariable("id") int id) {
+//        log.info("set current restaurant" + id);
+//        Restaurant restaurant = service.get(id);
+//        CurrentEntities.setCurrentRestaurant(restaurant);
+//        return String.format("%s, %s", restaurant.getName(), restaurant.getAddress());
+//    }
 
     /*delete restaurant by Id*/
     @DeleteMapping(value = "/{id}")

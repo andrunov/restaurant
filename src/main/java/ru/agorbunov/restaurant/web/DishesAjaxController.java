@@ -7,7 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
+import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.service.DishService;
+import ru.agorbunov.restaurant.service.MenuListService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.util.List;
@@ -25,13 +27,27 @@ public class DishesAjaxController {
     @Autowired
     private DishService service;
 
+    @Autowired
+    private MenuListService menuListService;
+
     /*get dishes by current menu list*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Dish> getByMenuList() {
         log.info("getByMenuList");
-        MenuList MenuList = CurrentEntities.getCurrentMenuList();
-        return service.getByMenuList(MenuList.getId());
+        MenuList currentMenuList = CurrentEntities.getCurrentMenuList();
+        return service.getByMenuList(currentMenuList.getId());
     }
+
+    /*get dishes by current menu list Id pass as parameter*/
+    @GetMapping(value = "byMenuList/{menuListId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Dish> getByMenuListId(@PathVariable("menuListId") int menuListId) {
+        log.info("getByMenuList");
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        MenuList currentMenuList = menuListService.get(menuListId,currentRestaurant.getId());
+        CurrentEntities.setCurrentMenuList(currentMenuList);
+        return service.getByMenuList(menuListId);
+    }
+
 
     /*get dish by Id and current menu list*/
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

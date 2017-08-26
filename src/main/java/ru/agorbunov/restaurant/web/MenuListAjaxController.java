@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.service.MenuListService;
+import ru.agorbunov.restaurant.service.RestaurantService;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
@@ -28,12 +29,24 @@ public class MenuListAjaxController {
     @Autowired
     private MenuListService service;
 
+    @Autowired
+    private RestaurantService restaurantService;
+
     /*get all menu lists by current restaurant*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MenuList> getByRestaurant() {
         log.info("getByRestaurant");
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         return service.getByRestaurant(currentRestaurant.getId());
+    }
+
+    /*get all menu lists by current restaurant Id pass as parameter*/
+    @GetMapping(value = "byRestaurant/{restaurantId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MenuList> getByRestaurantId(@PathVariable("restaurantId") int restaurantId) {
+        log.info("byRestaurant/{restaurantId}");
+        Restaurant currentRestaurant = restaurantService.get(restaurantId);
+        CurrentEntities.setCurrentRestaurant(currentRestaurant);
+        return service.getByRestaurant(restaurantId);
     }
 
     /*get menuList by Id and current restaurant*/
@@ -44,17 +57,17 @@ public class MenuListAjaxController {
         return service.get(id,currentRestaurant.getId());
     }
 
-    /*use for orders.jsp to update data in modal windows
-    * get menuList by Id and setup by its data fields in modal window*/
-    @GetMapping(value = "/set/{id}")
-    public String setCurrentMenuList(@PathVariable("id") int id) {
-        log.info("set current menuList " + id);
-        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        MenuList menuList = service.get(id,currentRestaurant.getId());
-        CurrentEntities.setCurrentMenuList(menuList);
-        return String.format("%s, %s", menuList.getDescription(),
-                                        menuList.getDateTime().toLocalDate().toString());
-    }
+//    /*use for orders.jsp to update data in modal windows
+//    * get menuList by Id and setup by its data fields in modal window*/
+//    @GetMapping(value = "/set/{id}")
+//    public String setCurrentMenuList(@PathVariable("id") int id) {
+//        log.info("set current menuList " + id);
+//        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+//        MenuList menuList = service.get(id,currentRestaurant.getId());
+//        CurrentEntities.setCurrentMenuList(menuList);
+//        return String.format("%s, %s", menuList.getDescription(),
+//                                        menuList.getDateTime().toLocalDate().toString());
+//    }
 
     /*delete menuList by Id*/
     @DeleteMapping(value = "/{id}")
