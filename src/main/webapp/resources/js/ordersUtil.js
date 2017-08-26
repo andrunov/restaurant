@@ -51,7 +51,7 @@ var addTitleKey ="orders.add";
 var currentRestaurantTitle;
 
 /*variable for save current filter value*/
-var currentFilterValue;
+var currentFilterValue = "ALL";
 
 /*function to update DataTable by data from server*/
 function updateTable(statusKey) {
@@ -63,11 +63,6 @@ function updateTable(statusKey) {
     }
     currentFilterValue = statusKey;
 }
-
-// function updateTableWithFilter(statusKey){
-//     $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
-//     currentFilterValue = statusKey;
-// }
 
 /*document.ready function*/
 $(function () {

@@ -19,7 +19,7 @@
         <div class="shadow">
             <h3><fmt:message key="orders.title"/></h3>
             <p>${currentUser.name}, ${currentUser.email}</p>
-            <table class="table borderless" >
+            <table class="table" >
                 <tr>
                     <td>
                         <a class="btn btn-primary" type="button" onclick="addOrder()">
