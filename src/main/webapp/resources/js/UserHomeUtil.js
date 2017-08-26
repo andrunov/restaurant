@@ -7,6 +7,10 @@
  *represents orders and server*/
 var ajaxUrl = '/ajax/orders/';
 
+/*url for exchange JSON data between main form DataTable (id="ordersDT")
+ *represents orders, and server, using filter by status*/
+var ajaxUrlWithFilter = '/ajax/orders/filterByStatus/';
+
 /*url use only for create new Order*/
 var ajaxUrlCreateNew = '/ajax/orders/create';
 
@@ -46,9 +50,18 @@ var addTitleKey ="orders.add";
 /*variable for save title for multiple use */
 var currentRestaurantTitle;
 
+/*variable for save current filter value*/
+var currentFilterValue = "ALL";
+
 /*function to update DataTable by data from server*/
-function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+function updateTable(statusKey) {
+    if (statusKey == "ALL") {
+        $.get(ajaxUrl, updateTableByData);
+    }
+    else {
+        $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
+    }
+    currentFilterValue = statusKey;
 }
 
 /*document.ready function*/
@@ -357,5 +370,39 @@ function updateRow(id,restaurantId) {
             }
         });
         $('#editRow').modal();
+    });
+}
+
+/*render function draw button for delete row*/
+function renderDeleteBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-danger" onclick="deleteRow(' + row.id +','+  row.restaurant.id+');">'+
+            '<span class="glyphicon glyphicon-remove-circle"></span></a>';
+    }
+}
+
+/*method to delete row
+ * use in all forms*/
+function deleteRow(id,restaurantId) {
+    $.ajax({
+        url: ajaxUrl + id +'&'+ restaurantId,
+        type: 'DELETE',
+        success: function () {
+            updateTable(currentFilterValue);
+        }
+    });
+}
+
+/*save data by AJAX*/
+function save() {
+    var form = $('#detailsForm');
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: form.serialize(),
+        success: function () {
+            $('#editRow').modal('hide');
+            updateTable(currentFilterValue);
+        }
     });
 }
