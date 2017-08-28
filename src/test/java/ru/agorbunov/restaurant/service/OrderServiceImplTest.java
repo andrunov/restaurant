@@ -156,5 +156,10 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_02),service.getByDish(DISH_02_ID));
     }
 
+    @Test
+    public void getByDishAndStatus() throws Exception{
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_02),service.getByDishAndStatus(DISH_02_ID, "ACCEPTED"));
+        MATCHER.assertCollectionEquals(Collections.emptyList(),service.getByDishAndStatus(DISH_02_ID, "FINISHED"));
+    }
 
 }

@@ -153,8 +153,24 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     public List<Order> getByDish(int dishId) {
         List<Order> result = new ArrayList<>();
         List<Order> orders = em.createNamedQuery(Order.GET_ALL_BY_DISH,Order.class)
-                                    .setParameter(0,dishId)
+                                    .setParameter("dishId",dishId)
                                     .getResultList();
+
+        for (Order order : orders){
+            result.add(getWithUser(order));
+        }
+        return result;
+    }
+
+    /*get all orders from database that belongs to dish with Id pass as parameter *
+    * and with status pass as 2nd parameter */
+    @Override
+    public List<Order> getByDishAndStatus(int dishId, String status) {
+        List<Order> result = new ArrayList<>();
+        List<Order> orders = em.createNamedQuery(Order.GET_ALL_BY_DISH_AND_STATUS,Order.class)
+                .setParameter("dishId",dishId)
+                .setParameter("status",status)
+                .getResultList();
 
         for (Order order : orders){
             result.add(getWithUser(order));

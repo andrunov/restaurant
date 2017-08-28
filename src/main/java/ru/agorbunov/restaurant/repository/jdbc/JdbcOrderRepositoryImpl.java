@@ -219,6 +219,17 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
+    /*get all orders from database that belongs to dish with Id pass as parameter *
+    * and with status pass as 2nd parameter */
+    @Override
+    public List<Order> getByDishAndStatus(int dishId, String status) {
+        List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? AND status=? ORDER BY date_time DESC ", ROW_MAPPER,dishId,status);
+        for (Order order : result) {
+            setUser(order);
+        }
+        return result;
+    }
+
     /*get order's dishes with their quantities and set them to the order*/
     private Order setDishes(Order o) {
         if (o != null) {

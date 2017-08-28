@@ -15,7 +15,10 @@ import java.util.*;
  * Class represents order
  */
 @SuppressWarnings("JpaQlInspection")
-@NamedNativeQuery(name = Order.GET_ALL_BY_DISH, query = "SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? ORDER BY date_time DESC ",resultClass = Order.class)
+@NamedNativeQueries({
+        @NamedNativeQuery(name = Order.GET_ALL_BY_DISH, query = "SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=:dishId ORDER BY date_time DESC ",resultClass = Order.class),
+        @NamedNativeQuery(name = Order.GET_ALL_BY_DISH_AND_STATUS, query = "SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=:dishId and o.status=:status ORDER BY date_time DESC ",resultClass = Order.class)
+})
 @NamedQueries({
         @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId order by o.dateTime desc "),
@@ -34,6 +37,7 @@ public class Order extends BaseEntity {
     public static final String GET_ALL_BY_USER_AND_STATUS = "Order.getAllbyUserAndStatus";
     public static final String GET_WITH_USER = "Order.getWithUser";
     public static final String GET_ALL_BY_DISH = "Order.getAllbyDish";
+    public static final String GET_ALL_BY_DISH_AND_STATUS = "Order.getAllbyDishAndStatus";
     public static final String DELETE = "Order.delete";
     static final String DELETE_ORDERS_DISHES = "Order.deleteOrdersDishes";
     public static final String GET_WITH_DISHES = "Order.getWithDishes";

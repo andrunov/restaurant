@@ -39,4 +39,8 @@ public interface OrderRepository extends BaseRepository<Order> {
     /*get all orders from database that belongs to dish with Id pass as parameter */
     List<Order> getByDish(int dishId);
 
+    /*get all orders from database that belongs to dish with Id pass as parameter *
+     * and with status pass as 2nd parameter */
+    List<Order> getByDishAndStatus(int dishId, String status);
+
 }

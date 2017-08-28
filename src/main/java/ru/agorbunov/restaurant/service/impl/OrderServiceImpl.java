@@ -94,8 +94,15 @@ public class OrderServiceImpl implements OrderService {
         return repository.getByDish(dishId);
     }
 
+    /*get all orders that belongs to dish with Id pass as parameter
+     * and with status pass as 2nd parameter*/
+    @Override
+    public List<Order> getByDishAndStatus(int dishId, String status) {
+        return repository.getByDishAndStatus(dishId,status);
+    }
+
     /*delete order by Id, userId and restaurantId in parameters is Ids of
-   *user and restaurant to which the order is belong, check that updates acceptable*/
+       *user and restaurant to which the order is belong, check that updates acceptable*/
     @Override
     public void delete(int id, int userId, int restaurantId) {
         Order order = get(id,userId,restaurantId);
