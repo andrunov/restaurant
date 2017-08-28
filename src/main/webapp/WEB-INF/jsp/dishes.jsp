@@ -15,7 +15,7 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="dishes.title"/></h3>
+            <h3><fmt:message key="menuLists.content"/></h3>
             <p>${restaurant.name}, ${restaurant.address}</p>
             <p>${description}, ${localDate}</p>
             <div class="view-box">

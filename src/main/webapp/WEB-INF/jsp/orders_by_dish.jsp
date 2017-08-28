@@ -17,11 +17,9 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="orders.title"/></h3>
+            <h3>${dish.description}: <fmt:message key="orders.list"/></h3>
             <p>${restaurant.name}, ${restaurant.address}</p>
-            <p>${menuList.description}</p>
-            <p>${localDate}</p>
-            <p>${dish.description}</p>
+            <p>${menuList.description}, ${localDate}</p>
             <div class="view-box">
                 <table class="table table-hover table-bordered " id="ordersDT">
                     <thead>
