@@ -16,10 +16,9 @@ or as finish 4-th step of creation new order--%>
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="dishes.title"/></h3>
-            <p>${user.name}, ${user.email}</p>
+            <h3><fmt:message key="order.from"/>  ${localDate}</h3>
+            <p>${currentUser.name}, ${currentUser.email}</p>
             <p>${restaurant.name}, ${restaurant.address}</p>
-            <p>${localDate}</p>
             <div class="view-box">
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>

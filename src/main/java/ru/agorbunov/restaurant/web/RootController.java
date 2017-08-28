@@ -174,7 +174,7 @@ public class RootController {
     @GetMapping(value = "/orders_dishes")
     public String orders_dishes(Model model) {
         log.info("get /orders_dishes");
-        model.addAttribute("user",CurrentEntities.getCurrentUser());
+        model.addAttribute("currentUser",CurrentEntities.getCurrentUser());
         model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
         model.addAttribute("localDate",CurrentEntities.getCurrentOrder()
                 .getDateTime().toString().replace('T', ' ').substring(0,16));
