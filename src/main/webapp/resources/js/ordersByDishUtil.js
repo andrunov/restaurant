@@ -6,6 +6,9 @@
 /*url for exchange JSON data between DataTable and server*/
 var ajaxUrl = '/ajax/order_by_dish/';
 
+/*url for exchange JSON data between DataTable and server, using filter by status*/
+var ajaxUrlWithFilter = '/ajax/order_by_dish/filterByStatus/';
+
 /*variable links to orders.edit resource bundle */
 var editTitleKey ="orders.edit";
 
@@ -16,8 +19,14 @@ var goOrdersDishes = '/orders_dishes_by_user/';
 var datatableApi;
 
 /*function to update DataTable by data from server*/
-function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+function updateTable(statusKey) {
+    if (statusKey == "ALL") {
+        $.get(ajaxUrl, updateTableByData);
+    }
+    else {
+        $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
+    }
+    currentFilterValue = statusKey;
 }
 
 /*document.ready function*/

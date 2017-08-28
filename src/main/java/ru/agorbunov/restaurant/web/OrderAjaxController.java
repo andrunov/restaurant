@@ -57,8 +57,8 @@ public class OrderAjaxController {
 
     /*get all orders by current user and status*/
     @GetMapping(value = "/filterByStatus/{statusKey}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getByUserWithFilter(@PathVariable("statusKey") String statusKey) {
-        log.info("getByUser");
+    public List<Order> getByUserAndStatus(@PathVariable("statusKey") String statusKey) {
+        log.info("getByUserAndStatus");
         User currentUser = CurrentEntities.getCurrentUser();
         return orderService.getByUserAndStatus(currentUser.getId(),statusKey);
     }

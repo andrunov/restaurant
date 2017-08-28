@@ -39,6 +39,14 @@ public class OrderByDishAjaxController {
         return orderService.getByDish(dish.getId());
     }
 
+    /*get orders by current dish*/
+    @GetMapping(value = "/filterByStatus/{statusKey}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Order> getByDishAndStatus(@PathVariable("statusKey") String statusKey) {
+        log.info("getByDishAndStatus");
+        Dish dish = CurrentEntities.getCurrentDish();
+        return orderService.getByDishAndStatus(dish.getId(),statusKey);
+    }
+
     /*get order by Id of user by userId and of current restaurant */
     @GetMapping(value = "/{id}&{userId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Order getOrder(@PathVariable("id") int id,
