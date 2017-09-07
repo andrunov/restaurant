@@ -107,4 +107,10 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void getByRestaurant() throws Exception {
         MATCHER.assertCollectionEquals(Collections.singletonList(MENU_LIST_01),service.getByRestaurant(RESTAURANT_01_ID));
     }
+
+    @Test
+    public void getByRestaurantAndEnabled() throws Exception {
+        MATCHER.assertCollectionEquals(Collections.singletonList(MENU_LIST_01),service.getByRestaurantAndEnabled(RESTAURANT_01_ID, true));
+        MATCHER.assertCollectionEquals(Collections.emptyList(),service.getByRestaurantAndEnabled(RESTAURANT_01_ID, false));
+    }
 }

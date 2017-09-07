@@ -61,4 +61,11 @@ public class MenuListServiceImpl implements MenuListService {
     public List<MenuList> getByRestaurant(int restaurantId) {
         return repository.getByRestaurant(restaurantId);
     }
+
+    /*get all menuLists that belongs to restaurant with Id pass as 1st parameter
+    * and according to status pass as 2nd parameter*/
+    @Override
+    public List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled) {
+        return repository.getByRestaurantAndEnabled(restaurantId, enabled);
+    }
 }

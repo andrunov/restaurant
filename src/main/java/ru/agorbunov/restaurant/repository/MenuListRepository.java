@@ -24,4 +24,8 @@ public interface MenuListRepository extends BaseRepository<MenuList>{
     /*get all menuLists from database that belongs to restaurant with Id pass as parameter */
     List<MenuList> getByRestaurant(int restaurantId);
 
+    /*get all menuLists from database that belongs to restaurant with Id pass as 1st parameter
+    * and according to status pass as 2nd parameter*/
+    List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled);
+
 }

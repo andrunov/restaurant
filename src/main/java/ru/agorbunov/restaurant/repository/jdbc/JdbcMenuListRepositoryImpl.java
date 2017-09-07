@@ -139,4 +139,11 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
         }
         return m;
     }
+
+    /*get all menuLists from database that belongs to restaurant with Id pass as 1st parameter
+     * and according to status pass as 2nd parameter*/
+    @Override
+    public List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled) {
+        return jdbcTemplate.query("SELECT * FROM menu_lists WHERE restaurant_id=? AND enabled=? ORDER BY date_time DESC", ROW_MAPPER, restaurantId, enabled);
+    }
 }

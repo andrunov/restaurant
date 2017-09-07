@@ -77,4 +77,14 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
                                     .setParameter("restaurantId",restaurantId)
                                     .getResultList();
     }
+
+   /*get all menuLists from database that belongs to restaurant with Id pass as 1st parameter
+    * and according to status pass as 2nd parameter*/
+    @Override
+    public List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled) {
+        return em.createNamedQuery(MenuList.GET_ALL_BY_RESTAURANT_AND_ENABLED, MenuList.class)
+                .setParameter("restaurantId",restaurantId)
+                .setParameter("enabled",enabled)
+                .getResultList();
+    }
 }
