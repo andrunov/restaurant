@@ -6,6 +6,10 @@
 /*url for exchange JSON data between DataTable and server*/
 var ajaxUrl = '/ajax/menuLists/';
 
+/*url for exchange JSON data between main form DataTable
+ *represents menu lists, and server, using filter by status*/
+var ajaxUrlWithFilter = '/ajax/menuLists/filterByEnabled/';
+
 /*url for link to order_by_dish.jsp*/
 var goDishes = '/dishes/';
 
@@ -18,9 +22,18 @@ var editTitleKey ="menuLists.edit";
 /*variable links to menuLists.add resource bundle */
 var addTitleKey ="menuLists.add";
 
+/*variable for save current filter value*/
+var currentFilterValue = "ALL";
+
 /*function to update DataTable by data from server*/
-function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+function updateTable(enabledKey) {
+    if (enabledKey == "ALL") {
+        $.get(ajaxUrl, updateTableByData);
+    }
+    else {
+        $.get(ajaxUrlWithFilter+enabledKey, updateTableByData);
+    }
+    currentFilterValue = enabledKey;
 }
 
 /*document.ready function*/

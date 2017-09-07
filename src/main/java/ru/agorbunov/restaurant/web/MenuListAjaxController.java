@@ -40,6 +40,14 @@ public class MenuListAjaxController {
         return service.getByRestaurant(currentRestaurant.getId());
     }
 
+    /*get all menu lists by current restaurant and enabled status key*/
+    @GetMapping(value = "/filterByEnabled/{enabledKey}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MenuList> getByRestaurantAndEnabled(@PathVariable("enabledKey") String enabledKey) {
+        log.info("getByRestaurant");
+        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
+        return service.getByRestaurantAndEnabled(currentRestaurant.getId(),Boolean.parseBoolean(enabledKey));
+    }
+
     /*get all menu lists by current restaurant Id pass as parameter*/
     @GetMapping(value = "byRestaurant/{restaurantId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MenuList> getByRestaurantId(@PathVariable("restaurantId") int restaurantId) {

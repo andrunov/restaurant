@@ -17,11 +17,29 @@
         <div class="shadow">
             <h3><fmt:message key="menuLists.list"/></h3>
             <p>${restaurant.name}, ${restaurant.address}</p>
+            <table class="table" >
+                <tr>
+                    <td>
+                        <a class="btn btn-primary" type="button" onclick="add()">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <fmt:message key="menuLists.add"/>
+                        </a>
+                    </td>
+                    <td>
+                        <input name="filter" type="radio" checked="checked" id="GET_ALL" onclick="updateTable('ALL')"/>
+                        <label  for="GET_ALL"><fmt:message key="status.ALL"/></label>
+                    </td>
+                    <td>
+                        <input name="filter" type="radio" id="GET_ENABLED" onclick="updateTable('TRUE')"/>
+                        <label  for="GET_ENABLED"><fmt:message key="common.enabled"/></label>
+                    </td>
+                    <td>
+                        <input name="filter" type="radio" id="GET_DISABLED" onclick="updateTable('FALSE')"/>
+                        <label  for="GET_ENABLED"><fmt:message key="common.disabled"/></label>
+                    </td>
+                </tr>
+            </table>
             <div class="view-box">
-                <a class="btn btn-primary" type="button" onclick="add()">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    <fmt:message key="menuLists.add"/>
-                </a>
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>
                     <tr>

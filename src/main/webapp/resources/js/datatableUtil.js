@@ -43,7 +43,7 @@ function deleteRow(id) {
         url: ajaxUrl + id,
         type: 'DELETE',
         success: function () {
-            updateTable();
+            updateTable(currentFilterValue);
         }
     });
 }
@@ -62,7 +62,7 @@ function save() {
         data: form.serialize(),
         success: function () {
             $('#editRow').modal('hide');
-            updateTable();
+            updateTable(currentFilterValue);
         }
     });
 }
