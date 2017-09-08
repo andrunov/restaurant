@@ -35,7 +35,7 @@
                     </td>
                     <td>
                         <input name="filter" type="radio" id="GET_DISABLED" onclick="updateTable('FALSE')"/>
-                        <label  for="GET_ENABLED"><fmt:message key="common.disabled"/></label>
+                        <label  for="GET_DISABLED"><fmt:message key="common.disabled"/></label>
                     </td>
                 </tr>
             </table>

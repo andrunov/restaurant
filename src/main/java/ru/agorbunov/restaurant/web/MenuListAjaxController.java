@@ -41,21 +41,28 @@ public class MenuListAjaxController {
     }
 
     /*get all menu lists by current restaurant and enabled status key*/
-    @GetMapping(value = "/filterByEnabled/{enabledKey}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MenuList> getByRestaurantAndEnabled(@PathVariable("enabledKey") String enabledKey) {
+    @GetMapping(value = "/filterByEnabled/{enabled}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MenuList> getByRestaurantAndEnabled(@PathVariable("enabled") boolean enabled) {
         log.info("getByRestaurantAndEnabled");
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        return service.getByRestaurantAndEnabled(currentRestaurant.getId(),Boolean.parseBoolean(enabledKey));
+        return service.getByRestaurantAndEnabled(currentRestaurant.getId(),enabled);
     }
 
-    /*get all menu lists by current restaurant Id pass as parameter*/
-    @GetMapping(value = "byRestaurant/{restaurantId}&{enabledKey}",produces = MediaType.APPLICATION_JSON_VALUE)
+    /*get all menu lists by current restaurant Id pass as 1st parameter
+     and enabled pass as 2nd parameter*/
+    @GetMapping(value = "byRestaurant/{restaurantId}&{enabled}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MenuList> getByRestaurantIdAndEnabled(@PathVariable("restaurantId") int restaurantId,
-                                                      @PathVariable("enabledKey") String enabledKey) {
+                                                      @PathVariable("enabled") String enabled) {
         log.info("byRestaurantIdAndEnabled/{restaurantId}&{enabledKey}");
         Restaurant currentRestaurant = restaurantService.get(restaurantId);
         CurrentEntities.setCurrentRestaurant(currentRestaurant);
-        return service.getByRestaurantAndEnabled(restaurantId, Boolean.parseBoolean(enabledKey));
+        List<MenuList> result = null;
+        if (enabled.equals("ALL")){
+            result = service.getByRestaurant(restaurantId);
+        }else {
+            result = service.getByRestaurantAndEnabled(restaurantId,Boolean.parseBoolean(enabled));
+        }
+        return result;
     }
 
     /*get menuList by Id and current restaurant*/
@@ -91,11 +98,11 @@ public class MenuListAjaxController {
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("description")String description,
                                @RequestParam("dateTime")@DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN) LocalDateTime dateTime,
-                               @RequestParam(value = "enabled",required = false) String enabled){
+                               @RequestParam(value = "enabled",required = false) boolean enabled){
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         MenuList menuList = new MenuList(currentRestaurant, description, dateTime);
         menuList.setId(id);
-        menuList.setEnabled(Boolean.parseBoolean(enabled));
+        menuList.setEnabled(enabled);
         checkEmpty(menuList);
         if (menuList.isNew()) {
             ValidationUtil.checkNew(menuList);

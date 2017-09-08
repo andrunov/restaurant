@@ -79,7 +79,7 @@
                 <h2 class="modal-title"> <fmt:message key="restaurants.select"/></h2>
             </div>
             <div class="modal-body">
-                <table class="table table-hover table-bordered " id="restaurantDT">
+                <table class="table table-hover table-bordered " id="restaurantDT" style="width: 100%">
                     <thead>
                     <tr>
                         <th><fmt:message key="restaurants.name"/></th>
@@ -103,7 +103,27 @@
                 <h3 class="modal-title" id="modalTitleRestaurant"></h3>
             </div>
             <div class="modal-body">
-                <table class="table table-hover table-bordered " id="menuListDT">
+                <table class="table" style="width: 100%" >
+                    <thead>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input name="filter_for_status" type="radio" checked="checked" id="GET_ALL_MENU" onclick="updateMenuListTable('ALL')"/>
+                            <label  for="GET_ALL_MENU"><fmt:message key="status.ALL"/></label>
+                        </td>
+                        <td>
+                            <input name="filter_for_status" type="radio" id="GET_ENABLED" onclick="updateMenuListTable('TRUE')"/>
+                            <label  for="GET_ENABLED"><fmt:message key="common.enabled"/></label>
+                        </td>
+                        <td>
+                            <input name="filter_for_status" type="radio" id="GET_DISABLED" onclick="updateMenuListTable('FALSE')"/>
+                            <label  for="GET_DISABLED"><fmt:message key="common.disabled"/></label>
+                        </td>
+                        <td></td>
+                    </thead>
+                    </tr>
+                </table>
+                <table class="table table-hover table-bordered " id="menuListDT" style="width: 100%;" >
                     <thead>
                     <tr>
                         <th><fmt:message key="menuLists.description"/></th>
@@ -129,7 +149,7 @@
                 <h3 class="modal-title" id="modalTitleMenuList"></h3>
             </div>
             <div class="modal-body">
-                <table class="table table-hover table-bordered " id="dishDT">
+                <table class="table table-hover table-bordered " id="dishDT" style="width: 100%">
                     <thead>
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>

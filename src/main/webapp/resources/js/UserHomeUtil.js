@@ -163,7 +163,7 @@ function restaurantDataTableInit() {
 function menuListDataTableInit(id) {
     $('#menuListDT').DataTable({
         "ajax": {
-            "url": ajaxMenuListUrl + id,
+            "url": ajaxMenuListUrl + id + '&TRUE',
             "dataSrc": ""
         },
         "destroy": true,

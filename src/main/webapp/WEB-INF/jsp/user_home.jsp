@@ -65,6 +65,7 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
+
 <%-- restaurant modal window--%>
 <div class="modal fade" id="selectRestaurant">
     <div class="modal-dialog">
@@ -74,7 +75,7 @@
                 <h2 class="modal-title"> <fmt:message key="restaurants.select"/></h2>
             </div>
             <div class="modal-body">
-                <table class="table table-hover table-bordered " id="restaurantDT">
+                <table class="table table-hover table-bordered " id="restaurantDT" style="width: 100%">
                     <thead>
                     <tr>
                         <th><fmt:message key="restaurants.name"/></th>
@@ -98,7 +99,7 @@
                 <h3 class="modal-title" id="modalTitleRestaurant"></h3>
             </div>
             <div class="modal-body">
-                <table class="table table-hover table-bordered " id="menuListDT">
+                <table class="table table-hover table-bordered " id="menuListDT" style="width: 100%">
                     <thead>
                     <tr>
                         <th><fmt:message key="menuLists.description"/></th>
@@ -124,7 +125,7 @@
                     <h3 class="modal-title" id="modalTitleMenuList"></h3>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-hover table-bordered " id="dishDT">
+                    <table class="table table-hover table-bordered " id="dishDT" style="width: 100%">
                         <thead>
                         <tr>
                             <th><fmt:message key="dishes.description"/></th>

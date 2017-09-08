@@ -47,6 +47,9 @@ var lastRestaurantTitle;
 /*variable for save current filter value*/
 var currentFilterValue = "ALL";
 
+/*variable for save restaurant id opened in restaurant modal window*/
+var currentRestaurantId;
+
 /*function to update DataTable by data from server*/
 function updateTable(statusKey) {
     if (statusKey == "ALL") {
@@ -165,10 +168,10 @@ function restaurantDataTableInit() {
 }
 
 /*DataTable represents MenuLists in modal window initialization*/
-function menuListDataTableInit(id) {
+function menuListDataTableInit(id,enabled) {
     $('#menuListDT').DataTable({
         "ajax": {
-            "url": ajaxMenuListUrl + id,
+            "url": ajaxMenuListUrl + id +'&'+ enabled,
             "dataSrc": ""
         },
         "destroy": true,
@@ -259,6 +262,10 @@ $(function () {
     
 });
 
+function updateMenuListTable(enabled) {
+    menuListDataTableInit(currentRestaurantId,enabled)
+}
+
 /*function for link to orders_dishes.jsp*/
 function linkBtn(data, type, row) {
     if (type == 'display') {
@@ -294,12 +301,16 @@ function openMenuListWindow(id,restaurantTitle) {
     lastRestaurantTitle = restaurantTitle;
 
     /*dataTable initialization*/
-    menuListDataTableInit(id);
+    menuListDataTableInit(id,'ALL');
 
     /*open modal window for menu list selection
      * hide modal window of restaurant select*/
     $('#selectMenuList').modal();
     $('#selectRestaurant').modal('hide');
+    
+    /*remember this restaurant for manipulate 
+    its menu in menuList modal window*/
+    currentRestaurantId = id;
 }
 
 /*render function draw button for menuList selection
