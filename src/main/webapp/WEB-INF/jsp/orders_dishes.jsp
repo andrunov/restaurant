@@ -32,12 +32,22 @@ or as finish 4-th step of creation new order--%>
                     </tr>
                     </thead>
                 </table>
-                <div class="span7 text-center">
-                    <a class="btn btn-primary" type="button" onclick="complete()">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <fmt:message key="common.complete"/>
-                    </a>
-                </div>
+                <table class="table" >
+                    <tr>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-2" style="text-align: center">
+                                <a class="btn btn-primary" type="button" onclick="complete()">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <fmt:message key="common.complete"/>
+                                </a>
+                        </th>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-1" style="text-align: right"><fmt:message key="orders.total"/>:</th>
+                        <th class="col-sm-1" style="text-align: right" id="totalPrice"></th>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

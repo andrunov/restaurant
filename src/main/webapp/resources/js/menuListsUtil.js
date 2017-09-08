@@ -87,7 +87,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderDeleteBtn
+                "render": renderDeleteBtnWithFilter
             }
         ],
         "order": [

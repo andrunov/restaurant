@@ -20,6 +20,7 @@ var addTitleKey ="dishes.add";
 /*function to update DataTable by data from server*/
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
+    setTimeout(showTotalPrice,100)
 }
 
 /*document.ready function*/
@@ -58,6 +59,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderDeleteBtn
             }
         ],
@@ -69,6 +71,7 @@ $(function () {
         ],
         "createdRow": ""
     });
+    setTimeout(showTotalPrice,100)
 });
 
 /*render function draw button for increase quantity of current Dish by 1*/
@@ -96,6 +99,7 @@ function plus(id) {
         .row(index)
         .data( d )
         .draw();
+    showTotalPrice();
 }
 
 /*function for decrease quantity of current Dish by 1*/
@@ -110,6 +114,7 @@ function minus(id) {
         .row(index)
         .data( d )
         .draw();
+    showTotalPrice();
 }
 
 /*function for finally load data to server
@@ -145,4 +150,13 @@ function getRequestParam(arr) {
         }
     }
     return "dishIds=" + dishIds+"&dishQuantityValues="+ dishQuantityValues;
+}
+
+function showTotalPrice() {
+    var totalPrice=0;
+    var data = datatableApi.rows().data();
+    data.each(function (value, index) {
+        totalPrice = totalPrice + value.price*value.quantity;
+    });
+    $('#totalPrice').html(totalPrice.toFixed(2));
 }

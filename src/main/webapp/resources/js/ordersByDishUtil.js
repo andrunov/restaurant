@@ -18,6 +18,9 @@ var goOrdersDishes = '/orders_dishes_by_user/';
 /*variable links to DataTable represents orders in orders_by_dish.jsp*/
 var datatableApi;
 
+/*variable for save current filter value*/
+var currentFilterValue = "ALL";
+
 /*function to update DataTable by data from server*/
 function updateTable(statusKey) {
     if (statusKey == "ALL") {
@@ -103,7 +106,7 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderDeleteBtn
+                "render": renderDeleteBtnWithFilter
             }
         ],
         "order": [
