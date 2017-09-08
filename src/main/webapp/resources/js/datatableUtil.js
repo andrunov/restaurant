@@ -37,13 +37,25 @@ function updateRow(id) {
 }
 
 /*method to delete row
-* use in all forms*/
+* use in forms*/
 function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,
         type: 'DELETE',
         success: function () {
-            updateTable(currentFilterValue);
+                updateTable();
+        }
+    });
+}
+
+/*method to delete row
+ * use in forms with currentFilterValue*/
+function deleteRowWithFilter(id) {
+    $.ajax({
+        url: ajaxUrl + id,
+        type: 'DELETE',
+        success: function () {
+               updateTable(currentFilterValue);
         }
     });
 }
@@ -80,6 +92,15 @@ function renderEditBtn(data, type, row) {
 function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
         return '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">'+
+            '<span class="glyphicon glyphicon-remove-circle"></span></a>';
+    }
+}
+
+/*render function draw button for delete row
+* use in pages with currentFilterValue*/
+function renderDeleteBtnWithFilter(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-danger" onclick="deleteRowWithFilter(' + row.id + ');">'+
             '<span class="glyphicon glyphicon-remove-circle"></span></a>';
     }
 }
