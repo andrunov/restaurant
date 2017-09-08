@@ -19,7 +19,7 @@ var addTitleKey ="dishes.add";
 
 /*function to update DataTable by data from server*/
 function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+    $.get(ajaxUrl, updateTableByData,showTotalPrice());
     setTimeout(showTotalPrice,100)
 }
 
