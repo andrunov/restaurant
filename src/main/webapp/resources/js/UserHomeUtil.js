@@ -108,11 +108,13 @@ function ordersDataTableInit() {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": linkBtn
             },
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderDeleteBtn
             }
         ],
@@ -146,6 +148,7 @@ function restaurantDataTableInit() {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": selectRestaurantBtn
             }
         ],
@@ -185,6 +188,7 @@ function menuListDataTableInit(id) {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": selectMenuListBtn
             }
         ],
