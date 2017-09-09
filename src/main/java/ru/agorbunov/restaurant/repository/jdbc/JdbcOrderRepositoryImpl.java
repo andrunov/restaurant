@@ -88,8 +88,8 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
                 .addValue("status", order.getStatus().toString())
                 .addValue("user_id", userId)
                 .addValue("restaurant_id", restaurantId)
-                .addValue("date_time", toDbDateTime(order.getDateTime()));
-
+                .addValue("date_time", toDbDateTime(order.getDateTime()))
+                .addValue("total_price",order.getTotalPrice());
         if (order.isNew()) {
             Number newKey = insertOrder.executeAndReturnKey(map);
             order.setId(newKey.intValue());

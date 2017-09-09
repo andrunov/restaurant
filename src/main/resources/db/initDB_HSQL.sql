@@ -43,6 +43,7 @@ CREATE TABLE orders(
   restaurant_id  INTEGER NOT NULL ,
   date_time       TIMESTAMP NOT NULL ,
   status          VARCHAR(255),
+  total_price    DOUBLE PRECISION,
   FOREIGN KEY     (user_id) REFERENCES users(id) ON DELETE CASCADE ,
   FOREIGN KEY     (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );

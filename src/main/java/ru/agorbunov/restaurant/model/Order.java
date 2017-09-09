@@ -70,6 +70,10 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    /*Total price of order*/
+    @Column(name = "total_price",nullable = false)
+    private double totalPrice;
+
     public Order() {
     }
 
@@ -146,6 +150,14 @@ public class Order extends BaseEntity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override

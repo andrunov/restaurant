@@ -109,6 +109,9 @@ function ordersDataTableInit() {
                 }
             },
             {
+                "data": "totalPrice"
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "className": "dt-center",

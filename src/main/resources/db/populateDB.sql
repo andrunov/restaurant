@@ -31,13 +31,13 @@ INSERT INTO restaurants(name, address) VALUES
   ('Закусочная','Привокзальная пл, 3'),
   ('Прага','ул. Арбат, 1');
 
-INSERT INTO orders(user_id, restaurant_id, date_time, status) VALUES
-  (100000,100006,'2017-01-15 15:47:00','ACCEPTED'),
-  (100001,100006,'2017-01-14 18:49:00','ACCEPTED'),
-  (100002,100007,'2017-01-15 12:07:00','ACCEPTED'),
-  (100003,100007,'2017-01-15 02:09:00','ACCEPTED'),
-  (100004,100008,'2017-01-15 14:17:00','ACCEPTED'),
-  (100005,100009,'2017-01-15 09:29:00','ACCEPTED');
+INSERT INTO orders(user_id, restaurant_id, date_time, status, total_price) VALUES
+  (100000,100006,'2017-01-15 15:47:00','ACCEPTED',13.72),
+  (100001,100006,'2017-01-14 18:49:00','ACCEPTED',22.71),
+  (100002,100007,'2017-01-15 12:07:00','ACCEPTED',42.97),
+  (100003,100007,'2017-01-15 02:09:00','ACCEPTED',15.68),
+  (100004,100008,'2017-01-15 14:17:00','ACCEPTED',2.05),
+  (100005,100009,'2017-01-15 09:29:00','ACCEPTED',92.22);
 
 INSERT INTO menu_lists(restaurant_id, description, date_time) VALUES
   (100006,'Меню на 14.01','2017-01-14 16:30:00'),
