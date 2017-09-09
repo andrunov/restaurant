@@ -96,16 +96,19 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": linkBtn
             },
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderEditBtn
             },
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderDeleteBtnWithFilter
             }
         ],

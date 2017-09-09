@@ -77,16 +77,19 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": linkBtn
             },
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderEditMenuListBtn
             },
             {
                 "orderable": false,
                 "defaultContent": "",
+                "className": "dt-center",
                 "render": renderDeleteBtnWithFilter
             }
         ],

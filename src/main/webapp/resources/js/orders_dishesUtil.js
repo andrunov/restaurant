@@ -20,7 +20,7 @@ var addTitleKey ="dishes.add";
 /*function to update DataTable by data from server*/
 function updateTable() {
     $.get(ajaxUrl, updateTableByData,showTotalPrice());
-    setTimeout(showTotalPrice,100)
+    setTimeout(showTotalPrice,50)
 }
 
 /*document.ready function*/
@@ -71,7 +71,7 @@ $(function () {
         ],
         "createdRow": ""
     });
-    setTimeout(showTotalPrice,100)
+    setTimeout(showTotalPrice,50)
 });
 
 /*render function draw button for increase quantity of current Dish by 1*/
