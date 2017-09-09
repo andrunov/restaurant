@@ -71,7 +71,7 @@ $(function () {
         ],
         "createdRow": ""
     });
-    setTimeout(showTotalPrice,50)
+    // setTimeout(showTotalPrice,50)
 });
 
 /*render function draw button for set quantity to zero*/

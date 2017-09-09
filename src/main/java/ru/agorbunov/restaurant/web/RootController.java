@@ -178,6 +178,7 @@ public class RootController {
         model.addAttribute("restaurant",CurrentEntities.getCurrentRestaurant());
         model.addAttribute("localDate",CurrentEntities.getCurrentOrder()
                 .getDateTime().toString().replace('T', ' ').substring(0,16));
+        model.addAttribute("totalPrice",CurrentEntities.getCurrentOrder().getTotalPrice());
         return "orders_dishes";
     }
 
