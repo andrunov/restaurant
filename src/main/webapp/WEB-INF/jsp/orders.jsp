@@ -127,6 +127,7 @@
                 <table class="table table-hover table-bordered " id="menuListDT" style="width: 100%;" >
                     <thead>
                     <tr>
+                        <th></th>
                         <th><fmt:message key="menuLists.description"/></th>
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="common.select"/></th>

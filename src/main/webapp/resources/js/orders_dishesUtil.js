@@ -169,14 +169,20 @@ function getRequestParam(arr) {
             dishIds.push(arr[i].id)
         }
     }
-    return "dishIds=" + dishIds+"&dishQuantityValues="+ dishQuantityValues;
+    return "dishIds=" + dishIds+"&dishQuantityValues="+ dishQuantityValues+"&totalPrice="+accountTotalPrice();
 }
 
+/*show accounted total price in page*/
 function showTotalPrice() {
+    $('#totalPrice').html(accountTotalPrice());
+}
+
+/*account actual total price */
+function accountTotalPrice() {
     var totalPrice=0;
     var data = datatableApi.rows().data();
     data.each(function (value, index) {
         totalPrice = totalPrice + value.price*value.quantity;
     });
-    $('#totalPrice').html(totalPrice.toFixed(2));
+    return totalPrice.toFixed(2);
 }

@@ -185,6 +185,22 @@ function menuListDataTableInit(id,enabled) {
         "paging": false,
         "info": true,
         "columns": [
+            /*add column with image depending of Enabled*/
+            {
+                "orderable": false,
+                "data": "enabled",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        if (data){
+                            return '<img  src="resources/pictures/menulist.png" />';
+                        }
+                        else {
+                            return '<img  src="resources/pictures/cross.png" />';
+                        }
+                    }
+                    return null;
+                }
+            },
             {
                 "data": "description"
             },
@@ -210,7 +226,12 @@ function menuListDataTableInit(id,enabled) {
                 "asc"
             ]
         ],
-        "createdRow": ""
+        /*customize row style depending of Enabled*/
+        "createdRow": function (row, data, dataIndex) {
+            if (!data.enabled) {
+                $(row).addClass("disabled");
+            }
+        }
     });
 }
 
@@ -369,7 +390,7 @@ function complete() {
     $.ajax({
         type: "POST",
         url: ajaxUrlCreateNew,
-        data: getIndexesArr(dishDTApi.rows( '.selected' ).data() ),
+        data: getRequestParam(dishDTApi.rows( '.selected' ).data() ),
         success: function () {
             $('#selectDishes').modal('hide');
             // updateTable();
@@ -379,12 +400,14 @@ function complete() {
 }
 
 /*function creates dishes id array for sending to server*/
-function getIndexesArr(arr) {
+function getRequestParam(arr) {
     var dishIds=[];
+    var totalPrice = 0;
     for (var i = 0; i < arr.length; i++){
-        dishIds.push(arr[i].id)
+        dishIds.push(arr[i].id);
+        totalPrice = totalPrice + arr[i].price;
     }
-    return "dishIds=" + dishIds;
+    return "dishIds=" + dishIds + "&totalPrice="+totalPrice.toFixed(2);
 }
 
 /*render function draw button for update row*/

@@ -75,7 +75,8 @@ public class OrderAjaxController {
     /*create new order, in request parameters send only array of dishes Ids,
     * dishes quantities sets as1 by default, change quantities will be offer to user in next steps*/
     @PostMapping(value = "/create")
-    public void create(@RequestParam("dishIds")String[] dishIds ){
+    public void create(@RequestParam("dishIds")String[] dishIds,
+                       @RequestParam("totalPrice") double totalPrice){
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
 //        set dishes quantities as 1 default values, will be changed longer
         int[] intDishQuantityValues = new int[intDishesIds.length];
@@ -86,8 +87,9 @@ public class OrderAjaxController {
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         LocalDateTime dateTime = LocalDateTime.now();
         Order order = new Order(currentUser,currentRestaurant, dateTime);
-        CurrentEntities.setCurrentOrder(order);
         checkEmpty(order);
+        order.setTotalPrice(totalPrice);
+        CurrentEntities.setCurrentOrder(order);
         if (order.isNew()) {
             ValidationUtil.checkNew(order);
             log.info("create " + order);
@@ -112,13 +114,15 @@ public class OrderAjaxController {
     /*update order, update dishes and their quantities, DateTime and Status not touch*/
     @PostMapping(value = "/update")
     public void update(@RequestParam("dishIds")String[] dishIds,
-                       @RequestParam("dishQuantityValues")String[] dishQuantityValues){
+                       @RequestParam("dishQuantityValues") String[] dishQuantityValues,
+                       @RequestParam("totalPrice") double totalPrice){
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
         int[] intDishQuantityValues = Arrays.stream(dishQuantityValues).mapToInt(Integer::parseInt).toArray();
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         Order order = CurrentEntities.getCurrentOrder();
         checkEmpty(order);
+        order.setTotalPrice(totalPrice);
         log.info("update " + order);
         orderService.save(order,currentUser.getId(),currentRestaurant.getId(),intDishesIds,intDishQuantityValues);
     }

@@ -95,7 +95,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
             order.setId(newKey.intValue());
             insertDishes(order.getId(), dishIds, dishQuantityValues);
         } else {
-            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time, status=:status WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
+            if(namedParameterJdbcTemplate.update("UPDATE orders SET date_time=:date_time, status=:status, total_price=:total_price WHERE id=:id AND user_id=:user_id AND restaurant_id=:restaurant_id", map)==0){
                 return null;
             }else {
                 deleteDishes(order.getId());
