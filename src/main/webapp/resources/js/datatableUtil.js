@@ -128,3 +128,8 @@ function failNoty(event, jqXHR, options, jsExc) {
         layout: 'bottomRight'
     });
 }
+
+/*cancel operation*/
+function cancel() {
+    history.back();
+}

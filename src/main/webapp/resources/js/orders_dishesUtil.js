@@ -60,7 +60,7 @@ $(function () {
                 "orderable": false,
                 "defaultContent": "",
                 "className": "dt-center",
-                "render": renderDeleteBtn
+                "render": renderSetToSero
             }
         ],
         "order": [
@@ -73,6 +73,14 @@ $(function () {
     });
     setTimeout(showTotalPrice,50)
 });
+
+/*render function draw button for set quantity to zero*/
+function renderSetToSero(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-danger" onclick="setToSero(' + row.id + ');">'+
+            '<span class="glyphicon glyphicon-remove-circle"></span></a>';
+    }
+}
 
 /*render function draw button for increase quantity of current Dish by 1*/
 function renderPlusBtn(data, type, row) {
@@ -110,6 +118,18 @@ function minus(id) {
     if (d.quantity <= 0){
         d.quantity = 0;
     }
+    datatableApi
+        .row(index)
+        .data( d )
+        .draw();
+    showTotalPrice();
+}
+
+/*function for set to zero quantity of current Dish */
+function setToSero(id) {
+    var index = '#' + id;
+    var d = datatableApi.row(index).data();
+    d.quantity = 0;
     datatableApi
         .row(index)
         .data( d )

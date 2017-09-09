@@ -36,14 +36,18 @@ or as finish 4-th step of creation new order--%>
                     <tr>
                         <th class="col-sm-1"></th>
                         <th class="col-sm-1"></th>
-                        <th class="col-sm-1"></th>
-                        <th class="col-sm-2" style="text-align: center">
+                        <th class="col-sm-1" style="text-align: center">
+                            <a class="btn btn-primary" type="button" onclick="cancel()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <fmt:message key="common.cancel"/>
+                            </a>
+                        </th>
+                        <th class="col-sm-1" style="text-align: center">
                                 <a class="btn btn-primary" type="button" onclick="complete()">
                                     <span class="glyphicon glyphicon-ok"></span>
                                     <fmt:message key="common.complete"/>
                                 </a>
                         </th>
-                        <th class="col-sm-1"></th>
                         <th class="col-sm-1" style="text-align: right"><fmt:message key="orders.total"/>:</th>
                         <th class="col-sm-1" style="text-align: right" id="totalPrice"></th>
                     </tr>
