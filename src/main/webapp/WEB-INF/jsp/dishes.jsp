@@ -76,6 +76,10 @@
 
                     <div class="form-group">
                         <div class="span7 text-center">
+                            <button class="btn btn-success" type="button" onclick="$('#editRow').modal('hide')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <fmt:message key="common.cancel"/>
+                            </button>
                             <button type="button" onclick="save()" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 <fmt:message key="common.complete"/>

@@ -392,16 +392,3 @@ function deleteRow(id,restaurantId) {
     });
 }
 
-/*save data by AJAX*/
-function save() {
-    var form = $('#detailsForm');
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl,
-        data: form.serialize(),
-        success: function () {
-            $('#editRow').modal('hide');
-            updateTable(currentFilterValue);
-        }
-    });
-}
