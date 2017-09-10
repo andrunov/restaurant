@@ -399,7 +399,7 @@ function complete() {
     });
 }
 
-/*function creates dishes id array for sending to server*/
+/*function creates dishes id array and totalPrice for sending to server*/
 function getRequestParam(arr) {
     var dishIds=[];
     var totalPrice = 0;
