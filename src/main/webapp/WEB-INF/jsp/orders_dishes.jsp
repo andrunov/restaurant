@@ -37,7 +37,7 @@ or as finish 4-th step of creation new order--%>
                         <th class="col-sm-1"></th>
                         <th class="col-sm-1"></th>
                         <th class="col-sm-1" style="text-align: center">
-                            <a class="btn btn-success" type="button" onclick="cancel()">
+                            <a class="btn btn-success" type="button" onclick="history.back()">
                                 <span class="glyphicon glyphicon-remove"></span>
                                 <fmt:message key="common.cancel"/>
                             </a>

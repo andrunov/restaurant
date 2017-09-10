@@ -89,6 +89,12 @@
                     </tr>
                     </thead>
                 </table>
+                <div class="span7 text-center">
+                    <a class="btn btn-success" type="button" onclick="$('#selectRestaurant').modal('hide')">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <fmt:message key="common.cancel"/>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -134,6 +140,12 @@
                     </tr>
                     </thead>
                 </table>
+                <div class="span7 text-center">
+                    <a class="btn btn-success" type="button" onclick="$('#selectMenuList').modal('hide')">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <fmt:message key="common.cancel"/>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -160,12 +172,26 @@
                     </tr>
                     </thead>
                 </table>
-                <div class="span7 text-center">
-                    <a class="btn btn-primary" type="button" onclick="complete()">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <fmt:message key="common.complete"/>
-                    </a>
-                </div>
+
+                <table class="table">
+                    <tr>
+                        <th class="col-sm-2"></th>
+                        <th class="col-sm-1">
+                            <a class="btn btn-success" type="button" onclick="$('#selectDishes').modal('hide')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <fmt:message key="common.cancel"/>
+                            </a>
+                        </th>
+                        <th class="col-sm-1" style="text-align: center">
+                            <div class="span7 text-center">
+                                <a class="btn btn-primary" type="button" onclick="complete()">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <fmt:message key="common.complete"/>
+                                </a>
+                            </div>
+                        </th>
+                        <th class="col-sm-2"></th>
+                </table>
             </div>
         </div>
     </div>
@@ -223,7 +249,11 @@
 
                     <div class="form-group">
                         <div class="span7 text-center">
-                            <button type="button" onclick="save()" class="btn btn-primary">
+                            <button class="btn btn-success" type="button" onclick="$('#editRow').modal('hide')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <fmt:message key="common.cancel"/>
+                            </button>
+                            <button type="button" onclick="saveWithFilter()" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 <fmt:message key="common.complete"/>
                             </button>

@@ -65,8 +65,25 @@ function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
 }
 
-/*save data by AJAX*/
+/*save data by AJAX 
+ * use in forms with filter in dataTables*/
 function save() {
+    var form = $('#detailsForm');
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: form.serialize(),
+        success: function () {
+            $('#editRow').modal('hide');
+            updateTable();
+        }
+    });
+}
+
+
+/*save data by AJAX 
+* use in forms with filter in dataTables*/
+function saveWithFilter() {
     var form = $('#detailsForm');
     $.ajax({
         type: "POST",
@@ -78,7 +95,6 @@ function save() {
         }
     });
 }
-
 
 /*render function draw button for update row*/
 function renderEditBtn(data, type, row) {
@@ -129,7 +145,3 @@ function failNoty(event, jqXHR, options, jsExc) {
     });
 }
 
-/*cancel operation*/
-function cancel() {
-    history.back();
-}

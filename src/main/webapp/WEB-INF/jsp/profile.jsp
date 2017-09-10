@@ -60,6 +60,10 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
+                            <button class="btn btn-success" type="button" onclick="history.back()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <fmt:message key="common.cancel"/>
+                            </button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 <fmt:message key="common.complete"/>

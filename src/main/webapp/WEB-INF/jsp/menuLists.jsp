@@ -105,7 +105,7 @@
 
                     <div class="form-group">
                         <div class="span7 text-center">
-                            <button type="button" onclick="save()" class="btn btn-primary">
+                            <button type="button" onclick="saveWithFilter()" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 <fmt:message key="common.complete"/>
                             </button>
