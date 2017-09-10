@@ -106,6 +106,9 @@ function ordersDataTableInit() {
                 }
             },
             {
+                "data": "totalPrice"
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "className": "dt-center",
@@ -349,7 +352,7 @@ function complete() {
     $.ajax({
         type: "POST",
         url: ajaxUrlCreateNew,
-        data: getIndexesArr(dishDTApi.rows( '.selected' ).data() ),
+        data: getRequestParam(dishDTApi.rows( '.selected' ).data() ),
         success: function () {
             $('#selectDishes').modal('hide');
             // updateTable();
@@ -358,13 +361,15 @@ function complete() {
     });
 }
 
-/*function creates dishes id array for sending to server*/
-function getIndexesArr(arr) {
+/*function creates dishes id array and totalPrice for sending to server*/
+function getRequestParam(arr) {
     var dishIds=[];
+    var totalPrice = 0;
     for (var i = 0; i < arr.length; i++){
-        dishIds.push(arr[i].id)
+        dishIds.push(arr[i].id);
+        totalPrice = totalPrice + arr[i].price;
     }
-    return "dishIds=" + dishIds;
+    return "dishIds=" + dishIds + "&totalPrice="+totalPrice.toFixed(2);
 }
 
 /*render function draw button for delete row*/
