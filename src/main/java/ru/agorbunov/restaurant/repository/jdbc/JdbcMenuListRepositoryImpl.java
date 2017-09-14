@@ -146,4 +146,24 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
     public List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled) {
         return jdbcTemplate.query("SELECT * FROM menu_lists WHERE restaurant_id=? AND enabled=? ORDER BY date_time DESC", ROW_MAPPER, restaurantId, enabled);
     }
+
+    /*get menuList from database by dish Id, belongs to this menu list*/
+    @Transactional
+    @Override
+    public MenuList getByDish(int dishId) {
+        List<MenuList> menuLists = jdbcTemplate.query("SELECT ml.* FROM MENU_LISTS as ml WHERE ml.ID IN (SELECT d.MENU_LIST_ID FROM DISHES AS d WHERE d.ID=?)", ROW_MAPPER, dishId);
+        MenuList menuList =  DataAccessUtils.singleResult(menuLists);
+        setDishes(menuList);
+        return menuList != null && containsDish(menuList,dishId) ? menuList : null;
+    }
+
+    /*check that menuList (1st parameter contains dish (dishId pass as 2nd parameter*/
+    private boolean containsDish(MenuList menuList, int dishId){
+        List<Dish> dishes = menuList.getDishList();
+        if ((dishes==null) && (dishes.size()==0)) return  false;
+        for (Dish dish : dishes){
+            if (dish.getId() == dishId) return true;
+        }
+        return  false;
+    }
 }

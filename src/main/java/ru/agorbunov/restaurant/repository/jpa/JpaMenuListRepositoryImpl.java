@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.repository.jpa;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.repository.MenuListRepository;
@@ -86,5 +87,17 @@ public class JpaMenuListRepositoryImpl implements MenuListRepository {
                 .setParameter("restaurantId",restaurantId)
                 .setParameter("enabled",enabled)
                 .getResultList();
+    }
+
+    /*get menuList from database by dish Id, belongs to this menu list*/
+    @Transactional
+    @Override
+    public MenuList getByDish(int dishId) {
+        Dish dish = em.find(Dish.class, dishId);
+        if (dish == null) return null;
+        MenuList menuList = (MenuList)em.createNamedQuery(MenuList.GET_WITH_DISHES)
+                .setParameter("id",dish.getMenuList().getId())
+                .getSingleResult();
+        return menuList != null && menuList.getDishList().contains(dish) ? menuList : null;
     }
 }

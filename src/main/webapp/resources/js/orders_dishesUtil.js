@@ -11,6 +11,11 @@ var ajaxUrl = '/ajax/orders_dishes/';
 /*url for finally load data to server*/
 var ajaxOrdersUrl = '/ajax/orders/update';
 
+/*url for exchange JSON data between dishes modal window DataTable (id="dishDT") and server*/
+var ajaxDishesUrl = '/ajax/dishes/byDish/';
+
+var ajaxCurrentMenuListUrl = '/ajax/dishes/currentMenuList';
+
 /*variable links to DataTable represents dishes and dishes quantities in orders_dishes.jsp*/
 var datatableApi;
 
@@ -21,6 +26,43 @@ var addTitleKey ="dishes.add";
 function updateTable() {
     $.get(ajaxUrl, updateTableByData,showTotalPrice());
     setTimeout(showTotalPrice,50)
+}
+
+/*DataTable represents dishes in modal window initialization*/
+function dishDataTableInit(id) {
+    dishDTApi = $('#dishDT').DataTable({
+        "ajax": {
+            "url": ajaxDishesUrl+id,
+            "dataSrc": ""
+        },
+        "destroy": true,
+        "paging": false,
+        "info": true,
+        "columns": [
+            {
+                "data": "description"
+            },
+            {
+                "data": "price"
+            },
+            {
+                'targets': 0,
+                'searchable': false,
+                'orderable': false,
+                'width': '1%',
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="checkbox">';
+                }
+            }
+        ],
+        "order": [
+            [
+                0,
+                "asc"
+            ]
+        ]
+    });
 }
 
 /*document.ready function*/
@@ -71,8 +113,31 @@ $(function () {
         ],
         "createdRow": ""
     });
-    // setTimeout(showTotalPrice,50)
 });
+
+/*open menuList to get other dishes*/
+function openDishList() {
+
+
+    //DataTable for dishes modal window initialisation
+    dishDataTableInit(datatableApi.row(0).data().id);
+
+    // Handle multiple choice checkbox of dishes
+    $('#dishDT tbody').on('click', 'input[type="checkbox"]', function(e){
+        var $row = $(this).closest('tr');
+        if(this.checked){
+            $row.addClass('selected');
+        } else {
+            $row.removeClass('selected');
+        }
+        e.stopPropagation();
+    });
+
+    /*open modal window for dish selection*/
+    $('#selectDishes').modal();
+    
+    $('#modalTitleMenuList').html({ "ajax": {"url": ajaxCurrentMenuListUrl}});
+}
 
 /*render function draw button for set quantity to zero*/
 function renderSetToSero(data, type, row) {

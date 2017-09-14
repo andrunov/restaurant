@@ -28,4 +28,6 @@ public interface MenuListRepository extends BaseRepository<MenuList>{
     * and according to status pass as 2nd parameter*/
     List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled);
 
+    /*get menuList from database by dish Id, belongs to this menu list*/
+    MenuList getByDish(int dishId);
 }

@@ -28,4 +28,6 @@ public interface MenuListService extends BaseService<MenuList> {
     * and according to status pass as 2nd parameter*/
     List<MenuList> getByRestaurantAndEnabled(int restaurantId, boolean enabled);
 
+    /*get menuList by dish Id, belongs to this menu list*/
+    MenuList getByDish(int dishId);
 }

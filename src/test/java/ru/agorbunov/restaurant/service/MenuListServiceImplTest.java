@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.agorbunov.restaurant.DishTestData;
 import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.model.MenuList;
@@ -10,6 +11,7 @@ import ru.agorbunov.restaurant.util.exception.NotFoundException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static ru.agorbunov.restaurant.MenuListTestData.*;
 
@@ -112,5 +114,18 @@ public class MenuListServiceImplTest extends AbstractServiceTest {
     public void getByRestaurantAndEnabled() throws Exception {
         MATCHER.assertCollectionEquals(Collections.singletonList(MENU_LIST_01),service.getByRestaurantAndEnabled(RESTAURANT_01_ID, true));
         MATCHER.assertCollectionEquals(Collections.emptyList(),service.getByRestaurantAndEnabled(RESTAURANT_01_ID, false));
+    }
+
+    @Test
+    public void getByDish() throws Exception {
+        MATCHER.assertEquals(MENU_LIST_01,service.getByDish(DishTestData.DISH_01_ID));
+        MATCHER.assertEquals(MENU_LIST_03,service.getByDish(DishTestData.DISH_10_ID));
+    }
+
+    @Test
+    public void getByDishWith() throws Exception {
+        ModelMatcher<Dish> MatcherDish = new ModelMatcher<>();
+        List<Dish> dishes = service.getByDish(DishTestData.DISH_01_ID).getDishList();
+        MatcherDish.assertCollectionEquals(MENU_LIST_01.getDishList(),dishes);
     }
 }

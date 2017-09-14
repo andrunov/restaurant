@@ -38,7 +38,7 @@ public class DishesAjaxController {
         return service.getByMenuList(currentMenuList.getId());
     }
 
-    /*get dishes by current menu list Id pass as parameter*/
+    /*get dishes by menu list Id pass as parameter*/
     @GetMapping(value = "byMenuList/{menuListId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Dish> getByMenuListId(@PathVariable("menuListId") int menuListId) {
         log.info("getByMenuList");
@@ -46,6 +46,15 @@ public class DishesAjaxController {
         MenuList currentMenuList = menuListService.get(menuListId,currentRestaurant.getId());
         CurrentEntities.setCurrentMenuList(currentMenuList);
         return service.getByMenuList(menuListId);
+    }
+
+    /*get dishes of menuList by dish Id, belongs to that menu list pass as parameter*/
+    @GetMapping(value = "byDish/{dishId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Dish> getByDishId(@PathVariable("dishId") int dishId) {
+        log.info("getByDishId " + dishId);
+        MenuList menuList = menuListService.getByDish(dishId);
+        CurrentEntities.setCurrentMenuList(menuList);
+        return menuList.getDishList();
     }
 
 
@@ -81,6 +90,13 @@ public class DishesAjaxController {
             log.info("update " + dish);
             service.save(dish,menuList.getId());
         }
+    }
+
+    /*get current menuList */
+    @GetMapping(value = "currentMenuList",produces = MediaType.APPLICATION_JSON_VALUE)
+    public MenuList getCurrentMenuList() {
+        log.info("currentMenuList");
+        return CurrentEntities.getCurrentMenuList();
     }
 
     /*check dish for empty fields*/
