@@ -22,7 +22,7 @@ or as finish 4-th step of creation new order--%>
             <div class="view-box">
                 <a class="btn btn-primary" type="button" onclick="openDishList()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    <fmt:message key="restaurants.add"/>
+                    <fmt:message key="menuLists.open"/>
                 </a>
                 <table class="table table-hover table-bordered " id="datatable">
                     <thead>

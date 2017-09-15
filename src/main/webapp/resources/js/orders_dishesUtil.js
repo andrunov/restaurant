@@ -135,8 +135,10 @@ function openDishList() {
 
     /*open modal window for dish selection*/
     $('#selectDishes').modal();
-    
-    $('#modalTitleMenuList').html({ "ajax": {"url": ajaxCurrentMenuListUrl}});
+
+    $.getJSON(ajaxCurrentMenuListUrl, {}, function(json){
+        $('#modalTitleMenuList').html(json.description + ' ,' +  json.dateTime);
+    });
 }
 
 /*render function draw button for set quantity to zero*/
