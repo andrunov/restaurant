@@ -10,6 +10,7 @@ import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.service.DishService;
 import ru.agorbunov.restaurant.service.MenuListService;
+import ru.agorbunov.restaurant.util.DateTimeUtil;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.util.List;
@@ -92,11 +93,12 @@ public class DishesAjaxController {
         }
     }
 
-    /*get current menuList */
-    @GetMapping(value = "currentMenuList",produces = MediaType.APPLICATION_JSON_VALUE)
-    public MenuList getCurrentMenuList() {
+    /*get current menuList description and dateTime*/
+    @GetMapping(value = "currentMenuList",produces = "text/plain;charset=UTF-8")
+    public String getCurrentMenuList() {
         log.info("currentMenuList");
-        return CurrentEntities.getCurrentMenuList();
+        MenuList menuList = CurrentEntities.getCurrentMenuList();
+        return menuList.getDescription() + ", " + DateTimeUtil.toString(menuList.getDateTime());
     }
 
     /*check dish for empty fields*/

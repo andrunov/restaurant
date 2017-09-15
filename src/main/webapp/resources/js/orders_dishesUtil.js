@@ -136,8 +136,8 @@ function openDishList() {
     /*open modal window for dish selection*/
     $('#selectDishes').modal();
 
-    $.getJSON(ajaxCurrentMenuListUrl, {}, function(json){
-        $('#modalTitleMenuList').html(json.description + ' ,' +  json.dateTime);
+    $.get(ajaxCurrentMenuListUrl, {}, function(data){
+        $('#modalTitleMenuList').html(data);
     });
 }
 
