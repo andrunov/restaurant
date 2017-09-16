@@ -114,7 +114,7 @@ $(function () {
                 "orderable": false,
                 "defaultContent": "",
                 "className": "dt-center",
-                "render": renderSetToSero
+                "render": renderDeleteBtn
             }
         ],
         "order": [
@@ -160,9 +160,9 @@ function openDishList() {
 }
 
 /*render function draw button for set quantity to zero*/
-function renderSetToSero(data, type, row) {
+function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-danger" onclick="setToSero(' + row.id + ');">'+
+        return '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">'+
             '<span class="glyphicon glyphicon-remove-circle"></span></a>';
     }
 }
@@ -201,7 +201,7 @@ function minus(id) {
     var d = datatableApi.row(index).data();
     d.quantity--;
     if (d.quantity <= 0){
-        d.quantity = 0;
+        deleteRow(id);
     }
     datatableApi
         .row(index)
@@ -211,14 +211,9 @@ function minus(id) {
 }
 
 /*function for set to zero quantity of current Dish */
-function setToSero(id) {
+function deleteRow(id) {
     var index = '#' + id;
-    var d = datatableApi.row(index).data();
-    d.quantity = 0;
-    datatableApi
-        .row(index)
-        .data( d )
-        .draw();
+    datatableApi.row(index).remove().draw();
     showTotalPrice();
 }
 

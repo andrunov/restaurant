@@ -59,7 +59,6 @@ public class OrdersDishesAjaxController {
     @PostMapping(value = "dishesIds",produces = MediaType.APPLICATION_JSON_VALUE)
     public void setDishesIds(@RequestParam("dishIds")String[] dishIds) {
         log.info("post dishesIds");
-        if ((dishIds == null)&&(dishIds.length == 0)) throw new EmptyListException();
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
         MenuList menuList = menuListService.getByDish(intDishesIds[0]);
         actualMenuListDishes = DishChoiceTo.createDishChoiceToList(menuList.getDishList(),intDishesIds);
