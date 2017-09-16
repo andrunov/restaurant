@@ -22,17 +22,11 @@ public class DishTo extends Dish {
 
     private int quantity;
 
-    private DishTo(int id, String description, Double price, int quantity) {
-        super(description, price);
-        this.quantity = quantity;
-        setId(id);
-    }
-
     private DishTo(Dish dish, int quantity){
-        this(dish.getId() ,dish.getDescription(),dish.getPrice(),dish.getId());
+        super(dish.getDescription(),dish.getPrice());
+        setId(dish.getId());
         this.quantity = quantity;
     }
-
 
 
 }

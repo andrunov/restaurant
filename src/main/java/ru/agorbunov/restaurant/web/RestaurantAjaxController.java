@@ -38,6 +38,7 @@ public class RestaurantAjaxController {
         return service.get(id);
     }
 
+    // TODO: 16.09.2017 remove if no need longer
 //    /*use in orders.jsp to setup data in modal window
 //    * get restaurant by Id and setup by its data fields in modal window*/
 //    @GetMapping(value = "/set/{id}")

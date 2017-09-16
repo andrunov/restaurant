@@ -11,10 +11,14 @@ var ajaxUrl = '/ajax/orders_dishes/';
 /*url for finally load data to server*/
 var ajaxOrdersUrl = '/ajax/orders/update';
 
-/*url for exchange JSON data between dishes modal window DataTable (id="dishDT") and server*/
-var ajaxDishesUrl = '/ajax/dishes/byDish/';
+/*url for send dishes ids to server*/
+var ajaxDishesUrl = '/ajax/orders_dishes/dishesIds';
 
-var ajaxCurrentMenuListUrl = '/ajax/dishes/currentMenuList';
+/*url for get all dishes of actual menu list from server*/
+var ajaxAllDishesUrl = '/ajax/orders_dishes/allDishesOfMenuList';
+
+/*url for get name and data of actual menu list from server*/
+var ajaxCurrentMenuListUrl = '/ajax/orders_dishes/currentMenuList';
 
 /*variable links to DataTable represents dishes and dishes quantities in orders_dishes.jsp*/
 var datatableApi;
@@ -29,10 +33,10 @@ function updateTable() {
 }
 
 /*DataTable represents dishes in modal window initialization*/
-function dishDataTableInit(id) {
+function dishDataTableInit() {
     dishDTApi = $('#dishDT').DataTable({
         "ajax": {
-            "url": ajaxDishesUrl+id,
+            "url": ajaxAllDishesUrl,
             "dataSrc": ""
         },
         "destroy": true,
@@ -47,13 +51,14 @@ function dishDataTableInit(id) {
             },
             {
                 'targets': 0,
+                'className': 'dt-body-center',
                 'searchable': false,
                 'orderable': false,
                 'width': '1%',
-                'className': 'dt-body-center',
-                'render': function (data, type, full, meta) {
+                'render': function ( data, type, row ) {
                     return '<input type="checkbox">';
                 }
+
             }
         ],
         "order": [
@@ -61,7 +66,14 @@ function dishDataTableInit(id) {
                 0,
                 "asc"
             ]
-        ]
+        ],
+        /*customize row style and checkbox value depending of choose*/
+        "createdRow": function (row, data, dataIndex) {
+            if (data.choose) {
+                $(row).find('input[type="checkbox"]').prop('checked', true);
+                $(row).addClass("selected");
+            }
+        }
     });
 }
 
@@ -118,26 +130,32 @@ $(function () {
 /*open menuList to get other dishes*/
 function openDishList() {
 
+    $.ajax({
+        type: "POST",
+        url: ajaxDishesUrl,
+        data: getRequestParamIdsOnly(datatableApi.rows().data() ),
+        success: function () {
+            //DataTable for dishes modal window initialisation
+            dishDataTableInit();
 
-    //DataTable for dishes modal window initialisation
-    dishDataTableInit(datatableApi.row(0).data().id);
+            // Handle multiple choice checkbox of dishes
+            $('#dishDT tbody').on('click', 'input[type="checkbox"]', function(e){
+                var $row = $(this).closest('tr');
+                if(this.checked){
+                    $row.addClass('selected');
+                } else {
+                    $row.removeClass('selected');
+                }
+                e.stopPropagation();
+            });
 
-    // Handle multiple choice checkbox of dishes
-    $('#dishDT tbody').on('click', 'input[type="checkbox"]', function(e){
-        var $row = $(this).closest('tr');
-        if(this.checked){
-            $row.addClass('selected');
-        } else {
-            $row.removeClass('selected');
+            /*open modal window for dish selection*/
+            $('#selectDishes').modal();
+
+            $.get(ajaxCurrentMenuListUrl, {}, function(data){
+                $('#modalTitleMenuList').html(data);
+            });
         }
-        e.stopPropagation();
-    });
-
-    /*open modal window for dish selection*/
-    $('#selectDishes').modal();
-
-    $.get(ajaxCurrentMenuListUrl, {}, function(data){
-        $('#modalTitleMenuList').html(data);
     });
 }
 
@@ -211,7 +229,7 @@ function complete() {
     $.ajax({
         type: "POST",
         url: ajaxOrdersUrl,
-        data: getRequestParam(datatableApi.rows().data() ),
+        data: getRequestParamFull(datatableApi.rows().data() ),
         success: function () {
             location.href = localStorage.getItem("ordersDishesPostRedirectUrl");
         }
@@ -220,7 +238,7 @@ function complete() {
 
 /*function to get arrays of dishes and according dishes quantities
 * ignore dishes with null quantities*/
-function getRequestParam(arr) {
+function getRequestParamFull(arr) {
     var dishIds=[];
     var dishQuantityValues=[];
     var dishNullQuantityIndexes=[];
@@ -237,6 +255,16 @@ function getRequestParam(arr) {
         }
     }
     return "dishIds=" + dishIds+"&dishQuantityValues="+ dishQuantityValues+"&totalPrice="+accountTotalPrice();
+}
+
+/*function to get arrays of dishes and according dishes quantities
+ * ignore dishes with null quantities*/
+function getRequestParamIdsOnly(arr) {
+    var dishIds=[];
+    for (var i = 0; i < arr.length; i++){
+         dishIds.push(arr[i].id)
+    }
+    return "dishIds=" + dishIds;
 }
 
 /*show accounted total price in page*/

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Rest controller for menuLists.jsp and other .jsp
- * to exchange menuList data with service-layer
+ * to exchange menuList data with menuListService-layer
  */
 @RestController
 @RequestMapping(value =  "/ajax/menuLists")
@@ -27,7 +27,7 @@ public class MenuListAjaxController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private MenuListService service;
+    private MenuListService menuListService;
 
     @Autowired
     private RestaurantService restaurantService;
@@ -37,7 +37,7 @@ public class MenuListAjaxController {
     public List<MenuList> getByRestaurant() {
         log.info("getByRestaurant");
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        return service.getByRestaurant(currentRestaurant.getId());
+        return menuListService.getByRestaurant(currentRestaurant.getId());
     }
 
     /*get all menu lists by current restaurant and enabled status key*/
@@ -45,7 +45,7 @@ public class MenuListAjaxController {
     public List<MenuList> getByRestaurantAndEnabled(@PathVariable("enabled") boolean enabled) {
         log.info("getByRestaurantAndEnabled");
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        return service.getByRestaurantAndEnabled(currentRestaurant.getId(),enabled);
+        return menuListService.getByRestaurantAndEnabled(currentRestaurant.getId(),enabled);
     }
 
     /*get all menu lists by current restaurant Id pass as 1st parameter
@@ -58,9 +58,9 @@ public class MenuListAjaxController {
         CurrentEntities.setCurrentRestaurant(currentRestaurant);
         List<MenuList> result = null;
         if (enabled.equals("ALL")){
-            result = service.getByRestaurant(restaurantId);
+            result = menuListService.getByRestaurant(restaurantId);
         }else {
-            result = service.getByRestaurantAndEnabled(restaurantId,Boolean.parseBoolean(enabled));
+            result = menuListService.getByRestaurantAndEnabled(restaurantId,Boolean.parseBoolean(enabled));
         }
         return result;
     }
@@ -70,7 +70,7 @@ public class MenuListAjaxController {
     public MenuList getMenuList(@PathVariable("id") int id) {
         log.info("get " + id);
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-        return service.get(id,currentRestaurant.getId());
+        return menuListService.get(id,currentRestaurant.getId());
     }
 
     // TODO: 08.09.2017 remove if no need longer
@@ -80,7 +80,7 @@ public class MenuListAjaxController {
 //    public String setCurrentMenuList(@PathVariable("id") int id) {
 //        log.info("set current menuList " + id);
 //        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-//        MenuList menuList = service.get(id,currentRestaurant.getId());
+//        MenuList menuList = menuListService.get(id,currentRestaurant.getId());
 //        CurrentEntities.setCurrentMenuList(menuList);
 //        return String.format("%s, %s", menuList.getDescription(),
 //                                        menuList.getDateTime().toLocalDate().toString());
@@ -90,7 +90,7 @@ public class MenuListAjaxController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
-        service.delete(id);
+        menuListService.delete(id);
     }
 
     /*create new menuList or update if exist*/
@@ -107,10 +107,10 @@ public class MenuListAjaxController {
         if (menuList.isNew()) {
             ValidationUtil.checkNew(menuList);
             log.info("create " + menuList);
-            service.save(menuList,currentRestaurant.getId());
+            menuListService.save(menuList,currentRestaurant.getId());
         } else {
             log.info("update " + menuList);
-            service.save(menuList,currentRestaurant.getId());
+            menuListService.save(menuList,currentRestaurant.getId());
         }
     }
 
