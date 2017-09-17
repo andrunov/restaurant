@@ -123,7 +123,8 @@ $(function () {
                 "asc"
             ]
         ],
-        "createdRow": ""
+        "createdRow": "",
+        "initComplete": makeEditable
     });
 });
 

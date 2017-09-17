@@ -8,11 +8,13 @@ import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Role;
 import ru.agorbunov.restaurant.model.Status;
 import ru.agorbunov.restaurant.util.exception.ArraysIncompatibilityException;
+import ru.agorbunov.restaurant.util.exception.EmptyListException;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 import ru.agorbunov.restaurant.util.exception.RefuseToUpdateException;
 import ru.agorbunov.restaurant.web.AuthorizedUser;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -90,6 +92,7 @@ public class ValidationUtil {
         }
     }
 
+    /*check that AuthorizedUser has role to update Order*/
     public static void checkAcceptableUpdate(Order order){
         if (order.getStatus() != Status.ACCEPTED){
             Set<Role> roleSet = AuthorizedUser.get().getLoggedUser().getRoles();
@@ -99,5 +102,24 @@ public class ValidationUtil {
         }
     }
 
+    /*check that list has elements*/
+    public static <T> void checkEmptyList(List<T> list){
+        if ((list == null)&&(list.size()==0)) throw  new EmptyListException("empty list: " + list);
+    }
+
+    /*check that int[] array has elements and they sum > 0*/
+    public static void checkEmptyArray(int[] intArray){
+        if ((intArray == null)&&(intArray.length==0)) throw  new EmptyListException("empty int array: " + intArray);
+        int quantity = 0;
+        for (int element : intArray){
+            quantity = quantity + element;
+        }
+        if (quantity <=0) throw  new EmptyListException("null sum elements array: " + intArray);
+    }
+
+    /*check that String[] array has elements */
+    public static void checkEmptyArray(String[] stringArray){
+        if ((stringArray == null)&&(stringArray.length==0)) throw  new EmptyListException("empty String array: " + stringArray);
+    }
 
 }

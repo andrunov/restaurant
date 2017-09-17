@@ -12,7 +12,6 @@ import ru.agorbunov.restaurant.service.MenuListService;
 import ru.agorbunov.restaurant.to.DishChoiceTo;
 import ru.agorbunov.restaurant.to.DishTo;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
-import ru.agorbunov.restaurant.util.exception.EmptyListException;
 
 import java.util.Arrays;
 import java.util.List;

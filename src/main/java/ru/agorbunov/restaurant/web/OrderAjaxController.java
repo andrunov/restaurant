@@ -77,6 +77,7 @@ public class OrderAjaxController {
     @PostMapping(value = "/create")
     public void create(@RequestParam("dishIds")String[] dishIds,
                        @RequestParam("totalPrice") double totalPrice){
+        ValidationUtil.checkEmptyArray(dishIds);
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
 //        set dishes quantities as 1 default values, will be changed longer
         int[] intDishQuantityValues = new int[intDishesIds.length];
@@ -116,8 +117,10 @@ public class OrderAjaxController {
     public void update(@RequestParam("dishIds")String[] dishIds,
                        @RequestParam("dishQuantityValues") String[] dishQuantityValues,
                        @RequestParam("totalPrice") double totalPrice){
+        ValidationUtil.checkEmptyArray(dishIds);
         int[] intDishesIds = Arrays.stream(dishIds).mapToInt(Integer::parseInt).toArray();
         int[] intDishQuantityValues = Arrays.stream(dishQuantityValues).mapToInt(Integer::parseInt).toArray();
+        ValidationUtil.checkEmptyArray(intDishQuantityValues);
         User currentUser = CurrentEntities.getCurrentUser();
         Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
         Order order = CurrentEntities.getCurrentOrder();

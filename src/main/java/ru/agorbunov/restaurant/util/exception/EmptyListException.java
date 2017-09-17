@@ -5,4 +5,7 @@ package ru.agorbunov.restaurant.util.exception;
  * but this unacceptable of logic program
  */
 public class EmptyListException extends RuntimeException {
+    public EmptyListException(String message) {
+        super(message);
+    }
 }

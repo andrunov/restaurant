@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.agorbunov.restaurant.util.exception.EmptyListException;
 import ru.agorbunov.restaurant.util.exception.NotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,14 @@ public class ExceptionInfoHandler {
     @ResponseBody
     @Order(Ordered.LOWEST_PRECEDENCE)
     public ErrorInfo handleError(HttpServletRequest req, Exception e) {
+        return logAndGetErrorInfo(req, e, true);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(EmptyListException.class)
+    @ResponseBody
+    @Order(Ordered.LOWEST_PRECEDENCE)
+    public ErrorInfo emptyListError(HttpServletRequest req, EmptyListException e) {
         return logAndGetErrorInfo(req, e, true);
     }
 
