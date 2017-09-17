@@ -95,7 +95,7 @@ or as finish 4-th step of creation new order--%>
                             </th>
                             <th class="col-sm-1" style="text-align: center">
                                 <div class="span7 text-center">
-                                    <a class="btn btn-primary" type="button" onclick="complete()">
+                                    <a class="btn btn-primary" type="button" onclick="refreshDishes()">
                                         <span class="glyphicon glyphicon-ok"></span>
                                         <fmt:message key="common.complete"/>
                                     </a>

@@ -202,11 +202,13 @@ function minus(id) {
     d.quantity--;
     if (d.quantity <= 0){
         deleteRow(id);
+        datatableApi.draw();
+    }else {
+        datatableApi
+            .row(index)
+            .data( d )
+            .draw();
     }
-    datatableApi
-        .row(index)
-        .data( d )
-        .draw();
     showTotalPrice();
 }
 
@@ -229,6 +231,51 @@ function complete() {
             location.href = localStorage.getItem("ordersDishesPostRedirectUrl");
         }
     });
+}
+
+/*refresh datatableApi according dishes selected in dishDTApi*/
+function refreshDishes() {
+    removeDeselectedDishes();
+    addSelectedDishes();
+    datatableApi.draw();
+    showTotalPrice();
+    $('#selectDishes').modal('hide');
+}
+
+/*remove dishes from datatableApi which were deselected in dishDTApi
+* row.selected equals that choose == true*/
+function removeDeselectedDishes() {
+    var selectedDishes =  dishDTApi.rows( '.selected').data();
+    var oldDishes =  datatableApi.rows().data();
+    var dishesForDelete = [];
+    outer: for (var i = 0; i < oldDishes.length; i++) {
+        for (var j = 0; j < selectedDishes.length; j++) {
+            if (selectedDishes[j].id == oldDishes[i].id) continue outer;
+        }
+        dishesForDelete.push('#' + oldDishes[i].id);
+    }
+
+    for (var k = 0; k < dishesForDelete.length; k++){
+        datatableApi.row(dishesForDelete[k]).remove();
+    }
+}
+
+/*add in datatableApi dishes was selected in dishDTApi
+ * in case that they not present in  datatableApi*/
+function addSelectedDishes() {
+    var selectedDishes =  dishDTApi.rows( '.selected').data();
+    var oldDishes =  datatableApi.rows().data();
+    outer: for (var i = 0; i < selectedDishes.length; i++) {
+        for (var j = 0; j < oldDishes.length; j++) {
+            if (selectedDishes[i].id == oldDishes[j].id) continue outer;
+        }
+        datatableApi.row.add({
+            "id": selectedDishes[i].id,
+            "description" : selectedDishes[i].description,
+            "price" :selectedDishes[i].price,
+            "quantity" : 1
+        });
+    }
 }
 
 /*function to get arrays of dishes and according dishes quantities
