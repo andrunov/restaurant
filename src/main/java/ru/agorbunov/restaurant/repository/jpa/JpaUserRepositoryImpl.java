@@ -69,5 +69,14 @@ public class JpaUserRepositoryImpl implements UserRepository {
         return DataAccessUtils.singleResult(users);
     }
 
-
+    /*get total amount of user's orders from database
+    * and save it to database to users's field "totalOrdersAmount" */
+    @Transactional
+    @Override
+    public void accountAndSaveTotalOrdersAmount(int id) {
+        em.createNamedQuery(User.ACCOUNT_AND_SAVE_TOTAL_ORDERS_AMOUNT)
+                .setParameter(1,id)
+                .setParameter(2,id)
+                .executeUpdate();
+    }
 }

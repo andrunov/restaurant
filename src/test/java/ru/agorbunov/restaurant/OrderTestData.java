@@ -89,5 +89,6 @@ public class OrderTestData {
         dishes07.put(DISH_01,1);
         dishes07.put(DISH_02,1);
         ORDER_CREATED.setDishes(dishes07);
+        ORDER_CREATED.setTotalPrice(4.7);
     }
 }

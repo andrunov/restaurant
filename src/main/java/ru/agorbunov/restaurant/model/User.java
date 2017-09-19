@@ -14,6 +14,7 @@ import java.util.Set;
  */
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SuppressWarnings("JpaQlInspection")
+@NamedNativeQuery(name = User.ACCOUNT_AND_SAVE_TOTAL_ORDERS_AMOUNT, query = "UPDATE USERS SET totalOrdersAmount=(SELECT SUM(TOTAL_PRICE) FROM orders  WHERE user_id=?) WHERE id=?")
 @NamedQueries({
         @NamedQuery(name = User.GET_ALL, query = "SELECT u from User u"),
         @NamedQuery(name = User.GET_WITH_ORDERS, query = "SELECT u from User u JOIN FETCH u.orders WHERE u.id = :id"),
@@ -28,6 +29,7 @@ public class User extends BaseEntity {
     public static final String GET_WITH_ORDERS = "User.getWithOrders";
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
+    public static final String ACCOUNT_AND_SAVE_TOTAL_ORDERS_AMOUNT = "User.accountAndSaveTotalOrdersAmount";
 
 
     /*user's name*/
@@ -47,8 +49,8 @@ public class User extends BaseEntity {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled;
 
-    @Column(name = "total_ord_amnt")
-    private double totalOrderAmount;
+    @Column(name = "totalOrdersAmount")
+    private double totalOrdersAmount;
 
     /*users roles*/
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -120,6 +122,14 @@ public class User extends BaseEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public double getTotalOrdersAmount() {
+        return totalOrdersAmount;
+    }
+
+    public void setTotalOrdersAmount(double totalOrdersAmount) {
+        this.totalOrdersAmount = totalOrdersAmount;
     }
 
     @Override

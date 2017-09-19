@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.OrderRepository;
+import ru.agorbunov.restaurant.repository.UserRepository;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
@@ -15,13 +16,16 @@ import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Class for exchange order-entity data between web and repository layers
+ * Class for exchange order-entity data between web and orderRepository layers
  */
 @Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private OrderRepository repository;
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /*save order if it is new entity and update if it is exist,
     *,int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
@@ -37,7 +41,9 @@ public class OrderServiceImpl implements OrderService {
         ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
         ValidationUtil.checkEmptyArray(dishIds);
         ValidationUtil.checkEmptyArray(dishQuantityValues);
-        return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
+        Order result = checkNotFoundWithId(orderRepository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
+        userRepository.accountAndSaveTotalOrdersAmount(userId);
+        return result;
     }
 
     /*save order if it is new entity and update if it is exist,
@@ -48,19 +54,19 @@ public class OrderServiceImpl implements OrderService {
     public Order save(Order order, int userId, int restaurantId) {
         Assert.notNull(order,"order must not be null");
         ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
-        return checkNotFoundWithId(repository.save(order,userId,restaurantId),order.getId());
+        return checkNotFoundWithId(orderRepository.save(order,userId,restaurantId),order.getId());
     }
 
     /*delete order by Id, check that order was found (order belongs to these user and restaurant */
     @Override
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id),id);
+        checkNotFoundWithId(orderRepository.delete(id),id);
     }
 
     /*get all orders*/
     @Override
     public List<Order> getAll() {
-        return repository.getAll();
+        return orderRepository.getAll();
     }
 
     /*get order by Id, userId and restaurantId in parameters is Ids of
@@ -68,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
     *check that order was found (order belongs to these user and restaurant*/
     @Override
     public Order get(int id, int userId, int restaurantId) {
-        return checkNotFoundWithId(repository.get(id,userId,restaurantId),id);
+        return checkNotFoundWithId(orderRepository.get(id,userId,restaurantId),id);
     }
 
     /*get order by Id with collections of dishes which the order is have ,
@@ -77,33 +83,33 @@ public class OrderServiceImpl implements OrderService {
     *check that order was found (order belongs to these user and restaurant*/
     @Override
     public Order getWithDishes(int id, int userId, int restaurantId) {
-        return checkNotFoundWithId(repository.getWithDishes(id,userId,restaurantId),id);
+        return checkNotFoundWithId(orderRepository.getWithDishes(id,userId,restaurantId),id);
     }
 
     /*get all orders that belongs to user with Id pass as parameter */
     @Override
     public List<Order> getByUser(int userId) {
-        return repository.getByUser(userId);
+        return orderRepository.getByUser(userId);
     }
 
     /*get all orders that belongs to user with Id pass as 1st parameter
     * and with status pass as 2nd parameter */
     @Override
     public List<Order> getByUserAndStatus(int userId, String status) {
-        return repository.getByUserAndStatus(userId,status);
+        return orderRepository.getByUserAndStatus(userId,status);
     }
 
     /*get all orders that belongs to dish with Id pass as parameter */
     @Override
     public List<Order> getByDish(int dishId) {
-        return repository.getByDish(dishId);
+        return orderRepository.getByDish(dishId);
     }
 
     /*get all orders that belongs to dish with Id pass as parameter
      * and with status pass as 2nd parameter*/
     @Override
     public List<Order> getByDishAndStatus(int dishId, String status) {
-        return repository.getByDishAndStatus(dishId,status);
+        return orderRepository.getByDishAndStatus(dishId,status);
     }
 
     /*delete order by Id, userId and restaurantId in parameters is Ids of

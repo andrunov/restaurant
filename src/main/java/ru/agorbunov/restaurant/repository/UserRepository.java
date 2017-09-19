@@ -19,4 +19,8 @@ public interface UserRepository extends BaseRepository<User> {
     /*get user from database by Id with collection of
     *orders were made by the user*/
     User getWithOrders(int id);
+
+    /*get total amount of user's orders from database
+    * and save it to database to users's field "totalOrdersAmount" */
+    void accountAndSaveTotalOrdersAmount(int id);
 }

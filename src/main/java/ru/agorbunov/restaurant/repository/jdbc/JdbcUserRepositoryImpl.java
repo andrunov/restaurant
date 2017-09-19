@@ -2,10 +2,7 @@ package ru.agorbunov.restaurant.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -57,7 +54,8 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 .addValue("name", user.getName())
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
-                .addValue("enabled", user.isEnabled());
+                .addValue("enabled", user.isEnabled())
+                .addValue("totalOrdersAmount", user.getTotalOrdersAmount());
 
         if (user.isNew()) {
             Number newKey = insertUser.executeAndReturnKey(map);
@@ -67,7 +65,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
             deleteRoles(user);
             insertRoles(user);
             namedParameterJdbcTemplate.update(
-                    "UPDATE users SET name=:name, password=:password, email=:email, enabled=:enabled WHERE id=:id", map);
+                    "UPDATE users SET name=:name, password=:password, email=:email, enabled=:enabled, totalOrdersAmount=:totalOrdersAmount WHERE id=:id", map);
         }
         return user;
     }
@@ -165,4 +163,11 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         return setRoles(DataAccessUtils.singleResult(users));
     }
 
+    /*get total amount of user's orders from database
+    * and save it to database to users's field "totalOrdersAmount" */
+    @Transactional
+    @Override
+    public void accountAndSaveTotalOrdersAmount(int id) {
+        jdbcTemplate.update("UPDATE USERS SET totalOrdersAmount=(SELECT SUM(TOTAL_PRICE) FROM orders  WHERE user_id=?) WHERE id=?",id,id);
+    }
 }
