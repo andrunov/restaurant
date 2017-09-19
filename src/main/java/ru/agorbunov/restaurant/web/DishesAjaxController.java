@@ -71,7 +71,6 @@ public class DishesAjaxController {
         MenuList menuList = CurrentEntities.getCurrentMenuList();
         Dish dish = new Dish(description,price);
         dish.setId(id);
-        checkEmpty(dish);
         if (dish.isNew()) {
             ValidationUtil.checkNew(dish);
             log.info("create " + dish);
@@ -81,14 +80,5 @@ public class DishesAjaxController {
             dishService.save(dish,menuList.getId());
         }
     }
-
-
-
-    /*check dish for empty fields*/
-    private void checkEmpty(Dish dish){
-        ValidationUtil.checkEmpty(dish.getDescription(),"description");
-        ValidationUtil.checkEmpty(dish.getPrice(),"price");
-    }
-
 }
 

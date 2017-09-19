@@ -63,7 +63,6 @@ public class RestaurantAjaxController {
                                @RequestParam("address") String address) {
         Restaurant restaurant = new Restaurant(name, address);
         restaurant.setId(id);
-        checkEmpty(restaurant);
         if (restaurant.isNew()) {
             ValidationUtil.checkNew(restaurant);
             log.info("create " + restaurant);
@@ -73,12 +72,5 @@ public class RestaurantAjaxController {
             service.save(restaurant);
         }
     }
-
-    /*check restaurant for empty fields*/
-    private void checkEmpty(Restaurant restaurant){
-        ValidationUtil.checkEmpty(restaurant.getName(),"name");
-        ValidationUtil.checkEmpty(restaurant.getAddress(),"address");
-    }
-
 
 }

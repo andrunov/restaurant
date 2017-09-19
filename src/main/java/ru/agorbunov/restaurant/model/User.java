@@ -47,6 +47,9 @@ public class User extends BaseEntity {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled;
 
+    @Column(name = "total_ord_amnt")
+    private double totalOrderAmount;
+
     /*users roles*/
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)

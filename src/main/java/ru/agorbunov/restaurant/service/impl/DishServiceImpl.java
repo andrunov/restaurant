@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Dish;
 import ru.agorbunov.restaurant.repository.DishRepository;
 import ru.agorbunov.restaurant.service.DishService;
+import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Dish-service
+ * Class for exchange dish-entity data between web and repository layers
  */
 @Service
 public class DishServiceImpl implements DishService {
@@ -27,6 +28,8 @@ public class DishServiceImpl implements DishService {
     @Override
     public Dish save(Dish dish, int menuListId) {
         Assert.notNull(dish,"dish must not be null");
+        ValidationUtil.checkEmpty(dish.getDescription(),"description");
+        ValidationUtil.checkEmpty(dish.getPrice(),"price");
         return checkNotFoundWithId(repository.save(dish,menuListId),dish.getId());
     }
 

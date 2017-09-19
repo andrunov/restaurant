@@ -17,10 +17,9 @@ import ru.agorbunov.restaurant.web.AuthorizedUser;
 import java.util.List;
 
 import static ru.agorbunov.restaurant.util.ValidationUtil.*;
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Created by Admin on 28.01.2017.
+ * Class for exchange user-entity data between web and repository layers
  */
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -33,6 +32,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User save(User user) {
         Assert.notNull(user,"user must not be null");
+        ValidationUtil.checkEmpty(user.getName(),"name");
+        ValidationUtil.checkEmpty(user.getEmail(),"email");
+        ValidationUtil.checkEmpty(user.getPassword(),"password");
         return repository.save(user);
     }
 

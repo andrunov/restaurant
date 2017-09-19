@@ -16,7 +16,8 @@ CREATE TABLE users
   name       VARCHAR NOT NULL,
   email      VARCHAR NOT NULL UNIQUE,
   password   VARCHAR NOT NULL,
-  enabled    BOOL DEFAULT TRUE
+  enabled    BOOL DEFAULT TRUE,
+  total_ord_amnt DOUBLE PRECISION
 );
 
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);

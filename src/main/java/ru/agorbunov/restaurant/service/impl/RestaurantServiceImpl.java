@@ -8,13 +8,14 @@ import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Restaurant;
 import ru.agorbunov.restaurant.repository.RestaurantRepository;
 import ru.agorbunov.restaurant.service.RestaurantService;
+import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.util.List;
 
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Restaurant-service
+ * Class for exchange restaurant-entity data between web and repository layers
  */
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -27,6 +28,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant save(Restaurant restaurant) {
         Assert.notNull(restaurant,"restaurant must not be null");
+        ValidationUtil.checkEmpty(restaurant.getName(),"name");
+        ValidationUtil.checkEmpty(restaurant.getAddress(),"address");
         return repository.save(restaurant);
     }
 

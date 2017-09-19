@@ -50,7 +50,7 @@ public class ExceptionInfoHandler {
     @ResponseBody
     @Order(Ordered.LOWEST_PRECEDENCE)
     public ErrorInfo emptyListError(HttpServletRequest req, EmptyListException e) {
-        return logAndGetErrorInfo(req, e, true);
+        return logAndGetErrorInfo(req, e, false);
     }
 
     public ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException) {

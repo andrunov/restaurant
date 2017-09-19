@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 import ru.agorbunov.restaurant.service.OrderService;
+import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * Order-service
+ * Class for exchange order-entity data between web and repository layers
  */
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -31,8 +32,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         Assert.notNull(order,"order must not be null");
-        checkArrCompatibility(dishIds,dishQuantityValues);
         checkAcceptableUpdate(order);
+        checkArrCompatibility(dishIds,dishQuantityValues);
+        ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
+        ValidationUtil.checkEmptyArray(dishIds);
+        ValidationUtil.checkEmptyArray(dishQuantityValues);
         return checkNotFoundWithId(repository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
     }
 
@@ -43,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order save(Order order, int userId, int restaurantId) {
         Assert.notNull(order,"order must not be null");
+        ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
         return checkNotFoundWithId(repository.save(order,userId,restaurantId),order.getId());
     }
 

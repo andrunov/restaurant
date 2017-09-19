@@ -62,7 +62,6 @@ public class UserAjaxController {
         User user = new User(name, email, password, firstRole, restRoles);
         user.setId(id);
         user.setEnabled(Boolean.parseBoolean(enabled));
-        checkEmpty(user);
         if (user.isNew()) {
             ValidationUtil.checkNew(user);
             log.info("create " + user);
@@ -73,10 +72,4 @@ public class UserAjaxController {
         }
     }
 
-    /*check user for empty fields*/
-    private void checkEmpty(User user){
-        ValidationUtil.checkEmpty(user.getName(),"name");
-        ValidationUtil.checkEmpty(user.getEmail(),"email");
-        ValidationUtil.checkEmpty(user.getPassword(),"password");
-    }
 }

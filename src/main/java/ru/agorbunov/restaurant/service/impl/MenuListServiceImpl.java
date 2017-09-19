@@ -12,7 +12,7 @@ import java.util.List;
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
 
 /**
- * MenuList-service
+ * Class for exchange menuList-entity data between web and repository layers
  */
 @Service
 public class MenuListServiceImpl implements MenuListService {

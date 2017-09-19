@@ -10,7 +10,6 @@ import ru.agorbunov.restaurant.model.*;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.service.UserService;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
-import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -67,7 +66,6 @@ public class OrderByDishAjaxController {
         User user = CurrentEntities.getCurrentUser();
         Restaurant restaurant = CurrentEntities.getCurrentRestaurant();
         Order order = CurrentEntities.getCurrentOrder();
-        checkEmpty(order);
         order.setDateTime(dateTime);
         order.setStatus(Status.valueOf(status));
         log.info("update " + order);
@@ -80,11 +78,5 @@ public class OrderByDishAjaxController {
         log.info("delete " + id);
         orderService.delete(id);
     }
-
-    /*check order for empty fields*/
-    private void checkEmpty(Order order){
-        ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
-    }
-
 
 }
