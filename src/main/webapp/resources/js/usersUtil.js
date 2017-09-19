@@ -85,6 +85,9 @@ $(function () {
                 }
             },
             {
+                "data": "totalOrdersAmount"
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "className": "dt-center",
