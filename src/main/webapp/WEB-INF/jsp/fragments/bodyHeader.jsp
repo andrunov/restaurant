@@ -12,24 +12,22 @@
     <div class="container-fluid">
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="javascript:javascript:history.go(-1)">&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></li>
-                <li><a href="javascript:javascript:history.go(+1)">&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></a></li>
+                <li><a class="btn btn-primary" href="javascript:javascript:history.go(-1)">&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></li>
+                <li><a class="btn btn-primary" href="javascript:javascript:history.go(+1)">&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <sec:authorize access="isAuthenticated()">
-                <li class="active"><a href="/"><fmt:message key="app.home"/></a></li>
+                <li><a class="btn btn-primary" href="/"><fmt:message key="app.home"/></a></li>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <li><a href="users"><fmt:message key="users.title"/></a></li>
-                        <li><a href="restaurants"><fmt:message key="restaurants.title"/></a></li>
+                        <li><a class="btn btn-primary" href="users"><fmt:message key="users.title"/></a></li>
+                        <li><a class="btn btn-primary" href="restaurants"><fmt:message key="restaurants.title"/></a></li>
                     </sec:authorize>
                 </sec:authorize>
             </ul>
             <ul class="nav navbar-nav navbar-right" vertical-align: center>
                 <ul class="nav navbar-nav">
-                    <li>
-                    <a class="btn btn-info" role="button" href="profile">${user.name} <fmt:message key="app.profile"/></a>
-                    <li><a href="logout"><fmt:message key="app.logout"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out"></span></a></li>
-                    </li>
+                    <li><a class="btn btn-success" role="button" href="profile">${user.name} <fmt:message key="app.profile"/></a></li>
+                    <li><a class="btn btn-danger" href="logout"><fmt:message key="app.logout"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out"></span></a></li>
                     <jsp:include page="lang.jsp"/>
                 </ul>
             </ul>

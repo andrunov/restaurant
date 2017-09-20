@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setBundle basename="messages.app"/>
 
-<div class="navbar-default-bottom">
+<footer class="navbar-default-bottom">
     <div class="container">
         <nav class="navbar navbar-link">
             <ul class="nav navbar-nav" vertical-align: center>
@@ -14,7 +14,7 @@
             </ul>
         </nav>
     </div>
-</div>
+</footer>
 
 <%--function creates an array of bundle resourses specify of users local--%>
 <script type="text/javascript">
