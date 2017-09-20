@@ -4,12 +4,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setBundle basename="messages.app"/>
 
-<hr>
-    <div class="navbar-fixed-bottom">
-        <div class="container">
-
+<div class="navbar-default-bottom">
+    <div class="container">
         <nav class="navbar navbar-link">
-            <fmt:message key="app.footer"/>
+            <ul class="nav navbar-nav" vertical-align: center>
+                <li><a><b><fmt:message key="app.footer"/></b></a></li>
+                <li><a href=""><b><fmt:message key="app.jdbc"/></b></a></li>
+                <li><a href=""><b><fmt:message key="app.jpa"/></b></a></li>
+            </ul>
         </nav>
     </div>
 </div>
