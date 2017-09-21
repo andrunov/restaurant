@@ -8,7 +8,6 @@
     <div class="container">
         <nav class="navbar navbar-link">
             <ul class="nav navbar-nav" vertical-align: center>
-                <li><a><b><fmt:message key="app.footer"/></b></a></li>
                 <li><a href=""><b><fmt:message key="app.jdbc"/></b></a></li>
                 <li><a href=""><b><fmt:message key="app.jpa"/></b></a></li>
             </ul>

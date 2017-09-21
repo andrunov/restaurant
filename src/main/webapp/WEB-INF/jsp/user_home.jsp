@@ -17,7 +17,7 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <p><fmt:message key="common.welcome"/>, ${user.name}!</p>
+            <h3><fmt:message key="common.welcome"/>, ${user.name}!</h3>
             <table class="table" >
                 <tr>
                     <td>

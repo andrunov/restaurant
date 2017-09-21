@@ -11,8 +11,10 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="container">
     <div class="jumbotron">
-            <p><strong><a href="users"><fmt:message key="users.title"/></a></strong></p>
-            <p><strong><a href="restaurants"><fmt:message key="restaurants.title"/></a></strong></p>
+        <h3><fmt:message key="common.welcome"/>, ${user.name}!</h3>
+        <br>
+        <p><strong><a href="users"><fmt:message key="users.title"/></a></strong></p>
+        <p><strong><a href="restaurants"><fmt:message key="restaurants.title"/></a></strong></p>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
