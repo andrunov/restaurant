@@ -7,10 +7,19 @@
 <footer class="navbar-default-bottom">
     <div class="container">
         <nav class="navbar navbar-link">
-            <ul class="nav navbar-nav" vertical-align: center>
-                <li><a href=""><b><fmt:message key="app.jdbc"/></b></a></li>
-                <li><a href=""><b><fmt:message key="app.jpa"/></b></a></li>
-            </ul>
+            <table  class="table">
+                <tr>
+                <td class="col-sm-3" style="text-align: center">
+                    <a href=""><fmt:message key="app.heroku"/></a>
+                </td>
+                <td class="col-sm-3" style="text-align: center">
+                    <a href=""><fmt:message key="app.jdbc"/></a>
+                </td>
+                <td class="col-sm-3" style="text-align: center">
+                    <a href=""><fmt:message key="app.jpa"/></a>
+                </td>
+                </tr>
+            </table>
         </nav>
     </div>
 </footer>
