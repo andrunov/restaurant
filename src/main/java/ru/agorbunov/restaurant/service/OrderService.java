@@ -2,6 +2,7 @@ package ru.agorbunov.restaurant.service;
 
 import ru.agorbunov.restaurant.model.Order;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -35,6 +36,10 @@ public interface OrderService extends BaseService<Order> {
     /*get all orders that belongs to user with Id pass as 1st parameter
     * and with status pass as 2nd parameter */
     List<Order> getByUserAndStatus(int userId, String status);
+
+    /*get all orders that belongs to user with Id pass as 1st parameter
+    * and which made on Date  pass as 2nd parameter */
+    List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime);
 
     /*get all orders that belongs to dish with Id pass as parameter */
     List<Order> getByDish(int dishId);

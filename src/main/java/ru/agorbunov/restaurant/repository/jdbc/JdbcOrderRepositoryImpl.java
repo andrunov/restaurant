@@ -209,6 +209,18 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
+
+    @Override
+    public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC ", ROW_MAPPER,userId,toDbDateTime(beginDate),toDbDateTime(endDate));
+        for (Order order : result) {
+            setRestaurant(order);
+        }
+        return result;
+    }
+
     /*get all orders from database that belongs to dish with Id pass as parameter */
     @Override
     public List<Order> getByDish(int dishId) {

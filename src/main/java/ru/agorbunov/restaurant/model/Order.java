@@ -22,6 +22,7 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(name = Order.GET_ALL, query = "SELECT o from Order o order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId order by o.dateTime desc "),
+        @NamedQuery(name = Order.GET_ALL_BY_USER_AND_DATE, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId and o.dateTime>=:beginDate and o.dateTime<=:endDate order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_ALL_BY_USER_AND_STATUS, query = "SELECT o from Order o join fetch o.restaurant where o.user.id=:userId and o.status=:status order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_WITH_USER, query = "SELECT o from Order o join fetch o.user where o.id=:id order by o.dateTime desc "),
         @NamedQuery(name = Order.GET_WITH_DISHES, query = "SELECT o from Order o join fetch o.dishes where o.id=:id"),
@@ -35,6 +36,7 @@ public class Order extends BaseEntity {
     public static final String GET_ALL = "Order.getAll";
     public static final String GET_ALL_BY_USER = "Order.getAllbyUser";
     public static final String GET_ALL_BY_USER_AND_STATUS = "Order.getAllbyUserAndStatus";
+    public static final String GET_ALL_BY_USER_AND_DATE = "Order.getAllbyUserAndDate";
     public static final String GET_WITH_USER = "Order.getWithUser";
     public static final String GET_ALL_BY_DISH = "Order.getAllbyDish";
     public static final String GET_ALL_BY_DISH_AND_STATUS = "Order.getAllbyDishAndStatus";

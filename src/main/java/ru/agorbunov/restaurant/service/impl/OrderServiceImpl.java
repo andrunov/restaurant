@@ -9,6 +9,7 @@ import ru.agorbunov.restaurant.repository.UserRepository;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.agorbunov.restaurant.util.ValidationUtil.checkAcceptableUpdate;
@@ -97,6 +98,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getByUserAndStatus(int userId, String status) {
         return orderRepository.getByUserAndStatus(userId,status);
+    }
+
+    @Override
+    public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
+        return orderRepository.getByUserAndDate(userId,localDateTime);
     }
 
     /*get all orders that belongs to dish with Id pass as parameter */

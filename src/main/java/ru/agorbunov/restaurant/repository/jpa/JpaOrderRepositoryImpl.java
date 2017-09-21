@@ -9,6 +9,7 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,6 +146,17 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_STATUS, Order.class)
                 .setParameter("userId",userId)
                 .setParameter("status", Status.valueOf(status))
+                .getResultList();
+    }
+
+    @Override
+    public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_DATE, Order.class)
+                .setParameter("userId",userId)
+                .setParameter("beginDate", beginDate)
+                .setParameter("endDate", endDate)
                 .getResultList();
     }
 
