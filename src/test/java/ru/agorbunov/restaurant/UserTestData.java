@@ -4,6 +4,7 @@ import ru.agorbunov.restaurant.matcher.ModelMatcher;
 import ru.agorbunov.restaurant.model.Role;
 import ru.agorbunov.restaurant.model.User;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static ru.agorbunov.restaurant.OrderTestData.*;
@@ -39,7 +40,7 @@ public class UserTestData {
         USER_03.setOrders(Collections.singletonList(ORDER_03));
         USER_04.setOrders(Collections.singletonList(ORDER_04));
         USER_05.setOrders(Collections.singletonList(ORDER_05));
-        USER_06.setOrders(Collections.singletonList(ORDER_06));
+        USER_06.setOrders(Arrays.asList(ORDER_06,ORDER_07,ORDER_08));
         USER_CREATED.setOrders(Collections.singletonList(ORDER_01));
     }
 

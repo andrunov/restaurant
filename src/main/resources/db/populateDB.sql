@@ -88,3 +88,22 @@ INSERT INTO orders_dishes(order_id, dish_id,dish_quantity) VALUES
   (100015,100037,2),
   (100015,100038,3),
   (100015,100039,1);
+
+INSERT INTO orders(user_id, restaurant_id, date_time, status, total_price) VALUES
+  (100005,100009,'2017-02-15 16:32:00','READY',92.22),
+  (100005,100009,'2017-02-15 18:28:00','FINISHED',92.22);
+
+INSERT INTO orders_dishes(order_id, dish_id,dish_quantity) VALUES
+  (100040,100034,1),
+  (100040,100035,1),
+  (100040,100036,1),
+  (100040,100037,2),
+  (100040,100038,3),
+  (100040,100039,1),
+
+  (100041,100034,1),
+  (100041,100035,1),
+  (100041,100036,1),
+  (100041,100037,2),
+  (100041,100038,3),
+  (100041,100039,1);

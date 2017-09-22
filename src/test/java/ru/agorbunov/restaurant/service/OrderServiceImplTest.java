@@ -31,7 +31,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         Order orderSaved = service.save(ORDER_CREATED,USER_01_ID,RESTAURANT_01_ID, dishIds,dishQuantityValues);
         int orderSavedId = orderSaved.getId();
         orderSaved = service.getWithDishes(orderSavedId,USER_01_ID,RESTAURANT_01_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_CREATED,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_08,ORDER_07,ORDER_CREATED,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
         ModelMatcher<Dish> DishMatcher = new ModelMatcher<>();
         DishMatcher.assertCollectionEquals(ORDER_CREATED.getDishes().keySet(), orderSaved.getDishes().keySet());
         ModelMatcher<Integer> IntegerMatcher = new ModelMatcher<>();
@@ -60,7 +60,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
     @Test
     public void delete() throws Exception {
         service.delete(ORDER_01_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_08,ORDER_07,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
 
     }
 
@@ -72,7 +72,7 @@ public class OrderServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void getAll() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_08,ORDER_07,ORDER_01,ORDER_05,ORDER_03,ORDER_06,ORDER_04,ORDER_02),service.getAll());
     }
 
     @Test
@@ -164,8 +164,8 @@ public class OrderServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void getByUserAndDate() throws Exception{
-        MATCHER.assertCollectionEquals(Collections.singletonList(ORDER_01),service.getByUserAndDate(USER_01_ID, ORDER_01_LDT));
-        MATCHER.assertCollectionEquals(Collections.emptyList(),service.getByUserAndDate(USER_01_ID, ORDER_02_LDT));
+        MATCHER.assertCollectionEquals(Collections.singletonList(ORDER_06),service.getByUserAndDate(USER_06_ID, DATE_2017_01_15));
+        MATCHER.assertCollectionEquals(Arrays.asList(ORDER_08,ORDER_07),service.getByUserAndDate(USER_06_ID, DATE_2017_02_15));
     }
 
 
