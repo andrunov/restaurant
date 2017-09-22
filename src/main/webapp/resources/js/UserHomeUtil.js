@@ -66,6 +66,7 @@ function ordersDataTableInit() {
             "dataSrc": ""
         },
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             /*add column with image depending of Status*/
@@ -140,6 +141,7 @@ function restaurantDataTableInit() {
             "dataSrc": ""
         },
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {
@@ -174,6 +176,7 @@ function menuListDataTableInit(id) {
         },
         "destroy": true,
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {
@@ -214,6 +217,7 @@ function dishDataTableInit(id) {
         },
         "destroy": true,
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {
