@@ -149,12 +149,28 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
                 .getResultList();
     }
 
+    /*get all orders from database that belongs to user with Id pass as 1st parameter
+    * and which made on Date  pass as 2nd parameter */
     @Override
     public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
         LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
         return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_DATE, Order.class)
                 .setParameter("userId",userId)
+                .setParameter("beginDate", beginDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
+    }
+
+    /*get all orders from database that belongs to user with Id pass as 1st parameter
+    * and with status pass as 2nd parameter and which made on Date  pass as 3rd parameter */
+    @Override
+    public List<Order> getByUserAndStatusAndDate(int userId, String status, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_STATUS_AND_DATE, Order.class)
+                .setParameter("userId",userId)
+                .setParameter("status", Status.valueOf(status))
                 .setParameter("beginDate", beginDate)
                 .setParameter("endDate", endDate)
                 .getResultList();

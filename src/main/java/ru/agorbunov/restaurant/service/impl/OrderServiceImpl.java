@@ -100,9 +100,18 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.getByUserAndStatus(userId,status);
     }
 
+    /*get all orders that belongs to user with Id pass as 1st parameter
+    * and which made on Date  pass as 2nd parameter */
     @Override
     public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
         return orderRepository.getByUserAndDate(userId,localDateTime);
+    }
+
+    /*get all orders that belongs to user with Id pass as 1st parameter
+    * and with status pass as 2nd parameter and which made on Date  pass as 3rd parameter */
+    @Override
+    public List<Order> getByUserAndStatusAndDate(int userId, String status, LocalDateTime localDateTime) {
+        return orderRepository.getByUserAndStatusAndDate(userId,status,localDateTime);
     }
 
     /*get all orders that belongs to dish with Id pass as parameter */

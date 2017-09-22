@@ -168,5 +168,10 @@ public class OrderServiceImplTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(ORDER_08,ORDER_07),service.getByUserAndDate(USER_06_ID, DATE_2017_02_15));
     }
 
+    @Test
+    public void getByUserAndStatusAndDate() throws Exception{
+        MATCHER.assertCollectionEquals(Collections.singletonList(ORDER_06),service.getByUserAndStatusAndDate(USER_06_ID, "ACCEPTED",DATE_2017_01_15));
+        MATCHER.assertCollectionEquals(Collections.singletonList(ORDER_08),service.getByUserAndStatusAndDate(USER_06_ID, "FINISHED",DATE_2017_02_15));
+    }
 
 }

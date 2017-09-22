@@ -209,12 +209,26 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         return result;
     }
 
-
+    /*get all orders from database that belongs to user with Id pass as 1st parameter
+    * and which made on Date  pass as 2nd parameter */
     @Override
     public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
         LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
         List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC ", ROW_MAPPER,userId,toDbDateTime(beginDate),toDbDateTime(endDate));
+        for (Order order : result) {
+            setRestaurant(order);
+        }
+        return result;
+    }
+
+    /*get all orders from database that belongs to user with Id pass as 1st parameter
+    * and with status pass as 2nd parameter and which made on Date  pass as 3rd parameter */
+    @Override
+    public List<Order> getByUserAndStatusAndDate(int userId, String status, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? AND status=?  AND date_time>=? AND date_time<=? ORDER BY date_time DESC ", ROW_MAPPER,userId,status,toDbDateTime(beginDate),toDbDateTime(endDate));
         for (Order order : result) {
             setRestaurant(order);
         }

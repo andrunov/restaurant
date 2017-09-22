@@ -41,6 +41,10 @@ public interface OrderService extends BaseService<Order> {
     * and which made on Date  pass as 2nd parameter */
     List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime);
 
+    /*get all orders that belongs to user with Id pass as 1st parameter
+   * and with status pass as 2nd parameter and which made on Date  pass as 3rd parameter */
+    List<Order> getByUserAndStatusAndDate(int userId, String status,LocalDateTime localDateTime);
+
     /*get all orders that belongs to dish with Id pass as parameter */
     List<Order> getByDish(int dishId);
 
