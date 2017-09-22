@@ -35,19 +35,22 @@
 </nav>
 </div>
 
-<%-- restaurant modal window--%>
+<%-- about project modal window--%>
 <div class="modal fade" id="aboutProject">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h2 class="modal-title"> <fmt:message key="app.about"/></h2>
             </div>
             <div class="modal-body">
-                <h4>
-                    <jsp:include page="stackOfTechnologies.jsp"/>
-                    <fmt:message key="app.describe"/>
-                </h4>
+                <div class="span7 text-area">
+                    <h4>
+                        <fmt:message key="app.describe"/>
+                        <p></p>
+                        <jsp:include page="stackOfTechnologies.jsp"/>
+                    </h4>
+                </div>
                 <div class="span7 text-center">
                     <a class="btn btn-success" type="button" onclick="$('#aboutProject').modal('hide')">
                         <span class="glyphicon glyphicon-ok"></span>
