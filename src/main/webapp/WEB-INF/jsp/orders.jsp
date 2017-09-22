@@ -47,6 +47,10 @@
                         <input name="filter" type="radio" id="GET_FINISHED" onclick="updateTable('FINISHED')"/>
                         <label  for="GET_FINISHED"><fmt:message key="status.FINISHED"/></label>
                     </td>
+                    <td class="col-sm-2">
+                        <input class="form-control" id="dateTimeFilter" name="dateTimeFilter"
+                               placeholder="<fmt:message key="common.dateFilter"/>">
+                    </td>
                 </tr>
             </table>
             <div class="view-box">
@@ -125,8 +129,8 @@
                             <label  for="GET_DISABLED"><fmt:message key="common.disabled"/></label>
                         </td>
                         <td></td>
-                    </thead>
                     </tr>
+                    </thead>
                 </table>
                 <table class="table table-hover table-bordered " id="menuListDT" style="width: 100%;" >
                     <thead>

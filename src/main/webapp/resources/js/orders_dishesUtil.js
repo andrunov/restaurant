@@ -41,6 +41,7 @@ function dishDataTableInit() {
         },
         "destroy": true,
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {
@@ -86,6 +87,7 @@ $(function () {
         },
         rowId: 'id',
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {

@@ -44,6 +44,7 @@ $(function () {
             "dataSrc": ""
         },
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             /*add column with image depending of Enabled*/

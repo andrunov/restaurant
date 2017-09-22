@@ -69,6 +69,7 @@ function ordersDataTableInit() {
             "dataSrc": ""
         },
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             /*add column with image depending of Status*/
@@ -149,6 +150,7 @@ function restaurantDataTableInit() {
             "dataSrc": ""
         },
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {
@@ -183,6 +185,7 @@ function menuListDataTableInit(id,enabled) {
         },
         "destroy": true,
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             /*add column with image depending of Enabled*/
@@ -244,6 +247,7 @@ function dishDataTableInit(id) {
         },
         "destroy": true,
         "paging": false,
+        "searching": false,
         "info": true,
         "columns": [
             {
@@ -287,6 +291,11 @@ $(function () {
     $.datetimepicker.setLocale(localeCode);
     $('#dateTime').datetimepicker({
         format: 'Y-m-d H:i'
+    });
+    $('#dateTimeFilter').datetimepicker({
+        format: 'Y-m-d',
+        closeOnDateSelect: false,
+        timepicker: false
     });
     
 });

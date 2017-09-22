@@ -9,5 +9,5 @@ import ru.agorbunov.restaurant.service.OrderServiceImplTest;
  */
 // TODO: 23.02.2017 delete class before production
 @ActiveProfiles(Profiles.JPA)
-public class OrderServiceJpaTest extends OrderServiceImplTest {
+public class  OrderServiceJpaTest extends OrderServiceImplTest {
 }
