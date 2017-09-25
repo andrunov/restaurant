@@ -23,6 +23,7 @@ and bootstrap customise files --%>
     <script type="text/javascript" src="webjars/datatables/1.10.13/js/dataTables.bootstrap.min.js" defer></script>
     <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js" defer></script>
     <script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js" defer></script>
+    <script type="text/javascript" src="webjars/bootstrap-add-clear/1.0.7/bootstrap-add-clear.min.js" defer></script>
 
 </head>
 

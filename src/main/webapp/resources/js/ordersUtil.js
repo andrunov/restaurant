@@ -11,6 +11,9 @@ var ajaxUrl = '/ajax/orders/';
  *represents orders, and server, using filter by status*/
 var ajaxUrlWithFilter = '/ajax/orders/filterByStatus/';
 
+var ajaxUrlWithDateFilter = '/ajax/orders/filterByDate/';
+
+
 /*url use only for create new Order*/
 var ajaxUrlCreateNew = '/ajax/orders/create';
 
@@ -59,6 +62,11 @@ function updateTable(statusKey) {
         $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
     }
     currentFilterValue = statusKey;
+}
+
+function updateTablef() {
+    var date = $('#dateTimeFilter').val();
+    $.get(ajaxUrlWithDateFilter+date, updateTableByData);
 }
 
 /*DataTable represents orders in main form initialization*/
@@ -293,11 +301,15 @@ $(function () {
         format: 'Y-m-d H:i'
     });
     $('#dateTimeFilter').datetimepicker({
+        closeOnDateSelect: true,
         format: 'Y-m-d',
-        closeOnDateSelect: false,
         timepicker: false
     });
-    
+    $('#dateTimeFilter').addClear({
+        symbolClass: 'glyphicon glyphicon-remove',
+        returnFocus: false
+    });
+
 });
 
 function updateMenuListTable(enabled) {

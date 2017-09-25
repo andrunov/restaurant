@@ -63,6 +63,15 @@ public class OrderAjaxController {
         return orderService.getByUserAndStatus(currentUser.getId(),statusKey);
     }
 
+    @GetMapping(value = "/filterByDate/{date}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Order> getByUserAndDste(@PathVariable("date")String dateTimeFilter) {
+        log.info("getByUserAndDate");
+        LocalDateTime dateTime = DateTimeUtil.parseLocalDateTime(dateTimeFilter + " 18:45");
+
+        User currentUser = CurrentEntities.getCurrentUser();
+        return orderService.getByUserAndDate(currentUser.getId(),dateTime);
+    }
+
     /*delete order by Id*/
     @DeleteMapping(value = "/{id}&{restaurantId}")
     public void delete(@PathVariable("id") int id,

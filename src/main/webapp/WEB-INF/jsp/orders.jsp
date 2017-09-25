@@ -9,7 +9,6 @@
 <script type="text/javascript" src="resources/js/datatableUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/ordersUtil.js" defer></script>
 
-
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -47,10 +46,14 @@
                         <input name="filter" type="radio" id="GET_FINISHED" onclick="updateTable('FINISHED')"/>
                         <label  for="GET_FINISHED"><fmt:message key="status.FINISHED"/></label>
                     </td>
-                    <td class="col-sm-2">
-                        <input class="form-control" id="dateTimeFilter" name="dateTimeFilter"
-                               placeholder="<fmt:message key="common.dateFilter"/>">
+                    <td class="col-sm-1" align="right">
+                        <label for="dateTimeFilter"><fmt:message key="common.dateFilter"/></label>
                     </td>
+                    <td class="col-sm-2">
+                            <input class="form-control " id="dateTimeFilter" onchange="updateTablef()"
+                                   placeholder="<fmt:message key="common.dateFilter"/>">
+                    </td>
+
                 </tr>
             </table>
             <div class="view-box">

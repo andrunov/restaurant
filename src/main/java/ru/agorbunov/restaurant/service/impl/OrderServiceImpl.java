@@ -33,7 +33,8 @@ public class OrderServiceImpl implements OrderService {
     * each dishId from first arr matches its quantity from second arr, arrays must have equal size
     *userId and restaurantId in parameters is Ids of user and restaurant to which the order is belong
     * check that order not null, check that arrays have equals size
-    * and check that order was found (order belongs to these user and restaurant*/
+    * and check that order was found (order belongs to these user and restaurant
+    * update totalOrdersAmount in corresponding user-entity in success case*/
     @Override
     public Order save(Order order, int userId, int restaurantId, int[] dishIds, int[] dishQuantityValues) {
         Assert.notNull(order,"order must not be null");
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
         return checkNotFoundWithId(orderRepository.save(order,userId,restaurantId),order.getId());
     }
 
-    /*delete order by Id, check that order was found (order belongs to these user and restaurant */
+    /*delete order by Id, check that order was found */
     @Override
     public void delete(int id) {
         checkNotFoundWithId(orderRepository.delete(id),id);
@@ -128,11 +129,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /*delete order by Id, userId and restaurantId in parameters is Ids of
-       *user and restaurant to which the order is belong, check that updates acceptable*/
+     *user and restaurant to which the order is belong, check that updates acceptable
+     *  update totalOrdersAmount in corresponding user-entity in success case*/
     @Override
     public void delete(int id, int userId, int restaurantId) {
         Order order = get(id,userId,restaurantId);
         checkAcceptableUpdate(order);
         delete(id);
+        userRepository.accountAndSaveTotalOrdersAmount(userId);
     }
 }
