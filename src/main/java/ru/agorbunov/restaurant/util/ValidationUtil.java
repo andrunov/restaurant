@@ -71,6 +71,11 @@ public class ValidationUtil {
         }
     }
 
+    /*check that String not equals null or not equals empty string*/
+    public static boolean checkEmpty(String string){
+        return  ((string!=null)&&(!string.trim().equals("")));
+    }
+
     /*check that Double bigger than zero */
     public static void checkEmpty(Double value, String description){
         if (value<=0.0){

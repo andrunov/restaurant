@@ -14,7 +14,7 @@ INSERT INTO users(name,email,password,totalOrdersAmount) VALUES
   ('Павел Сидоров','sidor@gmail.com','333',42.97),
   ('Roberto Zanetti','rzanetti@gmail.com','444',15.68),
   ('John Bon Jovi','jbj@gmail.com','555',2.05),
-  ('Didier Maoruani','dmauruani@gmail.com','666',92.22);
+  ('Didier Maoruani','dmauruani@gmail.com','666',276.66);
 
 INSERT INTO roles(user_id, role) VALUES
   (100000,'ROLE_USER'),

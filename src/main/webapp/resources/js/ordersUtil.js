@@ -53,20 +53,18 @@ var currentFilterValue = "ALL";
 /*variable for save restaurant id opened in restaurant modal window*/
 var currentRestaurantId;
 
-/*function to update DataTable by data from server*/
+/*function to update DataTable by data from server
+* with filter by status of orders*/
 function updateTable(statusKey) {
-    if (statusKey == "ALL") {
-        $.get(ajaxUrl, updateTableByData);
-    }
-    else {
-        $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
-    }
+    var date = $('#dateTimeFilter').val();
+    $.get(ajaxUrl + "?statusKey=" + statusKey + "&dateKey=" + date, updateTableByData);
     currentFilterValue = statusKey;
 }
 
-function updateTablef() {
-    var date = $('#dateTimeFilter').val();
-    $.get(ajaxUrlWithDateFilter+date, updateTableByData);
+/*function to update DataTable by data from server
+ * with filter by date of orders*/
+function updateTableDateFilter(date) {
+    $.get(ajaxUrl + "?statusKey=" + currentFilterValue + "&dateKey=" + date, updateTableByData);
 }
 
 /*DataTable represents orders in main form initialization*/
@@ -303,13 +301,19 @@ $(function () {
     $('#dateTimeFilter').datetimepicker({
         closeOnDateSelect: true,
         format: 'Y-m-d',
-        timepicker: false
+        timepicker: false,
+        onChangeDateTime:function(dp,$input){
+            updateTableDateFilter($input.val())
+        }
     });
     $('#dateTimeFilter').addClear({
         symbolClass: 'glyphicon glyphicon-remove',
-        returnFocus: false
+        returnFocus: false,
+        onClear: function () {
+            updateTableDateFilter('');
+        }
     });
-
+   
 });
 
 function updateMenuListTable(enabled) {

@@ -47,30 +47,44 @@ public class OrderAjaxController {
         return order;
     }
 
-    /*get all orders by current user*/
+    /*get all orders by current user according filters values statusKey and date*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getByUser() {
+    public List<Order> getByUser(@RequestParam(value = "statusKey",required = false) String statusKey,
+                                 @RequestParam(value = "dateKey",required = false)String dateKey) {
         log.info("getByUser");
         User currentUser = CurrentEntities.getCurrentUser();
-        return orderService.getByUser(currentUser.getId());
+        List<Order> result = null;
+        if ((statusKey != null)&&(!statusKey.equals("ALL"))&&(ValidationUtil.checkEmpty(dateKey))){
+            LocalDateTime dateTime = DateTimeUtil.parseLocalDate(dateKey).atStartOfDay();
+            result = orderService.getByUserAndStatusAndDate(currentUser.getId(),statusKey,dateTime);
+        }else if ((statusKey != null)&&(!statusKey.equals("ALL"))){
+            result = orderService.getByUserAndStatus(currentUser.getId(),statusKey);
+        }else if (ValidationUtil.checkEmpty(dateKey)){
+            LocalDateTime dateTime = DateTimeUtil.parseLocalDate(dateKey).atStartOfDay();
+            result = orderService.getByUserAndDate(currentUser.getId(),dateTime);
+        }else {
+            result = orderService.getByUser(currentUser.getId());
+        }
+        return result;
     }
 
-    /*get all orders by current user and status*/
-    @GetMapping(value = "/filterByStatus/{statusKey}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getByUserAndStatus(@PathVariable("statusKey") String statusKey) {
-        log.info("getByUserAndStatus");
-        User currentUser = CurrentEntities.getCurrentUser();
-        return orderService.getByUserAndStatus(currentUser.getId(),statusKey);
-    }
-
-    @GetMapping(value = "/filterByDate/{date}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getByUserAndDste(@PathVariable("date")String dateTimeFilter) {
-        log.info("getByUserAndDate");
-        LocalDateTime dateTime = DateTimeUtil.parseLocalDateTime(dateTimeFilter + " 18:45");
-
-        User currentUser = CurrentEntities.getCurrentUser();
-        return orderService.getByUserAndDate(currentUser.getId(),dateTime);
-    }
+    // TODO: 26.09.2017 remove
+//    /*get all orders by current user and status*/
+//    @RequestMapping(value = "/filterByStatus",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+//    public List<Order> getByUserAndStatus(@RequestParam(value = "statusKey",required = false) String statusKey) {
+//        log.info("getByUserAndStatus");
+//        User currentUser = CurrentEntities.getCurrentUser();
+//        return orderService.getByUserAndStatus(currentUser.getId(),statusKey);
+//    }
+//
+//    @GetMapping(value = "/filterByDate/{date}",produces = MediaType.APPLICATION_JSON_VALUE)
+//    public List<Order> getByUserAndDste(@PathVariable("date")String dateTimeFilter) {
+//        log.info("getByUserAndDate");
+//        LocalDateTime dateTime = DateTimeUtil.parseLocalDate(dateTimeFilter).atStartOfDay();
+//
+//        User currentUser = CurrentEntities.getCurrentUser();
+//        return orderService.getByUserAndDate(currentUser.getId(),dateTime);
+//    }
 
     /*delete order by Id*/
     @DeleteMapping(value = "/{id}&{restaurantId}")
