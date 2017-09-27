@@ -306,6 +306,7 @@ $(function () {
             updateTableDateFilter($input.val())
         }
     });
+    /*add clear button to input field*/
     $('#dateTimeFilter').addClear({
         symbolClass: 'glyphicon glyphicon-remove',
         returnFocus: false,
@@ -313,7 +314,6 @@ $(function () {
             updateTableDateFilter('');
         }
     });
-   
 });
 
 function updateMenuListTable(enabled) {

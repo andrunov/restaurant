@@ -53,7 +53,6 @@
                             <input class="form-control" type="text" id="dateTimeFilter"
                                    placeholder="<fmt:message key="common.dateFilter"/>">
                     </td>
-
                 </tr>
             </table>
             <div class="view-box">
