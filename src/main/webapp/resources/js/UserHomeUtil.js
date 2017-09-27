@@ -7,10 +7,6 @@
  *represents orders and server*/
 var ajaxUrl = '/ajax/orders/';
 
-/*url for exchange JSON data between main form DataTable (id="ordersDT")
- *represents orders, and server, using filter by status*/
-var ajaxUrlWithFilter = '/ajax/orders/filterByStatus/';
-
 /*url use only for create new Order*/
 var ajaxUrlCreateNew = '/ajax/orders/create';
 
@@ -49,13 +45,15 @@ var currentFilterValue = "ALL";
 
 /*function to update DataTable by data from server*/
 function updateTable(statusKey) {
-    if (statusKey == "ALL") {
-        $.get(ajaxUrl, updateTableByData);
-    }
-    else {
-        $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
-    }
+    var date = $('#dateTimeFilter').val();
+    $.get(ajaxUrl + "?statusKey=" + statusKey + "&dateKey=" + date, updateTableByData);
     currentFilterValue = statusKey;
+}
+
+/*function to update DataTable by data from server
+ * with filter by date of orders*/
+function updateTableDateFilter(date) {
+    $.get(ajaxUrl + "?statusKey=" + currentFilterValue + "&dateKey=" + date, updateTableByData);
 }
 
 /*DataTable represents orders in main form initialization*/
@@ -107,7 +105,10 @@ function ordersDataTableInit() {
                 }
             },
             {
-                "data": "totalPrice"
+                "data": "totalPrice",
+                "render": function (date, type, row) {
+                    return date.toFixed(2);
+                }
             },
             {
                 "orderable": false,
@@ -262,7 +263,22 @@ $(function () {
     $('#dateTime').datetimepicker({
         format: 'Y-m-d H:i'
     });
-
+    $('#dateTimeFilter').datetimepicker({
+        closeOnDateSelect: true,
+        format: 'Y-m-d',
+        timepicker: false,
+        onChangeDateTime:function(dp,$input){
+            updateTableDateFilter($input.val())
+        }
+    });
+    /*add clear button to input field*/
+    $('#dateTimeFilter').addClear({
+        symbolClass: 'glyphicon glyphicon-remove',
+        returnFocus: false,
+        onClear: function () {
+            updateTableDateFilter('');
+        }
+    });
 });
 
 /*function for link to orders_dishes.jsp*/

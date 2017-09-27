@@ -206,6 +206,19 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
         return result;
     }
 
+    /*get all orders from database that belongs to dish with Id pass as parameter *
+    * and which made on Date  pass as 2nd parameter */
+    @Override
+    public List<Order> getByDishAndDate(int dishId, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        return em.createNamedQuery(Order.GET_ALL_BY_DISH_AND_DATE, Order.class)
+                .setParameter("dishId",dishId)
+                .setParameter("beginDate", beginDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
+    }
+
     /*get order from database with user by which order was made*/
     private Order getWithUser(Order order){
         return (Order)em.createNamedQuery(Order.GET_WITH_USER)

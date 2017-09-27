@@ -48,6 +48,7 @@ public class OrderTestData {
     public static final int DISH_04_ID = 100023;
     public static final List<Integer> ORDER_06_DISH_QUANTITY = Arrays.asList(1, 2, 3, 1, 1, 1);
     public static final LocalDateTime DATE_2017_01_15 = LocalDateTime.of(2017,1,15,16,32);
+    public static final LocalDateTime DATE_2017_01_14 = LocalDateTime.of(2017,1,14, 0,0);
     public static final LocalDateTime DATE_2017_02_15 = LocalDateTime.of(2017,2,15,18,28);
 
 

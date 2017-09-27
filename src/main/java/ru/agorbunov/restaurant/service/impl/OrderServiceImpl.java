@@ -128,6 +128,13 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.getByDishAndStatus(dishId,status);
     }
 
+    /*get all orders that belongs to dish with Id pass as parameter
+    * and which made on Date  pass as 2nd parameter */
+    @Override
+    public List<Order> getByDishAndDate(int dishId, LocalDateTime localDateTime) {
+        return orderRepository.getByDishAndDate(dishId, localDateTime);
+    }
+
     /*delete order by Id, userId and restaurantId in parameters is Ids of
      *user and restaurant to which the order is belong, check that updates acceptable
      *  update totalOrdersAmount in corresponding user-entity in success case*/
@@ -138,4 +145,5 @@ public class OrderServiceImpl implements OrderService {
         delete(id);
         userRepository.accountAndSaveTotalOrdersAmount(userId);
     }
+
 }

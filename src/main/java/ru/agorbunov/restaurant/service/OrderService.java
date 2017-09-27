@@ -52,6 +52,10 @@ public interface OrderService extends BaseService<Order> {
     * and with status pass as 2nd parameter*/
     List<Order> getByDishAndStatus(int dishId, String status);
 
+    /*get all orders that belongs to dish with Id pass as parameter
+    * and which made on Date  pass as 2nd parameter */
+    List<Order> getByDishAndDate(int dishId, LocalDateTime localDateTime);
+
     /*delete order by Id, userId and restaurantId in parameters is Ids of
     *user and restaurant to which the order is belong*/
     void delete(int id, int userId, int restaurantId);
