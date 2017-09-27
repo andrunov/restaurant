@@ -86,7 +86,10 @@ $(function () {
                 }
             },
             {
-                "data": "totalOrdersAmount"
+                "data": "totalOrdersAmount",
+                "render": function (date, type, row) {
+                    return date.toFixed(2);
+                }
             },
             {
                 "orderable": false,
