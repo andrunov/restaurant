@@ -214,7 +214,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     @Override
     public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC ", ROW_MAPPER,userId,toDbDateTime(beginDate),toDbDateTime(endDate));
         for (Order order : result) {
             setRestaurant(order);
@@ -227,7 +227,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     @Override
     public List<Order> getByUserAndStatusAndDate(int userId, String status, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         List<Order> result = jdbcTemplate.query("SELECT * FROM orders WHERE user_id=? AND status=?  AND date_time>=? AND date_time<=? ORDER BY date_time DESC ", ROW_MAPPER,userId,status,toDbDateTime(beginDate),toDbDateTime(endDate));
         for (Order order : result) {
             setRestaurant(order);
@@ -261,8 +261,21 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
     @Override
     public List<Order> getByDishAndDate(int dishId, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC  ", ROW_MAPPER, dishId, toDbDateTime(beginDate),toDbDateTime(endDate));
+        for (Order order : result) {
+            setRestaurant(order);
+        }
+        return result;
+    }
+
+    /*get all orders from database that belongs to dish with Id pass as parameter *
+     * and with status pass as 2nd parameter and which made on Date  pass as 3rd parameter */
+    @Override
+    public List<Order> getByDishAndStatusAndDate(int dishId, String status, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
+        List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? AND  status=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC", ROW_MAPPER, dishId, status, toDbDateTime(beginDate),toDbDateTime(endDate));
         for (Order order : result) {
             setRestaurant(order);
         }

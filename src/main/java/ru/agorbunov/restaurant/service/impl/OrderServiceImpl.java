@@ -135,9 +135,16 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.getByDishAndDate(dishId, localDateTime);
     }
 
+    /*get all orders that belongs to dish with Id pass as parameter
+    * and with status pass as 2nd parameter and which made on Date pass as 3rd parameter */
+    @Override
+    public List<Order> getByDishAndStatusAndDate(int dishId, String status, LocalDateTime localDateTime) {
+        return orderRepository.getByDishAndStatusAndDate(dishId,status,localDateTime);
+    }
+
     /*delete order by Id, userId and restaurantId in parameters is Ids of
-     *user and restaurant to which the order is belong, check that updates acceptable
-     *  update totalOrdersAmount in corresponding user-entity in success case*/
+    *user and restaurant to which the order is belong, check that updates acceptable
+    *  update totalOrdersAmount in corresponding user-entity in success case*/
     @Override
     public void delete(int id, int userId, int restaurantId) {
         Order order = get(id,userId,restaurantId);

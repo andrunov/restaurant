@@ -154,7 +154,7 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> getByUserAndDate(int userId, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_DATE, Order.class)
                 .setParameter("userId",userId)
                 .setParameter("beginDate", beginDate)
@@ -167,7 +167,7 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> getByUserAndStatusAndDate(int userId, String status, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         return em.createNamedQuery(Order.GET_ALL_BY_USER_AND_STATUS_AND_DATE, Order.class)
                 .setParameter("userId",userId)
                 .setParameter("status", Status.valueOf(status))
@@ -211,9 +211,23 @@ public class JpaOrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> getByDishAndDate(int dishId, LocalDateTime localDateTime) {
         LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(59);
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         return em.createNamedQuery(Order.GET_ALL_BY_DISH_AND_DATE, Order.class)
                 .setParameter("dishId",dishId)
+                .setParameter("beginDate", beginDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
+    }
+
+    /*get all orders from database that belongs to dish with Id pass as parameter *
+     * and with status pass as 2nd parameter and which made on Date  pass as 3rd parameter */
+    @Override
+    public List<Order> getByDishAndStatusAndDate(int dishId, String status, LocalDateTime localDateTime) {
+        LocalDateTime beginDate = localDateTime.toLocalDate().atStartOfDay();
+        LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
+        return em.createNamedQuery(Order.GET_ALL_BY_DISH_AND_STATUS_AND_DATE, Order.class)
+                .setParameter("dishId",dishId)
+                .setParameter("status", status)
                 .setParameter("beginDate", beginDate)
                 .setParameter("endDate", endDate)
                 .getResultList();
