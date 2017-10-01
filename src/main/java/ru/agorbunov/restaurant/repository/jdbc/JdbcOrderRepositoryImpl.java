@@ -264,7 +264,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC  ", ROW_MAPPER, dishId, toDbDateTime(beginDate),toDbDateTime(endDate));
         for (Order order : result) {
-            setRestaurant(order);
+            setUser(order);
         }
         return result;
     }
@@ -277,7 +277,7 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
         LocalDateTime endDate = beginDate.plusHours(23).plusMinutes(59).minusSeconds(59).plusNanos(999999999);
         List<Order> result = jdbcTemplate.query("SELECT o.* FROM orders AS o JOIN orders_dishes AS od ON o.id = od.order_id WHERE od.dish_id=? AND  status=? AND date_time>=? AND date_time<=? ORDER BY date_time DESC", ROW_MAPPER, dishId, status, toDbDateTime(beginDate),toDbDateTime(endDate));
         for (Order order : result) {
-            setRestaurant(order);
+            setUser(order);
         }
         return result;
     }

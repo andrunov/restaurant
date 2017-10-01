@@ -10,6 +10,7 @@ import ru.agorbunov.restaurant.model.*;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.service.UserService;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
+import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,20 +31,25 @@ public class OrderByDishAjaxController {
     @Autowired
     private UserService userService;
 
-    /*get orders by current dish*/
+    /*get all orders by current dish according filters values statusKey and date*/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getByDish() {
+    public List<Order> getByDish(@RequestParam(value = "statusKey",required = false) String statusKey,
+                                 @RequestParam(value = "dateKey",required = false)String dateKey) {
         log.info("getByDish");
-        Dish dish = CurrentEntities.getCurrentDish();
-        return orderService.getByDish(dish.getId());
-    }
-
-    /*get orders by current dish*/
-    @GetMapping(value = "/filterByStatus/{statusKey}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Order> getByDishAndStatus(@PathVariable("statusKey") String statusKey) {
-        log.info("getByDishAndStatus");
-        Dish dish = CurrentEntities.getCurrentDish();
-        return orderService.getByDishAndStatus(dish.getId(),statusKey);
+        Dish currentDish = CurrentEntities.getCurrentDish();
+        List<Order> result = null;
+        if ((statusKey != null)&&(!statusKey.equals("ALL"))&&(ValidationUtil.checkEmpty(dateKey))){
+            LocalDateTime dateTime = DateTimeUtil.parseLocalDate(dateKey).atStartOfDay();
+            result = orderService.getByDishAndStatusAndDate(currentDish.getId(),statusKey,dateTime);
+        }else if ((statusKey != null)&&(!statusKey.equals("ALL"))){
+            result = orderService.getByDishAndStatus(currentDish.getId(),statusKey);
+        }else if (ValidationUtil.checkEmpty(dateKey)){
+            LocalDateTime dateTime = DateTimeUtil.parseLocalDate(dateKey).atStartOfDay();
+            result = orderService.getByDishAndDate(currentDish.getId(),dateTime);
+        }else {
+            result = orderService.getByDish(currentDish.getId());
+        }
+        return result;
     }
 
     /*get order by Id of user by userId and of current restaurant */

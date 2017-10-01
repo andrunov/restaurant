@@ -21,15 +21,29 @@ var datatableApi;
 /*variable for save current filter value*/
 var currentFilterValue = "ALL";
 
-/*function to update DataTable by data from server*/
+// /*function to update DataTable by data from server*/
+// function updateTable(statusKey) {
+//     if (statusKey == "ALL") {
+//         $.get(ajaxUrl, updateTableByData);
+//     }
+//     else {
+//         $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
+//     }
+//     currentFilterValue = statusKey;
+// }
+
+/*function to update DataTable by data from server
+ * with filter by status of orders*/
 function updateTable(statusKey) {
-    if (statusKey == "ALL") {
-        $.get(ajaxUrl, updateTableByData);
-    }
-    else {
-        $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
-    }
+    var date = $('#dateTimeFilter').val();
+    $.get(ajaxUrl + "?statusKey=" + statusKey + "&dateKey=" + date, updateTableByData);
     currentFilterValue = statusKey;
+}
+
+/*function to update DataTable by data from server
+ * with filter by date of orders*/
+function updateTableDateFilter(date) {
+    $.get(ajaxUrl + "?statusKey=" + currentFilterValue + "&dateKey=" + date, updateTableByData);
 }
 
 /*document.ready function*/
@@ -123,11 +137,29 @@ $(function () {
         "initComplete": makeEditable
     });
 
+    /*adjust Datetimepicker*/
     $.datetimepicker.setLocale(localeCode);
 
     /*set field with datetimepicker*/
     $('#dateTime').datetimepicker({
         format: 'Y-m-d H:i'
+    });
+
+    $('#dateTimeFilter').datetimepicker({
+        closeOnDateSelect: true,
+        format: 'Y-m-d',
+        timepicker: false,
+        onChangeDateTime:function(dp,$input){
+            updateTableDateFilter($input.val())
+        }
+    });
+    /*add clear button to input field*/
+    $('#dateTimeFilter').addClear({
+        symbolClass: 'glyphicon glyphicon-remove',
+        returnFocus: false,
+        onClear: function () {
+            updateTableDateFilter('');
+        }
     });
     
 });
