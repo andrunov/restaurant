@@ -52,7 +52,7 @@ or as finish 4-th step of creation new order--%>
                                 </a>
                         </th>
                         <th class="col-sm-1" style="text-align: right"><fmt:message key="orders.total"/>:</th>
-                        <th class="col-sm-1" style="text-align: right" id="totalPrice">${totalPrice} <fmt:message key="common.rub"/></th>
+                        <th class="col-sm-1" style="text-align: right"><span id="totalPrice">${totalPrice}</span> <fmt:message key="common.rub"/></th>
                     </tr>
                 </table>
             </div>
