@@ -29,7 +29,7 @@ var addTitleKey ="dishes.add";
 /*function to update DataTable by data from server*/
 function updateTable() {
     $.get(ajaxUrl, updateTableByData,showTotalPrice());
-    setTimeout(showTotalPrice,50)
+    showTotalPrice();
 }
 
 /*DataTable represents dishes in modal window initialization*/
@@ -314,7 +314,9 @@ function getRequestParamIdsOnly(arr) {
 
 /*show accounted total price in page*/
 function showTotalPrice() {
-    $('#totalPrice').html(accountTotalPrice());
+    var totalPrice = accountTotalPrice();
+    $('#totalPrice').html(totalPrice);
+    $('#totalPriceHeader').html(totalPrice);
 }
 
 /*account actual total price */

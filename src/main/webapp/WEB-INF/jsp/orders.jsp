@@ -16,8 +16,8 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="orders.title"/></h3>
-            <p>${currentUser.name}, ${currentUser.email}</p>
+            <h3>${currentUser.name}, ${currentUser.email}</h3>
+            <p style="color: darkgreen"><fmt:message key="orders.ofUser"/>, <fmt:message key="orders.sum"/> - <span style="color: darkred">${currentUser.totalOrdersAmount} <fmt:message key="common.rub"/></span></p>
             <table class="table" >
                 <tr>
                     <td>

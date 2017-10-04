@@ -15,9 +15,8 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="menuLists.content"/></h3>
-            <p>${restaurant.name}, ${restaurant.address}</p>
-            <p>${description}, ${localDate}</p>
+            <h3>${restaurant.name}, ${restaurant.address}</h3>
+            <p style="color: darkgreen">${description}, ${localDate} - <span style="color: darkred"><fmt:message key="menuLists.contentSmall"/></span></p>
             <div class="view-box">
                 <a class="btn btn-primary" type="button" onclick="add()">
                     <span class="glyphicon glyphicon-plus-sign"></span>

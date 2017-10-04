@@ -16,9 +16,8 @@ or as finish 4-th step of creation new order--%>
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="order.from"/>  ${localDate}</h3>
-            <p>${currentUser.name}, ${currentUser.email}</p>
-            <p>${restaurant.name}, ${restaurant.address}</p>
+            <h3>${currentUser.name}, ${currentUser.email}</h3>
+            <p style="color: darkgreen"><fmt:message key="order.from"/>  ${localDate}; <span style="color: maroon">${restaurant.name}, ${restaurant.address}</span> - <span style="color: crimson"><span id="totalPriceHeader">${totalPrice}</span> <fmt:message key="common.rub"/></span></p>
             <div class="view-box">
                 <a class="btn btn-primary" type="button" onclick="openDishList()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
@@ -53,7 +52,7 @@ or as finish 4-th step of creation new order--%>
                                 </a>
                         </th>
                         <th class="col-sm-1" style="text-align: right"><fmt:message key="orders.total"/>:</th>
-                        <th class="col-sm-1" style="text-align: right" id="totalPrice">${totalPrice}</th>
+                        <th class="col-sm-1" style="text-align: right" id="totalPrice">${totalPrice} <fmt:message key="common.rub"/></th>
                     </tr>
                 </table>
             </div>

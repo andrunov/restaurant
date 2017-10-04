@@ -15,8 +15,8 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3><fmt:message key="menuLists.list"/></h3>
-            <p>${restaurant.name}, ${restaurant.address}</p>
+            <h3>${restaurant.name}, ${restaurant.address}</h3>
+            <p style="color: darkgreen"><fmt:message key="menuLists.list"/></p>
             <table class="table" >
                 <tr>
                     <td>
