@@ -10,13 +10,13 @@
             <table  class="table">
                 <tr>
                 <td class="col-sm-3" style="text-align: center">
-                    <a href=""><fmt:message key="app.heroku"/></a>
+                    <a href="https://restaurantdemoapp.herokuapp.com/"><fmt:message key="app.heroku"/></a>
                 </td>
                 <td class="col-sm-3" style="text-align: center">
-                    <a href=""><fmt:message key="app.jdbc"/></a>
+                    <a href="https://github.com/andrunov/restaurant_jdbc"><fmt:message key="app.jdbc"/></a>
                 </td>
                 <td class="col-sm-3" style="text-align: center">
-                    <a href=""><fmt:message key="app.jpa"/></a>
+                    <a href="https://github.com/andrunov/restaurant_jpa"><fmt:message key="app.jpa"/></a>
                 </td>
                 </tr>
             </table>

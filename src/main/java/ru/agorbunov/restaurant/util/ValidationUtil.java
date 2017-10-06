@@ -1,8 +1,5 @@
 package ru.agorbunov.restaurant.util;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import ru.agorbunov.restaurant.model.BaseEntity;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.model.Role;
@@ -48,13 +45,6 @@ public class ValidationUtil {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);
         }
-    }
-
-    // TODO: 18.05.2017 remove if not use
-    public static ResponseEntity<String> getErrorResponse(BindingResult result) {
-        StringBuilder sb = new StringBuilder();
-        result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
-        return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     /*check that entity is new*/

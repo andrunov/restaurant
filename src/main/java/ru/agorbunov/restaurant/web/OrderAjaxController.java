@@ -68,24 +68,6 @@ public class OrderAjaxController {
         return result;
     }
 
-    // TODO: 26.09.2017 remove
-//    /*get all orders by current user and status*/
-//    @RequestMapping(value = "/filterByStatus",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-//    public List<Order> getByUserAndStatus(@RequestParam(value = "statusKey",required = false) String statusKey) {
-//        log.info("getByUserAndStatus");
-//        User currentUser = CurrentEntities.getCurrentUser();
-//        return orderService.getByUserAndStatus(currentUser.getId(),statusKey);
-//    }
-//
-//    @GetMapping(value = "/filterByDate/{date}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<Order> getByUserAndDste(@PathVariable("date")String dateTimeFilter) {
-//        log.info("getByUserAndDate");
-//        LocalDateTime dateTime = DateTimeUtil.parseLocalDate(dateTimeFilter).atStartOfDay();
-//
-//        User currentUser = CurrentEntities.getCurrentUser();
-//        return orderService.getByUserAndDate(currentUser.getId(),dateTime);
-//    }
-
     /*delete order by Id*/
     @DeleteMapping(value = "/{id}&{restaurantId}")
     public void delete(@PathVariable("id") int id,

@@ -73,19 +73,6 @@ public class MenuListAjaxController {
         return menuListService.get(id,currentRestaurant.getId());
     }
 
-    // TODO: 08.09.2017 remove if no need longer
-//    /*use for orders.jsp to update data in modal windows
-//    * get menuList by Id and setup by its data fields in modal window*/
-//    @GetMapping(value = "/set/{id}")
-//    public String setCurrentMenuList(@PathVariable("id") int id) {
-//        log.info("set current menuList " + id);
-//        Restaurant currentRestaurant = CurrentEntities.getCurrentRestaurant();
-//        MenuList menuList = menuListService.get(id,currentRestaurant.getId());
-//        CurrentEntities.setCurrentMenuList(menuList);
-//        return String.format("%s, %s", menuList.getDescription(),
-//                                        menuList.getDateTime().toLocalDate().toString());
-//    }
-
     /*delete menuList by Id*/
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
