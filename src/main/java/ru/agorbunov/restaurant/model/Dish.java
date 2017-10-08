@@ -2,7 +2,6 @@ package ru.agorbunov.restaurant.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
 import ru.agorbunov.restaurant.util.ComparatorUtil;
 
 import javax.persistence.*;

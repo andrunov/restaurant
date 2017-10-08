@@ -3,7 +3,6 @@ package ru.agorbunov.restaurant.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
-import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
 import ru.agorbunov.restaurant.util.ComparatorUtil;
 import ru.agorbunov.restaurant.util.DateTimeUtil;
 

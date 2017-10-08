@@ -49,6 +49,7 @@ public class User extends BaseEntity {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled;
 
+    /*total amount of users orders*/
     @Column(name = "totalOrdersAmount")
     private double totalOrdersAmount;
 

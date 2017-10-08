@@ -3,7 +3,7 @@ package ru.agorbunov.restaurant.repository.jpa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agorbunov.restaurant.model.*;
-import ru.agorbunov.restaurant.model.jpa.OrdersDishes;
+import ru.agorbunov.restaurant.model.OrdersDishes;
 import ru.agorbunov.restaurant.model.jpa.OrdersDishesId;
 import ru.agorbunov.restaurant.repository.OrderRepository;
 
