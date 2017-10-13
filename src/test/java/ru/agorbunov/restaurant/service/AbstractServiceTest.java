@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:db/populateDBforTests.sql", config = @SqlConfig(encoding = "UTF-8"))
 public abstract class AbstractServiceTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);

@@ -304,6 +304,8 @@
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson-json.version}</version>
         </dependency>
+
+        <!--TODO remove hibernate5 before production for jdbc version-->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate5</artifactId>
